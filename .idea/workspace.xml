@@ -172,7 +172,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -189,7 +189,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602058599847</updated>
-      <workItem from="1602058600895" duration="4353000" />
+      <workItem from="1602058600895" duration="10126000" />
     </task>
     <servers />
   </component>
@@ -214,14 +214,18 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="221" y="0" key="#CLI_Interpreters" timestamp="1602076468431">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="221" y="0" key="#CLI_Interpreters/0.0.1280.680@0.0.1280.680" timestamp="1602076468431" />
     <state x="451" y="220" key="#Composer" timestamp="1602059072014">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="451" y="220" key="#Composer/0.0.1280.680@0.0.1280.680" timestamp="1602059072014" />
-    <state x="421" y="82" key="FileChooserDialogImpl" timestamp="1602059612107">
+    <state x="428" y="150" key="FileChooserDialogImpl" timestamp="1602079610761">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="82" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602059612107" />
+    <state x="428" y="150" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602079610761" />
     <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1602058652052">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -238,14 +242,18 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1602058652052" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1602060177477">
+    <state x="477" y="264" key="NewPhpFileDialog" timestamp="1602074096230">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1602060177477" />
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1602073309703">
+    <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680@0.0.1280.680" timestamp="1602074096230" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1602079704967">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1602073309703" />
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1602079704967" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1602073915101">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1602073915101" />
     <state x="430" y="242" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1602060775429">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
