@@ -42,6 +42,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/carservices.web" value="main" />
@@ -189,7 +195,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602058599847</updated>
-      <workItem from="1602058600895" duration="10126000" />
+      <workItem from="1602058600895" duration="13071000" />
     </task>
     <servers />
   </component>
@@ -250,10 +256,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1602079704967" />
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1602073915101">
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1602082083407">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1602073915101" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1602082083407" />
     <state x="430" y="242" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1602060775429">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
