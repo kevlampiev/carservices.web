@@ -17,13 +17,13 @@ class CreateCarServices extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false)->comment('Назвамние по русски');
             $table->string('slug')->unique()->nullable('false');
-            $table->string('postcode',6)->comment('индекс');
             $table->string('address')->comment('адрес нахождения');
             $table->point('coordinates')->nullable(true)->comment('географические координаты')  ;
             $table->text('description')->nullable(true)->comment('описание')  ;
             $table->text('img_link')->nullable(true)->comment('фотография')  ;
             $table->bigInteger('user_id')->unsigned()->nullable(true)->comment('ссылка на владельца')  ;
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
