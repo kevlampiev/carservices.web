@@ -17,12 +17,13 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(\App\Models\CarServices::class, function (Faker $faker) {
+    $name=$faker->company;
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => \Illuminate\Support\Facades\Hash::make('12345'), // password
-        'remember_token' => Str::random(10),
+        'name' => $name,
+        'slug' => Str::slug($name),
+        'address'=>$faker->address,
+        'description'=>$faker->realText(300),
+        'img_link'=>$faker->imageUrl(),
     ];
 });

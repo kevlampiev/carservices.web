@@ -24,15 +24,25 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="803e2b06-2000-4854-9c3d-3761c95ce593" name="Default Changelist" comment="" />
+    <list default="true" id="aa0c9d12-b575-4b59-bcae-f17d7ea311b9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/carservices.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/carservices.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/CarServicesFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CarServicesFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_07_183125_create_car_services.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_07_183125_create_car_services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -53,7 +63,7 @@
         <entry key="$PROJECT_DIR$/carservices.web" value="main" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/carservices.web" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -169,6 +179,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -178,8 +189,17 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\laravel-dev\projects\carservices.web\database\migrations" />
+      <recent name="D:\laravel-dev\projects\carservices.web\database\seeds" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\laravel-dev\projects\carservices.web" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -187,20 +207,24 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="803e2b06-2000-4854-9c3d-3761c95ce593" name="Default Changelist" comment="" />
+      <changelist id="aa0c9d12-b575-4b59-bcae-f17d7ea311b9" name="Default Changelist" comment="" />
       <created>1602058599847</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602058599847</updated>
       <workItem from="1602058600895" duration="13071000" />
+      <workItem from="1602123769644" duration="6367000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -208,11 +232,7 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="false" />
-                </map>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -252,14 +272,19 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680@0.0.1280.680" timestamp="1602074096230" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1602079704967">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="2133" y="0" key="SettingsEditor" timestamp="1602123786549">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1602079704967" />
+    <state x="2133" y="0" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602123786549" />
     <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1602082083407">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1602082083407" />
+    <state x="2587" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1602123768578">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2587" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602123768578" />
     <state x="430" y="242" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1602060775429">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
