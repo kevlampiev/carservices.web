@@ -24,13 +24,20 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="803e2b06-2000-4854-9c3d-3761c95ce593" name="Default Changelist" comment="" />
+    <list default="true" id="803e2b06-2000-4854-9c3d-3761c95ce593" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/database/factories/CarServicesFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/UsersSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -53,7 +60,7 @@
         <entry key="$PROJECT_DIR$/carservices.web" value="main" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/carservices.web" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -170,7 +177,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/factories" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -180,6 +187,16 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/factories" />
+      <recent name="$PROJECT_DIR$/database/seeds" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -196,6 +213,7 @@
       <option name="presentableId" value="Default" />
       <updated>1602058599847</updated>
       <workItem from="1602058600895" duration="13071000" />
+      <workItem from="1602089093537" duration="6723000" />
     </task>
     <servers />
   </component>
@@ -218,6 +236,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="221" y="0" key="#CLI_Interpreters" timestamp="1602076468431">
@@ -228,10 +247,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="451" y="220" key="#Composer/0.0.1280.680@0.0.1280.680" timestamp="1602059072014" />
-    <state x="428" y="150" key="FileChooserDialogImpl" timestamp="1602079610761">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="642" y="232" width="424" height="479" key="FileChooserDialogImpl" timestamp="1602090187459">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="428" y="150" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602079610761" />
+    <state x="642" y="232" width="424" height="479" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1602090187459" />
     <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1602058652052">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
