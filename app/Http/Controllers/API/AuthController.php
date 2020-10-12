@@ -15,6 +15,7 @@ class AuthController extends Controller
     {
 
         $user=new User();
+        $this->validate($request, User::rules());
         try {
             $user->password=Hash::make($request->post('password'));
             $user->fill($request->only(['name', 'email']))
