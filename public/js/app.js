@@ -39200,12 +39200,6 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("passport-clients"),
-      _vm._v(" "),
-      _c("passport-authorized-clients"),
-      _vm._v(" "),
-      _c("passport-personal-access-tokens"),
-      _vm._v(" "),
       _c("router-view")
     ],
     1
@@ -39321,17 +39315,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-            _vm._v("Email address")
+      _c("div", { staticClass: "centered-window" }, [
+        _c("div", { staticClass: "form-group  " }, [
+          _c("label", { attrs: { for: "inputEmail" } }, [
+            _vm._v("Электронная почта")
           ]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
             attrs: {
               type: "email",
-              id: "exampleInputEmail1",
+              id: "inputEmail",
               "aria-describedby": "emailHelp"
             }
           }),
@@ -39344,36 +39338,40 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-            _vm._v("Password")
-          ]),
+          _c("label", { attrs: { for: "inputPassword" } }, [_vm._v("Пароль")]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
-            attrs: { type: "password", id: "exampleInputPassword1" }
+            attrs: { type: "password", id: "inputPassword" }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group form-check" }, [
           _c("input", {
             staticClass: "form-check-input",
-            attrs: { type: "checkbox", id: "exampleCheck1" }
+            attrs: { type: "checkbox", id: "Check" }
           }),
           _vm._v(" "),
           _c(
             "label",
-            {
-              staticClass: "form-check-label",
-              attrs: { for: "exampleCheck1" }
-            },
-            [_vm._v("Check me out")]
+            { staticClass: "form-check-label", attrs: { for: "Check" } },
+            [_vm._v("Запомнить меня")]
           )
         ]),
         _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
+          [_vm._v("Войти")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary",
+            attrs: { type: "reset" }
+          },
+          [_vm._v("Отмена")]
         )
       ])
     ])
@@ -39408,17 +39406,36 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-            _vm._v("Email address")
+      _c("div", { staticClass: "centered-window" }, [
+        _c("div", { staticClass: "form-group  " }, [
+          _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "email",
+              id: "inputName",
+              "aria-describedby": "emailHelp"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "small",
+            { staticClass: "form-text text-muted", attrs: { id: "nameHelp" } },
+            [_vm._v("Не знаю, что здесь писать")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group  " }, [
+          _c("label", { attrs: { for: "inputEmail" } }, [
+            _vm._v("Элетронная почта")
           ]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
             attrs: {
               type: "email",
-              id: "exampleInputEmail1",
+              id: "InputEmail",
               "aria-describedby": "emailHelp"
             }
           }),
@@ -39431,36 +39448,38 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-            _vm._v("Password")
+          _c("label", { attrs: { for: "InputPassword1" } }, [_vm._v("Пароль")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "password", id: "InputPassword1" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "InputPassword2" } }, [
+            _vm._v("Пароль еще раз")
           ]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
-            attrs: { type: "password", id: "exampleInputPassword1" }
+            attrs: { type: "password", id: "InputPassword2" }
           })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group form-check" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", id: "exampleCheck1" }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "form-check-label",
-              attrs: { for: "exampleCheck1" }
-            },
-            [_vm._v("Check me out")]
-          )
         ]),
         _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
+          [_vm._v("Регистрация")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary",
+            attrs: { type: "reset" }
+          },
+          [_vm._v("Отмена")]
         )
       ])
     ])

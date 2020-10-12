@@ -37,9 +37,9 @@
 
 
 
-        <passport-clients></passport-clients>
-        <passport-authorized-clients></passport-authorized-clients>
-        <passport-personal-access-tokens></passport-personal-access-tokens>
+<!--        <passport-clients></passport-clients>-->
+<!--        <passport-authorized-clients></passport-authorized-clients>-->
+<!--        <passport-personal-access-tokens></passport-personal-access-tokens>-->
 
 
     <router-view></router-view>
