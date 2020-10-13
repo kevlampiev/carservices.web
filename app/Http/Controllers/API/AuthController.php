@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+
 class AuthController extends Controller
 {
     public function register(RegisterUserRequest $request)
     {
-
         $user=new User();
         try {
             $user->password=Hash::make($request->post('password'));
