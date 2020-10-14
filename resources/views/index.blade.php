@@ -11,19 +11,19 @@
     @section('styles')
     @endsection
 
-    <title>  Автосервисы|@yield('title') </title>
+    <title> Автосервисы|@yield('title') </title>
 </head>
 
 <body>
 
-    <div id="app">
-        <App></App>
-    </div>
+<div id="app">
+    <App></App>
+</div>
 
-    <script src="/js/app.js"></script>
+<script src="/js/app.js"></script>
 
-    @section('scripts')
-    @endsection
+@section('scripts')
+@endsection
 
 </body>
 </html>

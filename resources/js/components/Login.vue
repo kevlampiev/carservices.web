@@ -4,7 +4,8 @@
             <div class="form-group  ">
                 <label for="inputEmail">Электронная почта</label>
                 <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
             </div>
             <div class="form-group">
                 <label for="inputPassword">Пароль</label>

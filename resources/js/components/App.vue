@@ -3,7 +3,8 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -35,17 +36,15 @@
         </nav>
 
 
+        <!--        <passport-clients></passport-clients>-->
+        <!--        <passport-authorized-clients></passport-authorized-clients>-->
+        <!--        <passport-personal-access-tokens></passport-personal-access-tokens>-->
 
 
-<!--        <passport-clients></passport-clients>-->
-<!--        <passport-authorized-clients></passport-authorized-clients>-->
-<!--        <passport-personal-access-tokens></passport-personal-access-tokens>-->
-
-
-    <router-view></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-export default {}
+    export default {}
 </script>

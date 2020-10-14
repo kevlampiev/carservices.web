@@ -58,6 +58,6 @@ Vue.component(
 
 const app = new Vue({
     el: '#app',
-    components: { App },
+    components: {App},
     router,
 });

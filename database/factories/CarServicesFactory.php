@@ -18,12 +18,12 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(\App\Models\CarServices::class, function (Faker $faker) {
-    $name=$faker->company;
+    $name = $faker->company;
     return [
         'name' => $name,
         'slug' => Str::slug($name),
-        'address'=>$faker->address,
-        'description'=>$faker->realText(300),
-        'img_link'=>$faker->imageUrl(),
+        'address' => $faker->address,
+        'description' => $faker->realText(300),
+        'img_link' => $faker->imageUrl(),
     ];
 });
