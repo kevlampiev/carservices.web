@@ -14,7 +14,7 @@ class AlterServicesListsAddFk extends Migration
     public function up()
     {
         //Добавляем foreign key когда все таблицы гарантировано созданы
-        Schema::table('services_lists', function(Blueprint $table) {
+        Schema::table('services_lists', function (Blueprint $table) {
             $table->foreign('service_type_id')->references('id')->on('service_types');
             $table->foreign('car_service_id')->references('id')->on('car_services');
         });
@@ -28,7 +28,7 @@ class AlterServicesListsAddFk extends Migration
     public function down()
     {
         //Удаляем fk
-        Schema::table('services_lists', function(Blueprint $table) {
+        Schema::table('services_lists', function (Blueprint $table) {
             $table->dropForeign('services_lists_car_service_id_foreign');
             $table->dropForeign('services_lists_service_type_id_foreign');
         });

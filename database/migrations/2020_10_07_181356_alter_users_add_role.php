@@ -14,8 +14,8 @@ class AlterUsersAddRole extends Migration
     public function up()
     {
         //Добавляем роль
-        Schema::table('users', function(Blueprint $table) {
-            $table->enum('role',['client','service_owner','admin'])->default('client');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['client', 'service_owner', 'admin'])->default('client');
         });
     }
 
@@ -27,7 +27,7 @@ class AlterUsersAddRole extends Migration
     public function down()
     {
         //Удаляем роль
-        Schema::table('users',function(Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role');
         });
     }
