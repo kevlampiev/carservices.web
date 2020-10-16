@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    public function register(RegisterUserRequest $request)
+    public function register(Request $request)
     {
 
 
