@@ -1968,6 +1968,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this2 = undefined;
+
 //
 //
 //
@@ -2019,15 +2021,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     registerUser: function registerUser() {
+      var _this = this;
+
       axios.post('/api/register', {
         name: this.form.name,
         email: this.form.email,
         password: this.form.password
       }).then(function (res) {
         console.log(res);
+
+        _this.$router.push('home');
       })["catch"](function (err) {
         return console.log(err);
       });
+    }
+  },
+  computed: {
+    errorList: function errorList() {
+      var passwordErrors = []; // if (this.form.password!==this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
+
+      if (_this2.form.password.length() < 8) {
+        passwordErrors.push('Длина пароля должна быть не менее 8 символов');
+      }
+
+      return {
+        passwordEL: passwordErrors
+      };
     }
   }
 });
@@ -39489,7 +39508,7 @@ var render = function() {
   return _c("div", { staticClass: "row" }, [
     _vm._v("\n    " + _vm._s(_vm.form) + "\n    "),
     _c("div", { staticClass: "centered-window" }, [
-      _vm._v("\n        " + _vm._s(_vm.form) + "\n        "),
+      _vm._v("\n        " + _vm._s(_vm.errorList) + "\n        "),
       _c("div", { staticClass: "form-group  " }, [
         _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
         _vm._v(" "),

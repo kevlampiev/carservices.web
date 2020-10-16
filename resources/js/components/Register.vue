@@ -2,7 +2,7 @@
     <div class="row">
         {{form}}
         <div class="centered-window">
-            {{form}}
+            {{errorList}}
             <div class="form-group  ">
                 <label for="inputName">Ваше имя</label>
                 <input type="email" class="form-control" id="inputName" aria-describedby="emailHelp" v-model="form.name">
@@ -58,10 +58,27 @@
                         email: this.form.email,
                         password: this.form.password
                     }
-                ).then(res=>{console.log(res)})
+                ).then(res=>{
+                    console.log(res)
+                    this.$router.push('home')
+                })
                 .catch(err=>console.log(err))
             },
         },
+        computed: {
+            errorList: ()=> {
+                let passwordErrors=[];
+
+                // if (this.form.password!==this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
+                if (this.form.password.length()<8) {
+                    passwordErrors.push('Длина пароля должна быть не менее 8 символов')
+                }
+
+                return {
+                    passwordEL: passwordErrors
+                }
+            }
+        }
     }
 
 </script>
