@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+        {{form}}
         <div class="centered-window">
             {{form}}
             <div class="form-group  ">
@@ -12,6 +13,7 @@
                 <label for="inputEmail">Элетронная почта</label>
                 <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" v-model="form.email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
             </div>
             <div class="form-group">
                 <label for="InputPassword1">Пароль</label>
@@ -20,18 +22,22 @@
 
             <div class="form-group">
                 <label for="InputPassword2">Пароль еще раз</label>
-                <input type="password" class="form-control" id="InputPassword2" v-model="form.reenterPasword">
+                <input type="password" class="form-control" id="InputPassword2" v-model="form.reenterPassword">
             </div>
 
-            <button type="submit" class="btn btn-primary" @click="registerUser()">Регистрация</button>
+            <button type="submit" class="btn btn-primary" @click="registerUser">Регистрация</button>
             <button type="reset" class="btn btn-outline-secondary">Отмена</button>
         </div>
 
     </div>
 
+
+
 </template>
 
+
 <script>
+
     export default {
         data: ()=> {
             return {
@@ -46,15 +52,16 @@
         },
         methods: {
             registerUser() {
-                axios.post('http://carservices.local/api/register',
-                    {name: this.form.name,
+                axios.post('/api/register',
+                    {
+                        name: this.form.name,
                         email: this.form.email,
-                        password: this.form.password}
-                ).then(res=>{console.log(res)}).catch(err=>console.log(err))
-            } ,
-        }
+                        password: this.form.password
+                    }
+                ).then(res=>{console.log(res)})
+                .catch(err=>console.log(err))
+            },
+        },
     }
-
-
 
 </script>
