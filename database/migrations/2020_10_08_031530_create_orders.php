@@ -19,7 +19,7 @@ class CreateOrders extends Migration
             $table->string('car_model')->nullable('true')->comment('свободное описание марки авто');
             $table->string('license_plate_number')->nullable(true)->comment('государственный регистрационный номер автомобиля');
             $table->text('description')->nullable(true)->comment('описание проблемы');
-            $table->enum('order_status',['in_waiting','confirmed','deny'])->default('in_waiting')->comment('статусы заказа');
+            $table->enum('order_status', ['in_waiting', 'confirmed', 'deny'])->default('in_waiting')->comment('статусы заказа');
             $table->dateTime('status_date')->nullable(true)->comment('дата/время выставления автосервисом статуса заказа');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

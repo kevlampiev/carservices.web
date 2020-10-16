@@ -14,15 +14,17 @@ class AuthController extends Controller
     public function register(RegisterUserRequest $request)
     {
 
+
         $user=new User();
         $this->validate($request, User::rules());
+
         try {
-            $user->password=Hash::make($request->post('password'));
+            $user->password = Hash::make($request->post('password'));
             $user->fill($request->only(['name', 'email']))
-            ->save();
+                ->save();
             return response()->json(['status' => 201]);
         } catch (\Exception $e) {
-            return  response()->json(['error'=>$e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()]);
         }
 
     }
@@ -62,7 +64,6 @@ class AuthController extends Controller
 
         return response()->json(['status' => 200]);
     }
-
 
 
 }
