@@ -1,28 +1,38 @@
 <template>
     <div class="row">
-        {{form}}
         <div class="centered-window">
-            {{errorList}}
-            <br>
-            {{errorList.length}}
             <div class="form-group  ">
                 <label for="inputName">Ваше имя</label>
                 <input type="email" class="form-control" id="inputName" aria-describedby="emailHelp"
                        v-model="form.name">
-                <small id="nameHelp" class="form-text text-muted">Не знаю, что здесь писать</small>
+                <div class="alert alert-danger" v-if="showValidationRes&&(errorList.nameEl.length>0)">
+                    <li v-for="(errItem,index) in errorList.nameEl">
+                        {{errItem}}
+                    </li>
+                </div>
+
             </div>
 
             <div class="form-group  ">
                 <label for="inputEmail">Элетронная почта</label>
                 <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
                        v-model="form.email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
+                <div class="alert alert-danger" v-if="showValidationRes">
+                    <li v-for="(errItem,index) in errorList.passwordEL">
+                        {{errItem}}
+                    </li>
+                </div>
 
             </div>
             <div class="form-group">
                 <label for="InputPassword1">Пароль</label>
                 <input type="password" class="form-control" id="InputPassword1" v-model="form.password">
+                <div class="alert alert-danger" v-if="showValidationRes">
+                    <li v-for="(errItem,index) in errorList.passwordEL">
+                        {{errItem}}
+                    </li>
+                </div>
+
             </div>
 
             <div class="form-group">
@@ -57,7 +67,7 @@
         methods: {
             registerUser() {
                 this.showValidationRes = true
-                if (this.errorList.numbOfErrors!== 0) {
+                if (this.errorList.numbOfErrors !== 0) {
                     alert(1)
                 } else {
                     axios.post('/api/register',
@@ -74,6 +84,15 @@
                 }
             },
 
+            //Вспомогательные функции валидации
+            getNameValidErrors() {
+                let nameErrors = []
+                if (this.form.name.length === 0) {
+                    nameErrors.push('Поле Имя не может быть пустым')
+                }
+                return nameErrors
+            },
+
             getPswdValidErrors() {
                 let passwordErrors = []
                 if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
@@ -84,10 +103,10 @@
             },
 
             getEmailValidErrors() {
-                let emailErrors=[]
+                let emailErrors = []
                 let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
-                if(reg.test(this.form.email) == false) {
-                    emailErrors.push('Значение '+ this.form.email+ 'не является корректным адресом электроной почты ')
+                if (reg.test(this.form.email) == false) {
+                    emailErrors.push('Значение ' + this.form.email + 'не является корректным адресом электроной почты ')
                 }
                 return emailErrors
             },
@@ -95,10 +114,10 @@
         computed: {
             errorList: function () {
                 return {
-                    numbOfErrors: this.getEmailValidErrors().length+this.getPswdValidErrors().length,
+                    numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length + this.getNameValidErrors().length,
+                    nameEl: this.getNameValidErrors(),
                     emailEl: this.getEmailValidErrors(),
                     passwordEL: this.getPswdValidErrors(),
-
                 }
             }
         }

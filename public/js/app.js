@@ -2010,6 +2010,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2045,6 +2055,16 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    //Вспомогательные функции валидации
+    getNameValidErrors: function getNameValidErrors() {
+      var nameErrors = [];
+
+      if (this.form.name.length === 0) {
+        nameErrors.push('Поле Имя не может быть пустым');
+      }
+
+      return nameErrors;
+    },
     getPswdValidErrors: function getPswdValidErrors() {
       var passwordErrors = [];
       if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
@@ -2069,7 +2089,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     errorList: function errorList() {
       return {
-        numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length,
+        numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length + this.getNameValidErrors().length,
+        nameEl: this.getNameValidErrors(),
         emailEl: this.getEmailValidErrors(),
         passwordEL: this.getPswdValidErrors()
       };
@@ -39532,11 +39553,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _vm._v("\n    " + _vm._s(_vm.form) + "\n    "),
     _c("div", { staticClass: "centered-window" }, [
-      _vm._v("\n        " + _vm._s(_vm.errorList) + "\n        "),
-      _c("br"),
-      _vm._v("\n        " + _vm._s(_vm.errorList.length) + "\n        "),
       _c("div", { staticClass: "form-group  " }, [
         _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
         _vm._v(" "),
@@ -39566,11 +39583,22 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "nameHelp" } },
-          [_vm._v("Не знаю, что здесь писать")]
-        )
+        _vm.showValidationRes && _vm.errorList.nameEl.length > 0
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger" },
+              _vm._l(_vm.errorList.nameEl, function(errItem, index) {
+                return _c("li", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(errItem) +
+                      "\n                "
+                  )
+                ])
+              }),
+              0
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group  " }, [
@@ -39604,15 +39632,22 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-          [
-            _vm._v(
-              "We'll never share your email with anyone\n                else."
+        _vm.showValidationRes
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger" },
+              _vm._l(_vm.errorList.passwordEL, function(errItem, index) {
+                return _c("li", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(errItem) +
+                      "\n                "
+                  )
+                ])
+              }),
+              0
             )
-          ]
-        )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39638,7 +39673,24 @@ var render = function() {
               _vm.$set(_vm.form, "password", $event.target.value)
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _vm.showValidationRes
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger" },
+              _vm._l(_vm.errorList.passwordEL, function(errItem, index) {
+                return _c("li", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(errItem) +
+                      "\n                "
+                  )
+                ])
+              }),
+              0
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
