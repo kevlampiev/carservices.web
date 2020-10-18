@@ -1968,8 +1968,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _this2 = undefined;
-
+//
+//
+//
+//
 //
 //
 //
@@ -2016,36 +2018,60 @@ var _this2 = undefined;
         name: '',
         password: '',
         reenterPasword: ''
-      }
+      },
+      showValidationRes: false //отображать или нет результат валидации
+
     };
   },
   methods: {
     registerUser: function registerUser() {
       var _this = this;
 
-      axios.post('/api/register', {
-        name: this.form.name,
-        email: this.form.email,
-        password: this.form.password
-      }).then(function (res) {
-        console.log(res);
+      this.showValidationRes = true;
 
-        _this.$router.push('home');
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+      if (this.errorList.numbOfErrors !== 0) {
+        alert(1);
+      } else {
+        axios.post('/api/register', {
+          name: this.form.name,
+          email: this.form.email,
+          password: this.form.password
+        }).then(function (res) {
+          console.log(res);
+
+          _this.$router.push('home');
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+    },
+    getPswdValidErrors: function getPswdValidErrors() {
+      var passwordErrors = [];
+      if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
+
+      if (this.form.password.length < 8) {
+        passwordErrors.push('Длина пароля должна быть не менее 8 символов');
+      }
+
+      return passwordErrors;
+    },
+    getEmailValidErrors: function getEmailValidErrors() {
+      var emailErrors = [];
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+      if (reg.test(this.form.email) == false) {
+        emailErrors.push('Значение ' + this.form.email + 'не является корректным адресом электроной почты ');
+      }
+
+      return emailErrors;
     }
   },
   computed: {
     errorList: function errorList() {
-      var passwordErrors = []; // if (this.form.password!==this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
-
-      if (_this2.form.password.length() < 8) {
-        passwordErrors.push('Длина пароля должна быть не менее 8 символов');
-      }
-
       return {
-        passwordEL: passwordErrors
+        numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length,
+        emailEl: this.getEmailValidErrors(),
+        passwordEL: this.getPswdValidErrors()
       };
     }
   }
@@ -39509,6 +39535,8 @@ var render = function() {
     _vm._v("\n    " + _vm._s(_vm.form) + "\n    "),
     _c("div", { staticClass: "centered-window" }, [
       _vm._v("\n        " + _vm._s(_vm.errorList) + "\n        "),
+      _c("br"),
+      _vm._v("\n        " + _vm._s(_vm.errorList.length) + "\n        "),
       _c("div", { staticClass: "form-group  " }, [
         _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
         _vm._v(" "),
@@ -39579,7 +39607,11 @@ var render = function() {
         _c(
           "small",
           { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-          [_vm._v("We'll never share your email with anyone else.")]
+          [
+            _vm._v(
+              "We'll never share your email with anyone\n                else."
+            )
+          ]
         )
       ]),
       _vm._v(" "),

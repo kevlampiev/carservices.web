@@ -3,16 +3,21 @@
         {{form}}
         <div class="centered-window">
             {{errorList}}
+            <br>
+            {{errorList.length}}
             <div class="form-group  ">
                 <label for="inputName">Ваше имя</label>
-                <input type="email" class="form-control" id="inputName" aria-describedby="emailHelp" v-model="form.name">
+                <input type="email" class="form-control" id="inputName" aria-describedby="emailHelp"
+                       v-model="form.name">
                 <small id="nameHelp" class="form-text text-muted">Не знаю, что здесь писать</small>
             </div>
 
             <div class="form-group  ">
                 <label for="inputEmail">Элетронная почта</label>
-                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" v-model="form.email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
+                       v-model="form.email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
 
             </div>
             <div class="form-group">
@@ -32,14 +37,13 @@
     </div>
 
 
-
 </template>
 
 
 <script>
 
     export default {
-        data: ()=> {
+        data: () => {
             return {
                 form: {
                     email: '',
@@ -47,35 +51,54 @@
                     password: '',
                     reenterPasword: ''
                 },
-
+                showValidationRes: false, //отображать или нет результат валидации
             }
         },
         methods: {
             registerUser() {
-                axios.post('/api/register',
-                    {
-                        name: this.form.name,
-                        email: this.form.email,
-                        password: this.form.password
-                    }
-                ).then(res=>{
-                    console.log(res)
-                    this.$router.push('home')
-                })
-                .catch(err=>console.log(err))
+                this.showValidationRes = true
+                if (this.errorList.numbOfErrors!== 0) {
+                    alert(1)
+                } else {
+                    axios.post('/api/register',
+                        {
+                            name: this.form.name,
+                            email: this.form.email,
+                            password: this.form.password
+                        }
+                    ).then(res => {
+                        console.log(res)
+                        this.$router.push('home')
+                    })
+                        .catch(err => console.log(err))
+                }
+            },
+
+            getPswdValidErrors() {
+                let passwordErrors = []
+                if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
+                if (this.form.password.length < 8) {
+                    passwordErrors.push('Длина пароля должна быть не менее 8 символов')
+                }
+                return passwordErrors
+            },
+
+            getEmailValidErrors() {
+                let emailErrors=[]
+                let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+                if(reg.test(this.form.email) == false) {
+                    emailErrors.push('Значение '+ this.form.email+ 'не является корректным адресом электроной почты ')
+                }
+                return emailErrors
             },
         },
         computed: {
-            errorList: ()=> {
-                let passwordErrors=[];
-
-                // if (this.form.password!==this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
-                if (this.form.password.length()<8) {
-                    passwordErrors.push('Длина пароля должна быть не менее 8 символов')
-                }
-
+            errorList: function () {
                 return {
-                    passwordEL: passwordErrors
+                    numbOfErrors: this.getEmailValidErrors().length+this.getPswdValidErrors().length,
+                    emailEl: this.getEmailValidErrors(),
+                    passwordEL: this.getPswdValidErrors(),
+
                 }
             }
         }
