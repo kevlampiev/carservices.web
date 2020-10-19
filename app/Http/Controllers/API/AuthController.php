@@ -13,16 +13,17 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-
-
-        $user=new User();
-        $this->validate($request, User::rules());
-
+        $user = new User();
         try {
+            $this->validate($request, User::rules());
             $user->password = Hash::make($request->post('password'));
+            $token = $user->createToken('carservices Personal Access Client')->accessToken;
             $user->fill($request->only(['name', 'email']))
                 ->save();
-            return response()->json(['status' => 201]);
+            return response()->json([
+                'status' => 201,
+                'token' => $token,
+            ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
