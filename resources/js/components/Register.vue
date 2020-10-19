@@ -17,7 +17,7 @@
                 <label for="inputEmail">Элетронная почта</label>
                 <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
                        v-model="form.email">
-                <div class="alert alert-danger" v-if="showValidationRes">
+                <div class="alert alert-danger" v-if="showValidationRes&&(errorList.emailEl.length>0)">
                     <li v-for="(errItem,index) in errorList.emailEl">
                         {{errItem}}
                     </li>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="InputPassword1">Пароль</label>
                 <input type="password" class="form-control" id="InputPassword1" v-model="form.password">
-                <div class="alert alert-danger" v-if="showValidationRes">
+                <div class="alert alert-danger" v-if="showValidationRes&&(errorList.passwordEL.length>0)">
                     <li v-for="(errItem,index) in errorList.passwordEL">
                         {{errItem}}
                     </li>
@@ -77,7 +77,7 @@
                             password: this.form.password
                         }
                     ).then(res => {
-                        console.log(res)
+                        this.proceedRegistration(res)
                         this.$router.push('home')
                     })
                         .catch(err => console.log(err))
@@ -113,6 +113,20 @@
                     emailErrors.push('Значение ' + this.form.email + 'не является корректным адресом электроной почты ')
                 }
                 return emailErrors
+            },
+
+            //Функция обработки клиентского токена
+            proceedRegistration(response) {
+                if (!response.data.token) {
+                    alert('Поле с токеном отсутствует')
+                } else {
+                    localStorage.userData = response.data.token
+                    localStorage.userName = this.form.email
+                }
+                console.log(response)
+            },
+            showRegistrationError(error) {
+                alert('Какая-то хрень ' + error.toString())
             },
         },
         computed: {

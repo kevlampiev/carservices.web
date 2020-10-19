@@ -2047,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
           email: this.form.email,
           password: this.form.password
         }).then(function (res) {
-          console.log(res);
+          _this.proceedRegistration(res);
 
           _this.$router.push('home');
         })["catch"](function (err) {
@@ -2087,6 +2087,20 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return emailErrors;
+    },
+    //Функция обработки клиентского токена
+    proceedRegistration: function proceedRegistration(response) {
+      if (!response.data.token) {
+        alert('Поле с токеном отсутствует');
+      } else {
+        localStorage.userData = response.data.token;
+        localStorage.userName = this.form.email;
+      }
+
+      console.log(response);
+    },
+    showRegistrationError: function showRegistrationError(error) {
+      alert('Какая-то хрень ' + error.toString());
     }
   },
   computed: {
@@ -39635,7 +39649,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes
+        _vm.showValidationRes && _vm.errorList.emailEl.length > 0
           ? _c(
               "div",
               { staticClass: "alert alert-danger" },
@@ -39678,7 +39692,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes
+        _vm.showValidationRes && _vm.errorList.passwordEL.length > 0
           ? _c(
               "div",
               { staticClass: "alert alert-danger" },
@@ -56914,8 +56928,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
