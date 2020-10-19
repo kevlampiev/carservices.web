@@ -2005,112 +2005,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
-        email: '',
         name: '',
+        email: '',
         password: '',
-        reenterPasword: ''
-      },
-      showValidationRes: false //отображать или нет результат валидации
-
+        reenterPassword: ''
+      }
     };
   },
   methods: {
     registerUser: function registerUser() {
-      var _this = this;
-
-      this.showValidationRes = true;
-
-      if (this.errorList.numbOfErrors !== 0) {
-        alert(1);
-      } else {
-        axios.post('/api/register', {
-          name: this.form.name,
-          email: this.form.email,
-          password: this.form.password
-        }).then(function (res) {
-          _this.proceedRegistration(res);
-
-          _this.$router.push('home');
-        })["catch"](function (err) {
-          return console.log(err);
-        });
-      }
-    },
-    cancelRegistration: function cancelRegistration() {
-      this.$router.push('home');
-    },
-    //Вспомогательные функции валидации
-    getNameValidErrors: function getNameValidErrors() {
-      var nameErrors = [];
-
-      if (this.form.name.length === 0) {
-        nameErrors.push('Поле Имя не может быть пустым');
-      }
-
-      return nameErrors;
-    },
-    getPswdValidErrors: function getPswdValidErrors() {
-      var passwordErrors = [];
-      if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
-
-      if (this.form.password.length < 8) {
-        passwordErrors.push('Длина пароля должна быть не менее 8 символов');
-      }
-
-      return passwordErrors;
-    },
-    getEmailValidErrors: function getEmailValidErrors() {
-      var emailErrors = [];
-      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-      if (reg.test(this.form.email) == false) {
-        emailErrors.push('Значение ' + this.form.email + 'не является корректным адресом электроной почты ');
-      }
-
-      return emailErrors;
-    },
-    //Функция обработки клиентского токена
-    proceedRegistration: function proceedRegistration(response) {
-      if (!response.data.token) {
-        alert('Поле с токеном отсутствует');
-      } else {
-        localStorage.userData = response.data.token;
-        localStorage.userName = this.form.email;
-      }
-
-      console.log(response);
-    },
-    showRegistrationError: function showRegistrationError(error) {
-      alert('Какая-то хрень ' + error.toString());
-    }
-  },
-  computed: {
-    errorList: function errorList() {
-      return {
-        numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length + this.getNameValidErrors().length,
-        nameEl: this.getNameValidErrors(),
-        emailEl: this.getEmailValidErrors(),
-        passwordEL: this.getPswdValidErrors()
-      };
+      axios.post('/api/register', {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -39570,6 +39486,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
+    _vm._v("\n    " + _vm._s(_vm.form) + "\n    "),
     _c("div", { staticClass: "centered-window" }, [
       _c("div", { staticClass: "form-group  " }, [
         _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
@@ -39600,22 +39517,11 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.nameEl.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.nameEl, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e()
+        _c(
+          "small",
+          { staticClass: "form-text text-muted", attrs: { id: "nameHelp" } },
+          [_vm._v("Не знаю, что здесь писать")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group  " }, [
@@ -39649,22 +39555,15 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.emailEl.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.emailEl, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
+        _c(
+          "small",
+          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
+          [
+            _vm._v(
+              "We'll never share your email with anyone\n                else."
             )
-          : _vm._e()
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39690,24 +39589,7 @@ var render = function() {
               _vm.$set(_vm.form, "password", $event.target.value)
             }
           }
-        }),
-        _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.passwordEL.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.passwordEL, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e()
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39750,11 +39632,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "button",
-        {
-          staticClass: "btn btn-outline-secondary",
-          attrs: { type: "reset" },
-          on: { click: _vm.cancelRegistration }
-        },
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "reset" } },
         [_vm._v("Отмена")]
       )
     ])
@@ -56584,14 +56462,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./resources/js/components/Register.vue ***!
   \**********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Register_vue_vue_type_template_id_97358ae4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Register.vue?vue&type=template&id=97358ae4& */ "./resources/js/components/Register.vue?vue&type=template&id=97358ae4&");
 /* harmony import */ var _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Register.vue?vue&type=script&lang=js& */ "./resources/js/components/Register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -56621,7 +56500,7 @@ component.options.__file = "resources/js/components/Register.vue"
 /*!***********************************************************************!*\
   !*** ./resources/js/components/Register.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56928,8 +56807,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

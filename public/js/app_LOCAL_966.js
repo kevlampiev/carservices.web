@@ -2001,25 +2001,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2028,89 +2009,20 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         password: '',
         reenterPasword: ''
-      },
-      showValidationRes: false //отображать или нет результат валидации
-
+      }
     };
   },
   methods: {
     registerUser: function registerUser() {
-      var _this = this;
-
-      this.showValidationRes = true;
-
-      if (this.errorList.numbOfErrors !== 0) {
-        alert(1);
-      } else {
-        axios.post('/api/register', {
-          name: this.form.name,
-          email: this.form.email,
-          password: this.form.password
-        }).then(function (res) {
-          _this.proceedRegistration(res);
-
-          _this.$router.push('home');
-        })["catch"](function (err) {
-          return console.log(err);
-        });
-      }
-    },
-    cancelRegistration: function cancelRegistration() {
-      this.$router.push('home');
-    },
-    //Вспомогательные функции валидации
-    getNameValidErrors: function getNameValidErrors() {
-      var nameErrors = [];
-
-      if (this.form.name.length === 0) {
-        nameErrors.push('Поле Имя не может быть пустым');
-      }
-
-      return nameErrors;
-    },
-    getPswdValidErrors: function getPswdValidErrors() {
-      var passwordErrors = [];
-      if (this.form.password !== this.form.reenterPassword) passwordErrors.push('Введенные пароли не совпадают');
-
-      if (this.form.password.length < 8) {
-        passwordErrors.push('Длина пароля должна быть не менее 8 символов');
-      }
-
-      return passwordErrors;
-    },
-    getEmailValidErrors: function getEmailValidErrors() {
-      var emailErrors = [];
-      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-      if (reg.test(this.form.email) == false) {
-        emailErrors.push('Значение ' + this.form.email + 'не является корректным адресом электроной почты ');
-      }
-
-      return emailErrors;
-    },
-    //Функция обработки клиентского токена
-    proceedRegistration: function proceedRegistration(response) {
-      if (!response.data.token) {
-        alert('Поле с токеном отсутствует');
-      } else {
-        localStorage.userData = response.data.token;
-        localStorage.userName = this.form.email;
-      }
-
-      console.log(response);
-    },
-    showRegistrationError: function showRegistrationError(error) {
-      alert('Какая-то хрень ' + error.toString());
-    }
-  },
-  computed: {
-    errorList: function errorList() {
-      return {
-        numbOfErrors: this.getEmailValidErrors().length + this.getPswdValidErrors().length + this.getNameValidErrors().length,
-        nameEl: this.getNameValidErrors(),
-        emailEl: this.getEmailValidErrors(),
-        passwordEL: this.getPswdValidErrors()
-      };
+      axios.post('http://carservices.local/api/register', {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -39439,16 +39351,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-8" }, [
         _c("p", [_vm._v("This is the homepage")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-7" }, [
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, doloribus eum id inventore\n            nam quibusdam quis saepe similique veniam vitae. Aliquam consequatur eveniet hic iste labore nisi\n            sint totam ut!"
-          )
-        ])
       ])
     ])
   }
@@ -39571,6 +39475,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "centered-window" }, [
+      _vm._v("\n        " + _vm._s(_vm.form) + "\n        "),
       _c("div", { staticClass: "form-group  " }, [
         _c("label", { attrs: { for: "inputName" } }, [_vm._v("Ваше имя")]),
         _vm._v(" "),
@@ -39600,22 +39505,11 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.nameEl.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.nameEl, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e()
+        _c(
+          "small",
+          { staticClass: "form-text text-muted", attrs: { id: "nameHelp" } },
+          [_vm._v("Не знаю, что здесь писать")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group  " }, [
@@ -39649,22 +39543,11 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.emailEl.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.emailEl, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e()
+        _c(
+          "small",
+          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
+          [_vm._v("We'll never share your email with anyone else.")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39690,24 +39573,7 @@ var render = function() {
               _vm.$set(_vm.form, "password", $event.target.value)
             }
           }
-        }),
-        _vm._v(" "),
-        _vm.showValidationRes && _vm.errorList.passwordEL.length > 0
-          ? _c(
-              "div",
-              { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.passwordEL, function(errItem, index) {
-                return _c("li", [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(errItem) +
-                      "\n                "
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e()
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39720,19 +39586,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.form.reenterPassword,
-              expression: "form.reenterPassword"
+              value: _vm.form.reenterPasword,
+              expression: "form.reenterPasword"
             }
           ],
           staticClass: "form-control",
           attrs: { type: "password", id: "InputPassword2" },
-          domProps: { value: _vm.form.reenterPassword },
+          domProps: { value: _vm.form.reenterPasword },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.form, "reenterPassword", $event.target.value)
+              _vm.$set(_vm.form, "reenterPasword", $event.target.value)
             }
           }
         })
@@ -39743,18 +39609,18 @@ var render = function() {
         {
           staticClass: "btn btn-primary",
           attrs: { type: "submit" },
-          on: { click: _vm.registerUser }
+          on: {
+            click: function($event) {
+              return _vm.registerUser()
+            }
+          }
         },
         [_vm._v("Регистрация")]
       ),
       _vm._v(" "),
       _c(
         "button",
-        {
-          staticClass: "btn btn-outline-secondary",
-          attrs: { type: "reset" },
-          on: { click: _vm.cancelRegistration }
-        },
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "reset" } },
         [_vm._v("Отмена")]
       )
     ])
