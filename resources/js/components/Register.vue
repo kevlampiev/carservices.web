@@ -18,7 +18,7 @@
                 <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
                        v-model="form.email">
                 <div class="alert alert-danger" v-if="showValidationRes">
-                    <li v-for="(errItem,index) in errorList.passwordEL">
+                    <li v-for="(errItem,index) in errorList.emailEl">
                         {{errItem}}
                     </li>
                 </div>
@@ -41,7 +41,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary" @click="registerUser">Регистрация</button>
-            <button type="reset" class="btn btn-outline-secondary">Отмена</button>
+            <button type="reset" class="btn btn-outline-secondary" @click="cancelRegistration">Отмена</button>
         </div>
 
     </div>
@@ -82,6 +82,10 @@
                     })
                         .catch(err => console.log(err))
                 }
+            },
+
+            cancelRegistration() {
+                this.$router.push('home')
             },
 
             //Вспомогательные функции валидации

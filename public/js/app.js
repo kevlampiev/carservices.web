@@ -2055,6 +2055,9 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    cancelRegistration: function cancelRegistration() {
+      this.$router.push('home');
+    },
     //Вспомогательные функции валидации
     getNameValidErrors: function getNameValidErrors() {
       var nameErrors = [];
@@ -39636,7 +39639,7 @@ var render = function() {
           ? _c(
               "div",
               { staticClass: "alert alert-danger" },
-              _vm._l(_vm.errorList.passwordEL, function(errItem, index) {
+              _vm._l(_vm.errorList.emailEl, function(errItem, index) {
                 return _c("li", [
                   _vm._v(
                     "\n                    " +
@@ -39733,7 +39736,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-outline-secondary", attrs: { type: "reset" } },
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { type: "reset" },
+          on: { click: _vm.cancelRegistration }
+        },
         [_vm._v("Отмена")]
       )
     ])
@@ -56907,8 +56914,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
