@@ -61,7 +61,7 @@ const app = new Vue({
     components: {App},
     data: ()=>{
         return {
-            userMail: 'xxx@porn.ru'
+            userMail: ''
         }
     },
     router,

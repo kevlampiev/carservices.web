@@ -1908,6 +1908,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1953,16 +1955,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   mounted: function mounted() {},
   methods: {
-    showEMail: function showEMail() {
-      this.$root.userMail = 'Новая электронная почта'; // this.$root.userMail='xxx@root.com'
-
-      console.log(this.$root);
+    logout: function logout() {
+      //Потрясающей глубины метод
+      this.$root.userMail = '';
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userData');
     }
   }
-});
+}, "mounted", function mounted() {
+  this.$root.userMail = localStorage.getItem('userName');
+  alert(1);
+}));
 
 /***/ }),
 
@@ -2146,6 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         localStorage.userData = response.data.token;
         localStorage.userName = this.form.email;
+        this.$root.userMail = this.form.email;
       }
 
       console.log(response);
@@ -2163,7 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
         passwordEL: this.getPswdValidErrors()
       };
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -39380,33 +39402,64 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("ul", { staticClass: "nav justify-content-end" }, [
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                { staticClass: "nav-item nav-link", attrs: { href: "#" } },
-                [
-                  _c("router-link", { attrs: { to: { name: "register" } } }, [
-                    _vm._v("Регистрация")
-                  ])
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                { staticClass: "nav-item nav-link", attrs: { href: "#" } },
-                [
-                  _c("router-link", { attrs: { to: { name: "login" } } }, [
-                    _vm._v("Войти")
-                  ])
-                ],
-                1
-              )
-            ])
-          ])
+          _vm.$root.userMail === ""
+            ? _c("ul", { staticClass: "nav justify-content-end" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "register" } } },
+                        [_vm._v("Регистрация")]
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+                    [
+                      _c("router-link", { attrs: { to: { name: "login" } } }, [
+                        _vm._v("Войти")
+                      ])
+                    ],
+                    1
+                  )
+                ])
+              ])
+            : _c("ul", { staticClass: "nav justify-content-end" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "register" } } },
+                        [_vm._v(_vm._s(_vm.$root.userMail))]
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-item nav-link",
+                      attrs: { href: "#" },
+                      on: { click: _vm.logout }
+                    },
+                    [_vm._v("\n                    Выйти\n                ")]
+                  )
+                ])
+              ])
         ]
       ),
       _vm._v(" "),
@@ -56375,7 +56428,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   data: function data() {
     return {
-      userMail: 'xxx@porn.ru'
+      userMail: ''
     };
   },
   router: router
@@ -57020,8 +57073,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

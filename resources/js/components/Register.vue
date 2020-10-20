@@ -120,6 +120,7 @@
                 } else {
                     localStorage.userData = response.data.token
                     localStorage.userName = this.form.email
+                    this.$root.userMail=this.form.email
                 }
                 console.log(response)
             },
@@ -136,6 +137,9 @@
                     passwordEL: this.getPswdValidErrors(),
                 }
             }
+        },
+        mounted() {
+
         }
     }
 

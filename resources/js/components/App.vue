@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-end" v-if="$root.userMail===''">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
@@ -31,6 +31,20 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="nav justify-content-end" v-else>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="#">
+                        <router-link :to="{ name: 'register' }">{{$root.userMail}}</router-link>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="#" @click="logout">
+                        Выйти
+                    </a>
+                </li>
+            </ul>
+
         </nav>
 
         <div @click="showEMail()">
@@ -49,11 +63,17 @@
 
         },
         methods: {
-            showEMail() {
-                this.$root.userMail='Новая электронная почта'
-                    // this.$root.userMail='xxx@root.com'
-                console.log(this.$root)
-            }
+           logout() {
+               //Потрясающей глубины метод
+               this.$root.userMail=''
+               localStorage.removeItem('userName')
+               localStorage.removeItem('userData')
+           }
+        },
+
+        mounted() {
+            this.$root.userMail=localStorage.getItem('userName')
+            alert(1)
         }
     }
 </script>
