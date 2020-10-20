@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-end" v-if="$root.userMail===''">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
@@ -32,19 +32,48 @@
                 </li>
             </ul>
 
+            <ul class="nav justify-content-end" v-else>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="#">
+                        <router-link :to="{ name: 'register' }">{{$root.userMail}}</router-link>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="#" @click="logout">
+                        Выйти
+                    </a>
+                </li>
+            </ul>
 
         </nav>
 
-
-        <!--        <passport-clients></passport-clients>-->
-        <!--        <passport-authorized-clients></passport-authorized-clients>-->
-        <!--        <passport-personal-access-tokens></passport-personal-access-tokens>-->
-
+        <div @click="showEMail()">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ducimus esse et expedita incidunt modi
+            provident quas sit tempora voluptatum.
+            {{$root.userMail}}
+        </div>
 
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-    export default {}
+    export default {
+        mounted() {
+
+        },
+        methods: {
+           logout() {
+               //Потрясающей глубины метод
+               this.$root.userMail=''
+               localStorage.removeItem('userName')
+               localStorage.removeItem('userData')
+           }
+        },
+
+        mounted() {
+            this.$root.userMail=localStorage.getItem('userName')
+            alert(1)
+        }
+    }
 </script>

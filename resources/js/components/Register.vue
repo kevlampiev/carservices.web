@@ -10,7 +10,6 @@
                         {{errItem}}
                     </li>
                 </div>
-
             </div>
 
             <div class="form-group  ">
@@ -22,8 +21,8 @@
                         {{errItem}}
                     </li>
                 </div>
-
             </div>
+
             <div class="form-group">
                 <label for="InputPassword1">Пароль</label>
                 <input type="password" class="form-control" id="InputPassword1" v-model="form.password">
@@ -32,7 +31,6 @@
                         {{errItem}}
                     </li>
                 </div>
-
             </div>
 
             <div class="form-group">
@@ -78,14 +76,14 @@
                         }
                     ).then(res => {
                         this.proceedRegistration(res)
-                        this.$router.push('home')
+                        this.$router.go(-1)
                     })
                         .catch(err => console.log(err))
                 }
             },
 
             cancelRegistration() {
-                this.$router.push('home')
+                this.$router.go(-1)
             },
 
             //Вспомогательные функции валидации
@@ -122,6 +120,7 @@
                 } else {
                     localStorage.userData = response.data.token
                     localStorage.userName = this.form.email
+                    this.$root.userMail=this.form.email
                 }
                 console.log(response)
             },
@@ -138,6 +137,9 @@
                     passwordEL: this.getPswdValidErrors(),
                 }
             }
+        },
+        mounted() {
+
         }
     }
 

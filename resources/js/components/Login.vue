@@ -1,6 +1,10 @@
 <template>
     <div class="row">
+
         <div class="centered-window">
+            <div >
+            </div>
+
             <div class="form-group  ">
                 <label for="inputEmail">Электронная почта</label>
                 <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
@@ -21,3 +25,14 @@
     </div>
 
 </template>
+
+<script>
+export default {
+    // computed: {
+    //     getEmail() {
+    //         return this.$root.$children[0].userMail
+    //     }
+    // }
+}
+
+</script>
