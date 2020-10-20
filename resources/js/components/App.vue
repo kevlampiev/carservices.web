@@ -31,20 +31,29 @@
                     </a>
                 </li>
             </ul>
-
-
         </nav>
 
-
-        <!--        <passport-clients></passport-clients>-->
-        <!--        <passport-authorized-clients></passport-authorized-clients>-->
-        <!--        <passport-personal-access-tokens></passport-personal-access-tokens>-->
-
+        <div @click="showEMail()">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ducimus esse et expedita incidunt modi
+            provident quas sit tempora voluptatum.
+            {{$root.userMail}}
+        </div>
 
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-    export default {}
+    export default {
+        mounted() {
+
+        },
+        methods: {
+            showEMail() {
+                this.$root.userMail='Новая электронная почта'
+                    // this.$root.userMail='xxx@root.com'
+                console.log(this.$root)
+            }
+        }
+    }
 </script>

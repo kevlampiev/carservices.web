@@ -59,5 +59,10 @@ Vue.component(
 const app = new Vue({
     el: '#app',
     components: {App},
+    data: ()=>{
+        return {
+            userMail: 'xxx@porn.ru'
+        }
+    },
     router,
 });
