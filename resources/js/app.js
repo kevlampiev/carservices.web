@@ -4,12 +4,24 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
+//
+// const settings = {
+//     apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
+//     lang: 'ru_RU',
+//     coordorder: 'latlong',
+//     version: '2.1'
+// }
+//
+// import YmapPlugin from 'vue-yandex-maps'
+//
+// Vue.use(YmapPlugin, settings)
 
 import App from './components/App'
 import Hello from './components/Hello'
 import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
+
 
 
 const router = new VueRouter({
@@ -61,8 +73,11 @@ const app = new Vue({
     components: {App},
     data: ()=>{
         return {
-            userMail: ''
+            userMail: '',
+            city: 'Москва'
         }
     },
     router,
 });
+
+
