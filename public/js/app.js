@@ -1962,15 +1962,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // mounted() {
-  //
-  // },
   methods: {
     logout: function logout() {
       //Потрясающей глубины метод
@@ -1996,6 +1988,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_yandex_maps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-yandex-maps */ "./node_modules/vue-yandex-maps/dist/vue-yandex-maps.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2077,6 +2078,7 @@ var tmpServiceTypes = ['Шиномонтаж', 'Автомойка', 'Автос
     return {
       serviceTypes: [],
       services: [],
+      showMap: false,
       mapSettings: {
         apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
         lang: 'ru_RU',
@@ -2094,6 +2096,7 @@ var tmpServiceTypes = ['Шиномонтаж', 'Автомойка', 'Автос
     }
   },
   mounted: function mounted() {
+    this.showMap = true;
     this.getServiceList(this.city);
   },
   components: {
@@ -39520,7 +39523,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm.$root.userMail === ""
+          !_vm.$root.userMail || _vm.$root.userMail === ""
             ? _c("ul", { staticClass: "nav justify-content-end" }, [
                 _c("li", { staticClass: "nav-item" }, [
                   _c(
@@ -39574,11 +39577,7 @@ var render = function() {
                       attrs: { href: "#" },
                       on: { click: _vm.logout }
                     },
-                    [
-                      _vm._v(
-                        "\n                        Выйти\n                    "
-                      )
-                    ]
+                    [_vm._v("\n                    Выйти\n                ")]
                   )
                 ])
               ])
@@ -39658,7 +39657,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-6" }, [
+    _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
           _vm._v(
@@ -39673,58 +39672,74 @@ var render = function() {
           _c(
             "ul",
             { staticClass: "nav nav-pills card-header-pills" },
-            _vm._l(_vm.serviceTypes, function(el, index) {
-              return _c(
-                "li",
-                { staticClass: "nav-item", attrs: { href: "#" } },
-                [_c("a", { staticClass: "nav-link" }, [_vm._v(_vm._s(el))])]
-              )
-            }),
-            0
+            [
+              _vm._l(_vm.serviceTypes, function(el, index) {
+                return _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v(_vm._s(el))
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ],
+            2
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "ul",
-            _vm._l(_vm.services, function(serv, index) {
-              return _c("li", [
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          _vm._l(_vm.services, function(serv, index) {
+            return _c("div", { staticClass: "carservice-card" }, [
+              _c("img", { attrs: { src: serv.photo } }),
+              _vm._v(" "),
+              _c("div", [
                 _c("h5", [_vm._v(_vm._s(serv.name))]),
                 _vm._v(" "),
                 _c("p", [_vm._v(_vm._s(serv.address))])
               ])
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "With supporting text below as a natural lead-in to additional content."
-            )
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-            _vm._v("Go somewhere")
-          ])
-        ])
+            ])
+          }),
+          0
+        )
       ]),
       _vm._v(" "),
       _c("div")
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-md-6", staticStyle: { height: "300px" } },
-      [
-        _c("yandex-map", {
-          attrs: { settings: _vm.mapSettings, coords: _vm.coords }
-        })
-      ],
-      1
-    )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("div", { staticClass: "input-group" }, [
+        _c("input", {
+          staticClass:
+            "form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent",
+          attrs: {
+            type: "search",
+            placeholder: "Поиск по названию",
+            id: "example-search-input"
+          }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "input-group-append" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "input-group-text bg-transparent border-right-0 border-left-0 border-top-0"
+            },
+            [_c("i", { staticClass: "fa fa-search" })]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

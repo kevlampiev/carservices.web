@@ -1,38 +1,47 @@
 <template>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     Ваш город {{$root.city}}? <a href="#">Изменить</a>
                 </div>
+
             </div>
-
-            <!--            <div class="card">-->
-            <!--                <div class="card-body">-->
-            <!--                    <nav class="nav" v-for="(el,index) in serviceTypes">-->
-            <!--                        <a class="nav-link active" href="#">{{el}}</a>-->
-            <!--                    </nav>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
 
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item" href="#" v-for="(el,index) in serviceTypes">
-                            <a class="nav-link">{{el}}</a>
+                        <li class="nav-item" v-for="(el,index) in serviceTypes">
+                            <a class="nav-link" href="#">{{el}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input
+                                    class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
+                                    type="search" placeholder="Поиск по названию"
+                                    id="example-search-input">
+                                <span class="input-group-append">
+                                      <div
+                                          class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
+                                          <i class="fa fa-search"></i>
+                                      </div>
+                                </span>
+                            </div>
                         </li>
                     </ul>
+
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <li v-for="(serv,index) in services">
+                    <div class="carservice-card" v-for="(serv,index) in services">
+                        <img
+                            :src="serv.photo">
+                        <div>
                             <h5>{{serv.name}}</h5>
                             <p>{{serv.address}}</p>
-                        </li>
-                    </ul>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <!--                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
                 </div>
             </div>
 
@@ -41,11 +50,11 @@
             </div>
         </div>
 
-        <div class="col-md-6" style="height: 300px">
-            <yandex-map :settings="mapSettings" :coords="coords">
-                <!--Markers-->
-            </yandex-map>
-        </div>
+        <!--        <div class="col-md-6" style="height: 300px" v-if="showMap">-->
+        <!--            <yandex-map :settings="mapSettings" :coords="coords">-->
+        <!--                &lt;!&ndash;Markers&ndash;&gt;-->
+        <!--            </yandex-map>-->
+        <!--        </div>-->
 
 
     </div>
@@ -55,7 +64,7 @@
 
 <script>
 
-    import { yandexMap, ymapMarker } from 'vue-yandex-maps'
+    import {yandexMap, ymapMarker} from 'vue-yandex-maps'
 
     let tmpServices = [
         {
@@ -88,6 +97,7 @@
             return {
                 serviceTypes: [],
                 services: [],
+                showMap: false,
                 mapSettings: {
                     apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
                     lang: 'ru_RU',
@@ -108,9 +118,11 @@
             }
         },
         mounted() {
+            this.showMap = true
             this.getServiceList(this.city)
+
         },
-        components: { yandexMap, ymapMarker }
+        components: {yandexMap, ymapMarker}
 
     }
 </script>

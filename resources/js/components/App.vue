@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <ul class="nav justify-content-end" v-if="$root.userMail===''">
+            <ul class="nav justify-content-end" v-if="!$root.userMail||$root.userMail===''">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
@@ -47,11 +47,6 @@
 
         </nav>
 
-<!--        <div @click="showEMail()">-->
-<!--            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ducimus esse et expedita incidunt modi-->
-<!--            provident quas sit tempora voluptatum.-->
-<!--            {{$root.userMail}}-->
-<!--        </div>-->
 
         <router-view></router-view>
     </div>
@@ -59,9 +54,6 @@
 
 <script>
     export default {
-        // mounted() {
-        //
-        // },
         methods: {
            logout() {
                //Потрясающей глубины метод
