@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    Ваш город {{$root.city}}? <a href="#">Изменить</a>
+                    Ваш город {{$root.city}}? <a href="#" @click.stop="startSelectCity">Изменить</a>
                 </div>
 
             </div>
@@ -40,8 +40,6 @@
                             <p>{{serv.address}}</p>
                         </div>
                     </div>
-                    <!--                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
                 </div>
             </div>
 
@@ -49,13 +47,6 @@
 
             </div>
         </div>
-
-        <!--        <div class="col-md-6" style="height: 300px" v-if="showMap">-->
-        <!--            <yandex-map :settings="mapSettings" :coords="coords">-->
-        <!--                &lt;!&ndash;Markers&ndash;&gt;-->
-        <!--            </yandex-map>-->
-        <!--        </div>-->
-
 
     </div>
 
@@ -65,32 +56,8 @@
 <script>
 
     import {yandexMap, ymapMarker} from 'vue-yandex-maps'
-
-    let tmpServices = [
-        {
-            id: 1,
-            name: 'Киа-Центр',
-            address: 'Москва',
-            photo: 'https://avatars.mds.yandex.net/get-altay/938969/2a00000160f20c6194b8920e9c318e1c58d0/XXXL'
-        },
-        {
-            id: 2,
-            name: 'Автомир Renault',
-            address: 'Барнаул>',
-            photo: 'https://avatars.mds.yandex.net/get-altay/2776652/2a00000174e2b9570bdcadf0ae9ca23cfb50/XXXL'
-        },
-
-    ]
-
-    let tmpServiceTypes = ['Шиномонтаж', 'Автомойка', 'Автосервис']
-    //
-    // const settings = {
-    //     apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
-    //     lang: 'ru_RU',
-    //     coordorder: 'latlong',
-    //     version: '2.1'
-    // }
-    //
+    import {tmpServices} from '../tmpData.js'
+    import {tmpServiceTypes} from "../tmpData.js";
 
     export default {
         data: () => {
@@ -112,15 +79,21 @@
         },
         methods: {
             getServiceList(aCity) {
+                if (!aCity) aCity=this.$root.city
                 this.services = tmpServices
-                this.city = aCity
                 this.serviceTypes = tmpServiceTypes
+                console.log('Запросили список')
+            },
+            startSelectCity() {
+                this.$root.currentPopUp='cityList'
             }
         },
         mounted() {
             this.showMap = true
-            this.getServiceList(this.city)
-
+            this.getServiceList(this.$root.city)
+        },
+        watch: {
+            '$root.city': 'getServiceList'
         },
         components: {yandexMap, ymapMarker}
 

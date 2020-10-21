@@ -49,10 +49,14 @@
 
 
         <router-view></router-view>
+        <popUp v-if="$root.currentPopUp"></popUp>
     </div>
 </template>
 
 <script>
+    import popUp from './UI/PopUp.vue'
+
+
     export default {
         methods: {
            logout() {
@@ -60,11 +64,16 @@
                this.$root.userMail=''
                localStorage.removeItem('userName')
                localStorage.removeItem('userData')
-           }
+           },
+
         },
 
         mounted() {
             this.$root.userMail=localStorage.getItem('userName')
+
+        },
+        components: {
+            popUp
         }
     }
 </script>

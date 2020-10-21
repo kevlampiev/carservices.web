@@ -74,7 +74,8 @@ const app = new Vue({
     data: ()=>{
         return {
             userMail: '',
-            city: 'Москва'
+            city: 'Москва',
+            currentPopUp: ''
         }
     },
     router,
