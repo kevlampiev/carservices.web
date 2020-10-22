@@ -9,26 +9,11 @@ use Illuminate\Http\Request;
 class ServicesController extends Controller
 {
     public function index() {
-        $services = CarServices::query()->get();
-        foreach ($services as $service) {
-            return response()->json([
-                'name' => $service->name,
-                'slug' => $service->slug,
-                'address' =>  $service->address,
-                'description' => $service->description,
-                'image' => $service->img_link
-            ]);
-        }
 
+        return response()->json(CarServices::all(), 200);
     }
 
     public function show(CarServices $carServices) {
-        return response()->json([
-            'name' => $carServices->name,
-            'slug' => $carServices->slug,
-            'address' =>  $carServices->address,
-            'description' => $carServices->description,
-            'image' => $carServices->img_link
-        ]);
+        return response()->json(CarServices::query()->where('slug', $carServices), 200);
     }
 }
