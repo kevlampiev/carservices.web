@@ -65,12 +65,12 @@
                localStorage.removeItem('userName')
                localStorage.removeItem('userData')
            },
-
         },
 
         mounted() {
             this.$root.userMail=localStorage.getItem('userName')
-
+            let tmpCity=localStorage.getItem('city')
+            this.$root.city=tmpCity?tmpCity:'Москва'
         },
         components: {
             popUp

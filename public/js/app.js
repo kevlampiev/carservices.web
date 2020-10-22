@@ -2091,6 +2091,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$root.userMail = localStorage.getItem('userName');
+    var tmpCity = localStorage.getItem('city');
+    this.$root.city = tmpCity ? tmpCity : 'Москва';
   },
   components: {
     popUp: _UI_PopUp_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2110,6 +2112,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_yandex_maps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-yandex-maps */ "./node_modules/vue-yandex-maps/dist/vue-yandex-maps.esm.js");
 /* harmony import */ var _tmpData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tmpData.js */ "./resources/js/tmpData.js");
+//
+//
+//
+//
 //
 //
 //
@@ -39838,6 +39844,8 @@ var render = function() {
             "ul",
             { staticClass: "nav nav-pills card-header-pills" },
             [
+              _vm._m(0),
+              _vm._v(" "),
               _vm._l(_vm.serviceTypes, function(el, index) {
                 return _c("li", { staticClass: "nav-item" }, [
                   _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
@@ -39846,7 +39854,7 @@ var render = function() {
                 ])
               }),
               _vm._v(" "),
-              _vm._m(0)
+              _vm._m(1)
             ],
             2
           )
@@ -39875,6 +39883,16 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+        _vm._v("Все ")
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -56765,50 +56783,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
-/* harmony import */ var _components_Hello__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Hello */ "./resources/js/components/Hello.vue");
-/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.vue");
-/* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.vue");
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes.js */ "./resources/js/routes.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); //
-// const settings = {
-//     apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
-//     lang: 'ru_RU',
-//     coordorder: 'latlong',
-//     version: '2.1'
-// }
-//
-// import YmapPlugin from 'vue-yandex-maps'
-//
-// Vue.use(YmapPlugin, settings)
-
-
-
-
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  routes: [{
-    path: '/',
-    name: 'home',
-    component: _components_Home__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }, {
-    path: '/hello',
-    name: 'hello',
-    component: _components_Hello__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }, {
-    path: '/register',
-    name: 'register',
-    component: _components_Register__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }, {
-    path: '/login',
-    name: 'login',
-    component: _components_Login__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }]
+  routes: _routes_js__WEBPACK_IMPORTED_MODULE_3__["appRoutes"]
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('passport-clients', __webpack_require__(/*! ./components/passport/Clients.vue */ "./resources/js/components/passport/Clients.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/js/components/passport/AuthorizedClients.vue")["default"]);
@@ -57535,6 +57520,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/routes.js":
+/*!********************************!*\
+  !*** ./resources/js/routes.js ***!
+  \********************************/
+/*! exports provided: appRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appRoutes", function() { return appRoutes; });
+/* harmony import */ var _components_Hello__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Hello */ "./resources/js/components/Hello.vue");
+/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.vue");
+/* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.vue");
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+
+
+
+
+var appRoutes = [{
+  path: '/',
+  name: 'home',
+  component: _components_Home__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: '/hello',
+  name: 'hello',
+  component: _components_Hello__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '/register',
+  name: 'register',
+  component: _components_Register__WEBPACK_IMPORTED_MODULE_2__["default"]
+}, {
+  path: '/login',
+  name: 'login',
+  component: _components_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
+}];
+
+
+/***/ }),
+
 /***/ "./resources/js/tmpData.js":
 /*!*********************************!*\
   !*** ./resources/js/tmpData.js ***!
@@ -57594,8 +57618,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

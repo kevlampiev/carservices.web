@@ -36,6 +36,7 @@ console.log(_tmpData_js__WEBPACK_IMPORTED_MODULE_0__["tmpCities"]);
     },
     setCity: function setCity(aCity) {
       this.$root.city = aCity;
+      localStorage.city = aCity;
       this.$parent.closeWindow();
     }
   },

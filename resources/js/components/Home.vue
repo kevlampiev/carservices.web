@@ -11,6 +11,10 @@
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Все </a>
+                        </li>
+
                         <li class="nav-item" v-for="(el,index) in serviceTypes">
                             <a class="nav-link" href="#">{{el}}</a>
                         </li>

@@ -27,6 +27,7 @@ console.log(tmpCities)
             },
             setCity(aCity) {
                 this.$root.city=aCity
+                localStorage.city=aCity
                 this.$parent.closeWindow()
             }
         },
