@@ -15,7 +15,7 @@ class CreateCarServices extends Migration
     {
         Schema::create('car_services', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->nullable(false)->comment('Название по русски');
+            $table->string('name')->unique()->nullable(false)->comment('Назвамние по русски');
             $table->string('slug')->unique()->nullable('false');
             $table->string('address')->comment('адрес нахождения');
             $table->point('coordinates')->nullable(true)->comment('географические координаты');
