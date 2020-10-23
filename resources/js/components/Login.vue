@@ -25,8 +25,14 @@
                 <input
                     type="password"
                     class="form-control"
+                    v-bind:class="{
+                        'is-invalid': error.passwordInvalid,
+                        'is-valid': error.passwordValid
+                    }"
                     id="inputPassword"
                     v-model="form.password"
+                    v-on:blur="checkPasswword"
+                    v-on:focus="updatePassword"
                 />
             </div>
             <div class="form-group form-check">
@@ -35,7 +41,19 @@
                     >Запомнить меня</label
                 >
             </div>
-            <button type="submit" class="btn btn-primary" @click="enterLogin">
+            <button
+                type="submit"
+                class="btn btn-primary"
+                v-if="!error.emailValid || !error.passwordValid"
+            >
+                Войти
+            </button>
+            <button
+                type="submit"
+                class="btn btn-primary"
+                v-else
+                @click="enterLogin"
+            >
                 Войти
             </button>
             <button
@@ -58,9 +76,11 @@ export default {
                 password: ""
             },
             error: {
-                email: "",
+                // email: "",
                 emailInvalid: false,
-                emailValid: false
+                emailValid: false,
+                passwordInvalid: false,
+                passwordValid: false
             }
         };
     },
@@ -85,9 +105,24 @@ export default {
         },
 
         updateEmail() {
-            this.error.email = "";
+            // this.error.email = "";
             this.error.emailInvalid = false;
             this.error.emailValid = false;
+        },
+
+        checkPasswword() {
+            if (this.form.password != "") {
+                if (this.form.password.length < 8) {
+                    this.error.passwordInvalid = true;
+                } else {
+                    this.error.passwordValid = true;
+                }
+            }
+        },
+
+        updatePassword() {
+            this.error.passwordInvalid = false;
+            this.error.passwordValid = false;
         }
     }
 };
