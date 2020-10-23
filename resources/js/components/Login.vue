@@ -74,14 +74,14 @@ export default {
         },
 
         checkEmail() {
-            let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-            if (reg.test(this.form.email) == false) {
-                // this.error.email = "Введен не корректный email";
-                this.error.emailInvalid = true;
-            } else {
-                this.error.emailValid = true;
+            if (this.form.email != "") {
+                let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                if (reg.test(this.form.email) == false) {
+                    this.error.emailInvalid = true;
+                } else {
+                    this.error.emailValid = true;
+                }
             }
-            // return (this.error.email, this.error.emailInvalid)
         },
 
         updateEmail() {
