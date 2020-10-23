@@ -1,16 +1,105 @@
 <template>
     <div class="row">
-        <div class="col-md-3">
-            <p>This is the homepage</p>
-        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    Ваш город {{$root.city}}? <a href="#" @click.stop="startSelectCity">Изменить</a>
+                </div>
 
-        <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, doloribus eum id inventore
-                nam quibusdam quis saepe similique veniam vitae. Aliquam consequatur eveniet hic iste labore nisi
-                sint totam ut!</p>
-        </div>
+            </div>
 
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Все </a>
+                        </li>
+
+                        <li class="nav-item" v-for="(el,index) in serviceTypes">
+                            <a class="nav-link" href="#">{{el}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input
+                                    class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
+                                    type="search" placeholder="Поиск по названию"
+                                    id="example-search-input">
+                                <span class="input-group-append">
+                                      <div
+                                          class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
+                                          <i class="fa fa-search"></i>
+                                      </div>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="card-body">
+                    <div class="carservice-card" v-for="(serv,index) in services">
+                        <img
+                            :src="serv.photo">
+                        <div>
+                            <h5>{{serv.name}}</h5>
+                            <p>{{serv.address}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+
+            </div>
+        </div>
 
     </div>
 
 </template>
+
+
+<script>
+
+    import {yandexMap, ymapMarker} from 'vue-yandex-maps'
+    import {tmpServices} from '../tmpData.js'
+    import {tmpServiceTypes} from "../tmpData.js";
+
+    export default {
+        data: () => {
+            return {
+                serviceTypes: [],
+                services: [],
+                showMap: false,
+                mapSettings: {
+                    apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
+                    lang: 'ru_RU',
+                    coordorder: 'latlong',
+                    version: '2.1'
+                },
+                coords: [
+                    54.82896654088406,
+                    39.831893822753904,
+                ],
+            }
+        },
+        methods: {
+            getServiceList(aCity) {
+                if (!aCity) aCity=this.$root.city
+                this.services = tmpServices
+                this.serviceTypes = tmpServiceTypes
+                console.log('Запросили список')
+            },
+            startSelectCity() {
+                this.$root.currentPopUp='cityList'
+            }
+        },
+        mounted() {
+            this.showMap = true
+            this.getServiceList(this.$root.city)
+        },
+        watch: {
+            '$root.city': 'getServiceList'
+        },
+        components: {yandexMap, ymapMarker}
+
+    }
+</script>
