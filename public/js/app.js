@@ -2252,11 +2252,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({// computed: {
-  //     getEmail() {
-  //         return this.$root.$children[0].userMail
-  //     }
-  // }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      error: {
+        // email: "",
+        emailInvalid: false,
+        emailValid: false,
+        passwordInvalid: false,
+        passwordValid: false
+      }
+    };
+  },
+  methods: {
+    enterLogin: function enterLogin() {
+      axios.get("/api/login").then(function (res) {
+        return console.log(res.data);
+      });
+    },
+    cancelLogin: function cancelLogin() {
+      this.$router.push("/");
+    },
+    checkEmail: function checkEmail() {
+      if (this.form.email != "") {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(this.form.email) == false) {
+          this.error.emailInvalid = true;
+        } else {
+          this.error.emailValid = true;
+        }
+      }
+    },
+    updateEmail: function updateEmail() {
+      // this.error.email = "";
+      this.error.emailInvalid = false;
+      this.error.emailValid = false;
+    },
+    checkPasswword: function checkPasswword() {
+      if (this.form.password != "") {
+        if (this.form.password.length < 8) {
+          this.error.passwordInvalid = true;
+        } else {
+          this.error.passwordValid = true;
+        }
+      }
+    },
+    updatePassword: function updatePassword() {
+      this.error.passwordInvalid = false;
+      this.error.passwordValid = false;
+    }
+  }
 });
 
 /***/ }),
@@ -39944,79 +40035,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "centered-window" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "inputEmail" } }, [
+          _vm._v("Электронная почта")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.email,
+              expression: "form.email"
+            }
+          ],
+          staticClass: "form-control",
+          class: {
+            "is-invalid": _vm.error.emailInvalid,
+            "is-valid": _vm.error.emailValid
+          },
+          attrs: {
+            type: "email",
+            id: "inputEmail",
+            "aria-describedby": "emailHelp"
+          },
+          domProps: { value: _vm.form.email },
+          on: {
+            blur: _vm.checkEmail,
+            focus: _vm.updateEmail,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "email", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "inputPassword" } }, [_vm._v("Пароль")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.password,
+              expression: "form.password"
+            }
+          ],
+          staticClass: "form-control",
+          class: {
+            "is-invalid": _vm.error.passwordInvalid,
+            "is-valid": _vm.error.passwordValid
+          },
+          attrs: { type: "password", id: "inputPassword" },
+          domProps: { value: _vm.form.password },
+          on: {
+            blur: _vm.checkPasswword,
+            focus: _vm.updatePassword,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "password", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      !_vm.error.emailValid || !_vm.error.passwordValid
+        ? _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n            Войти\n        ")]
+          )
+        : _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "submit" },
+              on: { click: _vm.enterLogin }
+            },
+            [_vm._v("\n            Войти\n        ")]
+          ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { type: "reset" },
+          on: { click: _vm.cancelLogin }
+        },
+        [_vm._v("\n            Отмена\n        ")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "centered-window" }, [
-        _c("div"),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group  " }, [
-          _c("label", { attrs: { for: "inputEmail" } }, [
-            _vm._v("Электронная почта")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              id: "inputEmail",
-              "aria-describedby": "emailHelp"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "small",
-            { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-            [
-              _vm._v(
-                "We'll never share your email with anyone\n                else."
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "inputPassword" } }, [_vm._v("Пароль")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "password", id: "inputPassword" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group form-check" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", id: "Check" }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "Check" } },
-            [_vm._v("Запомнить меня")]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Войти")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-outline-secondary",
-            attrs: { type: "reset" }
-          },
-          [_vm._v("Отмена")]
-        )
-      ])
+    return _c("div", { staticClass: "form-group form-check" }, [
+      _c("input", {
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", id: "Check" }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "form-check-label", attrs: { for: "Check" } },
+        [_vm._v("Запомнить меня")]
+      )
     ])
   }
 ]
@@ -57618,8 +57754,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\My\Programming\OpenServer\domains\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\My\Programming\OpenServer\domains\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
