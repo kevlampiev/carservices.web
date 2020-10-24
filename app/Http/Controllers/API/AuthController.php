@@ -33,21 +33,41 @@ class AuthController extends Controller
 
     public function login()
     {
-        $client = DB::table('oauth_clients')
-            ->where('password_client', true)
-            ->first();
-
-        $data = [
-            'grant_type' => 'password',
-            'client_id' => $client->id,
-            'client_secret' => $client->secret,
-            'username' => request('username'),
-            'password' => request('password'),
-        ];
-
-        $request = Request::create('/oauth/token', 'POST', $data);
-
-        return app()->handle($request);
+//        $client = DB::table('oauth_clients')
+//            ->where('password_client', true)
+//            ->first();
+//
+//        $data = [
+//            'grant_type' => 'password',
+//            'client_id' => $client->id,
+//            'client_secret' => $client->secret,
+//            'username' => request('username'),
+//            'password' => request('password'),
+//        ];
+//
+//        $request = Request::create('/oauth/token', 'POST', $data);
+//
+//        return app()->handle($request);
+        try {
+            $user = User::query()->where('email',request()->post('email'))->first();
+            if (!$user) {
+                return response()->json(['status'=>403,
+                        'error'=>'Пользователь с email '.request()->post('email').' не найден']);
+            };
+            if (Hash::check(request()->post('password'),$user->password)) {
+                $token = $user->createToken('carservices Personal Access Client')->accessToken;
+                return response()->json([
+                    'status' => 201,
+                    'token' => $token,
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 403,
+                    'error' => 'Неверная пара логин + пароль']);
+            }
+        } catch(\Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
 
