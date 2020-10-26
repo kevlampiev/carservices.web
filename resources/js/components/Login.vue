@@ -86,7 +86,27 @@ export default {
     },
     methods: {
         enterLogin() {
-            axios.get("/api/login").then(res => console.log(res.data));
+            axios
+                .post("/api/login", {
+                    email: this.form.email,
+                    password: this.form.password
+                })
+                .then(response => {
+                    this.logining(response);
+                    this.$router.go(-1);
+                })
+                .catch(error => console.log(error));
+        },
+
+        logining(response) {
+            if (!response.data.token) {
+                alert("Поле с токеном отсутствует");
+            } else {
+                localStorage.userData = response.data.token;
+                localStorage.userName = this.form.email;
+                this.$root.userMail = this.form.email;
+            }
+            console.log(response);
         },
 
         cancelLogin() {

@@ -2311,9 +2311,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     enterLogin: function enterLogin() {
-      axios.get("/api/login").then(function (res) {
-        return console.log(res.data);
+      var _this = this;
+
+      axios.post("/api/login", {
+        email: this.form.email,
+        password: this.form.password
+      }).then(function (response) {
+        _this.logining(response);
+
+        _this.$router.go(-1);
+      })["catch"](function (error) {
+        return console.log(error);
       });
+    },
+    logining: function logining(response) {
+      if (!response.data.token) {
+        alert("Поле с токеном отсутствует");
+      } else {
+        localStorage.userData = response.data.token;
+        localStorage.userName = this.form.email;
+        this.$root.userMail = this.form.email;
+      }
+
+      console.log(response);
     },
     cancelLogin: function cancelLogin() {
       this.$router.push("/");
