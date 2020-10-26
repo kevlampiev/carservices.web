@@ -38155,7 +38155,7 @@
                     }
 
                     /**
-                     * Schedules an update. It will run on the next UI update available.
+                     * Schedule an update. It will run on the next UI update available.
                      * @method scheduleUpdate
                      * @memberof Popper
                      */
