@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
-class TypesSeeder extends Seeder
+class TypesSeeder extends Illuminate\Database\Seeder
 {
 
     private $stdTypes = [
