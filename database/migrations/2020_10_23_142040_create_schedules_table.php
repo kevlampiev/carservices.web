@@ -20,7 +20,7 @@ class CreateSchedulesTable extends Migration
             $table->unsignedBigInteger('service_type_id')->nullable(true)->comment('виды оказываемых услуг в это время');
             $table->unsignedBigInteger('order_id')->nullable(true)->comment('какой заказ поступил на это время');
             $table->timestamps();
-            $table->foreign('service_type_id')->references('id')->on('servicetypes');
+            $table->foreign('service_type_id')->references('id')->on('types');
             $table->foreign('order_id')->references('id')->on('orders');
         });
     }

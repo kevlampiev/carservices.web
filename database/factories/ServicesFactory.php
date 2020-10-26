@@ -5,6 +5,7 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\App\Models\Services::class, function (Faker $faker) {
+$factory->define(Service::class, function (Faker $faker) {
     $name = $faker->company;
     return [
         'name' => $name,

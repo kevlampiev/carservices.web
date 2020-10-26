@@ -13,7 +13,7 @@ class CreateServicetypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('servicetypes', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable(false)->comment('Название услуги');
             $table->string('slug')->nullable(false)->unique()->comment('текстовый уникальный идентификатор услуги');
@@ -30,5 +30,6 @@ class CreateServicetypesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('servicetypes');
+        Schema::dropIfExists('types');
     }
 }

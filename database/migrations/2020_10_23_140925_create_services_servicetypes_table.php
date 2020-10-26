@@ -13,13 +13,13 @@ class CreateServicesServicetypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services_servicetypes', function (Blueprint $table) {
+        Schema::create('services_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('service_id')->comment('ссылка на таблицу services_');
-            $table->unsignedBigInteger('service_type_id')->comment('ссылка на таблицу servicetypes');
+            $table->unsignedBigInteger('type_id')->comment('ссылка на таблицу servicetypes');
 
             $table->foreign('service_id')->references('id')->on('services');
-            $table->foreign('service_type_id')->references('id')->on('servicetypes');
+            $table->foreign('type_id')->references('id')->on('types');
             $table->timestamps();
         });
     }
@@ -32,5 +32,6 @@ class CreateServicesServicetypesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('services_servicetypes');
+        Schema::dropIfExists('services_types');
     }
 }
