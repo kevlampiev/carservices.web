@@ -9,7 +9,12 @@ use Illuminate\Http\Request;
 class ServicesController extends Controller
 {
     public function index() {
-
+//        $services = Services::query()
+//            ->where('id', 1)
+//            ->with('carServices')
+//            ->get();
+//        $type = $services->serviceTypes();
+//        dd($type);
         return response()->json(Services::all(), 200);
     }
 
