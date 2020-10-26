@@ -19,7 +19,6 @@ Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
 Route::get('/changeLocation', 'API\ServicesController@index')->name('services');
 Route::get('/changeLocation/{slug}', 'API\ServicesController@show')->name('serviceData');
-Route::get('/users', 'API\UserController@index');
 
 Route::middleware('auth:api')
     ->group(function () {
