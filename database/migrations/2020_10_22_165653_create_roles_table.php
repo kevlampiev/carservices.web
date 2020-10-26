@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesLists extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateServicesLists extends Migration
      */
     public function up()
     {
-        Schema::create('services_lists', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_type_id')->comment('ссылка на таблицу service_types');
-            $table->unsignedBigInteger('car_service_id')->comment('ссылка на таблицу car_services');
+            $table->enum('name', ['user', 'service_owner', 'admin'])->default('user');
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +27,6 @@ class CreateServicesLists extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services_lists');
+        Schema::dropIfExists('roles');
     }
 }

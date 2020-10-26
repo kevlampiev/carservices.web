@@ -3,32 +3,22 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\CarServices;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
 {
     public function index() {
-        $services = CarServices::query()->get();
-        foreach ($services as $service) {
-            return response()->json([
-                'name' => $service->name,
-                'slug' => $service->slug,
-                'address' =>  $service->address,
-                'description' => $service->description,
-                'image' => $service->img_link
-            ]);
-        }
-
+//        $services = Service::query()
+//            ->where('id', 1)
+//            ->with('carServices')
+//            ->get();
+//        $type = $services->serviceTypes();
+//        dd($type);
+        return response()->json(Service::query()->with('types')->get(), 200);
     }
 
-    public function show(CarServices $carServices) {
-        return response()->json([
-            'name' => $carServices->name,
-            'slug' => $carServices->slug,
-            'address' =>  $carServices->address,
-            'description' => $carServices->description,
-            'image' => $carServices->img_link
-        ]);
+    public function show(Service $services) {
+        return response()->json(Service::query()->where('slug', $services), 200);
     }
 }

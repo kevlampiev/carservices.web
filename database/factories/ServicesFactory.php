@@ -5,6 +5,7 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,13 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\App\Models\CarServices::class, function (Faker $faker) {
+$factory->define(Service::class, function (Faker $faker) {
     $name = $faker->company;
     return [
         'name' => $name,
         'slug' => Str::slug($name),
-        'address' => $faker->address,
+        'city' => $faker->city,
+        'address' => $faker->streetAddress,
         'description' => $faker->realText(300),
         'img_link' => $faker->imageUrl(),
     ];

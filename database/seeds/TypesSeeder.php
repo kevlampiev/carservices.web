@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
-class ServiceTypesSeeder extends Seeder
+class TypesSeeder extends Seeder
 {
 
     private $stdTypes = [
@@ -19,7 +20,7 @@ class ServiceTypesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('service_types')->insert($this->getData());
+        DB::table('types')->insert($this->getData());
         //
     }
 

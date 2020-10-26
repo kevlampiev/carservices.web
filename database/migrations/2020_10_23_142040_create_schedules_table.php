@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchedules extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,9 +20,8 @@ class CreateSchedules extends Migration
             $table->unsignedBigInteger('service_type_id')->nullable(true)->comment('виды оказываемых услуг в это время');
             $table->unsignedBigInteger('order_id')->nullable(true)->comment('какой заказ поступил на это время');
             $table->timestamps();
-            $table->foreign('service_type_id')->references('id')->on('service_types');
+            $table->foreign('service_type_id')->references('id')->on('types');
             $table->foreign('order_id')->references('id')->on('orders');
-
         });
     }
 

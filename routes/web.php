@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{param?}', function () {
     return view('index');
 });
+

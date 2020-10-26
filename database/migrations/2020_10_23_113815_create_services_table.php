@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarServices extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCarServices extends Migration
      */
     public function up()
     {
-        Schema::create('car_services', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->nullable(false)->comment('Название по русски');
             $table->string('slug')->unique()->nullable('false');
+            $table->string('city')->comment('город хождения');
             $table->string('address')->comment('адрес нахождения');
             $table->point('coordinates')->nullable(true)->comment('географические координаты');
             $table->text('description')->nullable(true)->comment('описание');
@@ -34,6 +35,6 @@ class CreateCarServices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_services');
+        Schema::dropIfExists('services');
     }
 }
