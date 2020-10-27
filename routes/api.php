@@ -17,11 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
-Route::get('/changeLocation', 'API\ServicesController@index')->name('services');
-Route::get('/changeLocation/{slug}', 'API\ServicesController@show')->name('serviceData');
+Route::get('/services', 'API\ServicesController@index')->name('services');
+Route::get('/services/{slug}', 'API\ServicesController@show')->name('serviceData');
 
 Route::middleware('auth:api')
     ->group(function () {
         Route::post('/logout', 'API\AuthController@logout');
     }
     );
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+//    'middleware' => ['auth', 'is_admin']
+], function() {
+    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
+});
