@@ -3,14 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">s
-    <title>Автосервис</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarService</title>
     <link rel="shortcut icon" href="img/tulip_title.png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <div id="app">
         <header>
@@ -20,29 +19,17 @@
                 <li><a href="#" class="menu-item">О нас</a></li>
                 <li><a href="#" class="menu-item">Виды сервисов</a></li>
                 <li><a href="#" class="menu-item">Запись на сервис</a></li>
-                <li><a href="#" class="menu-item">Город</a></li>
-                <li><a href="#" class="menu-item">Введите название города</a></li>
+                <li><a href="#" class="menu-item">Введите название города</a>
+                <select id="city">
+                    <option>Москва</option>
+                    <option>Новосибирск</option>
+                    <option>Уренгой</option>
+                    <option>Сочи</option>
+                </select>
+                </li>
                 <li><a href="#" class="menu-item">Войти</a></li>
                 <li><a href="#" class="menu-item">Регистрация</a></li>
-               <!-- <ul class="gorod">
-                    <li><a href=#>Город</a>
-                        <ul class="subgorod">
-                            <li><a href=#>город 1</a></li>
-                            <li><a href=#>город 2</a></li>
-                            <li><a href=#>город 3</a></li>
-                        </ul>
-                    </li>-->
-
-                </ul>
-
-
             </ul>
-
-
-                <!--<li><a href="# &lt;!&ndash;img/apple1.jpg&ndash;&gt;" class="menu-item">другие</a></li>-->
-                <!--<li><a href="#" class="menu-item">Купить</a></li>-->
-            </ul>
-
             <filter-el></filter-el>
 
             <!-- <button class="btn-tags">
@@ -66,7 +53,7 @@
             <button class="category-btn">Луковичные</button>
             <button class="category-btn">Кустарники</button>
         </div> -->
-    
+
         <main>
             <error ref="error"></error>
             <products ref="products"></products>
