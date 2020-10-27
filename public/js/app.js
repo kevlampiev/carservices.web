@@ -2172,6 +2172,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2187,7 +2188,8 @@ __webpack_require__.r(__webpack_exports__);
         coordorder: 'latlong',
         version: '2.1'
       },
-      coords: [54.82896654088406, 39.831893822753904]
+      coords: [54.82896654088406, 39.831893822753904],
+      searchStr: ''
     };
   },
   methods: {
@@ -2206,6 +2208,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     startSelectCity: function startSelectCity() {
       this.$root.currentPopUp = 'cityList';
+    }
+  },
+  computed: {
+    filteredServices: function filteredServices() {
+      console.log(this);
+      var sString = this.searchStr;
+      return this.services.filter(function (element) {
+        if (sString === '') return true;else return element.name.indexOf(sString) > -1 || element.address.indexOf(sString) > -1;
+      });
     }
   },
   mounted: function mounted() {
@@ -39953,7 +39964,38 @@ var render = function() {
                 ])
               }),
               _vm._v(" "),
-              _vm._m(1)
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "input-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchStr,
+                        expression: "searchStr"
+                      }
+                    ],
+                    staticClass:
+                      "form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent",
+                    attrs: {
+                      type: "search",
+                      placeholder: "Поиск по названию",
+                      id: "example-search-input"
+                    },
+                    domProps: { value: _vm.searchStr },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchStr = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ])
             ],
             2
           )
@@ -39962,7 +40004,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "card-body" },
-          _vm._l(_vm.services, function(carserv, index) {
+          _vm._l(_vm.filteredServices, function(carserv, index) {
             return _c("div", { staticClass: "carservice-card" }, [
               _c("img", { attrs: { src: carserv.img_link } }),
               _vm._v(" "),
@@ -39998,29 +40040,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("div", { staticClass: "input-group" }, [
-        _c("input", {
+    return _c("span", { staticClass: "input-group-append" }, [
+      _c(
+        "div",
+        {
           staticClass:
-            "form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent",
-          attrs: {
-            type: "search",
-            placeholder: "Поиск по названию",
-            id: "example-search-input"
-          }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "input-group-append" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "input-group-text bg-transparent border-right-0 border-left-0 border-top-0"
-            },
-            [_c("i", { staticClass: "fa fa-search" })]
-          )
-        ])
-      ])
+            "input-group-text bg-transparent border-right-0 border-left-0 border-top-0"
+        },
+        [_c("i", { staticClass: "fa fa-search" })]
+      )
     ])
   }
 ]
