@@ -36,12 +36,13 @@
 
                 </div>
                 <div class="card-body">
-                    <div class="carservice-card" v-for="(serv,index) in services">
+                    <div class="carservice-card" v-for="(carserv,index) in services">
                         <img
-                            :src="serv.photo">
+                            :src="carserv.img_link">
                         <div>
-                            <h5>{{serv.name}}</h5>
-                            <p>{{serv.address}}</p>
+                            <h5>{{carserv.name}}</h5>
+                            <p>{{carserv.city}}</p>
+                            <p>{{carserv.address}}</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +85,12 @@
         methods: {
             getServiceList(aCity) {
                 if (!aCity) aCity=this.$root.city
-                this.services = tmpServices
+                // this.services = tmpServices
+                axios.get('/api/changeLocation',
+                    {city: this.$root.city}
+                ).then(res => {
+                    this.services=res.data
+                })
                 this.serviceTypes = tmpServiceTypes
                 console.log('Запросили список')
             },
