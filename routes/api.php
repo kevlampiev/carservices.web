@@ -17,8 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
-Route::get('/services', 'API\ServicesController@index')->name('services');
-Route::get('/services/{slug}', 'API\ServicesController@show')->name('serviceData');
+
+Route::group([
+    'prefix' => 'services'
+], function() {
+    Route::get('/', 'API\ServicesController@index')->name('services');
+    Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
+    Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
+    Route::get('/{slug}', 'API\ServicesController@show')->name('serviceData');
+});
 
 Route::middleware('auth:api')
     ->group(function () {
@@ -26,11 +33,11 @@ Route::middleware('auth:api')
     }
     );
 
-Route::group([
-    'prefix' => 'admin',
-    'namespace' => 'Admin',
-    'as' => 'admin.',
+//Route::group([
+//    'prefix' => 'admin',
+//    'namespace' => 'Admin',
+//    'as' => 'admin.',
 //    'middleware' => ['auth', 'is_admin']
-], function() {
-    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
-});
+//], function() {
+//    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
+//});
