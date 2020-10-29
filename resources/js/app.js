@@ -42,7 +42,9 @@ const app = new Vue({
         return {
             userMail: '',
             city: 'Москва',
-            currentPopUp: ''
+            cities: [], //Все возможные города
+            types: [], //Все типы автосервисов
+            currentPopUp: ''  //Что вывоится в popUp-window
         }
     },
     router,
