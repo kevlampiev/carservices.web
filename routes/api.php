@@ -19,11 +19,11 @@ Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
 
 Route::group([
-    'prefix' => 'services'
+
 ], function() {
-    Route::get('/', 'API\ServicesController@index')->name('services');
-    Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
-    Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
+    Route::get('/changeLocation', 'API\ServicesController@index')->name('services');
+    Route::get('/cities', 'API\DictionariesController@cityList')->name('city');
+    Route::get('/types', 'API\DictionariesController@typeList')->name('type');
     Route::get('/{slug}', 'API\ServicesController@show')->name('serviceData');
 });
 
@@ -33,11 +33,3 @@ Route::middleware('auth:api')
     }
     );
 
-//Route::group([
-//    'prefix' => 'admin',
-//    'namespace' => 'Admin',
-//    'as' => 'admin.',
-//    'middleware' => ['auth', 'is_admin']
-//], function() {
-//    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
-//});

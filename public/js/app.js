@@ -2089,11 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
       localStorage.removeItem('userData');
     }
   },
-  mounted: function mounted() {
-    this.$root.userMail = localStorage.getItem('userName');
-    var tmpCity = localStorage.getItem('city');
-    this.$root.city = tmpCity ? tmpCity : 'Москва';
-  },
+  mounted: function mounted() {},
   components: {
     popUp: _UI_PopUp_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -2179,7 +2175,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      serviceTypes: [],
       services: [],
       showMap: false,
       mapSettings: {
@@ -2189,22 +2184,21 @@ __webpack_require__.r(__webpack_exports__);
         version: '2.1'
       },
       coords: [54.82896654088406, 39.831893822753904],
-      searchStr: ''
+      searchStr: '',
+      currentType: '*'
     };
   },
   methods: {
     getServiceList: function getServiceList(aCity) {
       var _this = this;
 
-      if (!aCity) aCity = this.$root.city; // this.services = tmpServices
-
+      if (!aCity) aCity = this.$root.city;
       axios.get('/api/changeLocation', {
         city: this.$root.city
       }).then(function (res) {
         _this.services = res.data;
       });
       this.serviceTypes = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServiceTypes"];
-      console.log('Запросили список');
     },
     startSelectCity: function startSelectCity() {
       this.$root.currentPopUp = 'cityList';
@@ -2212,10 +2206,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filteredServices: function filteredServices() {
-      console.log(this);
-      var sString = this.searchStr;
+      var _this2 = this;
+
       return this.services.filter(function (element) {
-        if (sString === '') return true;else return element.name.indexOf(sString) > -1 || element.address.indexOf(sString) > -1;
+        var matchSearch = _this2.searchStr === '' ? true : element.name.indexOf(_this2.searchStr) > -1 || element.address.indexOf(_this2.searchStr) > -1;
+        var matchType = _this2.currentType === '*' ? true : element.types.findIndex(function (el) {
+          return el.name === _this2.currentType;
+        }) > -1;
+        return matchSearch && matchType;
       });
     }
   },
@@ -39974,13 +39972,37 @@ var render = function() {
             "ul",
             { staticClass: "nav nav-pills card-header-pills" },
             [
-              _vm._m(0),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.currentType = "*"
+                      }
+                    }
+                  },
+                  [_vm._v("Все ")]
+                )
+              ]),
               _vm._v(" "),
-              _vm._l(_vm.serviceTypes, function(el, index) {
+              _vm._l(_vm.$root.types, function(el, index) {
                 return _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(el))
-                  ])
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          _vm.currentType = el.name
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(el.name))]
+                  )
                 ])
               }),
               _vm._v(" "),
@@ -40013,7 +40035,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(0)
                 ])
               ])
             ],
@@ -40046,16 +40068,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Все ")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -57002,10 +57014,42 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     return {
       userMail: '',
       city: 'Москва',
-      currentPopUp: ''
+      cities: [],
+      //Все возможные города
+      types: [],
+      //Все типы автосервисов
+      currentPopUp: '' //Что вывоится в popUp-window
+
     };
   },
-  router: router
+  router: router,
+  mounted: function mounted() {
+    this.getCities();
+    this.getTypes();
+    this.userMail = localStorage.getItem('userName');
+    var tmpCity = localStorage.getItem('city');
+    this.city = tmpCity ? tmpCity : 'Москва';
+  },
+  methods: {
+    getCities: function getCities() {
+      var _this = this;
+
+      axios.get('/api/cities').then(function (res) {
+        _this.cities = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
+    },
+    getTypes: function getTypes() {
+      var _this2 = this;
+
+      axios.get('/api/types').then(function (res) {
+        _this2.types = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -57812,8 +57856,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

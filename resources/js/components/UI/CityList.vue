@@ -1,8 +1,8 @@
 <template>
     <div >
         <ul>
-            <li v-for="(el,index) in cities" :key="index" @click="setCity(el.name)">
-                {{el.name}}
+            <li v-for="(el,index) in $root.cities" :key="index" @click="setCity(el.city)">
+                {{el.city}}
             </li>
         </ul>
     </div>
