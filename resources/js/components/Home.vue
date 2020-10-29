@@ -94,7 +94,7 @@
                     this.services = res.data
                 })
                 this.serviceTypes = tmpServiceTypes
-                console.log('Запросили список')
+                // console.log('Запросили список')
             },
             startSelectCity() {
                 this.$root.currentPopUp = 'cityList'
