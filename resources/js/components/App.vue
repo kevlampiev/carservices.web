@@ -14,7 +14,7 @@
                         <router-link :to="{ name: 'home' }">Главная</router-link>
                     </a>
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'hello' }">Что-то еще</router-link>
+                        <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>
                     </a>
                 </div>
             </div>

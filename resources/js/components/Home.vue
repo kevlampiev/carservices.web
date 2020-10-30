@@ -12,11 +12,11 @@
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" @click="currentType='*'">Все </a>
+                            <a class="nav-link" href="#" @click="currentType='*'" v-bind:class="{active: currentType==='*'}">Все </a>
                         </li>
 
                         <li class="nav-item" v-for="(el,index) in $root.types">
-                            <a class="nav-link" href="#"  @click="currentType=el.name">{{el.name}}</a>
+                            <a class="nav-link" href="#"  @click="currentType=el.name" v-bind:class="{active: el.name==currentType}">{{el.name}}</a>
                         </li>
                         <li class="nav-item">
                             <div class="input-group">
@@ -87,7 +87,7 @@
         methods: {
             getServiceList(aCity) {
                 if (!aCity) aCity = this.$root.city
-                axios.get('/api/changeLocation',
+                axios.get('/api/changeLocation?city='+aCity,
                     {city: this.$root.city}
                 ).then(res => {
                     this.services = res.data

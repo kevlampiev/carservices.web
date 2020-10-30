@@ -2193,7 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (!aCity) aCity = this.$root.city;
-      axios.get('/api/changeLocation', {
+      axios.get('/api/changeLocation?city=' + aCity, {
         city: this.$root.city
       }).then(function (res) {
         _this.services = res.data;
@@ -39799,7 +39799,7 @@ var render = function() {
                   { staticClass: "nav-item nav-link", attrs: { href: "#" } },
                   [
                     _c("router-link", { attrs: { to: { name: "hello" } } }, [
-                      _vm._v("Что-то еще")
+                      _vm._v("Раздел хозяина")
                     ])
                   ],
                   1
@@ -39977,6 +39977,7 @@ var render = function() {
                   "a",
                   {
                     staticClass: "nav-link",
+                    class: { active: _vm.currentType === "*" },
                     attrs: { href: "#" },
                     on: {
                       click: function($event) {
@@ -39994,6 +39995,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "nav-link",
+                      class: { active: el.name == _vm.currentType },
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
@@ -57856,8 +57858,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

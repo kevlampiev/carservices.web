@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 class ServicesController extends Controller
 {
     public function index() {
-        return response()->json(Service::query()->with('types')->get(), 200,[],JSON_UNESCAPED_UNICODE);
+        $city=request()->get('city');
+        return response()->json(Service::query()
+            ->where('city',$city)
+            ->with('types')->get(),
+            200,[],JSON_UNESCAPED_UNICODE);
     }
 
     public function show(Service $services) {
