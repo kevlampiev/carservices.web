@@ -10,26 +10,15 @@ use Illuminate\Http\Request;
 class ServicesController extends Controller
 {
     public function index() {
-        return response()->json(Service::query()->with('types')->get(), 200);
+        $city=request()->get('city');
+        return response()->json(Service::query()
+            ->where('city',$city)
+            ->with('types')->get(),
+            200,[],JSON_UNESCAPED_UNICODE);
     }
 
     public function show(Service $services) {
-        return response()->json(Service::query()->where('slug', $services), 200);
+        return response()->json(Service::query()->where('slug', $services), 200,[],JSON_UNESCAPED_UNICODE);
     }
 
-//    public function getByCity(Request $request) {
-//        $city = $request->city;
-//        $services = Service::query()
-//            ->where('city', $city)
-//            ->get();
-//        return response()->json($services);
-//    }
-
-    public function cityList() {
-        return response()->json(Service::query()->select('city')->get());
-    }
-
-    public function typeList() {
-        return response()->json(Type::query()->select('name')->get());
-    }
 }

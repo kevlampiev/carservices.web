@@ -14,7 +14,7 @@
                         <router-link :to="{ name: 'home' }">Главная</router-link>
                     </a>
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'hello' }">Что-то еще</router-link>
+                        <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>
                     </a>
                 </div>
             </div>
@@ -65,39 +65,9 @@
                localStorage.removeItem('userName')
                localStorage.removeItem('userData')
            },
-            getCities() {
-               axios.get('/api/city')
-                   .then( res=>{
-                       this.cities=res.data
-                       //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-                   })
-                   .catch(
-                       err=>{
-                           console.log(err.message)
-                           //TODO Прорисовать красивый вывод ошибки
-                       }
-                   )
-            },
-
-            getTypes() {
-                axios.get('/api/type')
-                    .then( res=>{
-                        this.types=res.data
-                        //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-                    })
-                    .catch(
-                        err=>{
-                            console.log(err.message)
-                            //TODO Прорисовать красивый вывод ошибки
-                        }
-                    )
-            }
-        },
+                   },
 
         mounted() {
-            this.$root.userMail=localStorage.getItem('userName')
-            let tmpCity=localStorage.getItem('city')
-            this.$root.city=tmpCity?tmpCity:'Москва'
         },
         components: {
             popUp
