@@ -17,9 +17,11 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->date('work_day')->nullable(false)->comment('дата работы');
             $table->float('work_time', 4, 2)->unsigned()->default(9)->comment('Время приема');
+            $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('service_type_id')->nullable(true)->comment('виды оказываемых услуг в это время');
             $table->unsignedBigInteger('order_id')->nullable(true)->comment('какой заказ поступил на это время');
             $table->timestamps();
+            $table->foreign('service_id')->references('id')->on('services');
             $table->foreign('service_type_id')->references('id')->on('types');
             $table->foreign('order_id')->references('id')->on('orders');
         });
