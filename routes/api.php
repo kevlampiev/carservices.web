@@ -24,8 +24,10 @@ Route::group([
     Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
     Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
-    Route::get('/{slug}', 'API\ServicesController@show')->name('serviceData');
+    Route::get('/{service}', 'API\ServicesController@show')->name('serviceData');
+    Route::post('/{service}', 'API\ServicesController@setSchedule')->name('storeOrder');
 });
+
 
 Route::middleware('auth:api')
     ->group(function () {
