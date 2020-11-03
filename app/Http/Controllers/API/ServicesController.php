@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class ServicesController extends Controller
 {
     public function index() {
-        return response()->json(Service::query()->with('types')->get(), 200);
+        $city=request()->get('city');
+        return response()->json(Service::query()
+            ->where('city',$city)
+            ->with('types')->get(),
+            200,[],JSON_UNESCAPED_UNICODE);
     }
+
 
     public function show(Service $service) {
         $selected = Service::query()->where('id', $service->id)->with('schedules')->with('types')->get();
@@ -51,4 +56,5 @@ class ServicesController extends Controller
     public function typeList() {
         return response()->json(Type::query()->select('name')->get());
     }
+
 }

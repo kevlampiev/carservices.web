@@ -48,6 +48,44 @@ const app = new Vue({
         }
     },
     router,
+    mounted() {
+        this.getCities()
+        this.getTypes()
+        this.userMail=localStorage.getItem('userName')
+        let tmpCity=localStorage.getItem('city')
+        this.city=tmpCity?tmpCity:'Москва'
+
+    },
+    methods: {
+        getCities() {
+            axios.get('/api/cities')
+                .then( res=>{
+                    this.cities=res.data
+                    //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+                })
+                .catch(
+                    err=>{
+                        console.log(err.message)
+                        //TODO Прорисовать красивый вывод ошибки
+                    }
+                )
+        },
+
+        getTypes() {
+            axios.get('/api/types')
+                .then( res=>{
+                    this.types=res.data
+                    //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+                })
+                .catch(
+                    err=>{
+                        console.log(err.message)
+                        //TODO Прорисовать красивый вывод ошибки
+                    }
+                )
+        }
+
+    }
 });
 
 

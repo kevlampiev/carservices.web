@@ -65,18 +65,18 @@ var render = function() {
   return _c("div", [
     _c(
       "ul",
-      _vm._l(_vm.cities, function(el, index) {
+      _vm._l(_vm.$root.cities, function(el, index) {
         return _c(
           "li",
           {
             key: index,
             on: {
               click: function($event) {
-                return _vm.setCity(el.name)
+                return _vm.setCity(el.city)
               }
             }
           },
-          [_vm._v("\n            " + _vm._s(el.name) + "\n        ")]
+          [_vm._v("\n            " + _vm._s(el.city) + "\n        ")]
         )
       }),
       0
