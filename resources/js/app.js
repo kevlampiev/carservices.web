@@ -26,21 +26,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: appRoutes,
 });
-//
-// Vue.component(
-//     'passport-clients',
-//     require('./components/passport/Clients.vue').default
-// );
-//
-// Vue.component(
-//     'passport-authorized-clients',
-//     require('./components/passport/AuthorizedClients.vue').default
-// );
-//
-// Vue.component(
-//     'passport-personal-access-tokens',
-//     require('./components/passport/PersonalAccessTokens.vue').default
-// );
+
 
 const app = new Vue({
     el: '#app',
@@ -51,9 +37,6 @@ const app = new Vue({
     data: ()=>{
         return {
             userMail: '',
-            // city: 'Москва',
-            // cities: [], //Все возможные города
-            // types: [], //Все типы автосервисов
             currentPopUp: ''  //Что вывоится в popUp-window
         }
     },

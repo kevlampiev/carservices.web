@@ -2,7 +2,8 @@ export default {
     state: {
         city: 'Москва',
         cities: [],
-        types: []
+        types: [],
+        userMail: ''
 
     },
 
@@ -36,6 +37,12 @@ export default {
                 )
         },
 
+        //Для перовнаальной загрузки сохраненного userMail
+        loadUserMail(context) {
+            let userMail=localStorage.userMail
+            context.commit('setUserMail', userMail)
+        }
+
     },
 
     mutations: {
@@ -52,6 +59,17 @@ export default {
 
         setTypes(state, types) {
             state.types=types
+        },
+
+        //Если пустой userMail-это logout, чистим localStorage
+        setUserMail(state, userMail) {
+            state.userMail=userMail
+            if (userMail&&userMail!=='') {
+                localStorage.userMail=userMail
+            } else {
+                localStorage.removeItem('userName')
+                localStorage.removeItem('userData')
+            }
         }
     }
 }
