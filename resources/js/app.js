@@ -20,6 +20,10 @@ const store = new Vuex.Store(
     storeData
 )
 
+//VUELIDATE
+import Vuelidate from "vuelidate"
+Vue.use(Vuelidate)
+
 
 
 const router = new VueRouter({
@@ -49,6 +53,5 @@ const app = new Vue({
         this.$store.commit('setCity',tmpCity || 'Москва')
 
     },
+
 });
-
-

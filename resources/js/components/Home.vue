@@ -15,6 +15,7 @@
                             <a class="nav-link" href="#" @click="currentType='*'" v-bind:class="{active: currentType==='*'}">Все </a>
                         </li>
 
+
                         <li class="nav-item" v-for="(el,index) in $store.state.types">
                             <a class="nav-link" href="#"  @click="currentType=el.name" v-bind:class="{active: el.name==currentType}">{{el.name}}</a>
                         </li>
@@ -88,7 +89,6 @@
             getServiceList(aCity) {
                 if (!aCity) aCity = this.$store.state.city
                 axios.get('/api/services?city='+aCity,
-                    // {city: this.$store.state.city}
                 ).then(res => {
                     this.services = res.data
                 })

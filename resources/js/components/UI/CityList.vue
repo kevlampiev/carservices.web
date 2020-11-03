@@ -36,6 +36,5 @@ export default {
         mounted() {
             // this.cities=this.getCitiesList()
         }
-
     }
 </script>

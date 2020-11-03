@@ -17,6 +17,7 @@ Route::get('/{param?}', function () {
     return view('index');
 });
 
+
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
