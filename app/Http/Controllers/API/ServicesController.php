@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Schedule;
 use App\Models\Service;
 use App\Models\Type;
 use App\Models\Order;
@@ -20,27 +21,27 @@ class ServicesController extends Controller
         return response()->json($selected, 200);
     }
 
-    public function storeOrder(Request $request) {
-        $data = [
+
+    public function setSchedule(Request $request) {
+        $dataOrder = [
             'user_id' => Auth::id(),
             'car_model' => $request->car_model,
             'license_plate_number' => $request->license_plate_number,
             'description' => $request->description,
             'order_status' => 'in_waiting'
         ];
-        $order = Order::query()->firstOrCreate($data);
-        return $order->id;
-    }
 
-    public function setSchedule(Request $request) {
-        $schedule = [
+        $order = Order::query()->firstOrCreate($dataOrder);
+        $scheduleData = [
             'work_day' => $request->work_day,
             'work_time' => $request->work_time,
             'service_id' => $request->service_id,
             'service_type_id' => $request->service_type_id,
-            'order_id' => $this->storeOrder($request)
+            'order_id' => $order->id
         ];
-        return response()->json($schedule);
+
+        $schedule = Schedule::query()->firstOrCreate($scheduleData);
+        return response()->json(['message' => 'Запись добавлена в базу']);
     }
 
     public function cityList() {
