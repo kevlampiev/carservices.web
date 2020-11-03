@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <ul class="nav justify-content-end" v-if="!$root.userMail||$root.userMail===''">
+            <ul class="nav justify-content-end" v-if="!$store.state.userMail||$store.state.userMail===''">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
@@ -35,7 +35,7 @@
             <ul class="nav justify-content-end" v-else>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'register' }">{{$root.userMail}}</router-link>
+                        <router-link :to="{ name: 'register' }">{{$store.state.userMail}}</router-link>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -61,9 +61,8 @@
         methods: {
            logout() {
                //Потрясающей глубины метод
-               this.$root.userMail=''
-               localStorage.removeItem('userName')
-               localStorage.removeItem('userData')
+
+               this.$store.commit('setUserMail','')
            },
                    },
 

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    Ваш город {{$root.city}}? <a href="#" @click.stop="startSelectCity">Изменить</a>
+                    Ваш город {{$store.state.city}}? <a href="#" @click.stop="startSelectCity">Изменить</a>
                 </div>
 
             </div>
@@ -15,7 +15,8 @@
                             <a class="nav-link" href="#" @click="currentType='*'" v-bind:class="{active: currentType==='*'}">Все </a>
                         </li>
 
-                        <li class="nav-item" v-for="(el,index) in $root.types">
+
+                        <li class="nav-item" v-for="(el,index) in $store.state.types">
                             <a class="nav-link" href="#"  @click="currentType=el.name" v-bind:class="{active: el.name==currentType}">{{el.name}}</a>
                         </li>
                         <li class="nav-item">
@@ -86,9 +87,8 @@
         },
         methods: {
             getServiceList(aCity) {
-                if (!aCity) aCity = this.$root.city
-                axios.get('/api/changeLocation?city='+aCity,
-                    {city: this.$root.city}
+                if (!aCity) aCity = this.$store.state.city
+                axios.get('/api/services?city='+aCity,
                 ).then(res => {
                     this.services = res.data
                 })
@@ -110,10 +110,10 @@
         },
         mounted() {
             this.showMap = true
-            this.getServiceList(this.$root.city)
+            this.getServiceList(this.$store.state.city)
         },
         watch: {
-            '$root.city': 'getServiceList'
+            '$store.state.city': 'getServiceList'
         },
         components: {yandexMap, ymapMarker}
 
