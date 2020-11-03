@@ -2087,31 +2087,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$root.userMail = '';
       localStorage.removeItem('userName');
       localStorage.removeItem('userData');
-    },
-    getCities: function getCities() {
-      var _this = this;
-
-      axios.get('/api/city').then(function (res) {
-        _this.cities = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-      })["catch"](function (err) {
-        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
-      });
-    },
-    getTypes: function getTypes() {
-      var _this2 = this;
-
-      axios.get('/api/type').then(function (res) {
-        _this2.types = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-      })["catch"](function (err) {
-        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
-      });
     }
   },
-  mounted: function mounted() {
-    this.$root.userMail = localStorage.getItem('userName');
-    var tmpCity = localStorage.getItem('city');
-    this.$root.city = tmpCity ? tmpCity : 'Москва';
-  },
+  mounted: function mounted() {},
   components: {
     popUp: _UI_PopUp_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -2197,7 +2175,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      serviceTypes: [],
       services: [],
       showMap: false,
       mapSettings: {
@@ -2207,21 +2184,21 @@ __webpack_require__.r(__webpack_exports__);
         version: '2.1'
       },
       coords: [54.82896654088406, 39.831893822753904],
-      searchStr: ''
+      searchStr: '',
+      currentType: '*'
     };
   },
   methods: {
     getServiceList: function getServiceList(aCity) {
       var _this = this;
 
-      if (!aCity) aCity = this.$root.city; // this.services = tmpServices
-
-      axios.get('/api/changeLocation', {
+      if (!aCity) aCity = this.$root.city;
+      axios.get('/api/changeLocation?city=' + aCity, {
         city: this.$root.city
       }).then(function (res) {
         _this.services = res.data;
       });
-      this.serviceTypes = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServiceTypes"]; // console.log('Запросили список')
+      this.serviceTypes = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServiceTypes"];
     },
     startSelectCity: function startSelectCity() {
       this.$root.currentPopUp = 'cityList';
@@ -2229,10 +2206,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filteredServices: function filteredServices() {
-      console.log(this);
-      var sString = this.searchStr;
+      var _this2 = this;
+
       return this.services.filter(function (element) {
-        if (sString === '') return true;else return element.name.indexOf(sString) > -1 || element.address.indexOf(sString) > -1;
+        var matchSearch = _this2.searchStr === '' ? true : element.name.indexOf(_this2.searchStr) > -1 || element.address.indexOf(_this2.searchStr) > -1;
+        var matchType = _this2.currentType === '*' ? true : element.types.findIndex(function (el) {
+          return el.name === _this2.currentType;
+        }) > -1;
+        return matchSearch && matchType;
       });
     }
   },
@@ -2260,8 +2241,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2329,12 +2310,12 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(8)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(8)
       }
     }
   },
@@ -2391,8 +2372,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2489,20 +2470,20 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(1)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(8)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(8)
       },
       repeatPasword: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        sameAsPassword: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])("password")
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        sameAsPassword: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["sameAs"])("password")
       }
     }
   },
@@ -39919,7 +39900,7 @@ var render = function() {
                   { staticClass: "nav-item nav-link", attrs: { href: "#" } },
                   [
                     _c("router-link", { attrs: { to: { name: "hello" } } }, [
-                      _vm._v("Что-то еще")
+                      _vm._v("Раздел хозяина")
                     ])
                   ],
                   1
@@ -40092,13 +40073,39 @@ var render = function() {
             "ul",
             { staticClass: "nav nav-pills card-header-pills" },
             [
-              _vm._m(0),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    class: { active: _vm.currentType === "*" },
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.currentType = "*"
+                      }
+                    }
+                  },
+                  [_vm._v("Все ")]
+                )
+              ]),
               _vm._v(" "),
-              _vm._l(_vm.serviceTypes, function(el, index) {
+              _vm._l(_vm.$root.types, function(el, index) {
                 return _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(el))
-                  ])
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link",
+                      class: { active: el.name == _vm.currentType },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          _vm.currentType = el.name
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(el.name))]
+                  )
                 ])
               }),
               _vm._v(" "),
@@ -40131,7 +40138,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(0)
                 ])
               ])
             ],
@@ -40164,16 +40171,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Все ")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -59035,7 +59032,34 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
     };
   },
-  router: router
+  router: router,
+  mounted: function mounted() {
+    this.getCities();
+    this.getTypes();
+    this.userMail = localStorage.getItem('userName');
+    var tmpCity = localStorage.getItem('city');
+    this.city = tmpCity ? tmpCity : 'Москва';
+  },
+  methods: {
+    getCities: function getCities() {
+      var _this = this;
+
+      axios.get('/api/cities').then(function (res) {
+        _this.cities = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
+    },
+    getTypes: function getTypes() {
+      var _this2 = this;
+
+      axios.get('/api/types').then(function (res) {
+        _this2.types = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
+    }
+  }
 });
 
 /***/ }),
