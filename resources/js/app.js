@@ -49,7 +49,6 @@ const app = new Vue({
         this.$store.commit('setCity',tmpCity || 'Москва')
 
     },
-
 });
 
 
