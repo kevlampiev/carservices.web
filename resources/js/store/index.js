@@ -8,7 +8,7 @@ export default {
 
     actions: {
         getCities(context) {
-            axios.get('/api/cities')
+            axios.get('/api/services/city')
                 .then( res=>{
                     // this.cities=res.data
                     context.commit("setCities",res.data)
@@ -23,7 +23,7 @@ export default {
         },
 
         getTypes(context) {
-            axios.get('/api/types')
+            axios.get('/api/services/type')
                 .then( res=>{
                     context.commit('setTypes', res.data)
                     //TODO Может придти и обюработанная ошибка. Прописать этот вариант

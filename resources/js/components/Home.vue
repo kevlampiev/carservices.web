@@ -87,8 +87,8 @@
         methods: {
             getServiceList(aCity) {
                 if (!aCity) aCity = this.$store.state.city
-                axios.get('/api/changeLocation?city='+aCity,
-                    {city: this.$store.state.city}
+                axios.get('/api/services?city='+aCity,
+                    // {city: this.$store.state.city}
                 ).then(res => {
                     this.services = res.data
                 })

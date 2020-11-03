@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ServicesController extends Controller
 {
     public function index() {
-        $city=request()->get('city');
+        $city=urldecode(request()->get('city'));
         return response()->json(Service::query()
             ->where('city',$city)
             ->with('types')->get(),
@@ -21,4 +21,11 @@ class ServicesController extends Controller
         return response()->json(Service::query()->where('slug', $services), 200,[],JSON_UNESCAPED_UNICODE);
     }
 
+    public function cityList() {
+        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(),200,[],JSON_UNESCAPED_UNICODE);
+    }
+
+    public function typeList() {
+        return response()->json(Type::query()->select('name')->get(), 200,[],JSON_UNESCAPED_UNICODE);
+    }
 }

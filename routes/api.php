@@ -21,12 +21,11 @@ Route::post('/login', 'API\AuthController@login');
 Route::group([
     'prefix' => 'services'
 ], function() {
-    Route::get('?city={city}', 'API\ServicesController@index')->name('services');
+    Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
     Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
     Route::get('/{slug}', 'API\ServicesController@show')->name('serviceData');
 });
-
 
 Route::middleware('auth:api')
     ->group(function () {
