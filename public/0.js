@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tmpData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tmpData.js */ "./resources/js/tmpData.js");
+/* harmony import */ var _tmpData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tmpData */ "./resources/js/tmpData.js");
 //
 //
 //
@@ -22,26 +22,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//import {tmpCities} from '../../tmpData.js'
+//console.log(tmpCities)
 
-console.log(_tmpData_js__WEBPACK_IMPORTED_MODULE_0__["tmpCities"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      cities: []
-    };
-  },
+  // data: () => {
+  //     // return {
+  //     //     cities: [],
+  //     // }
+  // },
+  props: ['close'],
   methods: {
-    getCitiesList: function getCitiesList() {
-      return _tmpData_js__WEBPACK_IMPORTED_MODULE_0__["tmpCities"];
-    },
+    // getCitiesList() {
+    //     return this.$root.cities
+    // },
     setCity: function setCity(aCity) {
-      this.$root.city = aCity;
-      localStorage.city = aCity;
-      this.$parent.closeWindow();
+      this.$store.commit('setCity', aCity);
+      this.close();
     }
   },
-  mounted: function mounted() {
-    this.cities = this.getCitiesList();
+  mounted: function mounted() {// this.cities=this.getCitiesList()
   }
 });
 
@@ -65,7 +65,7 @@ var render = function() {
   return _c("div", [
     _c(
       "ul",
-      _vm._l(_vm.$root.cities, function(el, index) {
+      _vm._l(_vm.$store.state.cities, function(el, index) {
         return _c(
           "li",
           {

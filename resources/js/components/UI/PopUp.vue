@@ -3,7 +3,7 @@
         <div @click="closeWindow">
             Закрыть
         </div>
-        <component :is="$root.currentPopUp"></component>
+        <component :is="$root.currentPopUp" :close="closeWindow"></component>
 
     </div>
 </template>
