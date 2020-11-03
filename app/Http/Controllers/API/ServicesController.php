@@ -17,4 +17,19 @@ class ServicesController extends Controller
         return response()->json(Service::query()->where('slug', $services), 200);
     }
 
+//    public function getByCity(Request $request) {
+//        $city = $request->city;
+//        $services = Service::query()
+//            ->where('city', $city)
+//            ->get();
+//        return response()->json($services);
+//    }
+
+    public function cityList() {
+        return response()->json(Service::query()->select('city')->get());
+    }
+
+    public function typeList() {
+        return response()->json(Type::query()->select('name')->get());
+    }
 }

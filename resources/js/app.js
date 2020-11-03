@@ -38,10 +38,13 @@ const app = new Vue({
     components: { App },
     data: () => {
         return {
-            userMail: "",
-            city: "Москва",
-            currentPopUp: ""
-        };
+            userMail: '',
+            city: 'Москва',
+            cities: [], //Все возможные города
+            types: [], //Все типы автосервисов
+            currentPopUp: ''  //Что вывоится в popUp-window
+        }
     },
     router
 });
+

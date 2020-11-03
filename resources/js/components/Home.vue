@@ -23,7 +23,8 @@
                                 <input
                                     class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
                                     type="search" placeholder="Поиск по названию"
-                                    id="example-search-input">
+                                    id="example-search-input"
+                                    v-model="searchStr">
                                 <span class="input-group-append">
                                       <div
                                           class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
@@ -36,12 +37,13 @@
 
                 </div>
                 <div class="card-body">
-                    <div class="carservice-card" v-for="(serv,index) in services">
+                    <div class="carservice-card" v-for="(carserv,index) in filteredServices">
                         <img
-                            :src="serv.photo">
+                            :src="carserv.img_link">
                         <div>
-                            <h5>{{serv.name}}</h5>
-                            <p>{{serv.address}}</p>
+                            <h5>{{carserv.name}}</h5>
+                            <p>{{carserv.city}}</p>
+                            <p>{{carserv.address}}</p>
                         </div>
                     </div>
                 </div>
@@ -79,18 +81,35 @@
                     54.82896654088406,
                     39.831893822753904,
                 ],
+                searchStr: '',
             }
         },
         methods: {
             getServiceList(aCity) {
-                if (!aCity) aCity=this.$root.city
-                this.services = tmpServices
+                if (!aCity) aCity = this.$root.city
+                // this.services = tmpServices
+                axios.get('/api/changeLocation',
+                    {city: this.$root.city}
+                ).then(res => {
+                    this.services = res.data
+                })
                 this.serviceTypes = tmpServiceTypes
-                console.log('Запросили список')
+                // console.log('Запросили список')
             },
             startSelectCity() {
-                this.$root.currentPopUp='cityList'
+                this.$root.currentPopUp = 'cityList'
             }
+        },
+        computed: {
+            filteredServices: function() {
+                console.log(this)
+                let sString=this.searchStr
+                return this.services.filter(
+                    (element)=>{
+                    if(sString==='') return true
+                        else return (element.name.indexOf(sString)>-1)||(element.address.indexOf(sString)>-1)
+                })
+            },
         },
         mounted() {
             this.showMap = true

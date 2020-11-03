@@ -2087,6 +2087,24 @@ __webpack_require__.r(__webpack_exports__);
       this.$root.userMail = '';
       localStorage.removeItem('userName');
       localStorage.removeItem('userData');
+    },
+    getCities: function getCities() {
+      var _this = this;
+
+      axios.get('/api/city').then(function (res) {
+        _this.cities = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
+    },
+    getTypes: function getTypes() {
+      var _this2 = this;
+
+      axios.get('/api/type').then(function (res) {
+        _this2.types = res.data; //TODO Может придти и обюработанная ошибка. Прописать этот вариант
+      })["catch"](function (err) {
+        console.log(err.message); //TODO Прорисовать красивый вывод ошибки
+      });
     }
   },
   mounted: function mounted() {
@@ -2171,6 +2189,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2186,18 +2206,34 @@ __webpack_require__.r(__webpack_exports__);
         coordorder: 'latlong',
         version: '2.1'
       },
-      coords: [54.82896654088406, 39.831893822753904]
+      coords: [54.82896654088406, 39.831893822753904],
+      searchStr: ''
     };
   },
   methods: {
     getServiceList: function getServiceList(aCity) {
-      if (!aCity) aCity = this.$root.city;
-      this.services = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServices"];
-      this.serviceTypes = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServiceTypes"];
-      console.log('Запросили список');
+      var _this = this;
+
+      if (!aCity) aCity = this.$root.city; // this.services = tmpServices
+
+      axios.get('/api/changeLocation', {
+        city: this.$root.city
+      }).then(function (res) {
+        _this.services = res.data;
+      });
+      this.serviceTypes = _tmpData_js__WEBPACK_IMPORTED_MODULE_1__["tmpServiceTypes"]; // console.log('Запросили список')
     },
     startSelectCity: function startSelectCity() {
       this.$root.currentPopUp = 'cityList';
+    }
+  },
+  computed: {
+    filteredServices: function filteredServices() {
+      console.log(this);
+      var sString = this.searchStr;
+      return this.services.filter(function (element) {
+        if (sString === '') return true;else return element.name.indexOf(sString) > -1 || element.address.indexOf(sString) > -1;
+      });
     }
   },
   mounted: function mounted() {
@@ -2224,8 +2260,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2293,12 +2329,12 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(8)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(8)
       }
     }
   },
@@ -2355,8 +2391,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2453,20 +2489,20 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(1)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(1)
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(8)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(8)
       },
       repeatPasword: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-        sameAsPassword: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["sameAs"])("password")
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        sameAsPassword: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])("password")
       }
     }
   },
@@ -7851,7 +7887,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content-my[data-v-6bdc8b8e] {\r\n    position: relative;\r\n    background-color: #fff;\r\n    -webkit-background-clip: padding-box;\r\n    background-clip: padding-box;\r\n    border: 1px solid #999;\r\n    border: 1px solid rgba(0, 0, 0, 0.2);\r\n    border-radius: 6px;\r\n    outline: 0;\r\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-6bdc8b8e] {\r\n    min-height: 16.43px;\r\n    padding: 15px;\r\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-6bdc8b8e] {\r\n    margin-top: -2px;\n}\n.modal-title-my[data-v-6bdc8b8e] {\r\n    margin: 0;\r\n    line-height: 1.42857143;\n}\n.close[data-v-6bdc8b8e] {\r\n    float: right;\r\n    font-size: 21px;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    color: #000;\r\n    text-shadow: 0 1px 0 #fff;\r\n    filter: alpha(opacity=20);\r\n    opacity: 0.2;\n}\nh4[data-v-6bdc8b8e] {\r\n    font-size: 18px;\n}\n.modal-body[data-v-6bdc8b8e] {\r\n    position: relative;\r\n    padding: 15px;\n}\ninput[type=\"email\"][data-v-6bdc8b8e],\r\ninput[type=\"password\"][data-v-6bdc8b8e] {\r\n    border-radius: 3px;\r\n    border: none;\r\n    color: #333333;\r\n    font-size: 16px;\r\n    height: 46px;\r\n    margin-bottom: 5px;\r\n    padding: 13px 12px;\r\n    width: 100%;\n}\n.form-control[data-v-6bdc8b8e] {\r\n    border-radius: 3px;\r\n    background-color: rgba(0, 0, 0, 0.09);\r\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\r\n    color: #333333;\n}\n.form-control[data-v-6bdc8b8e]:hover {\r\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-6bdc8b8e]:focus {\r\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\r\n    background-color: rgba(0, 0, 0, 0.23);\r\n    color: #333333;\n}\n.btn-login[data-v-6bdc8b8e] {\r\n    background-color: #00bbff;\r\n    border-color: #00bbff;\r\n    border-width: 0;\r\n    color: #ffffff;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding: 15px 50px;\r\n    text-transform: uppercase;\r\n    width: 100%;\r\n    height: 46px;\n}\n.btn-login[data-v-6bdc8b8e]:hover {\r\n    background-color: #00a4e4;\r\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-6bdc8b8e] {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 300px;\r\n    /* width: 350px; */\n}\r\n/* @media (max-width: 400px) {\r\n  .modal-dialog {\r\n    width: 100%;\r\n  } */\r\n", ""]);
+exports.push([module.i, "\n.modal-content-my[data-v-6bdc8b8e] {\n    position: relative;\n    background-color: #fff;\n    -webkit-background-clip: padding-box;\n    background-clip: padding-box;\n    border: 1px solid #999;\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 6px;\n    outline: 0;\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-6bdc8b8e] {\n    min-height: 16.43px;\n    padding: 15px;\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-6bdc8b8e] {\n    margin-top: -2px;\n}\n.modal-title-my[data-v-6bdc8b8e] {\n    margin: 0;\n    line-height: 1.42857143;\n}\n.close[data-v-6bdc8b8e] {\n    float: right;\n    font-size: 21px;\n    font-weight: 700;\n    line-height: 1;\n    color: #000;\n    text-shadow: 0 1px 0 #fff;\n    filter: alpha(opacity=20);\n    opacity: 0.2;\n}\nh4[data-v-6bdc8b8e] {\n    font-size: 18px;\n}\n.modal-body[data-v-6bdc8b8e] {\n    position: relative;\n    padding: 15px;\n}\ninput[type=\"email\"][data-v-6bdc8b8e],\ninput[type=\"password\"][data-v-6bdc8b8e] {\n    border-radius: 3px;\n    border: none;\n    color: #333333;\n    font-size: 16px;\n    height: 46px;\n    margin-bottom: 5px;\n    padding: 13px 12px;\n    width: 100%;\n}\n.form-control[data-v-6bdc8b8e] {\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.09);\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\n    color: #333333;\n}\n.form-control[data-v-6bdc8b8e]:hover {\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-6bdc8b8e]:focus {\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\n    background-color: rgba(0, 0, 0, 0.23);\n    color: #333333;\n}\n.btn-login[data-v-6bdc8b8e] {\n    background-color: #00bbff;\n    border-color: #00bbff;\n    border-width: 0;\n    color: #ffffff;\n    display: block;\n    margin: 0 auto;\n    padding: 15px 50px;\n    text-transform: uppercase;\n    width: 100%;\n    height: 46px;\n}\n.btn-login[data-v-6bdc8b8e]:hover {\n    background-color: #00a4e4;\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-6bdc8b8e] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 300px;\n    /* width: 350px; */\n}\n/* @media (max-width: 400px) {\n  .modal-dialog {\n    width: 100%;\n  } */\n", ""]);
 
 // exports
 
@@ -7870,7 +7906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content-my[data-v-97358ae4] {\r\n    position: relative;\r\n    background-color: #fff;\r\n    -webkit-background-clip: padding-box;\r\n    background-clip: padding-box;\r\n    border: 1px solid #999;\r\n    border: 1px solid rgba(0, 0, 0, 0.2);\r\n    border-radius: 6px;\r\n    outline: 0;\r\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-97358ae4] {\r\n    min-height: 16.43px;\r\n    padding: 15px;\r\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-97358ae4] {\r\n    margin-top: -2px;\n}\n.modal-title-my[data-v-97358ae4] {\r\n    margin: 0;\r\n    line-height: 1.42857143;\n}\n.close[data-v-97358ae4] {\r\n    float: right;\r\n    font-size: 21px;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    color: #000;\r\n    text-shadow: 0 1px 0 #fff;\r\n    filter: alpha(opacity=20);\r\n    opacity: 0.2;\n}\nh4[data-v-97358ae4] {\r\n    font-size: 18px;\n}\n.modal-body[data-v-97358ae4] {\r\n    position: relative;\r\n    padding: 15px;\n}\ninput[type=\"name\"][data-v-97358ae4],\r\ninput[type=\"email\"][data-v-97358ae4],\r\ninput[type=\"password\"][data-v-97358ae4] {\r\n    border-radius: 3px;\r\n    border: none;\r\n    color: #333333;\r\n    font-size: 16px;\r\n    height: 46px;\r\n    margin-bottom: 5px;\r\n    padding: 13px 12px;\r\n    width: 100%;\n}\n.form-control[data-v-97358ae4] {\r\n    border-radius: 3px;\r\n    background-color: rgba(0, 0, 0, 0.09);\r\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\r\n    color: #333333;\n}\n.form-control[data-v-97358ae4]:hover {\r\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-97358ae4]:focus {\r\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\r\n    background-color: rgba(0, 0, 0, 0.23);\r\n    color: #333333;\n}\n.btn-login[data-v-97358ae4] {\r\n    background-color: #00bbff;\r\n    border-color: #00bbff;\r\n    border-width: 0;\r\n    color: #ffffff;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding: 15px 50px;\r\n    text-transform: uppercase;\r\n    width: 100%;\r\n    height: 46px;\n}\n.btn-login[data-v-97358ae4]:hover {\r\n    background-color: #00a4e4;\r\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-97358ae4] {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 300px;\r\n    /* width: 350px; */\n}\r\n/* @media (max-width: 400px) {\r\n  .modal-dialog {\r\n    width: 100%;\r\n  } */\r\n", ""]);
+exports.push([module.i, "\n.modal-content-my[data-v-97358ae4] {\n    position: relative;\n    background-color: #fff;\n    -webkit-background-clip: padding-box;\n    background-clip: padding-box;\n    border: 1px solid #999;\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 6px;\n    outline: 0;\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-97358ae4] {\n    min-height: 16.43px;\n    padding: 15px;\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-97358ae4] {\n    margin-top: -2px;\n}\n.modal-title-my[data-v-97358ae4] {\n    margin: 0;\n    line-height: 1.42857143;\n}\n.close[data-v-97358ae4] {\n    float: right;\n    font-size: 21px;\n    font-weight: 700;\n    line-height: 1;\n    color: #000;\n    text-shadow: 0 1px 0 #fff;\n    filter: alpha(opacity=20);\n    opacity: 0.2;\n}\nh4[data-v-97358ae4] {\n    font-size: 18px;\n}\n.modal-body[data-v-97358ae4] {\n    position: relative;\n    padding: 15px;\n}\ninput[type=\"name\"][data-v-97358ae4],\ninput[type=\"email\"][data-v-97358ae4],\ninput[type=\"password\"][data-v-97358ae4] {\n    border-radius: 3px;\n    border: none;\n    color: #333333;\n    font-size: 16px;\n    height: 46px;\n    margin-bottom: 5px;\n    padding: 13px 12px;\n    width: 100%;\n}\n.form-control[data-v-97358ae4] {\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.09);\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\n    color: #333333;\n}\n.form-control[data-v-97358ae4]:hover {\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-97358ae4]:focus {\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\n    background-color: rgba(0, 0, 0, 0.23);\n    color: #333333;\n}\n.btn-login[data-v-97358ae4] {\n    background-color: #00bbff;\n    border-color: #00bbff;\n    border-width: 0;\n    color: #ffffff;\n    display: block;\n    margin: 0 auto;\n    padding: 15px 50px;\n    text-transform: uppercase;\n    width: 100%;\n    height: 46px;\n}\n.btn-login[data-v-97358ae4]:hover {\n    background-color: #00a4e4;\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-97358ae4] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 300px;\n    /* width: 350px; */\n}\n/* @media (max-width: 400px) {\n  .modal-dialog {\n    width: 100%;\n  } */\n", ""]);
 
 // exports
 
@@ -40066,7 +40102,38 @@ var render = function() {
                 ])
               }),
               _vm._v(" "),
-              _vm._m(1)
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "input-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchStr,
+                        expression: "searchStr"
+                      }
+                    ],
+                    staticClass:
+                      "form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent",
+                    attrs: {
+                      type: "search",
+                      placeholder: "Поиск по названию",
+                      id: "example-search-input"
+                    },
+                    domProps: { value: _vm.searchStr },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchStr = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ])
             ],
             2
           )
@@ -40075,14 +40142,16 @@ var render = function() {
         _c(
           "div",
           { staticClass: "card-body" },
-          _vm._l(_vm.services, function(serv, index) {
+          _vm._l(_vm.filteredServices, function(carserv, index) {
             return _c("div", { staticClass: "carservice-card" }, [
-              _c("img", { attrs: { src: serv.photo } }),
+              _c("img", { attrs: { src: carserv.img_link } }),
               _vm._v(" "),
               _c("div", [
-                _c("h5", [_vm._v(_vm._s(serv.name))]),
+                _c("h5", [_vm._v(_vm._s(carserv.name))]),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(serv.address))])
+                _c("p", [_vm._v(_vm._s(carserv.city))]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(carserv.address))])
               ])
             ])
           }),
@@ -40109,29 +40178,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("div", { staticClass: "input-group" }, [
-        _c("input", {
+    return _c("span", { staticClass: "input-group-append" }, [
+      _c(
+        "div",
+        {
           staticClass:
-            "form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent",
-          attrs: {
-            type: "search",
-            placeholder: "Поиск по названию",
-            id: "example-search-input"
-          }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "input-group-append" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "input-group-text bg-transparent border-right-0 border-left-0 border-top-0"
-            },
-            [_c("i", { staticClass: "fa fa-search" })]
-          )
-        ])
-      ])
+            "input-group-text bg-transparent border-right-0 border-left-0 border-top-0"
+        },
+        [_c("i", { staticClass: "fa fa-search" })]
+      )
     ])
   }
 ]
@@ -58970,9 +59025,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   data: function data() {
     return {
-      userMail: "",
-      city: "Москва",
-      currentPopUp: ""
+      userMail: '',
+      city: 'Москва',
+      cities: [],
+      //Все возможные города
+      types: [],
+      //Все типы автосервисов
+      currentPopUp: '' //Что вывоится в popUp-window
+
     };
   },
   router: router
@@ -59220,15 +59280,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/components/Login.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Login_vue_vue_type_template_id_6bdc8b8e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=6bdc8b8e&scoped=true& */ "./resources/js/components/Login.vue?vue&type=template&id=6bdc8b8e&scoped=true&");
 /* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/components/Login.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Login_vue_vue_type_style_index_0_id_6bdc8b8e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css& */ "./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Login_vue_vue_type_style_index_0_id_6bdc8b8e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css& */ "./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -59260,7 +59319,7 @@ component.options.__file = "resources/js/components/Login.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/components/Login.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59819,8 +59878,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\My\Programming\OpenServer\domains\carservices.web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\My\Programming\OpenServer\domains\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
