@@ -129,7 +129,7 @@ export default {
         },
 
         cancelRegistration() {
-            this.$router.go(-1);
+            this.$router.back();
         },
 
         //Функция обработки клиентского токена
@@ -137,9 +137,9 @@ export default {
             if (!response.data.token) {
                 alert("Поле с токеном отсутствует");
             } else {
+
                 localStorage.userData = response.data.token;
-                localStorage.userName = this.form.email;
-                this.$root.userMail = this.form.email;
+                this.$store.commit('setUserMail',this.form.email)
             }
             console.log(response);
         },

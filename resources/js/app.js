@@ -48,6 +48,8 @@ const app = new Vue({
     mounted() {
         this.$store.dispatch('getCities')
         this.$store.dispatch('getTypes')
+        this.$store.dispatch('loadUserMail')
+
         this.userMail=localStorage.getItem('userName')
         let tmpCity=localStorage.getItem('city')
         this.$store.commit('setCity',tmpCity || 'Москва')

@@ -2501,7 +2501,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cancelRegistration: function cancelRegistration() {
-      this.$router.go(-1);
+      this.$router.back();
     },
     //Функция обработки клиентского токена
     proceedRegistration: function proceedRegistration(response) {
@@ -2509,8 +2509,7 @@ __webpack_require__.r(__webpack_exports__);
         alert("Поле с токеном отсутствует");
       } else {
         localStorage.userData = response.data.token;
-        localStorage.userName = this.form.email;
-        this.$root.userMail = this.form.email;
+        this.$store.commit('setUserMail', this.form.email);
       }
 
       console.log(response);
@@ -58065,6 +58064,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   mounted: function mounted() {
     this.$store.dispatch('getCities');
     this.$store.dispatch('getTypes');
+    this.$store.dispatch('loadUserMail');
     this.userMail = localStorage.getItem('userName');
     var tmpCity = localStorage.getItem('city');
     this.$store.commit('setCity', tmpCity || 'Москва');

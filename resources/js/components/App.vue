@@ -61,7 +61,6 @@
         methods: {
            logout() {
                //Потрясающей глубины метод
-
                this.$store.commit('setUserMail','')
            },
                    },
