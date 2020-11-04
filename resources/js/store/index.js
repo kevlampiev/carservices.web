@@ -3,7 +3,12 @@ export default {
         city: 'Москва',
         cities: [],
         types: [],
-        userMail: ''
+        // userMail: '',
+        userData: {
+            email: '',
+            token: '',
+            // rememberMe: false
+        }
 
     },
 
@@ -38,9 +43,13 @@ export default {
         },
 
         //Для перовнаальной загрузки сохраненного userMail
-        loadUserMail(context) {
-            let userMail=localStorage.userMail
+        loadUserData(context) {
+            let userData=localStorage.userData
             context.commit('setUserMail', userMail)
+        },
+
+        logout(context) {
+            context.commit('setUserData', {})
         }
 
     },
@@ -62,13 +71,20 @@ export default {
         },
 
         //Если пустой userMail-это logout, чистим localStorage
-        setUserMail(state, userMail) {
-            state.userMail=userMail
-            if (userMail&&userMail!=='') {
-                localStorage.userMail=userMail
-            } else {
-                localStorage.removeItem('userName')
-                localStorage.removeItem('userData')
+        // setUserMail(state, userMail) {
+        //     localStorage.removeItem('userName')
+        //     localStorage.removeItem('userData')
+        //     state.userMail=userMail
+        //     if (userMail&&userMail!=='') {
+        //         localStorage.userMail=userMail
+        //     }
+        // },
+
+        setUserData(state, newUserData) {
+            if ((newUserData.email!=='')&&(newUserData.token!=='')) {
+                // Object.assign(state.userData,newUserData)
+                state.userData.email=newUserData.email
+                state.userData.token=newUserData.token
             }
         }
     }

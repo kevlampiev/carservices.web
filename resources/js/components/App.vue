@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <ul class="nav justify-content-end" v-if="!$store.state.userMail||$store.state.userMail===''">
+            <ul class="nav justify-content-end" v-if="!email||email===''">
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
@@ -35,7 +35,7 @@
             <ul class="nav justify-content-end" v-else>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'register' }">{{$store.state.userMail}}</router-link>
+                        <router-link :to="{ name: 'register' }">{{email}}</router-link>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -59,17 +59,24 @@
 
     export default {
         methods: {
-           logout() {
-               //Потрясающей глубины метод
+            logout() {
+                //Потрясающей глубины метод
+                this.$store.dispatch('logout')
+                //      },
+            },
 
-               this.$store.commit('setUserMail','')
-           },
-                   },
+        },
+        computed: {
+            email: function () {
+                return this.$store.state.userData.email
+            }
+        },
 
         mounted() {
         },
         components: {
             popUp
         }
+
     }
 </script>

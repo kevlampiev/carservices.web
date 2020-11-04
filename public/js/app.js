@@ -2084,7 +2084,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       //Потрясающей глубины метод
-      this.$store.commit('setUserMail', '');
+      this.$store.dispatch('logout'); //      },
+    }
+  },
+  computed: {
+    email: function email() {
+      return this.$store.state.userData.email;
     }
   },
   mounted: function mounted() {},
@@ -2324,23 +2329,24 @@ __webpack_require__.r(__webpack_exports__);
         email: this.form.email,
         password: this.form.password
       }).then(function (response) {
-        _this.logining(response);
+        _this.proceedLogin(response);
 
         _this.$router.go(-1);
       })["catch"](function (error) {
         return console.log(error);
       });
     },
-    logining: function logining(response) {
+    proceedLogin: function proceedLogin(response) {
       if (!response.data.token) {
         alert("Поле с токеном отсутствует");
       } else {
         localStorage.userData = response.data.token;
-        localStorage.userName = this.form.email;
-        this.$root.userMail = this.form.email;
+        this.$store.commit('setUserData', {
+          email: this.form.email,
+          token: response.data.token
+        }); // localStorage.userName = this.form.email;
+        // this.$root.userMail = this.form.email;
       }
-
-      console.log(response);
     },
     cancelLogin: function cancelLogin() {
       this.$router.push("/");
@@ -2501,16 +2507,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cancelRegistration: function cancelRegistration() {
-      this.$router.go(-1);
+      this.$router.back();
     },
     //Функция обработки клиентского токена
     proceedRegistration: function proceedRegistration(response) {
       if (!response.data.token) {
         alert("Поле с токеном отсутствует");
       } else {
-        localStorage.userData = response.data.token;
-        localStorage.userName = this.form.email;
-        this.$root.userMail = this.form.email;
+        // localStorage.userData = response.data.token;
+        console.log(response.data);
+        alert(3);
+        this.$store.commit('setUserData', {
+          email: this.form.email,
+          token: response.data.token
+        });
       }
 
       console.log(response);
@@ -38922,7 +38932,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          !_vm.$store.state.userMail || _vm.$store.state.userMail === ""
+          !_vm.email || _vm.email === ""
             ? _c("ul", { staticClass: "nav justify-content-end" }, [
                 _c("li", { staticClass: "nav-item" }, [
                   _c(
@@ -38961,7 +38971,7 @@ var render = function() {
                       _c(
                         "router-link",
                         { attrs: { to: { name: "register" } } },
-                        [_vm._v(_vm._s(_vm.$store.state.userMail))]
+                        [_vm._v(_vm._s(_vm.email))]
                       )
                     ],
                     1
@@ -58065,6 +58075,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   mounted: function mounted() {
     this.$store.dispatch('getCities');
     this.$store.dispatch('getTypes');
+    this.$store.dispatch('loadUserMail');
     this.userMail = localStorage.getItem('userName');
     var tmpCity = localStorage.getItem('city');
     this.$store.commit('setCity', tmpCity || 'Москва');
@@ -58605,7 +58616,12 @@ __webpack_require__.r(__webpack_exports__);
     city: 'Москва',
     cities: [],
     types: [],
-    userMail: ''
+    // userMail: '',
+    userData: {
+      email: '',
+      token: '' // rememberMe: false
+
+    }
   },
   actions: {
     getCities: function getCities(context) {
@@ -58624,9 +58640,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     //Для перовнаальной загрузки сохраненного userMail
-    loadUserMail: function loadUserMail(context) {
-      var userMail = localStorage.userMail;
+    loadUserData: function loadUserData(context) {
+      var userData = localStorage.userData;
       context.commit('setUserMail', userMail);
+    },
+    logout: function logout(context) {
+      context.commit('setUserData', {});
     }
   },
   mutations: {
@@ -58644,14 +58663,19 @@ __webpack_require__.r(__webpack_exports__);
       state.types = types;
     },
     //Если пустой userMail-это logout, чистим localStorage
-    setUserMail: function setUserMail(state, userMail) {
-      state.userMail = userMail;
-
-      if (userMail && userMail !== '') {
-        localStorage.userMail = userMail;
-      } else {
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userData');
+    // setUserMail(state, userMail) {
+    //     localStorage.removeItem('userName')
+    //     localStorage.removeItem('userData')
+    //     state.userMail=userMail
+    //     if (userMail&&userMail!=='') {
+    //         localStorage.userMail=userMail
+    //     }
+    // },
+    setUserData: function setUserData(state, newUserData) {
+      if (newUserData.email !== '' && newUserData.token !== '') {
+        // Object.assign(state.userData,newUserData)
+        state.userData.email = newUserData.email;
+        state.userData.token = newUserData.token;
       }
     }
   }

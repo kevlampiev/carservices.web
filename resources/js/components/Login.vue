@@ -84,21 +84,22 @@ export default {
                     password: this.form.password
                 })
                 .then(response => {
-                    this.logining(response);
+                    this.proceedLogin(response);
                     this.$router.go(-1);
                 })
                 .catch(error => console.log(error));
         },
 
-        logining(response) {
+        proceedLogin(response) {
             if (!response.data.token) {
                 alert("Поле с токеном отсутствует");
             } else {
                 localStorage.userData = response.data.token;
-                localStorage.userName = this.form.email;
-                this.$root.userMail = this.form.email;
+                this.$store.commit('setUserData',{email: this.form.email,
+                    token: response.data.token})
+                // localStorage.userName = this.form.email;
+                // this.$root.userMail = this.form.email;
             }
-            console.log(response);
         },
 
         cancelLogin() {
