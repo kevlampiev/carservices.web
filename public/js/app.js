@@ -58640,8 +58640,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     //Для перовнаальной загрузки сохраненного userMail
-    loadUserMail: function loadUserMail(context) {
-      var userMail = localStorage.userMail;
+    loadUserData: function loadUserData(context) {
+      var userData = localStorage.userData;
       context.commit('setUserMail', userMail);
     },
     logout: function logout(context) {

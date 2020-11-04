@@ -43,8 +43,8 @@ export default {
         },
 
         //Для перовнаальной загрузки сохраненного userMail
-        loadUserMail(context) {
-            let userMail=localStorage.userMail
+        loadUserData(context) {
+            let userData=localStorage.userData
             context.commit('setUserMail', userMail)
         },
 
