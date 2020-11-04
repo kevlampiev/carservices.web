@@ -1,8 +1,8 @@
 <template>
     <div >
         <ul>
-            <li v-for="(el,index) in cities" :key="index" @click="setCity(el.name)">
-                {{el.name}}
+            <li v-for="(el,index) in $store.state.cities" :key="index" @click="setCity(el.city)">
+                {{el.city}}
             </li>
         </ul>
     </div>
@@ -12,28 +12,29 @@
 
 <script>
 
-import {tmpCities} from '../../tmpData.js'
-console.log(tmpCities)
+//import {tmpCities} from '../../tmpData.js'
+//console.log(tmpCities)
 
-    export default {
-        data: () => {
-            return {
-                cities: [],
-            }
-        },
+    import {tmpCities} from "../../tmpData";
+
+export default {
+        // data: () => {
+        //     // return {
+        //     //     cities: [],
+        //     // }
+        // },
+    props: ['close'],
         methods: {
-            getCitiesList() {
-                return tmpCities
-            },
+            // getCitiesList() {
+            //     return this.$root.cities
+            // },
             setCity(aCity) {
-                this.$root.city=aCity
-                localStorage.city=aCity
-                this.$parent.closeWindow()
+                this.$store.commit('setCity', aCity)
+                this.close()
             }
         },
         mounted() {
-            this.cities=this.getCitiesList()
+            // this.cities=this.getCitiesList()
         }
-
     }
 </script>

@@ -1,8 +1,9 @@
 require('./bootstrap');
 
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 
+//VUE-ROUTER
+import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from './components/App'
@@ -10,6 +11,18 @@ import App from './components/App'
 import {appRoutes} from './routes.js'
 
 
+//VUEX
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import storeData from "./store/index"
+
+const store = new Vuex.Store(
+    storeData
+)
+
+//VUELIDATE
+import Vuelidate from "vuelidate"
+Vue.use(Vuelidate)
 
 
 
@@ -18,34 +31,27 @@ const router = new VueRouter({
     routes: appRoutes,
 });
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-
-// Vue.use(App)
 
 const app = new Vue({
     el: '#app',
+    router,
+    store,
+
     components: {App},
     data: ()=>{
         return {
             userMail: '',
-            city: 'Москва',
-            currentPopUp: ''
+            currentPopUp: ''  //Что вывоится в popUp-window
         }
     },
-    router,
+
+    mounted() {
+        this.$store.dispatch('getCities')
+        this.$store.dispatch('getTypes')
+        this.userMail=localStorage.getItem('userName')
+        let tmpCity=localStorage.getItem('city')
+        this.$store.commit('setCity',tmpCity || 'Москва')
+
+    },
+
 });
-
-

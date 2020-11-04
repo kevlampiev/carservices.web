@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
-        "vue-yandex-maps": "^0.10.9"
+        "vue-yandex-maps": "^0.10.9",
+        "vuex": "^3.5.1",
+        "vuelidate": "^0.7.6"
     }
 }
