@@ -38,14 +38,14 @@
 
                 </div>
                 <div class="card-body">
-                    <div class="carservice-card" v-for="(carserv,index) in filteredServices">
-                        <img
-                            :src="carserv.img_link">
-                        <div>
-                            <h5>{{carserv.name}}</h5>
-                            <p>{{carserv.city}}</p>
-                            <p>{{carserv.address}}</p>
-                        </div>
+                    <div class="carservice-card" v-for="(carserv,index) in filteredServices" :key="carserv.id"  @click="showService(carserv.id)">
+                            <img
+                                :src="carserv.img_link">
+                            <div>
+                                <h5>{{carserv.name}}</h5>
+                                <p>{{carserv.city}}</p>
+                                <p>{{carserv.address}}</p>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -65,6 +65,7 @@
     import {yandexMap, ymapMarker} from 'vue-yandex-maps'
     import {tmpServices} from '../tmpData.js'
     import {tmpServiceTypes} from "../tmpData.js";
+    // import {Carservice} from "./Carservice";
 
     export default {
         data: () => {
@@ -96,6 +97,10 @@
             },
             startSelectCity() {
                 this.$root.currentPopUp = 'cityList'
+            },
+
+            showService(id) {
+                this.$router.push('service')
             }
         },
         computed: {
@@ -115,7 +120,10 @@
         watch: {
             '$store.state.city': 'getServiceList'
         },
-        components: {yandexMap, ymapMarker}
+        components: {yandexMap,
+            ymapMarker,
+            // Carservice
+        }
 
     }
 </script>

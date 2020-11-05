@@ -29,7 +29,8 @@
             }
         },
         components: {
-            'cityList': () => import('./CityList.vue')
+            'cityList': () => import('./CityList.vue'),
+            'orderDetails': ()=>import('./OrderDetails'),
         },
         methods: {
             closeWindow() {

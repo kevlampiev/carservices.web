@@ -40,7 +40,7 @@ const app = new Vue({
     components: {App},
     data: ()=>{
         return {
-            userMail: '',
+            // userMail: '',
             currentPopUp: ''  //Что вывоится в popUp-window
         }
     },
