@@ -2305,7 +2305,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         email: "",
-        password: ""
+        password: "",
+        rememberMe: true
       }
     };
   },
@@ -2331,7 +2332,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.proceedLogin(response);
 
-        _this.$router.go(-1);
+        _this.$router.push('/');
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -2340,16 +2341,16 @@ __webpack_require__.r(__webpack_exports__);
       if (!response.data.token) {
         alert("Поле с токеном отсутствует");
       } else {
-        localStorage.userData = response.data.token;
+        // localStorage.userData = response.data.token;
         this.$store.commit('setUserData', {
           email: this.form.email,
-          token: response.data.token
-        }); // localStorage.userName = this.form.email;
-        // this.$root.userMail = this.form.email;
+          token: response.data.token,
+          rememberMe: this.form.rememberMe
+        });
       }
     },
     cancelLogin: function cancelLogin() {
-      this.$router.push("/");
+      this.$router.push('/');
     },
     checkEmail: function checkEmail() {
       if (this.form.email) {
@@ -2501,7 +2502,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this.proceedRegistration(res);
 
-        _this.$router.go(-1);
+        _this.$router.push({
+          name: 'home'
+        });
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2514,16 +2517,12 @@ __webpack_require__.r(__webpack_exports__);
       if (!response.data.token) {
         alert("Поле с токеном отсутствует");
       } else {
-        // localStorage.userData = response.data.token;
-        console.log(response.data);
-        alert(3);
         this.$store.commit('setUserData', {
           email: this.form.email,
-          token: response.data.token
+          token: response.data.token,
+          rememberMe: false
         });
       }
-
-      console.log(response);
     },
     showRegistrationError: function showRegistrationError(error) {
       alert("Какая-то хрень " + error.toString());
@@ -58074,8 +58073,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   mounted: function mounted() {
     this.$store.dispatch('getCities');
-    this.$store.dispatch('getTypes');
-    this.$store.dispatch('loadUserMail');
+    this.$store.dispatch('getTypes'); // this.$store.dispatch
+    // this.$store.dispatch('loadUserMail')
+
     this.userMail = localStorage.getItem('userName');
     var tmpCity = localStorage.getItem('city');
     this.$store.commit('setCity', tmpCity || 'Москва');
@@ -58613,14 +58613,13 @@ var appRoutes = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    city: 'Москва',
+    city: localStorage.city || 'Москва',
     cities: [],
     types: [],
-    // userMail: '',
     userData: {
-      email: '',
-      token: '' // rememberMe: false
-
+      email: localStorage.email || '',
+      token: localStorage.token || '',
+      rememberMe: localStorage.getItem('token') !== null
     }
   },
   actions: {
@@ -58638,11 +58637,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err.message); //TODO Прорисовать красивый вывод ошибки
       });
-    },
-    //Для перовнаальной загрузки сохраненного userMail
-    loadUserData: function loadUserData(context) {
-      var userData = localStorage.userData;
-      context.commit('setUserMail', userMail);
     },
     logout: function logout(context) {
       context.commit('setUserData', {});
@@ -58662,20 +58656,22 @@ __webpack_require__.r(__webpack_exports__);
     setTypes: function setTypes(state, types) {
       state.types = types;
     },
-    //Если пустой userMail-это logout, чистим localStorage
-    // setUserMail(state, userMail) {
-    //     localStorage.removeItem('userName')
-    //     localStorage.removeItem('userData')
-    //     state.userMail=userMail
-    //     if (userMail&&userMail!=='') {
-    //         localStorage.userMail=userMail
-    //     }
-    // },
     setUserData: function setUserData(state, newUserData) {
-      if (newUserData.email !== '' && newUserData.token !== '') {
+      if (newUserData.email && newUserData.token && newUserData.email !== '' && newUserData.token !== '') {
         // Object.assign(state.userData,newUserData)
         state.userData.email = newUserData.email;
         state.userData.token = newUserData.token;
+        state.userData.rememberMe = newUserData.rememberMe;
+        alert(222);
+
+        if (newUserData.rememberMe) {
+          localStorage.email = newUserData.email;
+          localStorage.token = newUserData.token;
+        }
+      } else {
+        state.userData = {};
+        localStorage.removeItem('email');
+        localStorage.removeItem('token');
       }
     }
   }

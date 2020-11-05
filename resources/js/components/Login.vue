@@ -60,7 +60,8 @@ export default {
         return {
             form: {
                 email: "",
-                password: ""
+                password: "",
+                rememberMe: true
             }
         };
     },
@@ -85,7 +86,7 @@ export default {
                 })
                 .then(response => {
                     this.proceedLogin(response);
-                    this.$router.go(-1);
+                    this.$router.push('/')
                 })
                 .catch(error => console.log(error));
         },
@@ -94,16 +95,16 @@ export default {
             if (!response.data.token) {
                 alert("Поле с токеном отсутствует");
             } else {
-                localStorage.userData = response.data.token;
-                this.$store.commit('setUserData',{email: this.form.email,
-                    token: response.data.token})
-                // localStorage.userName = this.form.email;
-                // this.$root.userMail = this.form.email;
+                // localStorage.userData = response.data.token;
+                this.$store.commit('setUserData',
+                    {email: this.form.email,
+                            token: response.data.token,
+                            rememberMe: this.form.rememberMe})
             }
         },
 
         cancelLogin() {
-            this.$router.push("/");
+            this.$router.push('/');
         },
 
         checkEmail() {
