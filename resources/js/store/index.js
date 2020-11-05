@@ -1,13 +1,12 @@
 export default {
     state: {
-        city: 'Москва',
+        city: localStorage.city||'Москва',
         cities: [],
         types: [],
-        // userMail: '',
         userData: {
-            email: '',
-            token: '',
-            // rememberMe: false
+            email: localStorage.email||'',
+            token: localStorage.token||'',
+            rememberMe: localStorage.getItem('token') !== null
         }
 
     },
@@ -42,12 +41,6 @@ export default {
                 )
         },
 
-        //Для перовнаальной загрузки сохраненного userMail
-        loadUserData(context) {
-            let userData=localStorage.userData
-            context.commit('setUserMail', userMail)
-        },
-
         logout(context) {
             context.commit('setUserData', {})
         }
@@ -70,21 +63,21 @@ export default {
             state.types=types
         },
 
-        //Если пустой userMail-это logout, чистим localStorage
-        // setUserMail(state, userMail) {
-        //     localStorage.removeItem('userName')
-        //     localStorage.removeItem('userData')
-        //     state.userMail=userMail
-        //     if (userMail&&userMail!=='') {
-        //         localStorage.userMail=userMail
-        //     }
-        // },
-
         setUserData(state, newUserData) {
-            if ((newUserData.email!=='')&&(newUserData.token!=='')) {
+            if (newUserData.email&&newUserData.token&&(newUserData.email!=='')&&(newUserData.token!=='')) {
                 // Object.assign(state.userData,newUserData)
                 state.userData.email=newUserData.email
                 state.userData.token=newUserData.token
+                state.userData.rememberMe=newUserData.rememberMe
+                alert(222)
+                if (newUserData.rememberMe) {
+                    localStorage.email=newUserData.email
+                    localStorage.token=newUserData.token
+                }
+            } else {
+                state.userData={}
+                localStorage.removeItem('email')
+                localStorage.removeItem('token')
             }
         }
     }

@@ -123,7 +123,7 @@ export default {
                 })
                 .then(res => {
                     this.proceedRegistration(res);
-                    this.$router.go(-1);
+                    this.$router.push({name: 'home'})
                 })
                 .catch(err => console.log(err));
         },
@@ -137,14 +137,14 @@ export default {
             if (!response.data.token) {
                 alert("Поле с токеном отсутствует");
             } else {
-                // localStorage.userData = response.data.token;
-                console.log(response.data)
-                alert(3)
-                this.$store.commit('setUserData',{email: this.form.email,
-                    token: response.data.token})
+                 this.$store.commit('setUserData',
+                     {email: this.form.email,
+                                token: response.data.token,
+                                rememberMe: false
+                     })
             }
-            console.log(response);
         },
+
         showRegistrationError(error) {
             alert("Какая-то хрень " + error.toString());
         },
