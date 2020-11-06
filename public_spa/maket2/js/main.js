@@ -6,7 +6,7 @@ const products = [
     {id: 5, title: 'ТО'},
 ];
 
-const renderProduct = (product,img = 'https://placehold.it/200x150') => {
+const renderProduct = (product, img = 'https://placehold.it/200x150') => {
     return `<div class="product-item">
                 <img src="${img}" alt="Some img">
                 <h3>${product.title}</h3>
@@ -17,7 +17,7 @@ const renderPage = list => document.querySelector('.products').innerHTML = list.
 renderPage(products);
 
 
-    
+
 
 
 

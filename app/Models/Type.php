@@ -11,7 +11,8 @@ class Type extends Model
 
     protected $fillable = ['name', 'slug', 'description'];
 
-    public function services() {
-        return $this->belongsToMany(Service::class,'services_types','type_id','service_id');
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'services_types', 'type_id', 'service_id');
     }
 }

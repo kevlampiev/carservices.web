@@ -34,17 +34,17 @@
         <div class="col-md-7">
             <h2>Расписание</h2>
             <table class="table">
-                <thead >
+                <thead>
                 <tr>
-                    <th scope="col"><i class="fa fa-arrow-left" aria-hidden="true"></i> </th>
-                    <th scope="col">Пн. 9/11/20 </th>
+                    <th scope="col"><i class="fa fa-arrow-left" aria-hidden="true"></i></th>
+                    <th scope="col">Пн. 9/11/20</th>
                     <th scope="col">Вт. 10/11/20</th>
                     <th scope="col">Ср. 11/11/20</th>
                     <th scope="col">Чт. 12/11/20</th>
                     <th scope="col">Пт. 13/11/20</th>
                     <th scope="col">Сб. 14/11/20</th>
                     <th scope="col">Вс. 15/11/20</th>
-                    <th scope="col"> <i class="fa fa-arrow-right" aria-hidden="true"></i> </th>
+                    <th scope="col"><i class="fa fa-arrow-right" aria-hidden="true"></i></th>
 
                 </tr>
                 </thead>
@@ -100,13 +100,13 @@
 
 <script>
 
-    export default {
-        methods: {
-            makeOrder() {
-                this.$root.currentPopUp = 'orderDetails'
-            },
-        }
+export default {
+    methods: {
+        makeOrder() {
+            this.$root.currentPopUp = 'orderDetails'
+        },
     }
+}
 
 </script>
 
@@ -115,7 +115,7 @@
 img {
     width: 180px;
     height: 180px;
-    float:left;
+    float: left;
     margin: 10px 20px 10px 10px;
 }
 
@@ -129,12 +129,12 @@ img {
     margin: 20px;
     text-align: center;
     font-weight: 800;
-    color:#555;
+    color: #555;
 }
 
 .available-time:hover {
     background-color: #555;
-    color:white;
+    color: white;
     text-decoration: none;
 }
 

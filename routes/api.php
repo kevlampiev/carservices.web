@@ -20,7 +20,7 @@ Route::post('/login', 'API\AuthController@login');
 
 Route::group([
     'prefix' => 'services'
-], function() {
+], function () {
 
     Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/city', 'API\ServicesController@cityList')->name('services.city');

@@ -23,7 +23,7 @@ Route::group([
     'namespace' => 'Admin',
     'as' => 'admin.',
 //    'middleware' => ['auth', 'is_admin']
-], function() {
+], function () {
     Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
 });
 

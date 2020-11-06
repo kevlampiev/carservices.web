@@ -12,11 +12,13 @@ class Service extends Model
 
     protected $hidden = ['coordinates', 'user_id', 'created_at', 'updated_at'];
 
-    public function types() {
-        return $this->belongsToMany(Type::class,'services_types','service_id','type_id');
+    public function types()
+    {
+        return $this->belongsToMany(Type::class, 'services_types', 'service_id', 'type_id');
     }
 
-    public function schedules() {
+    public function schedules()
+    {
         return $this->hasMany(Schedule::class, 'service_id');
     }
 }

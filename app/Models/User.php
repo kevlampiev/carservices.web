@@ -41,11 +41,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
-    public static function rules() {
+    public static function rules()
+    {
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),

@@ -12,22 +12,25 @@ use Illuminate\Support\Facades\Auth;
 
 class ServicesController extends Controller
 {
-    public function index() {
-        $city=urldecode(request()->get('city'));
+    public function index()
+    {
+        $city = urldecode(request()->get('city'));
         return response()->json(Service::query()
-            ->where('city',$city)
+            ->where('city', $city)
             ->with('types')->get(),
-            200,[],JSON_UNESCAPED_UNICODE);
+            200, [], JSON_UNESCAPED_UNICODE);
     }
 
 
-    public function show(Service $service) {
+    public function show(Service $service)
+    {
         $selected = Service::query()->where('id', $service->id)->with('schedules')->with('types')->get();
         return response()->json($selected, 200);
     }
 
 
-    public function setSchedule(Request $request) {
+    public function setSchedule(Request $request)
+    {
         $dataOrder = [
             'user_id' => Auth::id(),
             'car_model' => $request->car_model,
@@ -49,12 +52,14 @@ class ServicesController extends Controller
         return response()->json(['message' => 'Запись добавлена в базу']);
     }
 
-    public function cityList() {
-        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(),200,[],JSON_UNESCAPED_UNICODE);
+    public function cityList()
+    {
+        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function typeList() {
-        return response()->json(Type::query()->select('name')->get(), 200,[],JSON_UNESCAPED_UNICODE);
+    public function typeList()
+    {
+        return response()->json(Type::query()->select('name')->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 
 }

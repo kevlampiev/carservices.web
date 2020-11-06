@@ -35,7 +35,7 @@
             <ul class="nav justify-content-end" v-else>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'register' }">{{email}}</router-link>
+                        <router-link :to="{ name: 'register' }">{{ email }}</router-link>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -54,29 +54,29 @@
 </template>
 
 <script>
-    import popUp from './UI/PopUp.vue'
+import popUp from './UI/PopUp.vue'
 
 
-    export default {
-        methods: {
-            logout() {
-                //Потрясающей глубины метод
-                this.$store.dispatch('logout')
-                //      },
-            },
-
-        },
-        computed: {
-            email: function () {
-                return this.$store.state.userData.email
-            }
+export default {
+    methods: {
+        logout() {
+            //Потрясающей глубины метод
+            this.$store.dispatch('logout')
+            //      },
         },
 
-        mounted() {
-        },
-        components: {
-            popUp
+    },
+    computed: {
+        email: function () {
+            return this.$store.state.userData.email
         }
+    },
 
+    mounted() {
+    },
+    components: {
+        popUp
     }
+
+}
 </script>
