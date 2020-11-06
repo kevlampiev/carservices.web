@@ -2700,6 +2700,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7164,7 +7167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nimg {\n    width: 180px;\n    height: 180px;\n    float:left;\n    margin: 10px 20px 10px 10px;\n}\n.available-time {\n    display: block;\n    width: 70px;\n    height: 30px;\n    background-color: transparent;\n    border: 2px solid #ccc;\n    border-radius: 17px;\n    margin: 20px;\n    text-align: center;\n    font-weight: 800;\n    color:#555;\n}\n.available-time:hover {\n    background-color: #555;\n    color:white;\n    text-decoration: none;\n}\n.types-list {\n    margin-left: 25px;\n}\n.types-list li {\n    list-style-type: none;\n}\n\n", ""]);
+exports.push([module.i, "\nimg {\r\n    width: 180px;\r\n    height: 180px;\r\n    float:left;\r\n    margin: 10px 20px 10px 10px;\n}\n.available-time {\r\n    display: block;\r\n    width: 70px;\r\n    height: 30px;\r\n    background-color: transparent;\r\n    border: 2px solid #ccc;\r\n    border-radius: 17px;\r\n    margin: 20px;\r\n    text-align: center;\r\n    font-weight: 800;\r\n    color:#555;\n}\n.available-time:hover {\r\n    background-color: #555;\r\n    color:white;\r\n    text-decoration: none;\n}\n.types-list {\r\n    margin-left: 25px;\n}\n.types-list li {\r\n    list-style-type: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -7183,7 +7186,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content-my[data-v-6bdc8b8e] {\n    position: relative;\n    background-color: #fff;\n    -webkit-background-clip: padding-box;\n    background-clip: padding-box;\n    border: 1px solid #999;\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 6px;\n    outline: 0;\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-6bdc8b8e] {\n    min-height: 16.43px;\n    padding: 15px;\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-6bdc8b8e] {\n    margin-top: -2px;\n}\n.modal-title-my[data-v-6bdc8b8e] {\n    margin: 0;\n    line-height: 1.42857143;\n}\n.close[data-v-6bdc8b8e] {\n    float: right;\n    font-size: 21px;\n    font-weight: 700;\n    line-height: 1;\n    color: #000;\n    text-shadow: 0 1px 0 #fff;\n    filter: alpha(opacity=20);\n    opacity: 0.2;\n}\nh4[data-v-6bdc8b8e] {\n    font-size: 18px;\n}\n.modal-body[data-v-6bdc8b8e] {\n    position: relative;\n    padding: 15px;\n}\ninput[type=\"email\"][data-v-6bdc8b8e],\ninput[type=\"password\"][data-v-6bdc8b8e] {\n    border-radius: 3px;\n    border: none;\n    color: #333333;\n    font-size: 16px;\n    height: 46px;\n    margin-bottom: 5px;\n    padding: 13px 12px;\n    width: 100%;\n}\n.form-control[data-v-6bdc8b8e] {\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.09);\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\n    color: #333333;\n}\n.form-control[data-v-6bdc8b8e]:hover {\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-6bdc8b8e]:focus {\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\n    background-color: rgba(0, 0, 0, 0.23);\n    color: #333333;\n}\n.btn-login[data-v-6bdc8b8e] {\n    background-color: #00bbff;\n    border-color: #00bbff;\n    border-width: 0;\n    color: #ffffff;\n    display: block;\n    margin: 0 auto;\n    padding: 15px 50px;\n    text-transform: uppercase;\n    width: 100%;\n    height: 46px;\n}\n.btn-login[data-v-6bdc8b8e]:hover {\n    background-color: #00a4e4;\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-6bdc8b8e] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 300px;\n    /* width: 350px; */\n}\n/* @media (max-width: 400px) {\n  .modal-dialog {\n    width: 100%;\n  } */\n", ""]);
+exports.push([module.i, "\n.modal-content-my[data-v-6bdc8b8e] {\r\n    position: relative;\r\n    background-color: #fff;\r\n    -webkit-background-clip: padding-box;\r\n    background-clip: padding-box;\r\n    border: 1px solid #999;\r\n    border: 1px solid rgba(0, 0, 0, 0.2);\r\n    border-radius: 6px;\r\n    outline: 0;\r\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-6bdc8b8e] {\r\n    min-height: 16.43px;\r\n    padding: 15px;\r\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-6bdc8b8e] {\r\n    margin-top: -2px;\n}\n.modal-title-my[data-v-6bdc8b8e] {\r\n    margin: 0;\r\n    line-height: 1.42857143;\n}\n.close[data-v-6bdc8b8e] {\r\n    float: right;\r\n    font-size: 21px;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    color: #000;\r\n    text-shadow: 0 1px 0 #fff;\r\n    filter: alpha(opacity=20);\r\n    opacity: 0.2;\n}\nh4[data-v-6bdc8b8e] {\r\n    font-size: 18px;\n}\n.modal-body[data-v-6bdc8b8e] {\r\n    position: relative;\r\n    padding: 15px;\n}\ninput[type=\"email\"][data-v-6bdc8b8e],\r\ninput[type=\"password\"][data-v-6bdc8b8e] {\r\n    border-radius: 3px;\r\n    border: none;\r\n    color: #333333;\r\n    font-size: 16px;\r\n    height: 46px;\r\n    margin-bottom: 5px;\r\n    padding: 13px 12px;\r\n    width: 100%;\n}\n.form-control[data-v-6bdc8b8e] {\r\n    border-radius: 3px;\r\n    background-color: rgba(0, 0, 0, 0.09);\r\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\r\n    color: #333333;\n}\n.form-control[data-v-6bdc8b8e]:hover {\r\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-6bdc8b8e]:focus {\r\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\r\n    background-color: rgba(0, 0, 0, 0.23);\r\n    color: #333333;\n}\n.btn-login[data-v-6bdc8b8e] {\r\n    background-color: #00bbff;\r\n    border-color: #00bbff;\r\n    border-width: 0;\r\n    color: #ffffff;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding: 15px 50px;\r\n    text-transform: uppercase;\r\n    width: 100%;\r\n    height: 46px;\n}\n.btn-login[data-v-6bdc8b8e]:hover {\r\n    background-color: #00a4e4;\r\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-6bdc8b8e] {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 300px;\r\n    /* width: 350px; */\n}\r\n/* @media (max-width: 400px) {\r\n  .modal-dialog {\r\n    width: 100%;\r\n  } */\r\n", ""]);
 
 // exports
 
@@ -7202,7 +7205,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-content-my[data-v-97358ae4] {\n    position: relative;\n    background-color: #fff;\n    -webkit-background-clip: padding-box;\n    background-clip: padding-box;\n    border: 1px solid #999;\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 6px;\n    outline: 0;\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-97358ae4] {\n    min-height: 16.43px;\n    padding: 15px;\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-97358ae4] {\n    margin-top: -2px;\n}\n.modal-title-my[data-v-97358ae4] {\n    margin: 0;\n    line-height: 1.42857143;\n}\n.close[data-v-97358ae4] {\n    float: right;\n    font-size: 21px;\n    font-weight: 700;\n    line-height: 1;\n    color: #000;\n    text-shadow: 0 1px 0 #fff;\n    filter: alpha(opacity=20);\n    opacity: 0.2;\n}\nh4[data-v-97358ae4] {\n    font-size: 18px;\n}\n.modal-body[data-v-97358ae4] {\n    position: relative;\n    padding: 15px;\n}\ninput[type=\"name\"][data-v-97358ae4],\ninput[type=\"email\"][data-v-97358ae4],\ninput[type=\"password\"][data-v-97358ae4] {\n    border-radius: 3px;\n    border: none;\n    color: #333333;\n    font-size: 16px;\n    height: 46px;\n    margin-bottom: 5px;\n    padding: 13px 12px;\n    width: 100%;\n}\n.form-control[data-v-97358ae4] {\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.09);\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\n    color: #333333;\n}\n.form-control[data-v-97358ae4]:hover {\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-97358ae4]:focus {\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\n    background-color: rgba(0, 0, 0, 0.23);\n    color: #333333;\n}\n.btn-login[data-v-97358ae4] {\n    background-color: #00bbff;\n    border-color: #00bbff;\n    border-width: 0;\n    color: #ffffff;\n    display: block;\n    margin: 0 auto;\n    padding: 15px 50px;\n    text-transform: uppercase;\n    width: 100%;\n    height: 46px;\n}\n.btn-login[data-v-97358ae4]:hover {\n    background-color: #00a4e4;\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-97358ae4] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    width: 300px;\n    /* width: 350px; */\n}\n/* @media (max-width: 400px) {\n  .modal-dialog {\n    width: 100%;\n  } */\n", ""]);
+exports.push([module.i, "\n.modal-content-my[data-v-97358ae4] {\r\n    position: relative;\r\n    background-color: #fff;\r\n    -webkit-background-clip: padding-box;\r\n    background-clip: padding-box;\r\n    border: 1px solid #999;\r\n    border: 1px solid rgba(0, 0, 0, 0.2);\r\n    border-radius: 6px;\r\n    outline: 0;\r\n    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n}\n.modal-header-my[data-v-97358ae4] {\r\n    min-height: 16.43px;\r\n    padding: 15px;\r\n    border-bottom: 1px solid #e5e5e5;\n}\n.modal-header-my .close[data-v-97358ae4] {\r\n    margin-top: -2px;\n}\n.modal-title-my[data-v-97358ae4] {\r\n    margin: 0;\r\n    line-height: 1.42857143;\n}\n.close[data-v-97358ae4] {\r\n    float: right;\r\n    font-size: 21px;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    color: #000;\r\n    text-shadow: 0 1px 0 #fff;\r\n    filter: alpha(opacity=20);\r\n    opacity: 0.2;\n}\nh4[data-v-97358ae4] {\r\n    font-size: 18px;\n}\n.modal-body[data-v-97358ae4] {\r\n    position: relative;\r\n    padding: 15px;\n}\ninput[type=\"name\"][data-v-97358ae4],\r\ninput[type=\"email\"][data-v-97358ae4],\r\ninput[type=\"password\"][data-v-97358ae4] {\r\n    border-radius: 3px;\r\n    border: none;\r\n    color: #333333;\r\n    font-size: 16px;\r\n    height: 46px;\r\n    margin-bottom: 5px;\r\n    padding: 13px 12px;\r\n    width: 100%;\n}\n.form-control[data-v-97358ae4] {\r\n    border-radius: 3px;\r\n    background-color: rgba(0, 0, 0, 0.09);\r\n    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;\r\n    color: #333333;\n}\n.form-control[data-v-97358ae4]:hover {\r\n    background-color: rgba(0, 0, 0, 0.16);\n}\n.form-control[data-v-97358ae4]:focus {\r\n    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;\r\n    background-color: rgba(0, 0, 0, 0.23);\r\n    color: #333333;\n}\n.btn-login[data-v-97358ae4] {\r\n    background-color: #00bbff;\r\n    border-color: #00bbff;\r\n    border-width: 0;\r\n    color: #ffffff;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding: 15px 50px;\r\n    text-transform: uppercase;\r\n    width: 100%;\r\n    height: 46px;\n}\n.btn-login[data-v-97358ae4]:hover {\r\n    background-color: #00a4e4;\r\n    color: #ffffff;\n}\n.modal-dialog-my[data-v-97358ae4] {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 300px;\r\n    /* width: 350px; */\n}\r\n/* @media (max-width: 400px) {\r\n  .modal-dialog {\r\n    width: 100%;\r\n  } */\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.popUpWindow {\n    /*position: relative;*/\n    padding: 0;\n    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n}\n.title-block {\n    margin: 5px;\n    background-color: #f0f0f0;\n    width: calc(100% - 10px);\n    height: 30px;\n    padding: 5px 35px 5px 5px;\n    font-weight: 800;\n    text-align: center;\n}\n.close {\n    position: absolute;\n    right: 20px;\n    top: 10px;\n    width: 16px;\n    height: 16px;\n    opacity: 0.3;\n}\n.close:hover {\n    opacity: 1;\n}\n.close:before, .close:after {\n    position: absolute;\n    left: 15px;\n    content: ' ';\n    height: 16px;\n    width: 2px;\n    background-color: #333;\n}\n.close:before {\n    transform: rotate(45deg);\n}\n.close:after {\n    transform: rotate(-45deg);\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -38458,6 +38480,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PopUp.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -39990,10 +40042,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "centered-window" },
+    { staticClass: "centered-window popUpWindow" },
     [
-      _c("div", { on: { click: _vm.closeWindow } }, [
-        _vm._v("\n        Закрыть\n    ")
+      _c("div", { staticClass: "title-block" }, [
+        _vm._v("\n        Выбор города\n        "),
+        _c("div", { staticClass: "close", on: { click: _vm.closeWindow } })
       ]),
       _vm._v(" "),
       _c(_vm.$root.currentPopUp, {
@@ -59027,7 +59080,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PopUp_vue_vue_type_template_id_092fae3c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PopUp.vue?vue&type=template&id=092fae3c& */ "./resources/js/components/UI/PopUp.vue?vue&type=template&id=092fae3c&");
 /* harmony import */ var _PopUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PopUp.vue?vue&type=script&lang=js& */ "./resources/js/components/UI/PopUp.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PopUp.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -59035,7 +59090,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _PopUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _PopUp_vue_vue_type_template_id_092fae3c___WEBPACK_IMPORTED_MODULE_0__["render"],
   _PopUp_vue_vue_type_template_id_092fae3c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -59064,6 +59119,22 @@ component.options.__file = "resources/js/components/UI/PopUp.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PopUp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UI/PopUp.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PopUp.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UI/PopUp.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PopUp_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -59266,8 +59337,8 @@ var tmpCities = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/evl/projects/carservices.web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/evl/projects/carservices.web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel-dev\projects\carservices.web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
