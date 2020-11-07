@@ -2706,6 +2706,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7227,7 +7229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.popUpWindow {\n    /*position: relative;*/\n    padding: 0;\n    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n}\n.title-block {\n    margin: 5px;\n    background-color: #f0f0f0;\n    width: calc(100% - 10px);\n    height: 30px;\n    padding: 5px 35px 5px 5px;\n    font-weight: 800;\n    text-align: center;\n}\n.close {\n    position: absolute;\n    right: 20px;\n    top: 10px;\n    width: 16px;\n    height: 16px;\n    opacity: 0.3;\n}\n.close:hover {\n    opacity: 1;\n}\n.close:before, .close:after {\n    position: absolute;\n    left: 15px;\n    content: ' ';\n    height: 16px;\n    width: 2px;\n    background-color: #333;\n}\n.close:before {\n    transform: rotate(45deg);\n}\n.close:after {\n    transform: rotate(-45deg);\n}\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*закрывает остальные элементы, чтобы пользователь не мог к ним обратиться, а наше окно было\nтипа модальным*/\n.block-div {\n  position: absolute;\n    top:0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    background-color: rgba(0,0,0,0.1);\n}\n.popUpWindow {\n    /*position: relative;*/\n    padding: 0;\n    box-shadow: 0 0 10px 5px rgba(150, 150, 150, 1);\n}\n.title-block {\n    margin: 5px;\n    background-color: #f0f0f0;\n    width: calc(100% - 10px);\n    height: 30px;\n    padding: 5px 35px 5px 5px;\n    font-weight: 800;\n    text-align: center;\n    text-transform: uppercase;\n    color: #aaa;\n}\n.close {\n    position: absolute;\n    right: 20px;\n    top: 10px;\n    width: 16px;\n    height: 16px;\n    opacity: 0.3;\n}\n.close:hover {\n    opacity: 1;\n}\n.close:before, .close:after {\n    position: absolute;\n    left: 15px;\n    content: ' ';\n    height: 16px;\n    width: 2px;\n    background-color: #333;\n}\n.close:before {\n    transform: rotate(45deg);\n}\n.close:after {\n    transform: rotate(-45deg);\n}\n\n\n", ""]);
 
 // exports
 
@@ -40043,22 +40045,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "centered-window popUpWindow" },
-    [
-      _c("div", { staticClass: "title-block" }, [
-        _vm._v("\n        Выбор города\n        "),
-        _c("div", { staticClass: "close", on: { click: _vm.closeWindow } })
-      ]),
-      _vm._v(" "),
-      _c(_vm.$root.currentPopUp, {
-        tag: "component",
-        attrs: { close: _vm.closeWindow }
-      })
-    ],
-    1
-  )
+  return _c("div", { staticClass: "block-div" }, [
+    _c(
+      "div",
+      { staticClass: "centered-window popUpWindow" },
+      [
+        _c("div", { staticClass: "title-block" }, [
+          _vm._v("\n            Выбор города\n            "),
+          _c("div", { staticClass: "close", on: { click: _vm.closeWindow } })
+        ]),
+        _vm._v(" "),
+        _c(_vm.$root.currentPopUp, {
+          tag: "component",
+          attrs: { close: _vm.closeWindow }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

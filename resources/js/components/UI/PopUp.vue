@@ -1,13 +1,15 @@
 <template>
-    <div class="centered-window popUpWindow">
-        <div class="title-block">
-            Выбор города
-            <div @click="closeWindow" class="close">
+    <div class="block-div">
+        <div class="centered-window popUpWindow">
+            <div class="title-block">
+                Выбор города
+                <div @click="closeWindow" class="close">
+                </div>
             </div>
+
+            <component :is="$root.currentPopUp" :close="closeWindow"></component>
+
         </div>
-
-        <component :is="$root.currentPopUp" :close="closeWindow"></component>
-
     </div>
 </template>
 
@@ -46,10 +48,22 @@ export default {
 
 
 <style>
+
+/*закрывает остальные элементы, чтобы пользователь не мог к ним обратиться, а наше окно было
+типа модальным*/
+.block-div {
+  position: absolute;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.1);
+}
+
 .popUpWindow {
     /*position: relative;*/
     padding: 0;
-    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    box-shadow: 0 0 10px 5px rgba(150, 150, 150, 1);
 
 }
 
@@ -61,6 +75,8 @@ export default {
     padding: 5px 35px 5px 5px;
     font-weight: 800;
     text-align: center;
+    text-transform: uppercase;
+    color: #aaa;
 }
 
 .close {
