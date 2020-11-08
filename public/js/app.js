@@ -2214,12 +2214,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      description: {},
+      types: [],
+      schedule: {},
+      currentType: '*'
+    };
+  },
   components: {
     SelectTypeBand: _UI_SelectTypeBand__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2230,6 +2234,16 @@ __webpack_require__.r(__webpack_exports__);
         header: 'дополнительная информация'
       };
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/services/' + this.$route.params.id).then(function (res) {
+      _this.description = res.data[0];
+      _this.types = _this.description.types;
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
   }
 });
 
@@ -2334,7 +2348,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     showService: function showService(id) {
-      this.$router.push('service');
+      this.$router.push('/service/' + id);
     },
     setNewCurrentType: function setNewCurrentType(newType) {
       this.currentType = newType;
@@ -39415,7 +39429,52 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "col-md-5 " },
+      [
+        _c("h2", [_vm._v("Общая информация")]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: _vm.description.img_link, alt: "" } }),
+        _vm._v(" "),
+        _c("h4", [_vm._v(_vm._s(_vm.description.name))]),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Виды оказываемых услуг")]),
+        _vm._v(" "),
+        _vm._l(_vm.types, function(type, index) {
+          return _c("ul", { key: type.id, staticClass: "types-list" }, [
+            _c("li", [_vm._v(_vm._s(type.name))])
+          ])
+        }),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Контактная информация")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            _vm._s(_vm.description.city) + "," + _vm._s(_vm.description.address)
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Тел: " + _vm._s(_vm.description.phone))]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("Telegram: " + _vm._s(_vm.description.telegram) + " ")
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Skype: " + _vm._s(_vm.description.skype) + " ")]),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Описание")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.description.description) +
+              "\n        "
+          )
+        ])
+      ],
+      2
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -39423,10 +39482,20 @@ var render = function() {
       [
         _c("h2", [_vm._v("Расписание")]),
         _vm._v(" "),
-        _c("SelectTypeBand"),
+        _c("SelectTypeBand", {
+          attrs: { types: _vm.types, currentType: _vm.currentType },
+          on: {
+            "update:currentType": function($event) {
+              _vm.currentType = $event
+            },
+            "update:current-type": function($event) {
+              _vm.currentType = $event
+            }
+          }
+        }),
         _vm._v(" "),
         _c("table", { staticClass: "table" }, [
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
           _c("tbody", [
             _c("tr", [
@@ -39625,48 +39694,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5 " }, [
-      _c("h2", [_vm._v("Общая информация")]),
-      _vm._v(" "),
-      _c("img", {
-        attrs: { src: "https://lorempixel.com/640/480/?17292", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Название сервиса")]),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Виды оказываемых услуг")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "types-list" }, [
-        _c("li", [_vm._v("автосервис")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("мойка авто")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("шиномотраж")])
-      ]),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Контактная информация")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Москва. Некоторая улица д.15 стр 3")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Тел: Этого поля нет в БД +7(495) 322-2233")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Telegram: Этого поля нет в БД ")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Skype: Этого поля нет в БД ")]),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Описание")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "\n            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia maxime commodi, qui dignissimos repellat\n            ut sapiente voluptatibus architecto voluptatem iure impedit laudantium vel et similique perferendis\n            porro. Adipisci, fuga fugit.\n        "
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -59629,7 +59656,7 @@ var appRoutes = [{
   name: 'home',
   component: _components_Home__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
-  path: '/service',
+  path: '/service/:id',
   name: 'service',
   component: _components_Carservice__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {

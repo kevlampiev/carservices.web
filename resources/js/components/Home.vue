@@ -90,11 +90,11 @@ export default {
         },
 
         showService(id) {
-            this.$router.push('service')
+            this.$router.push('/service/'+id)
         },
+
         setNewCurrentType(newType) {
             this.currentType=newType
-
         }
     },
     computed: {

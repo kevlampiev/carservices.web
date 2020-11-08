@@ -11,7 +11,7 @@ const appRoutes = [
         component: Home
     },
     {
-        path: '/service',
+        path: '/service/:id',
         name: 'service',
         component: Carservice,
     },

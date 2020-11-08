@@ -4,36 +4,32 @@
 
         <div class="col-md-5 ">
             <h2>Общая информация</h2>
-            <img src="https://lorempixel.com/640/480/?17292" alt="">
+            <img :src="description.img_link" alt="">
 
-            <h4>Название сервиса</h4>
+            <h4>{{ description.name }}</h4>
 
             <h5>Виды оказываемых услуг</h5>
-            <ul class="types-list">
-                <li>автосервис</li>
-                <li>мойка авто</li>
-                <li>шиномотраж</li>
+            <ul class="types-list" v-for="(type,index) in types" :key="type.id">
+                <li>{{type.name}}</li>
             </ul>
 
             <h5>Контактная информация</h5>
-            <p>Москва. Некоторая улица д.15 стр 3</p>
-            <p>Тел: Этого поля нет в БД +7(495) 322-2233</p>
-            <p>Telegram: Этого поля нет в БД </p>
-            <p>Skype: Этого поля нет в БД </p>
+            <p>{{ description.city }},{{description.address}}</p>
+            <p>Тел: {{ description.phone }}</p>
+            <p>Telegram: {{ description.telegram }} </p>
+            <p>Skype: {{ description.skype }} </p>
 
 
             <h5>Описание</h5>
             <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia maxime commodi, qui dignissimos repellat
-                ut sapiente voluptatibus architecto voluptatem iure impedit laudantium vel et similique perferendis
-                porro. Adipisci, fuga fugit.
+                {{description.description}}
             </p>
 
         </div>
 
         <div class="col-md-7">
             <h2>Расписание</h2>
-            <SelectTypeBand></SelectTypeBand>
+            <SelectTypeBand :types="types" :currentType.sync="currentType"></SelectTypeBand>
             <table class="table">
                 <thead>
                 <tr>
@@ -103,6 +99,14 @@
 
 import SelectTypeBand from "./UI/SelectTypeBand";
 export default {
+    data: ()=>{
+        return {
+            description: {},
+            types: [],
+            schedule: {},
+            currentType: '*'
+        }
+    },
     components: {SelectTypeBand},
     methods: {
         makeOrder() {
@@ -111,6 +115,20 @@ export default {
                 header: 'дополнительная информация',
             }
         },
+    },
+    mounted() {
+
+        axios.get('/api/services/'+this.$route.params.id)
+        .then(
+            res=>{
+                this.description=res.data[0]
+                this.types=this.description.types
+            }
+        ).catch(
+            err=>{
+                console.log(err.message)
+            }
+        )
     }
 }
 
