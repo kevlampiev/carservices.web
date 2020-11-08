@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" @showSelectCityDlg="showSelectCityDlg">
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Carservices.web</a>
@@ -49,7 +49,7 @@
 
 
         <router-view></router-view>
-        <popUp v-if="$root.currentPopUp"></popUp>
+        <popUp v-if="popUpComponent" ></popUp>
     </div>
 </template>
 
@@ -58,17 +58,25 @@ import popUp from './UI/PopUp.vue'
 
 
 export default {
+
     methods: {
         logout() {
             //Потрясающей глубины метод
             this.$store.dispatch('logout')
-            //      },
         },
+
+        showSelectCityDlg() {
+            this.currentPopUp='cityList'
+            this.popUpHeader='выбор города'
+        }
 
     },
     computed: {
         email: function () {
             return this.$store.state.userData.email
+        },
+        popUpComponent: function() {
+            return this.$store.state.popUpData.comp
         }
     },
 

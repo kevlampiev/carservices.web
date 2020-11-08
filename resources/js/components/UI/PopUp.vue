@@ -2,12 +2,12 @@
     <div class="block-div">
         <div class="centered-window popUpWindow">
             <div class="title-block">
-                Выбор города
+                {{ header }}
                 <div @click="closeWindow" class="close">
                 </div>
             </div>
 
-            <component :is="$root.currentPopUp" :close="closeWindow"></component>
+            <component :is="currentComponent" :close="closeWindow"></component>
 
         </div>
     </div>
@@ -16,30 +16,21 @@
 
 <script>
 export default {
-    data: () => {
-        return {
-            serviceTypes: [],
-            services: [],
-            showMap: false,
-            mapSettings: {
-                apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
-                lang: 'ru_RU',
-                coordorder: 'latlong',
-                version: '2.1'
-            },
-            coords: [
-                54.82896654088406,
-                39.831893822753904,
-            ],
-        }
-    },
     components: {
-        'cityList': () => import('./CityList.vue'),
         'orderDetails': () => import('./OrderDetails'),
+        'cityList': ()=>import('./CityList'),
     },
     methods: {
         closeWindow() {
-            this.$root.currentPopUp = ''
+            this.$store.state.popUpData.comp = ''
+        }
+    },
+    computed: {
+        currentComponent: function() {
+            return this.$store.state.popUpData.comp
+        },
+        header: function() {
+            return this.$store.state.popUpData.header
         }
     }
 
@@ -52,12 +43,12 @@ export default {
 /*закрывает остальные элементы, чтобы пользователь не мог к ним обратиться, а наше окно было
 типа модальным*/
 .block-div {
-  position: absolute;
-    top:0;
+    position: absolute;
+    top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .popUpWindow {

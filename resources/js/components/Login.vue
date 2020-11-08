@@ -226,11 +226,6 @@ input[type="password"] {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
-    /* width: 350px; */
 }
 
-/* @media (max-width: 400px) {
-  .modal-dialog {
-    width: 100%;
-  } */
 </style>

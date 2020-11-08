@@ -10,55 +10,39 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" @click="currentType='*'"
-                               v-bind:class="{active: currentType==='*'}">Все </a>
-                        </li>
+                    <nav class="navbar navbar-expand-lg ">
+                        <ul class="nav justify-content-lg-start">
+                            <select-type-band :types="$store.state.types" :currentType.sync="currentType"
+                                              @setNewCurrentType="setNewCurrentType"></select-type-band>
+                        </ul>
 
-
-                        <li class="nav-item" v-for="(el,index) in $store.state.types">
-                            <a class="nav-link" href="#" @click="currentType=el.name"
-                               v-bind:class="{active: el.name==currentType}">{{ el.name }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <div class="input-group">
-                                <input
-                                    class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
-                                    type="search" placeholder="Поиск по названию"
-                                    id="example-search-input"
-                                    v-model="searchStr">
-                                <span class="input-group-append">
-                                      <div
-                                          class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
-                                          <i class="fa fa-search"></i>
-                                      </div>
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-
+                        <ul class="nav justify-content-lg-end">
+                            <li class="nav-item">
+                                <search-line :searchStr.sync="searchStr"></search-line>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="card-body">
-                    <div class="carservice-card" v-for="(carserv,index) in filteredServices" :key="carserv.id"
-                         @click="showService(carserv.id)">
-                        <img
-                            :src="carserv.img_link">
-                        <div>
-                            <h5>{{ carserv.name }}</h5>
-                            <p>{{ carserv.city }}</p>
-                            <p>{{ carserv.address }}</p>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
 
-            <div>
-
+            <div class="card-body">
+                <div class="carservice-card" v-for="(carserv,index) in filteredServices" :key="carserv.id"
+                     @click="showService(carserv.id)">
+                    <img
+                        :src="carserv.img_link">
+                    <div>
+                        <h5>{{ carserv.name }}</h5>
+                        <p>{{ carserv.city }}</p>
+                        <p>{{ carserv.address }}</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
+
 
 </template>
 
@@ -66,9 +50,9 @@
 <script>
 
 import {yandexMap, ymapMarker} from 'vue-yandex-maps'
-import {tmpServices} from '../tmpData.js'
 import {tmpServiceTypes} from "../tmpData.js";
-// import {Carservice} from "./Carservice";
+import SearchLine from "./UI/SearchLine";
+import SelectTypeBand from "./UI/SelectTypeBand";
 
 export default {
     data: () => {
@@ -99,18 +83,28 @@ export default {
             this.serviceTypes = tmpServiceTypes
         },
         startSelectCity() {
-            this.$root.currentPopUp = 'cityList'
+            this.$store.state.popUpData= {
+                comp: 'cityList',
+                header: 'выбрать город',
+            }
         },
 
         showService(id) {
             this.$router.push('service')
+        },
+        setNewCurrentType(newType) {
+            this.currentType=newType
+
         }
     },
     computed: {
         filteredServices: function () {
+            let nSearch=this.searchStr.toUpperCase()
             return this.services.filter(
                 (element) => {
-                    let matchSearch = (this.searchStr === '') ? true : (element.name.indexOf(this.searchStr) > -1) || (element.address.indexOf(this.searchStr) > -1)
+                    let nName=element.name.toUpperCase()
+                    let nAddress=element.address.toUpperCase()
+                    let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
                     let matchType = (this.currentType === '*') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
                     return matchSearch && matchType
                 })
@@ -124,9 +118,10 @@ export default {
         '$store.state.city': 'getServiceList'
     },
     components: {
+        SelectTypeBand,
+        SearchLine,
         yandexMap,
         ymapMarker,
-        // Carservice
     }
 
 }

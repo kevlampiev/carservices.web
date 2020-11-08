@@ -7,7 +7,11 @@ export default {
             email: localStorage.email || '',
             token: localStorage.token || '',
             rememberMe: localStorage.getItem('token') !== null
-        }
+        },
+        popUpData: {
+            comp: '',
+            header: ''
+        },
 
     },
 

@@ -33,6 +33,7 @@
 
         <div class="col-md-7">
             <h2>Расписание</h2>
+            <SelectTypeBand></SelectTypeBand>
             <table class="table">
                 <thead>
                 <tr>
@@ -100,10 +101,15 @@
 
 <script>
 
+import SelectTypeBand from "./UI/SelectTypeBand";
 export default {
+    components: {SelectTypeBand},
     methods: {
         makeOrder() {
-            this.$root.currentPopUp = 'orderDetails'
+            this.$store.state.popUpData={
+                comp: 'orderDetails',
+                header: 'дополнительная информация',
+            }
         },
     }
 }

@@ -1,18 +1,20 @@
 <template>
 
-        <div class="input-group">
-            <input
-                class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
-                type="search" placeholder="Поиск по названию"
-                id="example-search-input"
-                v-model="searchStr">
-            <span class="input-group-append">
+    <div class="input-group">
+        <input
+            class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
+            type="search" placeholder="Поиск по названию"
+            id="example-search-input"
+            v-model="sString"
+            @input="$emit('update:searchStr',sString)"
+        >
+        <span class="input-group-append">
                                       <div
                                           class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
                                           <i class="fa fa-search"></i>
                                       </div>
                                 </span>
-        </div>
+    </div>
 
 </template>
 
@@ -20,27 +22,11 @@
 <script>
 
 export default {
+    props: ['searchStr'],
     data: () => {
         return {
-            searchStr: ''
+            sString: '',
         }
-    },
-    props: ['close'],
-    methods: {
-        setCity(aCity) {
-            this.$store.commit('setCity', aCity)
-            this.close()
-        }
-    },
-    computed: {
-        filteredCities: function () {
-            return this.$store.state.cities.filter(
-                (element) => {
-                    return (this.searchStr === '') ? true : (element.city.toUpperCase().indexOf(this.searchStr.toUpperCase()) > -1)
-                })
-        },
-    },
-    mounted() {
     }
 }
 </script>

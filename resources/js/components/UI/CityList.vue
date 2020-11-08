@@ -1,20 +1,8 @@
 <template>
 
     <div>
+        <SearchLine :searchStr.sync="searchStr"></SearchLine>
 
-        <div class="input-group">
-            <input
-                class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
-                type="search" placeholder="Поиск по названию"
-                id="example-search-input"
-                v-model="searchStr">
-            <span class="input-group-append">
-                                      <div
-                                          class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">
-                                          <i class="fa fa-search"></i>
-                                      </div>
-                                </span>
-        </div>
         <div class="city-list-container">
             <ul>
                 <li v-for="(el,index) in filteredCities" :key="index" @click="setCity(el.city)">
@@ -29,6 +17,7 @@
 
 
 <script>
+import SearchLine from "./SearchLine";
 
 export default {
     data: () => {
@@ -36,6 +25,7 @@ export default {
             searchStr: ''
         }
     },
+    components: {SearchLine},
     props: ['close'],
     methods: {
         setCity(aCity) {
