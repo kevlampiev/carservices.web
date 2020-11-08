@@ -2593,7 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     'cityList': function cityList() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./CityList.vue */ "./resources/js/components/UI/CityList.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./CityList.vue */ "./resources/js/components/UI/CityList.vue"));
     }
   },
   methods: {
