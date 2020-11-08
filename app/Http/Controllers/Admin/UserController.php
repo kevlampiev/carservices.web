@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
 //        dd(User::all());
-        return view('users', ['users' => User::all()]);
+        return response()->json(User::all());
     }
 
 //    public function create()
@@ -31,17 +31,16 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('userEdit', ['user' => $user]);
+        return response()->json(User::all());
     }
 
     public function update(Request $request, User $user)
     {
-        $data = $request->all();
-
-        $user = $user->fill($data);
-        $result = $user->save();
-//        $result = $user->fill($request->all())->save();
-        return view('users');
+        $user = $user->fill($request->all());
+        if($user->save()) {
+            return response()->json(200);
+        }
+        return response()->json(400);
     }
 
     public function destroy(User $user)
