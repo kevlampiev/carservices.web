@@ -2740,7 +2740,11 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./OrderDetails */ "./resources/js/components/UI/OrderDetails.vue"));
     },
     'cityList': function cityList() {
+<<<<<<< HEAD
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./CityList */ "./resources/js/components/UI/CityList.vue"));
+=======
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./CityList.vue */ "./resources/js/components/UI/CityList.vue"));
+>>>>>>> develop
     }
   },
   methods: {

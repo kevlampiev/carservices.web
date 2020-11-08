@@ -12,18 +12,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ServicesController extends Controller
 {
-    public function index()
-    {
-        $city = urldecode(request()->get('city'));
+
+    public function index(Request $request) {
+        if($request) {
+            $city=urldecode(request()->get('city'));
+            return response()->json(Service::query()
+                ->where('city',$city)
+                ->with('types')->get(),
+                200,[],JSON_UNESCAPED_UNICODE);
+        }
         return response()->json(Service::query()
-            ->where('city', $city)
-            ->with('types')->get(),
-            200, [], JSON_UNESCAPED_UNICODE);
+        ->with('types')
+        ->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-
-    public function show(Service $service)
-    {
+    public function show(Service $service) {
         $selected = Service::query()->where('id', $service->id)->with('schedules')->with('types')->get();
         return response()->json($selected, 200);
     }
