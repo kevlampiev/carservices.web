@@ -17,8 +17,6 @@ Route::get('/{param?}', function () {
     return view('index');
 });
 
-
-<<<<<<< HEAD
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
@@ -27,6 +25,3 @@ Route::group([
 ], function () {
     Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
 });
-
-=======
->>>>>>> develop

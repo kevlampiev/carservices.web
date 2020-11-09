@@ -2214,13 +2214,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       description: {},
       types: [],
-      schedule: {},
+      schedules: [],
       currentType: '*'
     };
   },
@@ -2241,6 +2242,9 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/services/' + this.$route.params.id).then(function (res) {
       _this.description = res.data[0];
       _this.types = _this.description.types;
+      _this.description.types = null;
+      _this.schedules = _this.description.schedules;
+      _this.description.schedules = null;
     })["catch"](function (err) {
       console.log(err.message);
     });
@@ -2740,11 +2744,7 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./OrderDetails */ "./resources/js/components/UI/OrderDetails.vue"));
     },
     'cityList': function cityList() {
-<<<<<<< HEAD
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./CityList */ "./resources/js/components/UI/CityList.vue"));
-=======
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./CityList.vue */ "./resources/js/components/UI/CityList.vue"));
->>>>>>> develop
     }
   },
   methods: {

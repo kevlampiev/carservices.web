@@ -27,6 +27,7 @@
 
         </div>
 
+
         <div class="col-md-7">
             <h2>Расписание</h2>
             <SelectTypeBand :types="types" :currentType.sync="currentType"></SelectTypeBand>
@@ -103,7 +104,7 @@ export default {
         return {
             description: {},
             types: [],
-            schedule: {},
+            schedules: [],
             currentType: '*'
         }
     },
@@ -123,6 +124,9 @@ export default {
             res=>{
                 this.description=res.data[0]
                 this.types=this.description.types
+                this.description.types=null
+                this.schedules=this.description.schedules
+                this.description.schedules=null
             }
         ).catch(
             err=>{
