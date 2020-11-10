@@ -49,7 +49,7 @@
 
 
         <router-view></router-view>
-        <popUp v-if="popUpComponent" ></popUp>
+        <popUp v-if="popUpComponent"></popUp>
     </div>
 </template>
 
@@ -66,8 +66,8 @@ export default {
         },
 
         showSelectCityDlg() {
-            this.currentPopUp='cityList'
-            this.popUpHeader='выбор города'
+            this.currentPopUp = 'cityList'
+            this.popUpHeader = 'выбор города'
         }
 
     },
@@ -75,7 +75,7 @@ export default {
         email: function () {
             return this.$store.state.userData.email
         },
-        popUpComponent: function() {
+        popUpComponent: function () {
             return this.$store.state.popUpData.comp
         }
     },

@@ -10,11 +10,11 @@
 
             <h5>Виды оказываемых услуг</h5>
             <ul class="types-list" v-for="(type,index) in types" :key="type.id">
-                <li>{{type.name}}</li>
+                <li>{{ type.name }}</li>
             </ul>
 
             <h5>Контактная информация</h5>
-            <p>{{ description.city }},{{description.address}}</p>
+            <p>{{ description.city }},{{ description.address }}</p>
             <p>Тел: {{ description.phone }}</p>
             <p>Telegram: {{ description.telegram }} </p>
             <p>Skype: {{ description.skype }} </p>
@@ -22,7 +22,7 @@
 
             <h5>Описание</h5>
             <p>
-                {{description.description}}
+                {{ description.description }}
             </p>
 
         </div>
@@ -31,65 +31,8 @@
         <div class="col-md-7">
             <h2>Расписание</h2>
             <SelectTypeBand :types="types" :currentType.sync="currentType"></SelectTypeBand>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col"><i class="fa fa-arrow-left" aria-hidden="true"></i></th>
-                    <th scope="col">Пн. 9/11/20</th>
-                    <th scope="col">Вт. 10/11/20</th>
-                    <th scope="col">Ср. 11/11/20</th>
-                    <th scope="col">Чт. 12/11/20</th>
-                    <th scope="col">Пт. 13/11/20</th>
-                    <th scope="col">Сб. 14/11/20</th>
-                    <th scope="col">Вс. 15/11/20</th>
-                    <th scope="col"><i class="fa fa-arrow-right" aria-hidden="true"></i></th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">14-30</a>
-                        <a class="available-time" @click="makeOrder">15-00</a>
-                        <a class="available-time" @click="makeOrder">17-00</a>
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">9-00</a>
-                        <a class="available-time" @click="makeOrder">10-00</a>
-
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">9-30</a>
-                        <a class="available-time" @click="makeOrder">10-00</a>
-                        <a class="available-time" @click="makeOrder">11-00</a>
-                        <a class="available-time" @click="makeOrder">12-00</a>
-                        <a class="available-time" @click="makeOrder">15-00</a>
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">14-30</a>
-                        <a class="available-time" @click="makeOrder">15-00</a>
-                        <a class="available-time" @click="makeOrder">17-00</a>
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">14-30</a>
-                        <a class="available-time" @click="makeOrder">15-00</a>
-                        <a class="available-time" @click="makeOrder">17-00</a>
-                    </td>
-                    <td>
-                        <a class="available-time" @click="makeOrder">14-30</a>
-                        <a class="available-time" @click="makeOrder">15-00</a>
-                        <a class="available-time" @click="makeOrder">17-00</a>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
+            <ScheduleTab :scheduleList="schedules"></ScheduleTab>
 
         </div>
     </div>
@@ -99,8 +42,10 @@
 <script>
 
 import SelectTypeBand from "./UI/SelectTypeBand";
+import ScheduleTab from "./UI/ScheduleTab";
+
 export default {
-    data: ()=>{
+    data: () => {
         return {
             description: {},
             types: [],
@@ -108,10 +53,10 @@ export default {
             currentType: '*'
         }
     },
-    components: {SelectTypeBand},
+    components: {SelectTypeBand, ScheduleTab},
     methods: {
         makeOrder() {
-            this.$store.state.popUpData={
+            this.$store.state.popUpData = {
                 comp: 'orderDetails',
                 header: 'дополнительная информация',
             }
@@ -119,17 +64,17 @@ export default {
     },
     mounted() {
 
-        axios.get('/api/services/'+this.$route.params.id)
-        .then(
-            res=>{
-                this.description=res.data[0]
-                this.types=this.description.types
-                this.description.types=null
-                this.schedules=this.description.schedules
-                this.description.schedules=null
-            }
-        ).catch(
-            err=>{
+        axios.get('/api/services/' + this.$route.params.id)
+            .then(
+                res => {
+                    this.description = res.data[0]
+                    this.types = this.description.types
+                    this.description.types = null
+                    this.schedules = this.description.schedules
+                    this.description.schedules = null
+                }
+            ).catch(
+            err => {
                 console.log(err.message)
             }
         )

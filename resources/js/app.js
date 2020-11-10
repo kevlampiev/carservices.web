@@ -14,6 +14,7 @@ import {appRoutes} from './routes.js'
 
 //VUEX
 import Vuex from 'vuex'
+
 Vue.use(Vuex)
 import storeData from "./store/index"
 
@@ -31,6 +32,8 @@ const router = new VueRouter({
     mode: 'history',
     routes: appRoutes,
 });
+
+
 
 
 const app = new Vue({

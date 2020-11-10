@@ -18,7 +18,7 @@
 export default {
     components: {
         'orderDetails': () => import('./OrderDetails'),
-        'cityList': ()=>import('./CityList'),
+        'cityList': () => import('./CityList'),
     },
     methods: {
         closeWindow() {
@@ -26,10 +26,10 @@ export default {
         }
     },
     computed: {
-        currentComponent: function() {
+        currentComponent: function () {
             return this.$store.state.popUpData.comp
         },
-        header: function() {
+        header: function () {
             return this.$store.state.popUpData.header
         }
     }

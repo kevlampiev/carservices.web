@@ -83,27 +83,27 @@ export default {
             this.serviceTypes = tmpServiceTypes
         },
         startSelectCity() {
-            this.$store.state.popUpData= {
+            this.$store.state.popUpData = {
                 comp: 'cityList',
                 header: 'выбрать город',
             }
         },
 
         showService(id) {
-            this.$router.push('/service/'+id)
+            this.$router.push('/service/' + id)
         },
 
         setNewCurrentType(newType) {
-            this.currentType=newType
+            this.currentType = newType
         }
     },
     computed: {
         filteredServices: function () {
-            let nSearch=this.searchStr.toUpperCase()
+            let nSearch = this.searchStr.toUpperCase()
             return this.services.filter(
                 (element) => {
-                    let nName=element.name.toUpperCase()
-                    let nAddress=element.address.toUpperCase()
+                    let nName = element.name.toUpperCase()
+                    let nAddress = element.address.toUpperCase()
                     let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
                     let matchType = (this.currentType === '*') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
                     return matchSearch && matchType
