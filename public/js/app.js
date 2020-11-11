@@ -2167,7 +2167,9 @@ __webpack_require__.r(__webpack_exports__);
       description: {},
       types: [],
       schedules: [],
-      currentType: '*'
+      currentType: '*',
+      type_id: 0 //TODO причесать данные от сервера и удалить этот элемент
+
     };
   },
   components: {
@@ -2175,10 +2177,20 @@ __webpack_require__.r(__webpack_exports__);
     ScheduleTab: _UI_ScheduleTab__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   methods: {
+    setNewCurrentType: function setNewCurrentType(newCurrentType) {
+      this.currentType = newCurrentType; //TODO код подлежащий удалению, когда с сервера начнут приходить причесанный данные
+
+      if (newCurrentType === '*') this.type_id = 0;else {
+        var el = this.types.find(function (elem) {
+          return elem.name === newCurrentType;
+        });
+        this.type_id = el.id;
+      } //TODO Конец кода, подлежащего удалению
+    },
     makeOrder: function makeOrder() {
       this.$store.state.popUpData = {
         comp: 'orderDetails',
-        header: 'дополнительная информация'
+        header: 'дополнительная информация для заказа'
       };
     }
   },
@@ -2754,20 +2766,27 @@ moment.locale('ru');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      dateStart: moment()
+      dateStart: null
     };
   },
-  props: ['scheduleList'],
+  props: ['scheduleList', 'currentType', 'type_id' //TODO причесать данные от сервера и удалить этот элемент
+  ],
   methods: {
     dayForward: function dayForward() {
-      var days = this.dateStart.diff(moment(), 'days');
-      alert(days);
+      var days = moment(this.dateStart).diff(moment(), 'days');
 
       if (days < 13) {
-        this.dateStart = this.dateStart.add(1, 'days');
+        this.dateStart = moment(this.dateStart).add(1, 'days');
+        console.log(this.dateStart);
       } else {}
     },
-    dayBack: function dayBack() {}
+    dayBack: function dayBack() {
+      var days = moment(this.dateStart).diff(moment(), 'days');
+
+      if (days >= 0) {
+        this.dateStart = moment(this.dateStart).add(-1, 'days');
+      } else {}
+    }
   },
   computed: {
     dates: function dates() {
@@ -2783,19 +2802,27 @@ moment.locale('ru');
       var _this = this;
 
       var tmpArr = [[], [], [], [], [], [], []];
-      this.scheduleList.sort(function (a, b) {
-        if (a.work_time < b.work_time) {
-          return -1;
-        } else if (a.work_time > b.work_time) {
-          return 1;
-        } else return 0;
-      });
       this.scheduleList.forEach(function (item, index, array) {
         var days = moment(item.work_day).diff(_this.dateStart, 'days');
-        if (days >= 0 && days < 7) tmpArr[days].push(item);
+
+        if (0 <= days && days < 7 && (_this.type_id === 0 || _this.type_id === item.service_type_id)) {
+          tmpArr[days].push(item);
+        }
       });
       return tmpArr;
     }
+  },
+  mounted: function mounted() {
+    //TODO Удалить, как только с фронта будут приходить поготовленные данные
+    this.scheduleList.sort(function (a, b) {
+      if (a.work_time < b.work_time) {
+        return -1;
+      } else if (a.work_time > b.work_time) {
+        return 1;
+      } else return 0;
+    });
+    this.dateStart = new Date();
+    this.dateStart.setHours(0, 0, 0, 0);
   }
 });
 
@@ -61079,9 +61106,9 @@ var render = function() {
         _vm._v(" "),
         _c("p", [
           _vm._v(
-            "\n            " +
+            "\n                " +
               _vm._s(_vm.description.description) +
-              "\n        "
+              "\n            "
           )
         ])
       ],
@@ -61102,11 +61129,18 @@ var render = function() {
             },
             "update:current-type": function($event) {
               _vm.currentType = $event
-            }
+            },
+            setNewCurrentType: _vm.setNewCurrentType
           }
         }),
         _vm._v(" "),
-        _c("ScheduleTab", { attrs: { scheduleList: _vm.schedules } })
+        _c("ScheduleTab", {
+          attrs: {
+            scheduleList: _vm.schedules,
+            currentType: _vm.currentType,
+            type_id: _vm.type_id
+          }
+        })
       ],
       1
     )
@@ -61655,7 +61689,12 @@ var render = function() {
       _c(
         "tr",
         [
-          _vm._m(0),
+          _c("th", { attrs: { scope: "col" }, on: { click: _vm.dayBack } }, [
+            _c("i", {
+              staticClass: "fa fa-arrow-left",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]),
           _vm._v(" "),
           _vm._l(_vm.dates, function(el, index) {
             return _c("th", { attrs: { scope: "col" } }, [
@@ -61715,19 +61754,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", { attrs: { scope: "col" } }, [
-      _c("i", {
-        staticClass: "fa fa-arrow-left",
-        attrs: { "aria-hidden": "true" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -80960,15 +80987,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/UI/ScheduleTab.vue ***!
   \****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ScheduleTab_vue_vue_type_template_id_2ef8afee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ScheduleTab.vue?vue&type=template&id=2ef8afee& */ "./resources/js/components/UI/ScheduleTab.vue?vue&type=template&id=2ef8afee&");
 /* harmony import */ var _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ScheduleTab.vue?vue&type=script&lang=js& */ "./resources/js/components/UI/ScheduleTab.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -80998,7 +81024,7 @@ component.options.__file = "resources/js/components/UI/ScheduleTab.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/UI/ScheduleTab.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

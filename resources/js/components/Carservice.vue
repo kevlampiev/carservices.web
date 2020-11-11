@@ -19,7 +19,6 @@
             <p>Telegram: {{ description.telegram }} </p>
             <p>Skype: {{ description.skype }} </p>
 
-
             <h5>Описание</h5>
             <p>
                 {{ description.description }}
@@ -30,9 +29,10 @@
 
         <div class="col-md-7">
             <h2>Расписание</h2>
-            <SelectTypeBand :types="types" :currentType.sync="currentType"></SelectTypeBand>
-
-            <ScheduleTab :scheduleList="schedules"></ScheduleTab>
+            <SelectTypeBand :types="types" :currentType.sync="currentType"
+                            @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
+<!--            TODO удалить :type_id в компоненте ниже как только придут отформатированные данные от сервера -->
+            <ScheduleTab :scheduleList="schedules" :currentType="currentType" :type_id="type_id"></ScheduleTab>
 
         </div>
     </div>
@@ -50,15 +50,30 @@ export default {
             description: {},
             types: [],
             schedules: [],
-            currentType: '*'
+            currentType: '*',
+            type_id: 0, //TODO причесать данные от сервера и удалить этот элемент
         }
     },
     components: {SelectTypeBand, ScheduleTab},
     methods: {
+        setNewCurrentType(newCurrentType) {
+            this.currentType = newCurrentType
+            //TODO код подлежащий удалению, когда с сервера начнут приходить причесанный данные
+            if (newCurrentType === '*') this.type_id = 0;
+            else {
+                let el = this.types.find(
+                    (elem) => {
+                        return elem.name === newCurrentType
+                    }
+                )
+                this.type_id = el.id
+            }
+            //TODO Конец кода, подлежащего удалению
+        },
         makeOrder() {
             this.$store.state.popUpData = {
                 comp: 'orderDetails',
-                header: 'дополнительная информация',
+                header: 'дополнительная информация для заказа',
             }
         },
     },
