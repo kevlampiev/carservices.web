@@ -21,6 +21,7 @@ Route::post('/login', 'API\AuthController@login');
 Route::group([
     'prefix' => 'services'
 ], function() {
+
     Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
     Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
@@ -28,17 +29,22 @@ Route::group([
     Route::post('/{service}', 'API\ServicesController@setSchedule')->name('storeOrder');
 
 });
-
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin',
-//    'middleware' => ['auth']
+    'namespace' => 'Admin'
 ], function() {
     Route::resource('/orders', 'OrderController');
     Route::resource('/schedules', 'ScheduleController');
-    Route::resource('/users', 'UserController', ['except' => ['create', 'store']]);
-});
+    Route::resource('/users', 'UserController');
+    Route::resource('/types', 'TypeController');
 
+});
+Route::group([
+    'prefix' => 'owner',
+    'namespace' => 'API'
+], function() {
+    Route::resource('/services', 'OwnerServiceController');
+});
 
 Route::middleware('auth:api')
     ->group(function () {

@@ -21,7 +21,7 @@ class UsersSeeder extends Seeder
             'created_at' => now()
         ]);
         //все остальные, не админы
-        factory(App\Models\User::class, 10)->create();
+        factory(App\User::class, 10)->create();
     }
 
 }

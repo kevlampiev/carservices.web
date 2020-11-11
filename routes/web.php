@@ -18,3 +18,12 @@ Route::get('/{param?}', function () {
 });
 
 
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+//    'middleware' => ['auth', 'is_admin']
+], function() {
+    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
+});
+
