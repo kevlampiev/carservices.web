@@ -2748,35 +2748,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 moment.locale('ru');
@@ -2788,21 +2759,42 @@ moment.locale('ru');
   },
   props: ['scheduleList'],
   methods: {
-    weekForward: function weekForward() {},
-    weekBack: function weekBack() {}
+    dayForward: function dayForward() {
+      var days = this.dateStart.diff(moment(), 'days');
+      alert(days);
+
+      if (days < 13) {
+        this.dateStart = this.dateStart.add(1, 'days');
+      } else {}
+    },
+    dayBack: function dayBack() {}
   },
   computed: {
     dates: function dates() {
       var tmp = [];
 
       for (var i = 0; i < 7; i++) {
-        tmp.push(moment(this.dateStart).add(i - 1, 'days'));
+        tmp.push(moment(this.dateStart).add(i, 'days'));
       }
 
       return tmp;
     },
-    scheuledData: function scheuledData() {
-      return [];
+    scheduledData: function scheduledData() {
+      var _this = this;
+
+      var tmpArr = [[], [], [], [], [], [], []];
+      this.scheduleList.sort(function (a, b) {
+        if (a.work_time < b.work_time) {
+          return -1;
+        } else if (a.work_time > b.work_time) {
+          return 1;
+        } else return 0;
+      });
+      this.scheduleList.forEach(function (item, index, array) {
+        var days = moment(item.work_day).diff(_this.dateStart, 'days');
+        if (days >= 0 && days < 7) tmpArr[days].push(item);
+      });
+      return tmpArr;
     }
   }
 });
@@ -61673,201 +61665,53 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _vm._m(1)
+          _c("th", { attrs: { scope: "col" }, on: { click: _vm.dayForward } }, [
+            _c("i", {
+              staticClass: "fa fa-arrow-right",
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
         ],
         2
       )
     ]),
     _vm._v(" "),
     _c("tbody", [
-      _c("tr", [
-        _c("td"),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("14-30")]
-          ),
+      _c(
+        "tr",
+        [
+          _c("td"),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("15-00")]
-          ),
+          _vm._l(7, function(n) {
+            return _c(
+              "td",
+              _vm._l(_vm.scheduledData[n - 1], function(el, index) {
+                return _c(
+                  "a",
+                  {
+                    staticClass: "available-time",
+                    on: { click: _vm.$parent.makeOrder }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(Math.trunc(el.work_time)) +
+                        ":" +
+                        _vm._s(60 * (el.work_time % 1)) +
+                        "\n            "
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          }),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("17-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("9-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("10-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("9-30")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("10-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("11-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("12-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("15-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("14-30")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("15-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("17-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("14-30")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("15-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("17-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("14-30")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("15-00")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "available-time",
-              on: { click: _vm.$parent.makeOrder }
-            },
-            [_vm._v("17-00")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("td")
-      ])
+          _c("td"),
+          _c("td")
+        ],
+        2
+      )
     ])
   ])
 }
@@ -61879,17 +61723,6 @@ var staticRenderFns = [
     return _c("th", { attrs: { scope: "col" } }, [
       _c("i", {
         staticClass: "fa fa-arrow-left",
-        attrs: { "aria-hidden": "true" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", { attrs: { scope: "col" } }, [
-      _c("i", {
-        staticClass: "fa fa-arrow-right",
         attrs: { "aria-hidden": "true" }
       })
     ])
@@ -81127,14 +80960,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/UI/ScheduleTab.vue ***!
   \****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ScheduleTab_vue_vue_type_template_id_2ef8afee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ScheduleTab.vue?vue&type=template&id=2ef8afee& */ "./resources/js/components/UI/ScheduleTab.vue?vue&type=template&id=2ef8afee&");
 /* harmony import */ var _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ScheduleTab.vue?vue&type=script&lang=js& */ "./resources/js/components/UI/ScheduleTab.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ScheduleTab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -81164,7 +80998,7 @@ component.options.__file = "resources/js/components/UI/ScheduleTab.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/UI/ScheduleTab.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
