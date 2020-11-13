@@ -23,8 +23,8 @@ Route::group([
 ], function() {
 
     Route::get('/', 'API\ServicesController@index')->name('services');
-    Route::get('/city', 'API\ServicesController@cityList')->name('services.city');
-    Route::get('/type', 'API\ServicesController@typeList')->name('services.type');
+    Route::get('/cities', 'API\ServicesController@cityList')->name('services.city');
+    Route::get('/types', 'API\ServicesController@typeList')->name('services.type');
     Route::get('/{service}', 'API\ServicesController@show')->name('serviceData');
     Route::post('/{service}', 'API\ServicesController@setSchedule')->name('storeOrder');
 
