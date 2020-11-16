@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\Service;
 use App\Models\Type;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,15 +38,18 @@ class ServicesController extends Controller
 //            ->select('name')
 ////            ->with('schedules')->select('work_day', 'work_time')
 //            ->get();
+        $date = new Carbon();
         $schedules = Schedule::query()
             ->where('schedules.service_id', $service->id)
-//            ->whereBetween('work_day', [ date('Y-M-d', $today), date('Y-M-d', $lastDay)])
+            ->whereBetween('work_day', [$date->today(), $date->addWeek(3)])
             ->select('schedules.id','schedules.work_day', 'schedules.work_time', 'schedules.order_id', 'types.name')
             ->join('types', 'schedules.service_type_id', '=', 'types.id')
             ->get();
-//        $types = Service::query()->find($service->id)->types()
-//            ->select('name')->get();
-        $types = DB::table('services_types')->where('service_id', $service->id)->join('types', 'services_types.type_id', '=', 'types.id')->select('types.name')->get();
+        $types = Service::query()->find($service->id)
+            ->types()
+            ->select('name')
+            ->get();
+//        $types = DB::table('services_types')->where('service_id', $service->id)->join('types', 'services_types.type_id', '=', 'types.id')->select('types.name')->get();
         return response()->json([
             'service' => $service,
             'schedules' => $schedules,
