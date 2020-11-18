@@ -17,11 +17,12 @@ Route::get('/{param?}', function () {
     return view('index');
 });
 
+
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
     'as' => 'admin.',
 //    'middleware' => ['auth', 'is_admin']
-], function () {
+], function() {
     Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
 });
