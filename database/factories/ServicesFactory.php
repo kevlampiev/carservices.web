@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 use App\Models\Service;
@@ -26,11 +27,5 @@ $factory->define(Service::class, function (Faker $faker) {
         'address' => $faker->streetAddress,
         'description' => $faker->realText(300),
         'img_link' => $faker->imageUrl(),
-        'phone' => $faker->phoneNumber,
-        'email' => $faker->email,
-        'site' => $faker->url,
-        'telegram' => $faker->regexify('@[a-z]{4,15}'),
-        'skype' => $faker->regexify('@[a-z]{4,15}')
-
     ];
 });

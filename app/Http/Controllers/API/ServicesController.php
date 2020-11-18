@@ -7,13 +7,14 @@ use App\Models\Schedule;
 use App\Models\Service;
 use App\Models\Type;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ServicesController extends Controller
 {
     public function index(Request $request) {
-        if($request) {
+        if($request->has('city')) {
             $city=urldecode(request()->get('city'));
             return response()->json(Service::query()
                 ->where('city',$city)
@@ -21,13 +22,32 @@ class ServicesController extends Controller
                 200,[],JSON_UNESCAPED_UNICODE);
         }
         return response()->json(Service::query()
-        ->with('types')
-        ->get(), 200, [], JSON_UNESCAPED_UNICODE);
+            ->with('types')->get(),
+            200, [],JSON_UNESCAPED_UNICODE);
     }
 
+
     public function show(Service $service) {
-        $selected = Service::query()->where('id', $service->id)->with('schedules')->with('types')->get();
-        return response()->json($selected, 200);
+
+        $date = new Carbon();
+        $schedules = Schedule::query()
+            ->where('schedules.service_id', $service->id)
+            ->whereBetween('work_day', [$date->today(), $date->addWeek(3)])
+            ->select('schedules.id','schedules.work_day', 'schedules.work_time', 'schedules.order_id', 'types.name')
+            ->join('types', 'schedules.service_type_id', '=', 'types.id')
+            ->get();
+
+        $types = Service::query()->find($service->id)
+            ->types()
+            ->select('name')
+            ->get();
+
+        return response()->json([
+            'service' => $service,
+            'schedules' => $schedules,
+            'types' => $types
+        ], 200);
+
     }
 
 

@@ -10,8 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-//        dd(User::all());
-        return response()->json(User::all());
+        $users = User::all();
+        return response()->json($users);
     }
 
 //    public function create()
@@ -31,16 +31,23 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return response()->json(User::all());
+        return response()->json($user);
     }
 
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'name' => 'required|string|min:3',
+            'email' => 'required|email|unique',
+            'password' => 'required|alpha_dash|min:8',
+            'role' => 'required|in:user,owner,admin'
+        ]);
         $user = $user->fill($request->all());
-        if($user->save()) {
+        $result = $user->save();
+        if ($result) {
             return response()->json(200);
         }
-        return response()->json(400);
+        return response()->json(500);
     }
 
     public function destroy(User $user)
