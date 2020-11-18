@@ -9,15 +9,15 @@
 </head>
 <body>
 @forelse($users as $user)
-<div>
-    <h3>Имя пользователя: {{ $user->name }}</h3>
-    <p>Статус: {{ $user->role }}</p>
-    <a href="#" class="btn btn-success">Изменить статус</a>
-    <p>Эл.почта: {{ $user->email }}</p>
-    <a href="{{ route('admin.user.edit', $user) }}">Редактировать</a>
-    <a href="{{ route('admin.user.destroy', $user) }}">Удалить</a>
-    <hr>
-</div>
+    <div>
+        <h3>Имя пользователя: {{ $user->name }}</h3>
+        <p>Статус: {{ $user->role }}</p>
+        <a href="#" class="btn btn-success">Изменить статус</a>
+        <p>Эл.почта: {{ $user->email }}</p>
+        <a href="{{ route('admin.user.edit', $user) }}">Редактировать</a>
+        <a href="{{ route('admin.user.destroy', $user) }}">Удалить</a>
+        <hr>
+    </div>
 @empty
     <p>There are no any users</p>
 @endforelse

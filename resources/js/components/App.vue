@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" @showSelectCityDlg="showSelectCityDlg">
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Carservices.web</a>
@@ -35,7 +35,7 @@
             <ul class="nav justify-content-end" v-else>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'register' }">{{email}}</router-link>
+                        <router-link :to="{ name: 'register' }">{{ email }}</router-link>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -49,34 +49,42 @@
 
 
         <router-view></router-view>
-        <popUp v-if="$root.currentPopUp"></popUp>
+        <popUp v-if="popUpComponent"></popUp>
     </div>
 </template>
 
 <script>
-    import popUp from './UI/PopUp.vue'
+import popUp from './UI/PopUp.vue'
 
 
-    export default {
-        methods: {
-            logout() {
-                //Потрясающей глубины метод
-                this.$store.dispatch('logout')
-                //      },
-            },
+export default {
 
-        },
-        computed: {
-            email: function () {
-                return this.$store.state.userData.email
-            }
+    methods: {
+        logout() {
+            //Потрясающей глубины метод
+            this.$store.dispatch('logout')
         },
 
-        mounted() {
-        },
-        components: {
-            popUp
+        showSelectCityDlg() {
+            this.currentPopUp = 'cityList'
+            this.popUpHeader = 'выбор города'
         }
 
+    },
+    computed: {
+        email: function () {
+            return this.$store.state.userData.email
+        },
+        popUpComponent: function () {
+            return this.$store.state.popUpData.comp
+        }
+    },
+
+    mounted() {
+    },
+    components: {
+        popUp
     }
+
+}
 </script>

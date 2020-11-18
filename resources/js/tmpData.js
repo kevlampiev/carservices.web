@@ -16,7 +16,7 @@ const tmpServices = [
 
 const tmpServiceTypes = ['Шиномонтаж', 'Автомойка', 'Автосервис']
 
-const tmpCities=[
+const tmpCities = [
     {name: 'Москва'},
     {name: 'Ростов'},
     {name: 'Новосибирск'},
@@ -26,5 +26,5 @@ const tmpCities=[
 ]
 
 export {
-  tmpServices, tmpServiceTypes, tmpCities
+    tmpServices, tmpServiceTypes, tmpCities
 }

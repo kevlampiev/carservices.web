@@ -11,156 +11,174 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <header>
-            <a class="logo" href="index.html">Сервис по ремонту и обслуживанию автомобилей "СервисАвто"</a>
-            <ul class="menu">
-                <li><a href="#" class="menu-item">Главная</a></li>
-                <li><a href="#" class="menu-item">О нас</a></li>
-                <li><a href="#" class="menu-item">Виды сервисов</a></li>
-                <li><a href="/public_spa/zapis/zapis.html" class="menu-item">Запись на сервис</a></li>
-                <li><a href="#" class="menu-item">Введите название города</a>
+<div id="app">
+    <header>
+        <a class="logo" href="index.html">Сервис по ремонту и обслуживанию автомобилей "СервисАвто"</a>
+        <ul class="menu">
+            <li><a href="#" class="menu-item">Главная</a></li>
+            <li><a href="#" class="menu-item">О нас</a></li>
+            <li><a href="#" class="menu-item">Виды сервисов</a></li>
+            <li><a href="/public_spa/zapis/zapis.html" class="menu-item">Запись на сервис</a></li>
+            <li><a href="#" class="menu-item">Введите название города</a>
                 <select id="city">
                     <option>Москва</option>
                     <option>Новосибирск</option>
                     <option>Уренгой</option>
                     <option>Сочи</option>
                 </select>
-                </li>
-                <li><a href="#" class="menu-item">Войти</a></li>
-                <li><a href="#" class="menu-item">Регистрация</a></li>
-            </ul>
-            <filter-el></filter-el>
+            </li>
+            <li><a href="#" class="menu-item">Войти</a></li>
+            <li><a href="#" class="menu-item">Регистрация</a></li>
+        </ul>
+        <filter-el></filter-el>
 
-            <!-- <button class="btn-tags">
-                <i class="fa fa-tags" aria-hidden="true"></i>
-            </button> -->
-            <div class="cart">
-                <cart ref="cart"></cart>
-            </div>
-        </header>
-
-        <div class="slider">
-            <div class="slider-txt">
-                <h1 class="slider-h1">Группа "СервисАвто"</h1>
-                <h2 class="slider-h2">Шиномонтаж Мойка Диагностика Ремонт</h2>
-            </div>
+        <!-- <button class="btn-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+        </button> -->
+        <div class="cart">
+            <cart ref="cart"></cart>
         </div>
+    </header>
 
-        <category></category>
-        <!-- <div class="category-wrp">
-            <button class="category-btn">Все</button>
-            <button class="category-btn">Луковичные</button>
-            <button class="category-btn">Кустарники</button>
-        </div> -->
-
-        <main>
-            <error ref="error"></error>
-            <products ref="products"></products>
-<!--
-            <div class="products">
-                <div class="product-item">
-                    <img src="img/rectangle_3_48.png" alt="img" width="232px" height="212px">
-                    <div class="txt-wrap">
-                        <div class="txt-block">
-                            <h3 class="title">Lorem</h3>
-                            <span class="price">$300</span>
-                        </div>
-                        <button class="buy-btn">
-                            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
---> <main>
-            <div class="products"></div>
-        </main>
-            <div class="info">
-                <div class="circle">
-                    <i class="fa fa-truck" aria-hidden="true"></i>
-                </div>
-                <span class="info-text">Автосервисы России на нашем сайте</span>
-                <div class="circle">
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                </div>
-                <span class="info-text">звоните нам! звонок бесплатный +7 (800) 122-234-44</span>
-            </div>
-            <div class="contacts">
-                <div class="contact-block">
-                    <h4 class="cont-heading">Facebook</h4>
-                    <span class="members">100000 участников</span>
-                    <img src="img/like.png" alt="like" width="47px" height="23px">
-                    <div class="photo-users">
-                        <img class="user" src="img/av1.png" alt="user">
-                        <img class="user" src="img/av2.png" alt="user">
-                        <img class="user" src="img/av3.png" alt="user">
-                        <img class="user" src="img/av4.png" alt="user">
-                        <img class="user" src="img/av5.png" alt="user">
-                        <img class="user" src="img/av6.png" alt="user">
-                        <img class="user" src="img/av7.png" alt="user">
-                        <img class="user" src="img/av8.png" alt="user">
-                    </div>
-                    <span>facebook Social plugin</span>
-                </div>
-                <div class="contact-block">
-                    <h4 class="cont-heading">From twitter</h4>
-                    <div class="twit-wrp">
-                        <a class="twitter" href="https://twitter.com" target="_blank" title="twitter">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <span class="twit-txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</span>
-                    </div>
-                    <div class="twit-wrp">
-                        <a class="twitter" href="https://twitter.com" target="_blank" title="twitter">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <span class="twit-txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</span>
-                    </div>
-                </div>
-                <div class="contact-block">
-                    <h4 class="cont-heading">информация</h4>
-                    <ul class="info-list">
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Sed ultrices purus non.</li>
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>sodales sodales.</li>
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Curabitur pretium dui vitae.</li>
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Donec gravida mi in nisl</li>
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>faucibus leo condimentum.</li>
-                        <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Donec et lorem suscipit.</li>
-                    </ul>
-                </div>
-                <div class="contact-block">
-                    <h4 class="cont-heading">Звоните нам</h4>
-                    <ul class="contact-list">
-                        <li>СервисАвто</li>
-                        <li>Группа "СервисАвто"</li>
-                        <li>Москва-Сити, Пресненская наб., 10 </li>
-                        <li>+7 (495) 122-234-44-55</li>
-                        <li><a class="mail-link" href="mailto:mail@email.com">mail@email.com</a></li>
-                    </ul>
-                    <div class="social-icons">
-                        <a class="icon" href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus" aria-hidden="true" title="google+"></i></a>
-                        <a class="icon" href="https://www.linkedin-russia.ru" target="_blank"><i class="fa fa-linkedin" aria-hidden="true" title="linkedin"></i></a>
-                        <a class="icon" href="http://all-rss.ru" target="_blank"><i class="fa fa-rss" aria-hidden="true" title="rss"></i></a>
-                        <a class="icon" href="https://ru-ru.facebook.com" target="_blank"><i class="fa fa-facebook" aria-hidden="true" title="facebook"></i></a>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <span class="copyright">&copy; Copyright 2020, Все права защищены.</span>
-                <a href="#" class="footer-link">О нас</a>
-                <a href="#" class="footer-link">Обращения и претензии</a>
-                <a href="#" class="footer-link">Наши партнеры</a>
-                <a href="#" class="footer-link">Контакты</a>
-            </footer>
-        </main>
+    <div class="slider">
+        <div class="slider-txt">
+            <h1 class="slider-h1">Группа "СервисАвто"</h1>
+            <h2 class="slider-h2">Шиномонтаж Мойка Диагностика Ремонт</h2>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="js/ProductComponent.js"></script>
-    <script src="js/CartComponent.js"></script>
-    <script src="js/FilterComp.js"></script>
-    <script src="js/ErrorComp.js"></script>
-    <script src="js/main.js"></script>
+    <category></category>
+    <!-- <div class="category-wrp">
+        <button class="category-btn">Все</button>
+        <button class="category-btn">Луковичные</button>
+        <button class="category-btn">Кустарники</button>
+    </div> -->
+
+    <main>
+        <error ref="error"></error>
+        <products ref="products"></products>
+        <!--
+                    <div class="products">
+                        <div class="product-item">
+                            <img src="img/rectangle_3_48.png" alt="img" width="232px" height="212px">
+                            <div class="txt-wrap">
+                                <div class="txt-block">
+                                    <h3 class="title">Lorem</h3>
+                                    <span class="price">$300</span>
+                                </div>
+                                <button class="buy-btn">
+                                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+        -->
+        <main>
+            <div class="products"></div>
+        </main>
+        <div class="info">
+            <div class="circle">
+                <i class="fa fa-truck" aria-hidden="true"></i>
+            </div>
+            <span class="info-text">Автосервисы России на нашем сайте</span>
+            <div class="circle">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+            </div>
+            <span class="info-text">звоните нам! звонок бесплатный +7 (800) 122-234-44</span>
+        </div>
+        <div class="contacts">
+            <div class="contact-block">
+                <h4 class="cont-heading">Facebook</h4>
+                <span class="members">100000 участников</span>
+                <img src="img/like.png" alt="like" width="47px" height="23px">
+                <div class="photo-users">
+                    <img class="user" src="img/av1.png" alt="user">
+                    <img class="user" src="img/av2.png" alt="user">
+                    <img class="user" src="img/av3.png" alt="user">
+                    <img class="user" src="img/av4.png" alt="user">
+                    <img class="user" src="img/av5.png" alt="user">
+                    <img class="user" src="img/av6.png" alt="user">
+                    <img class="user" src="img/av7.png" alt="user">
+                    <img class="user" src="img/av8.png" alt="user">
+                </div>
+                <span>facebook Social plugin</span>
+            </div>
+            <div class="contact-block">
+                <h4 class="cont-heading">From twitter</h4>
+                <div class="twit-wrp">
+                    <a class="twitter" href="https://twitter.com" target="_blank" title="twitter">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <span class="twit-txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</span>
+                </div>
+                <div class="twit-wrp">
+                    <a class="twitter" href="https://twitter.com" target="_blank" title="twitter">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <span class="twit-txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</span>
+                </div>
+            </div>
+            <div class="contact-block">
+                <h4 class="cont-heading">информация</h4>
+                <ul class="info-list">
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Sed ultrices purus
+                        non.
+                    </li>
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>sodales sodales.</li>
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Curabitur pretium dui
+                        vitae.
+                    </li>
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Donec gravida mi in
+                        nisl
+                    </li>
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>faucibus leo
+                        condimentum.
+                    </li>
+                    <li class="info-list-item"><i class="fa fa-angle-right" aria-hidden="true"></i>Donec et lorem
+                        suscipit.
+                    </li>
+                </ul>
+            </div>
+            <div class="contact-block">
+                <h4 class="cont-heading">Звоните нам</h4>
+                <ul class="contact-list">
+                    <li>СервисАвто</li>
+                    <li>Группа "СервисАвто"</li>
+                    <li>Москва-Сити, Пресненская наб., 10</li>
+                    <li>+7 (495) 122-234-44-55</li>
+                    <li><a class="mail-link" href="mailto:mail@email.com">mail@email.com</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a class="icon" href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus"
+                                                                                      aria-hidden="true"
+                                                                                      title="google+"></i></a>
+                    <a class="icon" href="https://www.linkedin-russia.ru" target="_blank"><i class="fa fa-linkedin"
+                                                                                             aria-hidden="true"
+                                                                                             title="linkedin"></i></a>
+                    <a class="icon" href="http://all-rss.ru" target="_blank"><i class="fa fa-rss" aria-hidden="true"
+                                                                                title="rss"></i></a>
+                    <a class="icon" href="https://ru-ru.facebook.com" target="_blank"><i class="fa fa-facebook"
+                                                                                         aria-hidden="true"
+                                                                                         title="facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <span class="copyright">&copy; Copyright 2020, Все права защищены.</span>
+            <a href="#" class="footer-link">О нас</a>
+            <a href="#" class="footer-link">Обращения и претензии</a>
+            <a href="#" class="footer-link">Наши партнеры</a>
+            <a href="#" class="footer-link">Контакты</a>
+        </footer>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/ProductComponent.js"></script>
+<script src="js/CartComponent.js"></script>
+<script src="js/FilterComp.js"></script>
+<script src="js/ErrorComp.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

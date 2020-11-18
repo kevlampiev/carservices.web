@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { required, minLength, email } from "vuelidate/lib/validators";
+import {required, minLength, email} from "vuelidate/lib/validators";
 
 export default {
     data: () => {
@@ -97,9 +97,11 @@ export default {
             } else {
                 // localStorage.userData = response.data.token;
                 this.$store.commit('setUserData',
-                    {email: this.form.email,
-                            token: response.data.token,
-                            rememberMe: this.form.rememberMe})
+                    {
+                        email: this.form.email,
+                        token: response.data.token,
+                        rememberMe: this.form.rememberMe
+                    })
             }
         },
 
@@ -141,13 +143,16 @@ export default {
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
 }
+
 .modal-header-my .close {
     margin-top: -2px;
 }
+
 .modal-title-my {
     margin: 0;
     line-height: 1.42857143;
 }
+
 .close {
     float: right;
     font-size: 21px;
@@ -158,13 +163,16 @@ export default {
     filter: alpha(opacity=20);
     opacity: 0.2;
 }
+
 h4 {
     font-size: 18px;
 }
+
 .modal-body {
     position: relative;
     padding: 15px;
 }
+
 input[type="email"],
 input[type="password"] {
     border-radius: 3px;
@@ -183,14 +191,17 @@ input[type="password"] {
     box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;
     color: #333333;
 }
+
 .form-control:hover {
     background-color: rgba(0, 0, 0, 0.16);
 }
+
 .form-control:focus {
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;
     background-color: rgba(0, 0, 0, 0.23);
     color: #333333;
 }
+
 .btn-login {
     background-color: #00bbff;
     border-color: #00bbff;
@@ -208,16 +219,13 @@ input[type="password"] {
     background-color: #00a4e4;
     color: #ffffff;
 }
+
 .modal-dialog-my {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
-    /* width: 350px; */
 }
-/* @media (max-width: 400px) {
-  .modal-dialog {
-    width: 100%;
-  } */
+
 </style>

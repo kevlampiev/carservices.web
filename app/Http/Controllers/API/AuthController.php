@@ -49,12 +49,12 @@ class AuthController extends Controller
 //
 //        return app()->handle($request);
         try {
-            $user = User::query()->where('email',request()->post('email'))->first();
+            $user = User::query()->where('email', request()->post('email'))->first();
             if (!$user) {
-                return response()->json(['status'=>403,
-                        'error'=>'Пользователь с email '.request()->post('email').' не найден']);
+                return response()->json(['status' => 403,
+                    'error' => 'Пользователь с email ' . request()->post('email') . ' не найден']);
             };
-            if (Hash::check(request()->post('password'),$user->password)) {
+            if (Hash::check(request()->post('password'), $user->password)) {
                 $token = $user->createToken('carservices Personal Access Client')->accessToken;
                 return response()->json([
                     'status' => 201,
@@ -65,7 +65,7 @@ class AuthController extends Controller
                     'status' => 403,
                     'error' => 'Неверная пара логин + пароль']);
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
     }

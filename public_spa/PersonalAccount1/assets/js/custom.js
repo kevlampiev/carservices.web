@@ -1,6 +1,3 @@
-
-
-
 /*=============================================================
     Authour URI: www.binarycart.com
     License: Commons Attribution 3.0
@@ -9,7 +6,7 @@
 
     100% To use For Personal And Commercial Use.
     IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
-   
+
     ========================================================  */
 
 
@@ -19,7 +16,7 @@
 
         main_fun: function () {
             /*====================================
-            METIS MENU 
+            METIS MENU
             ======================================*/
             $('#main-menu').metisMenu();
 
@@ -198,8 +195,8 @@
                 hideHover: 'auto',
                 resize: true
             });
-           
-     
+
+
         },
 
         initialization: function () {

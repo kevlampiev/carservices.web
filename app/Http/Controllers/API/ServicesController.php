@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ServicesController extends Controller
 {
+
     public function index(Request $request) {
         if($request->has('city')) {
             $city=urldecode(request()->get('city'));
@@ -51,7 +52,8 @@ class ServicesController extends Controller
     }
 
 
-    public function setSchedule(Request $request) {
+    public function setSchedule(Request $request)
+    {
         $dataOrder = [
             'user_id' => Auth::id(),
             'car_model' => $request->car_model,
@@ -73,12 +75,14 @@ class ServicesController extends Controller
         return response()->json(['message' => 'Запись добавлена в базу']);
     }
 
-    public function cityList() {
-        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(),200,[],JSON_UNESCAPED_UNICODE);
+    public function cityList()
+    {
+        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function typeList() {
-        return response()->json(Type::query()->select('name')->get(), 200,[],JSON_UNESCAPED_UNICODE);
+    public function typeList()
+    {
+        return response()->json(Type::query()->select('name')->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 
 }

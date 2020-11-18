@@ -26,4 +26,3 @@ Route::group([
 ], function() {
     Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
 });
-

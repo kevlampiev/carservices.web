@@ -21,7 +21,7 @@ class ScheduleSeeder extends Seeder
                 for ($d=0;$d<21;$d++) { //Перебираем дни на 3 недели вперед
                     for ($h=8;$h<18;$h++) { //Перебираем часы
                         for ($q=0;$q<4;$q++) { //Четверти часа
-                            $make=rand(0,10); //рулетка: вносим или не вносим запись
+                            $make=rand(0,50); //рулетка: вносим или не вносим запись
                             if ($make<2) {
                                 DB::table('schedules')->insert([
                                    'service_id'=>$type->service_id,
@@ -37,17 +37,6 @@ class ScheduleSeeder extends Seeder
             }
 
 
-//        $services=Service::all();
-//        foreach($services as $el) {
-//            $max_k=random_int(1,4);
-//            for ($k=1;$k<$max_k;$k++) {
-//                DB::table('services_types')->insert([
-//                    'service_id' => $el->id,
-//                    'type_id' => $k,
-//                    'created_at' => now()
-//                ]);
-//            }
-//        }
 
     }
 }
