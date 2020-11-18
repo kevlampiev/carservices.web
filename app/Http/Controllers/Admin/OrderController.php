@@ -37,7 +37,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
 //    public function store(Request $request)
@@ -59,7 +59,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Order
+     * @param \App\Models\Order
      * @return \Illuminate\Http\Response
      */
     public function edit(Order $order)
@@ -70,8 +70,8 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Order
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order)
@@ -82,7 +82,7 @@ class OrderController extends Controller
             'descriptions' => 'required|string'
         ]);
         $order = $order->fill($request->all());
-        if($order->save()) {
+        if ($order->save()) {
             return response()->json(200);
         }
         return response()->json(400);
@@ -91,7 +91,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order
+     * @param \App\Models\Order
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)
@@ -99,7 +99,7 @@ class OrderController extends Controller
         $schedule = Schedule::query()->find($order->id);
         $schedule->delete();
         $result = $order->delete();
-        if($result) {
+        if ($result) {
             return response()->json(200);
         }
         return response()->json(400);
