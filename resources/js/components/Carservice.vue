@@ -1,8 +1,8 @@
 <template>
 
-    <div class="row">
+    <div class="row" @makeOrder="makeOrder(id)" @sendOrderToServer="sendOrderToServer(orderDetails)">
 
-        <div class="col-md-5 ">
+        <div class="col-md-5" >
             <h2>Общая информация</h2>
             <img :src="description.img_link" alt="">
 
@@ -52,6 +52,8 @@ export default {
             schedules: [],
             currentType: '*',
             type_id: 0, //TODO причесать данные от сервера и удалить этот элемент
+            currentSchedule: {},
+            currentScheduleId: null
         }
     },
     components: {SelectTypeBand, ScheduleTab},
@@ -70,12 +72,36 @@ export default {
             }
             //TODO Конец кода, подлежащего удалению
         },
-        makeOrder() {
+
+
+        makeOrder(el) {
+            //this.currentSchedule=el
+            // this.currentScheduleId=el.id
+
             this.$store.state.popUpData = {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
+                data: el,
             }
         },
+        sendOrderToServer(orderDetails) {
+            alert('на месте')
+            if (typeof orderDetails !== 'object') {
+                console.error('Аргумент, возращенный из компонента OrderDetals не является объектом ')
+                alert('Аргумент, возращенный из компонента OrderDetals не является объектом ')
+            } else {
+                orderDetails.schedule_id=this.currentSchedule.id
+                axios.post('/api/makeOrder',orderDetails)
+                .then(res=>{
+                    alert('ЗАказ успешно добавлен')
+                    this.currentSchedule.order_id = res.order_id
+                })
+                .catch(err=> {
+                    console.error(err.message)
+                    alert('Не прошло')
+                })
+            }
+        }
     },
     mounted() {
 
@@ -105,25 +131,6 @@ img {
     height: 180px;
     float: left;
     margin: 10px 20px 10px 10px;
-}
-
-.available-time {
-    display: block;
-    width: 70px;
-    height: 30px;
-    background-color: transparent;
-    border: 2px solid #ccc;
-    border-radius: 17px;
-    margin: 20px;
-    text-align: center;
-    font-weight: 800;
-    color: #555;
-}
-
-.available-time:hover {
-    background-color: #555;
-    color: white;
-    text-decoration: none;
 }
 
 .types-list {

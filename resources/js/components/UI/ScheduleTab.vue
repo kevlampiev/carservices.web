@@ -13,7 +13,8 @@
             <td>
             </td>
             <td v-for="n in 7">
-                <a class="available-time" @click="$parent.makeOrder" v-for="(el,index) in scheduledData[n-1]">
+                <a :class="{timeslot: true, available:(!el.order_id), occupied: el.order_id} "
+                   @click="!el.order_id?$parent.makeOrder(el):''" v-for="(el,index) in scheduledData[n-1]">
                     {{ Math.trunc(el.work_time) }}:{{ 60 * (el.work_time % 1) }}
                 </a>
             </td>
@@ -58,7 +59,8 @@ export default {
                 this.dateStart = moment(this.dateStart).add(-1, 'days')
             } else {
             }
-        }
+        },
+
     },
 
     computed: {
@@ -107,4 +109,44 @@ export default {
 
 <style>
 
+.timeslot {
+    display: block;
+    width: 70px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 17px;
+    margin: 20px;
+    text-align: center;
+    font-weight: 800;
+
+}
+
+
+.available {
+    color: #555;
+    background-color: #aaa;
+}
+
+.available:hover {
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+}
+
+.occupied {
+    color: #aaa;
+    background-color: transparent;
+    text-decoration:line-through;
+}
+
+.occupied:hover {
+    color: #aaa;
+    background-color: transparent;
+    text-decoration:line-through;
+}
+
+
+/*.my-order{*/
+
+/*}*/
 </style>

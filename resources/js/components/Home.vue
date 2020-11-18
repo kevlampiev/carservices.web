@@ -113,6 +113,7 @@ export default {
     mounted() {
         this.showMap = true
         this.getServiceList(this.$store.state.city)
+        this.$store.state.popUpData.comp=''
     },
     watch: {
         '$store.state.city': 'getServiceList'

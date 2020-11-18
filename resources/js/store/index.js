@@ -10,7 +10,8 @@ export default {
         },
         popUpData: {
             comp: '',
-            header: ''
+            header: '',
+            data: null
         },
 
     },
