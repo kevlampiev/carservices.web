@@ -17,7 +17,7 @@ class OwnerServiceController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if($user->role = 'owner') {
+        if ($user->role = 'owner') {
             $services = Service::query()->where('user_id', Auth::id())->get();
             return response()->json($services);
         }
@@ -37,7 +37,7 @@ class OwnerServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,7 +55,7 @@ class OwnerServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Service
+     * @param Service
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,7 +66,7 @@ class OwnerServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Service
+     * @param Service
      * @return \Illuminate\Http\Response
      */
     public function edit(Service $service)
@@ -77,14 +77,14 @@ class OwnerServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Service
+     * @param \Illuminate\Http\Request $request
+     * @param Service
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Service $service)
     {
         $service = $service->fill($request->all());
-        if($service->save()) {
+        if ($service->save()) {
             return response()->json(200);
         }
         return response()->json(400);
@@ -93,13 +93,13 @@ class OwnerServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Service
+     * @param Service
      * @return \Illuminate\Http\Response
      */
     public function destroy(Service $service)
     {
         $result = $service->delete();
-        if($result) {
+        if ($result) {
             return response()->json(200);
         }
         return response()->json(400);

@@ -14,27 +14,29 @@ use Illuminate\Support\Facades\Auth;
 class ServicesController extends Controller
 {
 
-    public function index(Request $request) {
-        if($request->has('city')) {
-            $city=urldecode(request()->get('city'));
+    public function index(Request $request)
+    {
+        if ($request->has('city')) {
+            $city = urldecode(request()->get('city'));
             return response()->json(Service::query()
-                ->where('city',$city)
+                ->where('city', $city)
                 ->with('types')->get(),
-                200,[],JSON_UNESCAPED_UNICODE);
+                200, [], JSON_UNESCAPED_UNICODE);
         }
         return response()->json(Service::query()
             ->with('types')->get(),
-            200, [],JSON_UNESCAPED_UNICODE);
+            200, [], JSON_UNESCAPED_UNICODE);
     }
 
 
-    public function show(Service $service) {
+    public function show(Service $service)
+    {
 
         $date = new Carbon();
         $schedules = Schedule::query()
             ->where('schedules.service_id', $service->id)
             ->whereBetween('work_day', [$date->today(), $date->addWeek(3)])
-            ->select('schedules.id','schedules.work_day', 'schedules.work_time', 'schedules.order_id', 'types.name')
+            ->select('schedules.id', 'schedules.work_day', 'schedules.work_time', 'schedules.order_id', 'types.name')
             ->join('types', 'schedules.service_type_id', '=', 'types.id')
             ->get();
 

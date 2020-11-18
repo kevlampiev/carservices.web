@@ -32,7 +32,7 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,7 +44,7 @@ class TypeController extends Controller
             'description' => 'required|string|min:10'
         ]);
         $type = $type->fill($request->all());
-        if($type->save()) {
+        if ($type->save()) {
             return response()->json(200);
         }
         return response()->json(400);
@@ -53,7 +53,7 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Type
+     * @param Type
      * @return \Illuminate\Http\Response
      */
     public function show(Type $type)
@@ -64,7 +64,7 @@ class TypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Type
+     * @param Type
      * @return \Illuminate\Http\Response
      */
     public function edit(Type $type)
@@ -75,8 +75,8 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Type
+     * @param \Illuminate\Http\Request $request
+     * @param Type
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Type $type)
@@ -87,7 +87,7 @@ class TypeController extends Controller
             'description' => 'required|string|min:10'
         ]);
         $type = $type->fill($request->all());
-        if($type->save()) {
+        if ($type->save()) {
             return response()->json(200);
         }
         return response()->json(400);
@@ -96,13 +96,13 @@ class TypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Type
+     * @param Type
      * @return \Illuminate\Http\Response
      */
     public function destroy(Type $type)
     {
         $result = $type->delete();
-        if($result) {
+        if ($result) {
             return response()->json(200);
         }
         return response()->json(400);

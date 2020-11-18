@@ -108,15 +108,13 @@ export default {
         axios.get('/api/services/' + this.$route.params.id)
             .then(
                 res => {
-                    this.description = res.data[0]
-                    this.types = this.description.types
-                    this.description.types = null
-                    this.schedules = this.description.schedules
-                    this.description.schedules = null
+                    this.description = res.data.service
+                    this.types = res.data.types
+                    this.schedules = res.data.schedules
                 }
             ).catch(
             err => {
-                console.log(err.message)
+                console.error(err.message)
             }
         )
     }
