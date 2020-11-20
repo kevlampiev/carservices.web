@@ -4,9 +4,6 @@
         <h4>Дата и время</h4>
         <p>{{ order_date }} {{ order_time }}</p>
 
-<!--        <h4>Вид услуг</h4>-->
-<!--        <p>{{serviceName}}</p>-->
-
         <div class="form-group">
             <label for="carModel">Модель автомобиля</label>
             <input type="text" class="form-control" id="carModel" placeholder="ГАЗ 3101" v-model="orderDetails.car_model">
@@ -27,7 +24,7 @@
             <input type="text" class="form-control" id="telephone" placeholder="+7(900)000-0000" v-model="orderDetails.telephone">
         </div>
 
-        <button type="button" class="btn btn-primary" @click="makeOrder">Ok</button>
+        <button type="button" class="btn btn-primary" @click="sendOrderToServer">Ok</button>
         <button type="button" class="btn btn-outline-secondary" @click="close">Отмена</button>
     </div>
 </template>
@@ -40,6 +37,7 @@ export default {
         return {
             orderDetails: {
                 user_id: '',
+                order_id: 1,
                 car_model: '',
                 license_plate_number: '',
                 description: '',
@@ -65,14 +63,18 @@ export default {
         }
     },
     methods: {
-        makeOrder() {
-            this.$emit('sendOrderToServer',this.orderDetails)
-            // this.$parent.sendOrderToServer(this.orderDetails)
+        sendOrderToServer() {
+            axios.post('/api/order', this.orderDetails)
+            .then(res=>{
+                console.log(res)
+                alert('All went fine')
+            })
+            .catch(err=>{console.error(err.message)})
             this.close()
         }
     },
     mounted() {
-        console.dir(this.$store.state.popUpData.data)
+        this.order_id=this.$store.state.popUpData.data.id
     }
 }
 </script>

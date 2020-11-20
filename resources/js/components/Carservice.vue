@@ -1,8 +1,8 @@
 <template>
 
-    <div class="row" @makeOrder="makeOrder(id)" @sendOrderToServer="sendOrderToServer(orderDetails)">
+    <div class="row" @makeOrder="makeOrder(id)" >
 
-        <div class="col-md-5" >
+        <div class="col-md-5" @sots="alert(33)">
             <h2>Общая информация</h2>
             <img :src="description.img_link" alt="">
 
@@ -31,8 +31,7 @@
             <h2>Расписание</h2>
             <SelectTypeBand :types="types" :currentType.sync="currentType"
                             @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-<!--            TODO удалить :type_id в компоненте ниже как только придут отформатированные данные от сервера -->
-            <ScheduleTab :scheduleList="schedules" :currentType="currentType" :type_id="type_id"></ScheduleTab>
+            <ScheduleTab :scheduleList="schedules" :currentType="currentType"></ScheduleTab>
 
         </div>
     </div>
@@ -60,24 +59,11 @@ export default {
     methods: {
         setNewCurrentType(newCurrentType) {
             this.currentType = newCurrentType
-            //TODO код подлежащий удалению, когда с сервера начнут приходить причесанный данные
-            if (newCurrentType === '*') this.type_id = 0;
-            else {
-                let el = this.types.find(
-                    (elem) => {
-                        return elem.name === newCurrentType
-                    }
-                )
-                this.type_id = el.id
-            }
-            //TODO Конец кода, подлежащего удалению
+            alert(this.currentType)
         },
 
 
         makeOrder(el) {
-            //this.currentSchedule=el
-            // this.currentScheduleId=el.id
-
             this.$store.state.popUpData = {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
