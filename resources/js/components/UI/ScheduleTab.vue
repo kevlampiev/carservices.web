@@ -1,6 +1,6 @@
 <template>
 
-    <table class="table">
+    <table class="table" >
         <thead>
         <tr>
             <th scope="col" @click="dayBack"><i class="fa fa-arrow-left" aria-hidden="true"></i></th>
@@ -41,7 +41,6 @@ export default {
     props: [
         'scheduleList',
         'currentType',
-        'type_id' //TODO причесать данные от сервера и удалить этот элемент
     ],
     methods: {
         dayForward: function () {
@@ -79,7 +78,7 @@ export default {
                     .diff(this.dateStart, 'days')
                 if ((0 <= days) &&
                     (days < 7) &&
-                    ((this.type_id === 0) || (this.type_id === item.service_type_id))
+                    ((this.currentType === '*') || (this.currentType === item.name))
                 ) {
                     tmpArr[days].push(item)
                 }

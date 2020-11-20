@@ -21,14 +21,13 @@ Route::post('/login', 'API\AuthController@login');
 Route::group([
     'prefix' => 'services'
 ], function() {
-
     Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/cities', 'API\ServicesController@cityList')->name('services.city');
     Route::get('/types', 'API\ServicesController@typeList')->name('services.type');
     Route::get('/{service}', 'API\ServicesController@show')->name('serviceData');
     Route::post('/{service}', 'API\ServicesController@setSchedule')->name('storeOrder');
-
 });
+
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin'
