@@ -109,6 +109,9 @@ export default {
                     return matchSearch && matchType
                 })
         },
+        types() {
+            return this.$store.state.types
+        },
     },
     mounted() {
         this.showMap = true

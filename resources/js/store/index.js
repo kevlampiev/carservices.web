@@ -88,6 +88,7 @@ export default {
         getTypes(context) {
             axios.get('/api/services/types')
                 .then(res => {
+                    res.data.unshift({name: '*'})
                     context.commit('setTypes', res.data)
                     //TODO Может придти и обюработанная ошибка. Прописать этот вариант
                 })
