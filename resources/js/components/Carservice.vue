@@ -1,6 +1,6 @@
 <template>
 
-    <div class="row" @makeOrder="makeOrder(id)" >
+    <div class="row" @makeOrder="makeOrder(id)">
 
         <div class="col-md-5" @sots="alert(33)">
             <h2>Общая информация</h2>
@@ -29,9 +29,12 @@
 
         <div class="col-md-7">
             <h2>Расписание</h2>
-            <SelectTypeBand :types="types" :currentType.sync="currentType"
+<!--            <SelectTypeBand :types="types" :currentType.sync="currentType"-->
+<!--                            @setNewCurrentType="setNewCurrentType"></SelectTypeBand>-->
+            <SelectTypeBand :types="types" :currentType="currentType"
                             @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-            <ScheduleTab :scheduleList="schedules" :currentType="currentType"></ScheduleTab>
+<!--            <ScheduleTab :scheduleList="schedules" :currentType="currentType"></ScheduleTab>-->
+            <ScheduleTab :currentType="currentType"></ScheduleTab>
 
         </div>
     </div>
@@ -47,19 +50,27 @@ export default {
     data: () => {
         return {
             description: {},
-            types: [],
             schedules: [],
-            currentType: '*',
-            type_id: 0, //TODO причесать данные от сервера и удалить этот элемент
+            // type_id: 0, //TODO причесать данные от сервера и удалить этот элемент
             currentSchedule: {},
             currentScheduleId: null
         }
     },
     components: {SelectTypeBand, ScheduleTab},
+    computed: {
+        types() {
+            return this.$store.state.currentService.types
+        },
+        currentType() {
+            return this.$store.state.currentService.currentType
+        },
+
+    },
     methods: {
         setNewCurrentType(newCurrentType) {
-            this.currentType = newCurrentType
-            alert(this.currentType)
+            this.$store.commit('setCurrentType',{name: newCurrentType})
+            // alert(newCurrentType)
+            // this.currentType = newCurrentType
         },
 
 
@@ -76,33 +87,21 @@ export default {
                 console.error('Аргумент, возращенный из компонента OrderDetals не является объектом ')
                 alert('Аргумент, возращенный из компонента OrderDetals не является объектом ')
             } else {
-                orderDetails.schedule_id=this.currentSchedule.id
-                axios.post('/api/makeOrder',orderDetails)
-                .then(res=>{
-                    alert('ЗАказ успешно добавлен')
-                    this.currentSchedule.order_id = res.order_id
-                })
-                .catch(err=> {
-                    console.error(err.message)
-                    alert('Не прошло')
-                })
+                orderDetails.schedule_id = this.currentSchedule.id
+                axios.post('/api/makeOrder', orderDetails)
+                    .then(res => {
+                        alert('ЗАказ успешно добавлен')
+                        this.currentSchedule.order_id = res.order_id
+                    })
+                    .catch(err => {
+                        console.error(err.message)
+                        alert('Не прошло')
+                    })
             }
         }
     },
     mounted() {
-
-        axios.get('/api/services/' + this.$route.params.id)
-            .then(
-                res => {
-                    this.description = res.data.service
-                    this.types = res.data.types
-                    this.schedules = res.data.schedules
-                }
-            ).catch(
-            err => {
-                console.error(err.message)
-            }
-        )
+        this.$store.dispatch('getServiceInfo',{id: this.$route.params.id})
     }
 }
 
