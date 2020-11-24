@@ -40,7 +40,7 @@ export default {
         return {
             orderDetails: {
                 user_id: '',
-                order_id: 1,
+                schedule_id: 1,
                 car_model: '',
                 license_plate_number: '',
                 description: '',
@@ -67,10 +67,14 @@ export default {
     },
     methods: {
         sendOrderToServer() {
+            this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
             axios.post('/api/order', this.orderDetails)
                 .then(res => {
                     console.log(res)
-                    alert('All went fine')
+                    this.$store.dispatch('getServiceInfo',{
+                        id: this.$store.state.currentService.id
+                    })
+                    // alert('All went fine')
                 })
                 .catch(err => {
                     console.error(err.message)
