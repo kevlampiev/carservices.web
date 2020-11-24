@@ -52,14 +52,14 @@ export default {
     props: ['close'],
     computed: {
         order_date: function () {
-            return this.$store.state.popUpData.data.work_day
+            return this.$store.state.currentService.selectedSchedule.work_day
         },
         order_time: function () {
-            return Math.trunc(this.$store.state.popUpData.data.work_time) +
-                ':' + (60 * (this.$store.state.popUpData.data.work_time % 1))
+            return Math.trunc(this.$store.state.currentService.selectedSchedule.work_time) +
+                ':' + (60 * (this.$store.state.currentService.selectedSchedule.work_time % 1))
         },
         orderId: function () {
-            return this.$store.state.popUpData.id
+            return this.$store.state.currentService.commonInfo.id
         },
         serviceName: function () {
             return 'Пока не сделано'
@@ -67,26 +67,24 @@ export default {
     },
     methods: {
         sendOrderToServer() {
-            this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
+            console.dir(this.$store.state.currentService.selectedSchedule)
             axios.post('/api/order', this.orderDetails)
-
                 .then(res => {
                     console.log(res)
                     this.$store.dispatch('getServiceInfo',{
-                        id: this.$store.state.currentService.id
+                        id: this.$store.state.currentService.commonInfo.id
                     })
-                    // alert('All went fine')
                 })
                 .catch(err => {
                     console.error(err.message)
                 })
 
-   
+
             this.close()
         }
     },
     mounted() {
-        this.orderDetails.schedule_id=this.$store.state.popUpData.data.id
+        this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
     }
 }
 </script>
