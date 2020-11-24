@@ -69,6 +69,7 @@ export default {
         sendOrderToServer() {
             this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
             axios.post('/api/order', this.orderDetails)
+
                 .then(res => {
                     console.log(res)
                     this.$store.dispatch('getServiceInfo',{
@@ -79,11 +80,13 @@ export default {
                 .catch(err => {
                     console.error(err.message)
                 })
+
+   
             this.close()
         }
     },
     mounted() {
-        this.order_id = this.$store.state.popUpData.data.id
+        this.orderDetails.schedule_id=this.$store.state.popUpData.data.id
     }
 }
 </script>
