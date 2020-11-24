@@ -29,11 +29,8 @@
 
         <div class="col-md-7">
             <h2>Расписание</h2>
-<!--            <SelectTypeBand :types="types" :currentType.sync="currentType"-->
-<!--                            @setNewCurrentType="setNewCurrentType"></SelectTypeBand>-->
             <SelectTypeBand :types="types" :currentType="currentType"
                             @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-<!--            <ScheduleTab :scheduleList="schedules" :currentType="currentType"></ScheduleTab>-->
             <ScheduleTab :currentType="currentType"></ScheduleTab>
 
         </div>
@@ -69,16 +66,14 @@ export default {
     methods: {
         setNewCurrentType(newCurrentType) {
             this.$store.commit('setCurrentType',{name: newCurrentType})
-            // alert(newCurrentType)
-            // this.currentType = newCurrentType
         },
 
 
         makeOrder(el) {
+            this.$store.state.currentService.selectedSchedule=el
             this.$store.state.popUpData = {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
-                data: el,
             }
         },
         sendOrderToServer(orderDetails) {
