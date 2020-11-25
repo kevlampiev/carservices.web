@@ -60,10 +60,15 @@ export default {
         },
         serviceName: function() {
             return 'Пока не сделано'
-        }
+        },
+
+        userToken: function() {
+            return this.$store.state.userData.token
+        },
     },
     methods: {
         sendOrderToServer() {
+            axios.defaults.headers.common['Authorization']=this.userToken
             axios.post('/api/order', this.orderDetails)
             .then(res=>{
                 console.log(res)
