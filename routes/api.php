@@ -38,6 +38,9 @@ Route::group([
     Route::resource('/types', 'TypeController');
 
 });
+
+Route::post('/order', 'API\OrderController@setOrder')->name('setOrder');
+
 Route::group([
     'prefix' => 'owner',
     'namespace' => 'API'

@@ -6,12 +6,14 @@
 
         <div class="form-group">
             <label for="carModel">Модель автомобиля</label>
-            <input type="text" class="form-control" id="carModel" placeholder="ГАЗ 3101" v-model="orderDetails.car_model">
+            <input type="text" class="form-control" id="carModel" placeholder="ГАЗ 3101"
+                   v-model="orderDetails.car_model">
         </div>
 
         <div class="form-group">
             <label for="licensePlateNumber">Государствыенный регистрационный знак</label>
-            <input type="text" class="form-control" id="licensePlateNumber" placeholder="x000XX199" v-model="orderDetails.license_plate_number">
+            <input type="text" class="form-control" id="licensePlateNumber" placeholder="x000XX199"
+                   v-model="orderDetails.license_plate_number">
         </div>
 
         <div class="form-group">
@@ -21,7 +23,8 @@
 
         <div class="form-group">
             <label for="telephone">Телефон для связи</label>
-            <input type="text" class="form-control" id="telephone" placeholder="+7(900)000-0000" v-model="orderDetails.telephone">
+            <input type="text" class="form-control" id="telephone" placeholder="+7(900)000-0000"
+                   v-model="orderDetails.telephone">
         </div>
 
         <button type="button" class="btn btn-primary" @click="sendOrderToServer">Ok</button>
@@ -48,17 +51,17 @@ export default {
     },
     props: ['close'],
     computed: {
-        order_date: function() {
-            return this.$store.state.popUpData.data.work_day
+        order_date: function () {
+            return this.$store.state.currentService.selectedSchedule.work_day
         },
-        order_time: function() {
-            return Math.trunc(this.$store.state.popUpData.data.work_time)+
-                ':'+(60*(this.$store.state.popUpData.data.work_time%1))
+        order_time: function () {
+            return Math.trunc(this.$store.state.currentService.selectedSchedule.work_time) +
+                ':' + (60 * (this.$store.state.currentService.selectedSchedule.work_time % 1))
         },
-        orderId: function() {
-            return this.$store.state.popUpData.id
+        orderId: function () {
+            return this.$store.state.currentService.commonInfo.id
         },
-        serviceName: function() {
+        serviceName: function () {
             return 'Пока не сделано'
         },
 
@@ -70,17 +73,22 @@ export default {
         sendOrderToServer() {
             axios.defaults.headers.common['Authorization']=this.userToken
             axios.post('/api/order', this.orderDetails)
-            .then(res=>{
-                console.log(res)
-                alert('All went fine')
-            })
-            .catch(err=>{console.error(err.message)})
+                .then(res => {
+                    console.log(res)
+                    this.$store.dispatch('getServiceInfo',{
+                        id: this.$store.state.currentService.commonInfo.id
+                    })
+                })
+                .catch(err => {
+                    console.error(err.message)
+                })
+
 
             this.close()
         }
     },
     mounted() {
-        this.orderDetails.schedule_id=this.$store.state.popUpData.data.id
+        this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
     }
 }
 </script>
