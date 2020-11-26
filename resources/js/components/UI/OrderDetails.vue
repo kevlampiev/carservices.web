@@ -89,6 +89,7 @@ export default {
     },
     mounted() {
         this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
+        console.log(this.$store.state.makeOrder.count)
     }
 }
 </script>

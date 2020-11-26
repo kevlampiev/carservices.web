@@ -30,7 +30,8 @@
 
 
 <script>
-const moment = require('moment')
+// const moment = require('moment')
+import moment from  'moment'
 moment.locale('ru')
 
 export default {
