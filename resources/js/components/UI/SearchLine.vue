@@ -1,6 +1,7 @@
 <template>
 
     <div class="input-group">
+
         <input
             class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"
             type="search" placeholder="Поиск по названию"

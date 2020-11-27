@@ -1,45 +1,41 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    Ваш город {{ $store.state.city }}? <a href="#" @click.stop="startSelectCity">Изменить</a>
-                </div>
+    <div class="main-page">
+
+        <div class="container">
+            <div class="menu-wrapper">
+                <search-line :searchStr.sync="searchStr"></search-line>
+                <select-type-band :types="$store.state.types" :currentType.sync="currentType"
+                                  @setNewCurrentType="setNewCurrentType"></select-type-band>
 
             </div>
 
-            <div class="card text-center">
-                <div class="card-header">
-                    <nav class="navbar navbar-expand-lg ">
-                        <ul class="nav justify-content-lg-start">
-                            <select-type-band :types="$store.state.types" :currentType.sync="currentType"
-                                              @setNewCurrentType="setNewCurrentType"></select-type-band>
-                        </ul>
-
-                        <ul class="nav justify-content-lg-end">
-                            <li class="nav-item">
-                                <search-line :searchStr.sync="searchStr"></search-line>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-
-
-            </div>
-
-            <div class="card-body">
-                <div class="carservice-card" v-for="(carserv,index) in filteredServices" :key="carserv.id"
-                     @click="showService(carserv.id)">
-                    <img
-                        :src="carserv.img_link">
+            <div class="content-wrapper">
+                <div class="content-item" v-for="(carserv,index) in filteredServices" :key="carserv.id">
                     <div>
-                        <h5>{{ carserv.name }}</h5>
-                        <p>{{ carserv.city }}</p>
-                        <p>{{ carserv.address }}</p>
+                        <img class="content-item-company-img" :src="carserv.img_link">
+                        <div class="content-item-company-wrapper">
+                            <div class="content-item-company-name">{{ carserv.name }}</div>
+                            <div class="content-item-company-address">
+                                {{ carserv.city }}
+                                <br>
+                                {{ carserv.address }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-item-services-wrapper">
+                        <div class="content-item-services-type" v-for="(type,index) in carserv.types" :key="index">
+                            {{ type.name }}
+                        </div>
+                    </div>
+                    <div class="content-item-deal-wrapper">
+                        <div class="content-item-deal-price">от 2000 ₽</div>
+                        <div class="content-item-deal-button" @click="showService(carserv.id)">Записаться</div>
                     </div>
                 </div>
+
             </div>
         </div>
+
 
     </div>
 

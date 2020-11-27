@@ -1,52 +1,40 @@
 <template>
-    <div class="container-fluid" @showSelectCityDlg="showSelectCityDlg">
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Carservices.web</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">
-                        <router-link :to="{ name: 'home' }">Главная</router-link>
-                    </a>
-                    <a class="nav-item nav-link" href="#">
-                        <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>
-                    </a>
+    <div class="main-page" @showSelectCityDlg="showSelectCityDlg">
+        <header>
+            <div class="container">
+                <div class="header-logo">CARSERVICES.WEB</div>
+                <div class="header-location" @click.stop="startSelectCity">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    {{ city }}
                 </div>
-            </div>
+                <div class="header-page-link">
+                    <router-link :to="{ name: 'home' }">Главная</router-link>
+                </div>
+                <div class="header-page-link">
+                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>
+                </div>
 
-            <ul class="nav justify-content-end" v-if="!email||email===''">
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="#">
+                <div class="header-acc-wrapper" v-if="!email||email===''">
+                    <div class="header-acc-reg">
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="#">
+                    </div>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <div class="header-acc-login">
                         <router-link :to="{ name: 'login' }">Войти</router-link>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="nav justify-content-end" v-else>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="#">
+                    </div>
+                </div>
+                <div class="header-acc-wrapper" v-else>
+                    <div class="header-acc-reg">
                         <router-link :to="{ name: 'register' }">{{ email }}</router-link>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="#" @click="logout">
-                        Выйти
-                    </a>
-                </li>
-            </ul>
+                    </div>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <div class="header-acc-login" @click="logout">
+                        <router-link :to="{name: 'home'}">Выйти</router-link>
+                    </div>
+                </div>
 
-        </nav>
-
+            </div>
+        </header>
 
         <router-view></router-view>
         <popUp v-if="popUpComponent"></popUp>
@@ -61,14 +49,18 @@ export default {
 
     methods: {
         logout() {
-            //Потрясающей глубины метод
             this.$store.dispatch('logout')
         },
-
         showSelectCityDlg() {
             this.currentPopUp = 'cityList'
             this.popUpHeader = 'выбор города'
-        }
+        },
+        startSelectCity() {
+            this.$store.state.popUpData = {
+                comp: 'cityList',
+                header: 'выбрать город',
+            }
+        },
 
     },
     computed: {
@@ -77,6 +69,10 @@ export default {
         },
         popUpComponent: function () {
             return this.$store.state.popUpData.comp
+        },
+
+        city: function () {
+            return this.$store.state.city
         }
     },
 

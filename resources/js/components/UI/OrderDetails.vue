@@ -65,17 +65,17 @@ export default {
             return 'Пока не сделано'
         },
 
-        userToken: function() {
+        userToken: function () {
             return this.$store.state.userData.token
         },
     },
     methods: {
         sendOrderToServer() {
-            axios.defaults.headers.common['Authorization']=this.userToken
+            axios.defaults.headers.common['Authorization'] = this.userToken
             axios.post('/api/order', this.orderDetails)
                 .then(res => {
                     console.log(res)
-                    this.$store.dispatch('getServiceInfo',{
+                    this.$store.dispatch('getServiceInfo', {
                         id: this.$store.state.currentService.commonInfo.id
                     })
                 })
@@ -88,7 +88,7 @@ export default {
         }
     },
     mounted() {
-        this.orderDetails.schedule_id=this.$store.state.currentService.selectedSchedule.id
+        this.orderDetails.schedule_id = this.$store.state.currentService.selectedSchedule.id
         console.log(this.$store.state.makeOrder.count)
     }
 }
