@@ -138,6 +138,7 @@ header
                 margin-top: 30px
                 font-weight: 600
 
+
                 .menu-li
                     padding: 10px 20px 10px 20px
                     background-color: $color-white
@@ -253,7 +254,7 @@ header
                 height: 180px
 
             .company-about-info-wrapper
-                width: calc(100% - 210px)
+                width: calc(100% - 240px)
                 margin-left: 30px
 
                 .company-about-info-name
@@ -343,12 +344,16 @@ header
                     left: -15px
                     transform: rotate(180deg)
                     cursor: pointer
+                    height: 25px
+                    width: 10px
 
                 .company-calendar-week-arrow-forward
                     position: absolute
                     top: 16px
                     right: -15px
                     cursor: pointer
+                    height: 25px
+                    width: 10px
 
                 .company-calendar-week-date-wrapper
                     display: flex
@@ -399,11 +404,14 @@ header
                 font-size: 16px
                 font-weight: 400
                 color: $color-black
+                display: flex
+                justify-content: space-around
 
-                .company-calendar-time-row
+                .company-calendar-time-column
                     display: flex
-                    justify-content: space-around
                     margin-top: 15px
+                    width: 60px
+                    flex-wrap: wrap
 
                     .company-calendar-time-block
                         @extend %setup-box-round-corners
@@ -412,6 +420,7 @@ header
                         border: 2px solid $color-light-grey
                         text-align: center
                         cursor: pointer
+                        height: 35px
 
                         &:hover
                             background-color: $color-main
@@ -789,3 +798,7 @@ header
 
                 &:nth-of-type(3n)
                     border-right: none
+
+
+.green-colored
+    color: green

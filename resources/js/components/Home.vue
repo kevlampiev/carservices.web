@@ -3,7 +3,9 @@
 
         <div class="container">
             <div class="menu-wrapper">
-                <search-line :searchStr.sync="searchStr"></search-line>
+                <div class="menu-search">
+                    <search-line :searchStr.sync="searchStr"></search-line>
+                </div>
                 <select-type-band :types="$store.state.types" :currentType.sync="currentType"
                                   @setNewCurrentType="setNewCurrentType"></select-type-band>
 

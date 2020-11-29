@@ -1,65 +1,56 @@
 <template>
 
-    <div class="row" @makeOrder="makeOrder(id)">
 
-        <div class="col-md-5" @sots="alert(33)">
-            <h2>Общая информация</h2>
-            <img :src="description.img_link" alt="">
+    <div class="company-wrapper">
+        <div class="container">
 
-            <h4>{{ description.name }}</h4>
+            <ServiceCommonInfo :description="description"></ServiceCommonInfo>
+            <div class="company-calendar">
+                <div>
+                    <ScheduleTab :currentType="currentType"></ScheduleTab>
 
-            <h5>Виды оказываемых услуг</h5>
-            <ul class="types-list" v-for="(type,index) in types" :key="type.id">
-                <li>{{ type.name }}</li>
-            </ul>
+                    <div class="company-calendar-subtitle">Виды услуг</div>
 
-            <h5>Контактная информация</h5>
-            <p>{{ description.city }},{{ description.address }}</p>
-            <p>Тел: {{ description.phone }}</p>
-            <p>Telegram: {{ description.telegram }} </p>
-            <p>Skype: {{ description.skype }} </p>
-
-            <h5>Описание</h5>
-            <p>
-                {{ description.description }}
-            </p>
-
-        </div>
-
-
-        <div class="col-md-7">
-            <h2>Расписание</h2>
-            <SelectTypeBand :types="types" :currentType="currentType"
-                            @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-            <ScheduleTab :currentType="currentType"></ScheduleTab>
+                    <div class="menu-wrapper">
+                    <SelectTypeBand :types="types" :currentType="currentType"
+                                    @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
+
 </template>
 
 
 <script>
 
-import SelectTypeBand from "./UI/SelectTypeBand";
-import ScheduleTab from "./UI/ScheduleTab";
+import SelectTypeBand from "./UI/SelectTypeBand"
+import ScheduleTab from "./UI/ScheduleTab"
+import ServiceCommonInfo from "./UI/ServiceCommonInfo"
 
 export default {
     data: () => {
         return {
-            description: {},
-            schedules: [],
-            // type_id: 0, //TODO причесать данные от сервера и удалить этот элемент
             currentSchedule: {},
             currentScheduleId: null
         }
     },
-    components: {SelectTypeBand, ScheduleTab},
+    components: {SelectTypeBand, ScheduleTab, ServiceCommonInfo},
     computed: {
         types() {
             return this.$store.state.currentService.types
         },
         currentType() {
             return this.$store.state.currentService.currentType
+        },
+        description() {
+            return this.$store.state.currentService.commonInfo
+        },
+
+        schedules() {
+            return this.$store.state.currentService.schedules
         },
 
     },

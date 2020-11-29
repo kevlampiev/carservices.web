@@ -1,34 +1,36 @@
 <template>
 
-    <div class="menu-search">
-        <img class="menu-search-img" src="img/search-icon.png">
-        <label class="menu-search-label" for="menu-search-input-name">
-            <input class="menu-search-input"
+    <div class="search-line-wrapper">
+        <!--            <img class="menu-search-img" src="img/search-icon.png">-->
+        <span class="search-icon">
+                <i class="fa fa-search green-colored" aria-hidden="true"></i>
+            </span>
+
+        <label for="search-input" class="search-labels">
+            <input class="search-input"
                    placeholder="Поиск по названию"
-                   id="menu-search-input-name"
-                   name="menu-search-input-name"
+                   id="search-input"
+                   name="search-input"
                    v-model="sString"
                    @input="$emit('update:searchStr',sString)"
             >
         </label>
     </div>
 
-<!--    <div class="input-group">-->
 
-<!--        <input-->
-<!--            class="form-control py-2 border-right-0 border-left-0 border-top-0 bg-transparent"-->
-<!--            type="search" placeholder="Поиск по названию"-->
-<!--            id="example-search-input"-->
-<!--            v-model="sString"-->
-<!--            @input="$emit('update:searchStr',sString)"-->
-<!--        >-->
-<!--        <span class="input-group-append">-->
-<!--                                      <div-->
-<!--                                          class="input-group-text bg-transparent border-right-0 border-left-0 border-top-0">-->
-<!--                                          <i class="fa fa-search"></i>-->
-<!--                                      </div>-->
-<!--                                </span>-->
-<!--    </div>-->
+    <!--    <div class="menu-search">-->
+    <!--        <img class="menu-search-img" src="img/search-icon.png">-->
+    <!--&lt;!&ndash;        <i class="fa fa-search" aria-hidden="true"></i>&ndash;&gt;-->
+    <!--        <label class="menu-search-label" for="menu-search-input-name">-->
+    <!--            <input class="menu-search-input"-->
+    <!--                   placeholder="Поиск по названию"-->
+    <!--                   id="menu-search-input-name"-->
+    <!--                   name="menu-search-input-name"-->
+    <!--                   v-model="sString"-->
+    <!--                   @input="$emit('update:searchStr',sString)"-->
+    <!--            >-->
+    <!--        </label>-->
+    <!--    </div>-->
 
 </template>
 
@@ -46,20 +48,37 @@ export default {
 </script>
 
 <style>
-.city-list-container {
-    columns: 150px 3;
-    column-gap: 30px;
-    column-rule: 1px solid #ccc;
-    overflow: scroll;
+
+/*.green-colored {*/
+/*    color: green;*/
+/*}*/
+
+.search-line-wrapper {
+    /*height: 160px;*/
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 10px 15px 5px 15px;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
-.city-list-container > ul {
-    padding: 10px 10px 10px 20px;
-    height: 800px;
-
+.search-icon {
+    padding: 0 5px 0 0;
 }
 
-.city-list-container > ul > li {
-    list-style-type: none;
+.search-labels {
+    width: calc(100% - 13px)
 }
+
+.search-input {
+    background-color: transparent;
+    border: none;
+    width: calc(100% - 1px)
+}
+
+.search-input:focus {
+    border: 0;
+    outline: 0;
+}
+
 </style>
