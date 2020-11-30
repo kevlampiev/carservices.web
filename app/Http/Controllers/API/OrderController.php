@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
 
@@ -16,9 +17,9 @@ class OrderController extends Controller
 //            'descriptions' => 'required|string'
 //        ]);
 //
-
+        $user = User::query()->where('token', $request->token)->get();
         $order = new Order([
-            'user_id' => 4,
+            'user_id' => $user->id,
             'car_model' => $request->input('car_model'),
             'license_plate_number' => $request->input('license_plate_number'),
             'description' => $request->input('description'),
