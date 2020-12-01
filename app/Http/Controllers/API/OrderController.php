@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -18,12 +19,13 @@ class OrderController extends Controller
 //
 
         $order = new Order([
-            'user_id' => 4,
+            'user_id' => Auth::user()->id,
             'car_model' => $request->input('car_model'),
             'license_plate_number' => $request->input('license_plate_number'),
             'description' => $request->input('description'),
             'order_status' => 'in_waiting'
         ]);
+//        dd($order);
 
         $order->save();
         $id = $request->input('schedule_id');
