@@ -39,7 +39,9 @@ Route::group([
 
 });
 
+
 Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
+
 
 Route::group([
     'prefix' => 'owner',
@@ -53,4 +55,5 @@ Route::middleware('auth:api')
         Route::post('/logout', 'API\AuthController@logout');
     }
     );
+
 

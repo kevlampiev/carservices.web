@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Auth;
@@ -17,6 +18,7 @@ class OrderController extends Controller
 //            'descriptions' => 'required|string'
 //        ]);
 //
+
 //        $id = Auth::user()->id;
         $order = new Order([
             'user_id' => Auth::user()->id,
