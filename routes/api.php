@@ -39,7 +39,7 @@ Route::group([
 
 });
 
-Route::post('/order', 'API\OrderController@setOrder')->name('setOrder');
+Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
 
 Route::group([
     'prefix' => 'owner',
