@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="company-calendar-time-wrapper" >
+        <div class="company-calendar-time-wrapper">
             <div class="company-calendar-time-column" v-for="n in 7">
                 <div v-for="(el,index) in scheduledData[n-1]" :index="el.id"
                      :class="{'company-calendar-time-block':true,

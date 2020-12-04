@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    protected function generateAccessToken($user) {
-        $token = $user->createToken($user->email.'-'.now());
+    protected function generateAccessToken($user)
+    {
+        $token = $user->createToken($user->email . '-' . now());
         return $token->accessToken;
     }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -33,15 +35,16 @@ class AuthController extends Controller
 
     }
 
-    public function  login(Request $request) {
+    public function login(Request $request)
+    {
         $request->validate([
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:6'
         ]);
 
-        if ( Auth::attempt(['email' => $request->email, 'password' => $request->password]) ) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $token = $user->createToken($user->email.'-'.now());
+            $token = $user->createToken($user->email . '-' . now());
             return response()->json([
                 'token' => $token->accessToken
             ]);

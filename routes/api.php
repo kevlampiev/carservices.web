@@ -20,7 +20,7 @@ Route::post('/login', 'API\AuthController@login');
 
 Route::group([
     'prefix' => 'services'
-], function() {
+], function () {
     Route::get('/', 'API\ServicesController@index')->name('services');
     Route::get('/cities', 'API\ServicesController@cityList')->name('services.city');
     Route::get('/types', 'API\ServicesController@typeList')->name('services.type');
@@ -31,7 +31,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin'
-], function() {
+], function () {
     Route::resource('/orders', 'OrderController');
     Route::resource('/schedules', 'ScheduleController');
     Route::resource('/users', 'UserController');
@@ -46,7 +46,7 @@ Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middlew
 Route::group([
     'prefix' => 'owner',
     'namespace' => 'API'
-], function() {
+], function () {
     Route::resource('/services', 'OwnerServiceController');
 });
 

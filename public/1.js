@@ -78,6 +78,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -114,7 +123,7 @@ __webpack_require__.r(__webpack_exports__);
     sendOrderToServer: function sendOrderToServer() {
       var _this = this;
 
-      axios.defaults.headers.common['Authorization'] = this.userToken;
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.userToken;
       axios.post('/api/order', this.orderDetails).then(function (res) {
         console.log(res);
 
@@ -150,123 +159,140 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "company-entry" }, [
+    _c("form", { staticClass: "company-entry-form" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "company-entry-block-divider" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "company-entry-block-wrapper" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "company-entry-block-button",
+            attrs: { id: "company-entry-form-button", type: "button" },
+            on: { click: _vm.sendOrderToServer }
+          },
+          [_vm._v("Оформить запись\n            ")]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "company-entry" }, [
-      _c("form", { staticClass: "company-entry-form" }, [
-        _c("div", { staticClass: "company-entry-block-wrapper" }, [
-          _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
-            _c("div", { staticClass: "company-entry-block-row-title" }, [
-              _vm._v("Дата и время")
-            ]),
-            _vm._v(" "),
-            _c("div", { attrs: { id: "company-entry-block-row-date" } }, [
-              _vm._v("10–11–2020 17:30")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
-            _c("div", { staticClass: "company-entry-block-row-title" }, [
-              _vm._v("Вид услуги:")
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { attrs: { id: "company-entry-block-row-services-type" } },
-              [_vm._v("Шиномонтаж")]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "company-entry-block-textarea-title",
-              attrs: { for: "company-entry-block-textarea" }
-            },
-            [
-              _vm._v(
-                "Дополнительная информация: (описание проблемы)\n                    "
-              ),
-              _c("textarea", { attrs: { id: "company-entry-block-textarea" } })
-            ]
-          )
+    return _c("div", { staticClass: "company-entry-block-wrapper" }, [
+      _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
+        _c("div", { staticClass: "company-entry-block-row-title" }, [
+          _vm._v("Дата и время")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "company-entry-block-divider" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "company-entry-block-wrapper" }, [
-          _c("div", { staticClass: "company-entry-block-row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "company-entry-block-row-label",
-                attrs: { for: "company-entry-row-input-gos-znak" }
-              },
-              [_vm._v("Государственный регистрационный знак:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "company-entry-block-row-input",
-              attrs: {
-                id: "company-entry-row-input-gos-znak",
-                placeholder: "Х000ХХ199"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "company-entry-block-row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "company-entry-block-row-label",
-                attrs: { for: "company-entry-row-input-model-auto" }
-              },
-              [_vm._v("Модель авто:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "company-entry-block-row-input",
-              attrs: {
-                id: "company-entry-row-input-model-auto",
-                placeholder: "ГАЗ 2101"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "company-entry-block-row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "company-entry-block-row-label",
-                attrs: { for: "company-entry-row-input-phone" }
-              },
-              [_vm._v("Телефон для связи:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "company-entry-block-row-input",
-              attrs: {
-                id: "company-entry-row-input-phone",
-                placeholder: "+7 (999) 999-99-99"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "company-entry-block-button",
-              attrs: { id: "company-entry-form-button", type: "button" }
-            },
-            [_vm._v("Оформить запись")]
-          )
+        _c("div", { attrs: { id: "company-entry-block-row-date" } }, [
+          _vm._v("10–11–2020 17:30")
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
+        _c("div", { staticClass: "company-entry-block-row-title" }, [
+          _vm._v("Вид услуги:")
+        ]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "company-entry-block-row-services-type" } }, [
+          _vm._v("Шиномонтаж")
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "company-entry-block-textarea-title",
+          attrs: { for: "company-entry-block-textarea" }
+        },
+        [
+          _vm._v(
+            "Дополнительная\n                информация: (описание проблемы)\n                "
+          ),
+          _c("textarea", { attrs: { id: "company-entry-block-textarea" } })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "company-entry-block-row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "company-entry-block-row-label",
+          attrs: { for: "company-entry-row-input-gos-znak" }
+        },
+        [_vm._v("Государственный\n                    регистрационный знак:")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "company-entry-block-row-input",
+        attrs: {
+          id: "company-entry-row-input-gos-znak",
+          placeholder: "Х000ХХ199"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "company-entry-block-row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "company-entry-block-row-label",
+          attrs: { for: "company-entry-row-input-model-auto" }
+        },
+        [_vm._v("Модель\n                    авто:")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "company-entry-block-row-input",
+        attrs: {
+          id: "company-entry-row-input-model-auto",
+          placeholder: "ГАЗ 2101"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "company-entry-block-row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "company-entry-block-row-label",
+          attrs: { for: "company-entry-row-input-phone" }
+        },
+        [_vm._v("Телефон для\n                    связи:")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "company-entry-block-row-input",
+        attrs: {
+          id: "company-entry-row-input-phone",
+          placeholder: "+7 (999) 999-99-99"
+        }
+      })
     ])
   }
 ]
