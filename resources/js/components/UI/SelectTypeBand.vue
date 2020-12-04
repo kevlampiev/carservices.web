@@ -1,13 +1,9 @@
 <template>
-    <ul class="nav nav-pills card-header-pills">
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="#" @click="changeCurrentType('*')"-->
-<!--               v-bind:class="{active: curType==='*'}">Все </a>-->
-<!--        </li>-->
-        <li class="nav-item" v-for="(el,index) in types">
-            <a class="nav-link" href="#" @click="changeCurrentType(el.name)"
-               v-bind:class="{active: el.name===curType}"
-            >{{ el.name }}</a>
+    <ul class="menu-ul">
+        <li class="menu-li" v-for="(el,index) in types"
+            @click="changeCurrentType(el.name)"
+            v-bind:class="{'menu-li-active': el.name===curType}">
+            {{ el.name }}
         </li>
     </ul>
 </template>

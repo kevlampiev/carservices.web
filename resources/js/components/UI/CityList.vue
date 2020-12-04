@@ -1,7 +1,9 @@
 <template>
 
     <div>
-        <SearchLine :searchStr.sync="searchStr"></SearchLine>
+        <div class="menu-wrapper">
+            <SearchLine :searchStr.sync="searchStr"></SearchLine>
+        </div>
 
         <div class="city-list-container">
             <ul>

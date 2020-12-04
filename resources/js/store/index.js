@@ -50,7 +50,7 @@ export default {
                     .diff(startD, 'days')
 
                 if ((0 <= days) &&
-                    (days < 7)&&
+                    (days < 7) &&
                     ((currentT === '*') || (currentT === item.name))
                 ) {
 
@@ -66,7 +66,7 @@ export default {
             let startD = state.currentService.startDate
             for (let i = 0; i < 7; i++) {
                 tmp.push(
-                    moment(startD).add(i,'days'))
+                    moment(startD).add(i, 'days'))
             }
             return tmp
         },
@@ -115,7 +115,7 @@ export default {
                             types: res.data.types,
                             startDate: (new Date()).setHours(0, 0, 0, 0),
                             selectedSchedule: null,
-                            currentType: res.data.types[0].name||'*'
+                            currentType: res.data.types[0].name || '*'
                         }
                         newData.schedules.sort((a, b) => {
                             if (a.work_time < b.work_time) return -1;
@@ -159,26 +159,26 @@ export default {
         },
 
         setStartDate(state, newDate) {
-            let days=moment(newDate.date).diff(moment(),'days')
-            if ((days>=0)&&(days<13)) {
-                state.currentService.startDate=newDate.date
+            let days = moment(newDate.date).diff(moment(), 'days')
+            if ((days >= 0) && (days < 13)) {
+                state.currentService.startDate = newDate.date
             }
 
         },
 
         //смещает StartDate на заданное количество дней
-        scrollStartDate(state,data) {
-            let days=moment(state.currentService.startDate).diff(moment(),'days')+data.days
-            if ((days>=0)&&(days<13)) {
-                state.currentService.startDate=moment(state.currentService.startDate).add(days,'days')
+        scrollStartDate(state, data) {
+            let days = moment(state.currentService.startDate).diff(moment(), 'days') + data.days
+            if ((days >= 0) && (days < 13)) {
+                state.currentService.startDate = moment(state.currentService.startDate).add(days, 'days')
             }
         },
 
         setCurrentType(state, data) {
-            let type=data.name
-            let types=state.currentService.types
-            if (types.find(el=>el.name===type)) {
-                state.currentService.currentType=type
+            let type = data.name
+            let types = state.currentService.types
+            if (types.find(el => el.name === type)) {
+                state.currentService.currentType = type
             }
         },
 

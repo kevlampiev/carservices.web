@@ -28,6 +28,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -123,48 +125,47 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("SearchLine", {
-        attrs: { searchStr: _vm.searchStr },
-        on: {
-          "update:searchStr": function($event) {
-            _vm.searchStr = $event
-          },
-          "update:search-str": function($event) {
-            _vm.searchStr = $event
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "menu-wrapper" },
+      [
+        _c("SearchLine", {
+          attrs: { searchStr: _vm.searchStr },
+          on: {
+            "update:searchStr": function($event) {
+              _vm.searchStr = $event
+            },
+            "update:search-str": function($event) {
+              _vm.searchStr = $event
+            }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "city-list-container" }, [
-        _c(
-          "ul",
-          _vm._l(_vm.filteredCities, function(el, index) {
-            return _c(
-              "li",
-              {
-                key: index,
-                on: {
-                  click: function($event) {
-                    return _vm.setCity(el.city)
-                  }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "city-list-container" }, [
+      _c(
+        "ul",
+        _vm._l(_vm.filteredCities, function(el, index) {
+          return _c(
+            "li",
+            {
+              key: index,
+              on: {
+                click: function($event) {
+                  return _vm.setCity(el.city)
                 }
-              },
-              [
-                _vm._v(
-                  "\n                " + _vm._s(el.city) + "\n            "
-                )
-              ]
-            )
-          }),
-          0
-        )
-      ])
-    ],
-    1
-  )
+              }
+            },
+            [_vm._v("\n                " + _vm._s(el.city) + "\n            ")]
+          )
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,0 +1,807 @@
+$color-main: #007236
+$color-white: #ffffff
+$color-grey: #b3b3b3
+$color-light-grey: #f2f2f2
+$color-black: #000000
+$color-beige: #ffd18c
+$color-red: red
+$font-main: 'Open Sans', sans-serif
+%setup-box-shadow
+    box-shadow: 0 1px 32px 0 rgba(0, 0, 0, .1)
+
+%setup-box-round-corners
+    border-radius: 8px
+
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    font-family: $font-main
+
+a
+    &:visited
+        color: $color-white
+        text-decoration: none
+
+    &:active
+        color: $color-white
+        text-decoration: none
+
+.container
+    margin: auto
+    max-width: 1200px
+
+header
+    @extend %setup-box-shadow
+    width: 100%
+    background-color: $color-main
+    color: $color-white
+
+    .container
+        display: flex
+        height: 70px
+        justify-content: space-between
+        align-items: baseline
+        padding-top: 16px
+        font-size: 16px
+        font-weight: 600
+
+        .header-logo
+            position: relative
+            margin-left: 12px
+            font-size: 20px
+
+        .header-location
+            margin-left: -85px
+
+            .header-location-img
+                cursor: pointer
+                height: 25px
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+            .header-location-select
+                @extend %setup-box-round-corners
+                margin-left: 5px
+                background-color: transparent
+                border: none
+                color: $color-white
+                outline: none
+                cursor: pointer
+                font-size: 16px
+                font-weight: 600
+
+                .header-location-select-option
+                    color: $color-black
+
+        .header-page-link
+            cursor: pointer
+
+            &:active
+                transform: translateY(1px) translateX(1px)
+
+        .header-acc-wrapper
+            display: inherit
+            margin-right: 10px
+
+            .header-acc-reg
+                margin-right: 20px
+                cursor: pointer
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+            .header-acc-img
+                transform: translateY(-5px)
+                height: 25px
+
+            .header-acc-login
+                margin-left: 20px
+                cursor: pointer
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+.main-page
+    .container
+        display: flex
+
+        .menu-wrapper
+            min-width: 200px
+            max-width: 200px
+
+            .menu-search
+                @extend %setup-box-round-corners, %setup-box-shadow
+                margin-top: 30px
+                padding: 15px 20px 15px 20px
+                display: flex
+                align-items: center
+                padding: 5px
+
+                .menu-search-img
+                    width: 15px
+                    height: 15px
+                    margin: 10px
+
+
+                .menu-search-label
+                    .menu-search-input
+                        //margin-left: 10px
+                        width: 100%
+                        outline: none
+                        border: none
+                        font-size: 15px
+
+            .menu-ul
+                @extend %setup-box-round-corners, %setup-box-shadow
+                margin-top: 30px
+                font-weight: 600
+
+
+                .menu-li
+                    padding: 10px 20px 10px 20px
+                    background-color: $color-white
+                    list-style-type: none
+                    cursor: pointer
+
+                    &:first-of-type
+                        border-top-left-radius: 8px
+                        border-top-right-radius: 8px
+
+                    &:last-of-type
+                        border-bottom-left-radius: 8px
+                        border-bottom-right-radius: 8px
+
+                    &:hover
+                        background-color: $color-main
+                        color: $color-white
+
+                .menu-li-active
+                    background-color: $color-main
+                    color: $color-white
+
+        .content-wrapper
+            width: 100%
+            display: flex
+            flex-direction: column
+
+            .content-item
+                @extend %setup-box-round-corners, %setup-box-shadow
+                margin: 30px 0 0 30px
+                padding: 20px
+                display: flex
+                justify-content: space-between
+
+                .content-item-company-img
+                    height: 110px
+                    width: 110px
+
+                .content-item-company-wrapper
+                    margin-right: 40px
+                    padding-left: 20px
+                    display: flex
+                    flex-direction: column
+                    justify-content: center
+
+                    .content-item-company-name
+                        color: $color-black
+                        font-size: 22px
+                        font-weight: 600
+
+                    .content-item-company-address
+                        margin-top: 5px
+                        color: $color-black
+                        font-size: 15px
+                        font-weight: 600
+
+                .content-item-services-wrapper
+                    display: flex
+                    max-width: 320px
+                    flex-wrap: wrap
+
+                    .content-item-services-type
+                        @extend %setup-box-round-corners
+                        border: 2px solid $color-main
+                        margin: 5px
+                        padding: 10px
+                        flex-grow: 0
+                        font-weight: 600
+                        font-size: 15px
+                        height: 50px
+                        max-height: 50px
+
+                .content-item-deal-wrapper
+                    display: flex
+                    flex-direction: column
+                    justify-content: flex-end
+
+                    .content-item-deal-price
+                        font-weight: 600
+                        font-size: 24px
+                        text-align: right
+
+                    .content-item-deal-button
+                        @extend %setup-box-round-corners
+                        padding: 10px
+                        background-color: $color-main
+                        color: $color-white
+                        cursor: pointer
+                        outline: none
+                        margin-top: 10px
+                        font-weight: 600
+                        font-size: 18px
+                        margin-bottom: 5px
+
+                        &:active
+                            transform: translateY(1px) translateX(1px)
+
+.company-wrapper
+    .container
+        display: flex
+        flex-wrap: wrap
+
+        .company-about
+            @extend %setup-box-round-corners, %setup-box-shadow
+            width: calc(50% - 15px)
+            margin: 30px 15px 0 0
+            padding: 20px
+            display: flex
+            flex-wrap: wrap
+
+            .company-about-img
+                width: 180px
+                height: 180px
+
+            .company-about-info-wrapper
+                width: calc(100% - 240px)
+                margin-left: 30px
+
+                .company-about-info-name
+                    text-align: center
+                    color: $color-black
+                    font-size: 22px
+                    font-weight: 600
+
+                .company-about-info-line
+                    display: flex
+                    margin-top: 28px
+                    font-size: 16px
+                    font-weight: 400
+                    align-items: center
+                    color: $color-black
+
+                    .company-about-info-line-img
+                        height: 20px
+                        width: 20px
+
+                    .company-about-info-line-address
+                        margin-left: 20px
+                        font-weight: 600
+
+                    .company-about-info-line-worktime
+                        margin-left: 20px
+                        font-weight: 600
+
+                        .company-about-info-line-worktime-place
+                            color: $color-black
+                            font-weight: 600
+
+                    .company-about-info-line-phone
+                        margin-left: 20px
+                        cursor: pointer
+                        font-weight: 600
+
+            .company-about-text
+                margin-top: 15px
+
+                .company-about-text-title
+                    color: $color-black
+                    font-size: 22px
+                    font-weight: 600
+
+                .company-about-text-inner
+                    display: block
+                    margin-top: 15px
+                    font-weight: 400
+                    font-size: 18px
+
+        .company-calendar
+            @extend %setup-box-round-corners, %setup-box-shadow
+            width: calc(50% - 15px)
+            margin: 30px 0 0 15px
+            padding: 20px
+
+            .company-calendar-title
+                width: 100%
+                text-align: center
+                color: $color-black
+                font-size: 22px
+                font-weight: 600
+
+            .company-calendar-month
+                width: 100%
+                margin: 5px 0 5px 0
+                text-align: center
+                color: $color-black
+                font-weight: 400
+                font-size: 16px
+
+            .company-calendar-week-wrapper
+                width: 100%
+                position: relative
+                display: flex
+                justify-content: space-around
+                padding-bottom: 10px
+                border-bottom: 2px solid $color-light-grey
+                font-size: 16px
+                font-weight: 400
+                color: $color-black
+
+                .company-calendar-week-arrow-back
+                    position: absolute
+                    top: 16px
+                    left: -15px
+                    transform: rotate(180deg)
+                    cursor: pointer
+                    height: 25px
+                    width: 10px
+
+                .company-calendar-week-arrow-forward
+                    position: absolute
+                    top: 16px
+                    right: -15px
+                    cursor: pointer
+                    height: 25px
+                    width: 10px
+
+                .company-calendar-week-date-wrapper
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    min-width: 60px
+
+                    .company-calendar-week-date-name
+                        color: $color-black
+
+                    .company-calendar-week-date-number
+                        color: $color-grey
+                        padding-top: 5px
+                        border-radius: 50%
+                        cursor: pointer
+                        width: 32px
+                        height: 32px
+                        text-align: center
+                        font-weight: 600
+
+                        &:hover
+                            background-color: $color-main
+                            color: $color-white
+
+                        &:active
+                            transform: translateY(1px) translateX(1px)
+
+                    .company-calendar-week-date-number-active
+                        color: $color-white
+                        background-color: $color-main
+
+                    .company-calendar-week-date-number-off
+                        color: $color-red
+                        cursor: default
+
+                        &:hover
+                            background-color: transparent
+                            color: $color-red
+                            cursor: default
+
+                        &:active
+                            transform: translateY(0px) translateX(0px)
+
+            .company-calendar-time-wrapper
+                width: 100%
+                padding-bottom: 15px
+                border-bottom: 2px solid $color-light-grey
+                font-size: 16px
+                font-weight: 400
+                color: $color-black
+                display: flex
+                justify-content: space-around
+
+                .company-calendar-time-column
+                    display: flex
+                    margin-top: 15px
+                    width: 60px
+                    flex-wrap: wrap
+
+                    .company-calendar-time-block
+                        @extend %setup-box-round-corners
+                        min-width: 60px
+                        padding: 3px
+                        border: 2px solid $color-light-grey
+                        text-align: center
+                        cursor: pointer
+                        height: 35px
+
+                        &:hover
+                            background-color: $color-main
+                            color: $color-white
+                            border: 2px solid $color-main
+
+                        &:active
+                            transform: translateY(1px) translateX(1px)
+
+                    .company-calendar-time-block-active
+                        background-color: $color-main
+                        color: $color-white
+                        border: 2px solid $color-main
+
+                    .company-calendar-time-block-off
+                        background-color: $color-light-grey
+                        color: $color-grey
+                        cursor: default
+
+                        &:hover
+                            background-color: $color-light-grey
+                            color: $color-grey
+                            border: 2px solid $color-light-grey
+                            cursor: default
+
+                        &:active
+                            transform: translateY(0px) translateX(0px)
+
+            .company-calendar-subtitle
+                margin-top: 10px
+                width: 100%
+                text-align: center
+                color: $color-black
+                font-size: 22px
+                font-weight: 600
+
+            .company-calendar-services-wrapper
+                margin-top: 10px
+                display: flex
+                justify-content: space-around
+                font-weight: 600
+                font-size: 15px
+
+                .company-calendar-services-block
+                    @extend %setup-box-round-corners
+                    min-width: 60px
+                    padding: 10px
+                    border: 2px solid $color-light-grey
+                    cursor: pointer
+
+                    &:hover
+                        background-color: $color-main
+                        border: 2px solid $color-main
+                        color: $color-white
+
+                    &:active
+                        transform: translateY(1px) translateX(1px)
+
+                .company-calendar-services-block-off
+                    color: $color-grey
+                    background-color: $color-light-grey
+                    cursor: default
+
+                    &:hover
+                        color: $color-grey
+                        background-color: $color-light-grey
+                        border: 2px solid $color-light-grey
+                        cursor: default
+
+                    &:active
+                        transform: translateY(0px) translateX(0px)
+
+                .company-calendar-services-block-active
+                    color: $color-white
+                    background-color: $color-main
+                    border: 2px solid $color-main
+
+
+.overlay
+    position: fixed
+    background-color: rgba(0, 0, 0, 0.5)
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+    .overlay-bg
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+
+    .overlay-reg, .overlay-log
+        @extend %setup-box-round-corners, %setup-box-shadow
+        position: fixed
+        padding: 20px
+        background-color: $color-white
+        max-width: 300px
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        z-index: 10
+
+        .overlay-icon
+            position: absolute
+            top: 20px
+            right: 20px
+            cursor: pointer
+            transform: rotate(-90deg)
+            transition: .5s
+
+            &:hover
+                transition: .5s
+                transform: rotate(90deg)
+
+        .overlay-form-title
+            width: 100%
+            text-align: center
+            color: $color-black
+            font-size: 22px
+            font-weight: 600
+
+        .overlay-form-group
+            position: relative
+
+            .overlay-form-label
+                .overlay-form-input
+                    @extend %setup-box-round-corners
+                    margin-top: 20px
+                    width: 100%
+                    border: 2px solid $color-light-grey
+                    padding: 10px
+                    outline: none
+                    color: $color-black
+                    font-size: 18px
+                    font-weight: 400
+
+                    &:focus
+                        border: 2px solid $color-main
+
+            .overlay-form-input-tip
+                @extend %setup-box-round-corners, %setup-box-shadow
+                position: absolute
+                background-color: $color-beige
+                padding: 10px
+                top: 20px
+                left: calc(100% + 10px)
+                width: 200px
+                color: $color-black
+                font-size: 18px
+                font-weight: 400
+
+                .overlay-form-input-tip-figure
+                    width: 20px
+                    height: 20px
+                    clip-path: polygon(100% 0, 0 0, 100% 100%)
+                    position: absolute
+                    top: 10px
+                    left: -10px
+                    background-color: $color-beige
+
+        .overlay-form-button
+            @extend %setup-box-round-corners, %setup-box-shadow
+            width: 100%
+            padding: 12px
+            color: $color-white
+            background-color: $color-main
+            border: none
+            margin-top: 20px
+            outline: none
+            font-size: 18px
+            font-weight: 600
+            cursor: pointer
+
+            &:active
+                transform: translateX(1px) translateY(1px)
+
+    .overlay-city-list
+        @extend %setup-box-round-corners, %setup-box-shadow
+        position: fixed
+        padding: 20px 18px 24px 20px
+        background-color: $color-white
+        width: 600px
+        height: 390px
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        z-index: 10
+        overflow-y: hidden
+
+        .overlay-city-list-icon
+            position: absolute
+            top: 20px
+            right: 20px
+            cursor: pointer
+            transform: rotate(-90deg)
+            transition: .5s
+
+            &:hover
+                transition: .5s
+                transform: rotate(90deg)
+
+        .overlay-city-list-title
+            width: 100%
+            text-align: center
+            color: $color-black
+            font-size: 22px
+            font-weight: 600
+
+        .overlay-city-list-search-wrapper
+            display: flex
+            align-items: center
+            margin-left: 2px
+
+            .overlay-city-list-search-img
+                width: 15px
+                height: 15px
+
+            .overlay-city-list-search-label
+                .overlay-city-list-search-input
+                    margin-left: 10px
+                    width: 100%
+                    outline: none
+                    border: none
+                    font-size: 15px
+                    border-bottom: 2px solid $color-light-grey
+                    padding-bottom: 2px
+
+        .overlay-city-list-ul
+            @extend %setup-box-round-corners
+            margin-top: 20px
+            width: 100%
+            height: calc(100% - 40px)
+            display: flex
+            flex-wrap: wrap
+            overflow-y: scroll
+            border: 2px solid $color-light-grey
+
+            .overlay-city-list-li
+                padding: 2px 2px 2px 20px
+                white-space: nowrap
+                flex-basis: 33%
+                list-style-type: none
+                color: $color-black
+                font-size: 16px
+                cursor: pointer
+                overflow-x: hidden
+                border-right: 2px solid $color-light-grey
+
+                &:hover
+                    background-color: $color-main
+                    color: $color-white
+
+                &:nth-of-type(3n)
+                    border-right: none
+
+
+.green-colored
+    color: green
+
+
+.company-entry
+    @extend %setup-box-round-corners, %setup-box-shadow
+    width: 100%
+    //margin-top: 30px
+    padding: 20px 0 20px 0
+
+    .company-entry-title
+        text-align: center
+        color: $color-black
+        font-size: 22px
+        font-weight: 600
+
+    .company-entry-form
+        margin-top: 10px
+        width: 100%
+        display: flex
+        //height: 250px
+
+        .company-entry-block-wrapper
+            width: 420px
+            padding: 0 20px 0 20px
+
+            .company-entry-block-row-no-grow
+                margin-top: 10px
+                display: flex
+                align-items: baseline
+
+                .company-entry-block-row-title
+                    margin-right: 20px
+                    color: $color-black
+                    font-size: 18px
+                    font-weight: 400
+
+                #company-entry-block-row-date
+                    @extend %setup-box-round-corners
+                    padding: 10px
+                    border: 2px solid $color-main
+                    cursor: default
+                    font-size: 15px
+                    font-weight: 600
+                    color: $color-black
+
+                #company-entry-block-row-services-type
+                    @extend %setup-box-round-corners
+                    padding: 10px
+                    border: 2px solid $color-main
+                    cursor: default
+                    font-size: 15px
+                    font-weight: 600
+                    color: $color-black
+
+            .company-entry-block-textarea-title
+                margin-top: 10px
+                display: block
+                width: 100%
+                color: $color-black
+                font-size: 18px
+                font-weight: 400
+
+                #company-entry-block-textarea
+                    @extend %setup-box-round-corners
+                    border: 2px solid $color-light-grey
+                    margin-top: 10px
+                    width: 100%
+                    height: 100px
+                    resize: none
+                    outline: none
+                    padding: 10px
+                    color: $color-black
+                    font-size: 18px
+                    font-weight: 400
+
+                    &:focus
+                        border: 2px solid $color-main
+
+            .company-entry-block-row
+                margin-top: 10px
+                display: flex
+                flex-wrap: wrap
+                align-items: baseline
+
+                .company-entry-block-row-label
+                    margin-right: 20px
+                    flex-grow: 0
+                    color: $color-black
+                    font-size: 18px
+                    font-weight: 400
+                    white-space: nowrap
+
+                .company-entry-block-row-input
+                    @extend %setup-box-round-corners
+                    min-width: 100px
+                    border: 2px solid $color-light-grey
+                    flex-grow: 1
+                    padding: 10px
+                    outline: none
+                    color: $color-black
+                    font-size: 18px
+                    font-weight: 400
+
+                    &:focus
+                        border: 2px solid $color-main
+
+            .company-entry-block-button
+                @extend %setup-box-round-corners
+                cursor: pointer
+                color: $color-white
+                outline: none
+                padding: 10px 30px 10px 30px
+                background-color: $color-main
+                border: none
+                font-weight: 600
+                font-size: 19px
+                margin-top: 26px
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+        .company-entry-block-divider
+            height: 100%
+            width: 2px
+            background-color: $color-light-grey

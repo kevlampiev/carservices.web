@@ -60,14 +60,15 @@ export default {
 
 .title-block {
     margin: 5px;
-    background-color: #f0f0f0;
+    background-color: #007236;
+    color: #fff;
+    font-size: 18px;
     width: calc(100% - 10px);
-    height: 30px;
+    height: 35px;
     padding: 5px 35px 5px 5px;
-    font-weight: 800;
+    font-weight: 600;
     text-align: center;
     text-transform: uppercase;
-    color: #aaa;
 }
 
 .close {
@@ -76,7 +77,7 @@ export default {
     top: 10px;
     width: 16px;
     height: 16px;
-    opacity: 0.3;
+    opacity: 1;
 }
 
 .close:hover {
@@ -89,7 +90,7 @@ export default {
     content: ' ';
     height: 16px;
     width: 2px;
-    background-color: #333;
+    background-color: #fff;
 }
 
 .close:before {
