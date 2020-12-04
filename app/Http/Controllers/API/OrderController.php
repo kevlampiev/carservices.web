@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -17,9 +18,10 @@ class OrderController extends Controller
 //            'descriptions' => 'required|string'
 //        ]);
 //
-        $user = User::query()->where('token', $request->token)->get();
+
+//        $id = Auth::user()->id;
         $order = new Order([
-            'user_id' => $user->id,
+            'user_id' => Auth::user()->id,
             'car_model' => $request->input('car_model'),
             'license_plate_number' => $request->input('license_plate_number'),
             'description' => $request->input('description'),
@@ -28,9 +30,10 @@ class OrderController extends Controller
 
         $order->save();
         $id = $request->input('schedule_id');
-//        $id = 3;
         $schedule = Schedule::query()->findOrFail($id);
         $schedule->order_id = $order->id;
         $schedule->save();
+
+        return response()->json($id);
     }
 }

@@ -39,7 +39,9 @@ Route::group([
 
 });
 
-Route::post('/order', 'API\OrderController@setOrder')->middleware('check.token')->name('setOrder');
+
+Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
+
 
 Route::group([
     'prefix' => 'owner',
