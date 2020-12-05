@@ -133,33 +133,6 @@ header
                         border: none
                         font-size: 15px
 
-            .menu-ul
-                @extend %setup-box-round-corners, %setup-box-shadow
-                margin-top: 30px
-                font-weight: 600
-
-
-                .menu-li
-                    padding: 10px 20px 10px 20px
-                    background-color: $color-white
-                    list-style-type: none
-                    cursor: pointer
-
-                    &:first-of-type
-                        border-top-left-radius: 8px
-                        border-top-right-radius: 8px
-
-                    &:last-of-type
-                        border-bottom-left-radius: 8px
-                        border-bottom-right-radius: 8px
-
-                    &:hover
-                        background-color: $color-main
-                        color: $color-white
-
-                .menu-li-active
-                    background-color: $color-main
-                    color: $color-white
 
         .content-wrapper
             width: 100%
@@ -805,3 +778,36 @@ header
             height: 100%
             width: 2px
             background-color: $color-light-grey
+
+.menu-ul
+    //@extend %setup-box-round-corners, %setup-box-shadow
+    @extend %setup-box-shadow
+    margin-top: 30px
+    font-weight: 600
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+
+
+    .menu-li
+        padding: 10px 20px 10px 20px
+        background-color: $color-white
+        list-style-type: none
+        cursor: pointer
+        min-width: 200px
+
+        &:first-of-type
+            border-top-left-radius: 8px
+            border-top-right-radius: 8px
+
+        &:last-of-type
+            border-bottom-left-radius: 8px
+            border-bottom-right-radius: 8px
+
+        &:hover
+            background-color: $color-main
+            color: $color-white
+
+    .menu-li-active
+        background-color: $color-main
+        color: $color-white

@@ -11,10 +11,10 @@
 
                     <div class="company-calendar-subtitle">Виды услуг</div>
 
-                    <div class="menu-wrapper">
+<!--                    <div class="menu-wrapper">-->
                         <SelectTypeBand :types="types" :currentType="currentType"
                                         @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-                    </div>
+<!--                    </div>-->
                 </div>
             </div>
 
