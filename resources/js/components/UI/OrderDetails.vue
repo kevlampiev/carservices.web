@@ -1,36 +1,4 @@
 <template>
-    <!--    <div>-->
-    <!--        <h3>Оформить запись на сервис</h3>-->
-    <!--        <h4>Дата и время</h4>-->
-    <!--        <p>{{ order_date }} {{ order_time }}</p>-->
-
-    <!--        <div class="form-group">-->
-    <!--            <label for="carModel">Модель автомобиля</label>-->
-    <!--            <input type="text" class="form-control" id="carModel" placeholder="ГАЗ 3101"-->
-    <!--                   v-model="orderDetails.car_model">-->
-    <!--        </div>-->
-
-    <!--        <div class="form-group">-->
-    <!--            <label for="licensePlateNumber">Государствыенный регистрационный знак</label>-->
-    <!--            <input type="text" class="form-control" id="licensePlateNumber" placeholder="x000XX199"-->
-    <!--                   v-model="orderDetails.license_plate_number">-->
-    <!--        </div>-->
-
-    <!--        <div class="form-group">-->
-    <!--            <label for="description">Дополнительная информация (описание проблемы)</label>-->
-    <!--            <textarea class="form-control" id="description" rows="3" v-model="orderDetails.description"></textarea>-->
-    <!--        </div>-->
-
-    <!--        <div class="form-group">-->
-    <!--            <label for="telephone">Телефон для связи</label>-->
-    <!--            <input type="text" class="form-control" id="telephone" placeholder="+7(900)000-0000"-->
-    <!--                   v-model="orderDetails.telephone">-->
-    <!--        </div>-->
-
-    <!--        <button type="button" class="btn btn-primary" @click="sendOrderToServer">Ok</button>-->
-    <!--        <button type="button" class="btn btn-outline-secondary" @click="close">Отмена</button>-->
-    <!--    </div>-->
-
     <div class="company-entry">
         <form class="company-entry-form">
             <div class="company-entry-block-wrapper">
@@ -44,7 +12,9 @@
                 </div>
                 <label class="company-entry-block-textarea-title" for="company-entry-block-textarea">Дополнительная
                     информация: (описание проблемы)
-                    <textarea id="company-entry-block-textarea"></textarea>
+                    <textarea
+                        id="company-entry-block-textarea"
+                        v-model="orderDetails.description"></textarea>
                 </label>
             </div>
             <div class="company-entry-block-divider"></div>
@@ -52,21 +22,51 @@
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label" for="company-entry-row-input-gos-znak">Государственный
                         регистрационный знак:</label>
-                    <input class="company-entry-block-row-input" id="company-entry-row-input-gos-znak"
-                           placeholder="Х000ХХ199">
+                    <input id="company-entry-row-input-gos-znak"
+                           placeholder="Х000ХХ199"
+                           v-model="orderDetails.license_plate_number"
+                           :class="{'company-entry-block-row-input': true,
+                           'invalid-data':
+                                    ($v.orderDetails.license_plate_number.$dirty &&(!$v.orderDetails.license_plate_number.required)|| (!$v.orderDetails.license_plate_number.minLength))
+                           }">
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.orderDetails.license_plate_number.$dirty &&!$v.orderDetails.license_plate_number.required">
+                    Регистрационный знак должен быть указан
+                </small>
+                <small class="error-notificator"
+                       v-if="$v.orderDetails.license_plate_number.$dirty &&!$v.orderDetails.license_plate_number.minLength">
+                    Минимальное количество знаков в регистрационном знаке - {{ gosNumbLngth }}
+                </small>
+
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label" for="company-entry-row-input-model-auto">Модель
                         авто:</label>
-                    <input class="company-entry-block-row-input" id="company-entry-row-input-model-auto"
-                           placeholder="ГАЗ 2101">
+                    <input class="company-entry-block-row-input"
+                           id="company-entry-row-input-model-auto"
+                           placeholder="ГАЗ 2101"
+                           v-model="orderDetails.car_model"
+                           :class="{'invalid-data': ($v.orderDetails.car_model.$dirty && !$v.orderDetails.car_model.required)}">
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.orderDetails.car_model.$dirty && !$v.orderDetails.car_model.required">
+                    Укажите модель автомобиля
+                </small>
+
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label" for="company-entry-row-input-phone">Телефон для
                         связи:</label>
-                    <input class="company-entry-block-row-input" id="company-entry-row-input-phone"
-                           placeholder="+7 (999) 999-99-99">
+                    <input class="company-entry-block-row-input"
+                           id="company-entry-row-input-phone"
+                           placeholder="+7 (999) 999-99-99"
+                           v-model="orderDetails.telephone"
+                           :class="{'invalid-data': ($v.orderDetails.telephone.$dirty && !$v.orderDetails.telephone.validPhone)}">
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.orderDetails.telephone.$dirty && !$v.orderDetails.telephone.validPhone">
+                    Укажите корректный номер телефона
+                </small>
+
                 <button class="company-entry-block-button" id="company-entry-form-button" type="button"
                         @click="sendOrderToServer">Оформить запись
                 </button>
@@ -77,6 +77,8 @@
 
 
 <script>
+
+import {required, minLength} from "vuelidate/lib/validators";
 
 export default {
     data: () => {
@@ -90,6 +92,26 @@ export default {
                 telephone: '',
                 order_status: '',
             }
+        }
+    },
+    validations: {
+        orderDetails: {
+            car_model: {
+                required,
+                minLength: minLength(3)
+            },
+            license_plate_number: {
+                required,
+                minLength: minLength(8)
+            },
+            description: {},
+            telephone: {
+                validPhone: val => {
+                    let phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
+                    return phoneTmpl.test(val)
+                }
+            },
+
         }
     },
     props: ['close'],
@@ -111,9 +133,17 @@ export default {
         userToken: function () {
             return this.$store.state.userData.token
         },
+
+        gosNumbLngth() {
+            return this.$v.orderDetails.license_plate_number.$params.minLength.min
+        },
     },
     methods: {
         sendOrderToServer() {
+            if (this.$v.$invalid) {
+                this.$v.$touch()
+                return -1
+            }
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.userToken
             axios.post('/api/order', this.orderDetails)
                 .then(res => {

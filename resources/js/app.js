@@ -1,39 +1,25 @@
-require('./bootstrap');
-
 import Vue from 'vue'
-
-//VUE-ROUTER
 import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
+import Vuex from 'vuex'
+import Vuelidate from "vuelidate"
 
 import App from './components/App'
-
+import storeData from "./store/index"
 import {appRoutes} from './routes.js'
 
+import './bootstrap'
 
-//VUEX
-import Vuex from 'vuex'
-
+Vue.use(VueRouter)
 Vue.use(Vuex)
-import storeData from "./store/index"
+Vue.use(Vuelidate)
 
 const store = new Vuex.Store(
     storeData
 )
-
-//VUELIDATE
-import Vuelidate from "vuelidate"
-
-Vue.use(Vuelidate)
-
-
 const router = new VueRouter({
     mode: 'history',
     routes: appRoutes,
 });
-
-
 const app = new Vue({
     el: '#app',
     router,

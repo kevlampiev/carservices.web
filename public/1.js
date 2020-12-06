@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -87,6 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -100,6 +103,25 @@ __webpack_require__.r(__webpack_exports__);
         order_status: ''
       }
     };
+  },
+  validations: {
+    orderDetails: {
+      car_model: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+      },
+      license_plate_number: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(8)
+      },
+      description: {},
+      telephone: {
+        validPhone: function validPhone(val) {
+          var phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$');
+          return phoneTmpl.test(val);
+        }
+      }
+    }
   },
   props: ['close'],
   computed: {
@@ -117,11 +139,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     userToken: function userToken() {
       return this.$store.state.userData.token;
+    },
+    gosNumbLngth: function gosNumbLngth() {
+      return this.$v.orderDetails.license_plate_number.$params.minLength.min;
     }
   },
   methods: {
     sendOrderToServer: function sendOrderToServer() {
       var _this = this;
+
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return -1;
+      }
 
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.userToken;
       axios.post('/api/order', this.orderDetails).then(function (res) {
@@ -161,16 +191,217 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "company-entry" }, [
     _c("form", { staticClass: "company-entry-form" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "company-entry-block-wrapper" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "company-entry-block-textarea-title",
+            attrs: { for: "company-entry-block-textarea" }
+          },
+          [
+            _vm._v(
+              "Дополнительная\n                информация: (описание проблемы)\n                "
+            ),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.orderDetails.description,
+                  expression: "orderDetails.description"
+                }
+              ],
+              attrs: { id: "company-entry-block-textarea" },
+              domProps: { value: _vm.orderDetails.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.orderDetails, "description", $event.target.value)
+                }
+              }
+            })
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "company-entry-block-divider" }),
       _vm._v(" "),
       _c("div", { staticClass: "company-entry-block-wrapper" }, [
-        _vm._m(1),
+        _c("div", { staticClass: "company-entry-block-row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "company-entry-block-row-label",
+              attrs: { for: "company-entry-row-input-gos-znak" }
+            },
+            [
+              _vm._v(
+                "Государственный\n                    регистрационный знак:"
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.orderDetails.license_plate_number,
+                expression: "orderDetails.license_plate_number"
+              }
+            ],
+            class: {
+              "company-entry-block-row-input": true,
+              "invalid-data":
+                (_vm.$v.orderDetails.license_plate_number.$dirty &&
+                  !_vm.$v.orderDetails.license_plate_number.required) ||
+                !_vm.$v.orderDetails.license_plate_number.minLength
+            },
+            attrs: {
+              id: "company-entry-row-input-gos-znak",
+              placeholder: "Х000ХХ199"
+            },
+            domProps: { value: _vm.orderDetails.license_plate_number },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.orderDetails,
+                  "license_plate_number",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ]),
         _vm._v(" "),
-        _vm._m(2),
+        _vm.$v.orderDetails.license_plate_number.$dirty &&
+        !_vm.$v.orderDetails.license_plate_number.required
+          ? _c("small", { staticClass: "error-notificator" }, [
+              _vm._v(
+                "\n                Регистрационный знак должен быть указан\n            "
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
-        _vm._m(3),
+        _vm.$v.orderDetails.license_plate_number.$dirty &&
+        !_vm.$v.orderDetails.license_plate_number.minLength
+          ? _c("small", { staticClass: "error-notificator" }, [
+              _vm._v(
+                "\n                Минимальное количество знаков в регистрационном знаке - " +
+                  _vm._s(_vm.gosNumbLngth) +
+                  "\n            "
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "company-entry-block-row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "company-entry-block-row-label",
+              attrs: { for: "company-entry-row-input-model-auto" }
+            },
+            [_vm._v("Модель\n                    авто:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.orderDetails.car_model,
+                expression: "orderDetails.car_model"
+              }
+            ],
+            staticClass: "company-entry-block-row-input",
+            class: {
+              "invalid-data":
+                _vm.$v.orderDetails.car_model.$dirty &&
+                !_vm.$v.orderDetails.car_model.required
+            },
+            attrs: {
+              id: "company-entry-row-input-model-auto",
+              placeholder: "ГАЗ 2101"
+            },
+            domProps: { value: _vm.orderDetails.car_model },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.orderDetails, "car_model", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm.$v.orderDetails.car_model.$dirty &&
+        !_vm.$v.orderDetails.car_model.required
+          ? _c("small", { staticClass: "error-notificator" }, [
+              _vm._v(
+                "\n                Укажите модель автомобиля\n            "
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "company-entry-block-row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "company-entry-block-row-label",
+              attrs: { for: "company-entry-row-input-phone" }
+            },
+            [_vm._v("Телефон для\n                    связи:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.orderDetails.telephone,
+                expression: "orderDetails.telephone"
+              }
+            ],
+            staticClass: "company-entry-block-row-input",
+            class: {
+              "invalid-data":
+                _vm.$v.orderDetails.telephone.$dirty &&
+                !_vm.$v.orderDetails.telephone.validPhone
+            },
+            attrs: {
+              id: "company-entry-row-input-phone",
+              placeholder: "+7 (999) 999-99-99"
+            },
+            domProps: { value: _vm.orderDetails.telephone },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.orderDetails, "telephone", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm.$v.orderDetails.telephone.$dirty &&
+        !_vm.$v.orderDetails.telephone.validPhone
+          ? _c("small", { staticClass: "error-notificator" }, [
+              _vm._v(
+                "\n                Укажите корректный номер телефона\n            "
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "button",
@@ -190,109 +421,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "company-entry-block-wrapper" }, [
-      _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
-        _c("div", { staticClass: "company-entry-block-row-title" }, [
-          _vm._v("Дата и время")
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "company-entry-block-row-date" } }, [
-          _vm._v("10–11–2020 17:30")
-        ])
+    return _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
+      _c("div", { staticClass: "company-entry-block-row-title" }, [
+        _vm._v("Дата и время")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
-        _c("div", { staticClass: "company-entry-block-row-title" }, [
-          _vm._v("Вид услуги:")
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "company-entry-block-row-services-type" } }, [
-          _vm._v("Шиномонтаж")
-        ])
+      _c("div", { attrs: { id: "company-entry-block-row-date" } }, [
+        _vm._v("10–11–2020 17:30")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "company-entry-block-row-no-grow" }, [
+      _c("div", { staticClass: "company-entry-block-row-title" }, [
+        _vm._v("Вид услуги:")
       ]),
       _vm._v(" "),
-      _c(
-        "label",
-        {
-          staticClass: "company-entry-block-textarea-title",
-          attrs: { for: "company-entry-block-textarea" }
-        },
-        [
-          _vm._v(
-            "Дополнительная\n                информация: (описание проблемы)\n                "
-          ),
-          _c("textarea", { attrs: { id: "company-entry-block-textarea" } })
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "company-entry-block-row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "company-entry-block-row-label",
-          attrs: { for: "company-entry-row-input-gos-znak" }
-        },
-        [_vm._v("Государственный\n                    регистрационный знак:")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "company-entry-block-row-input",
-        attrs: {
-          id: "company-entry-row-input-gos-znak",
-          placeholder: "Х000ХХ199"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "company-entry-block-row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "company-entry-block-row-label",
-          attrs: { for: "company-entry-row-input-model-auto" }
-        },
-        [_vm._v("Модель\n                    авто:")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "company-entry-block-row-input",
-        attrs: {
-          id: "company-entry-row-input-model-auto",
-          placeholder: "ГАЗ 2101"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "company-entry-block-row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "company-entry-block-row-label",
-          attrs: { for: "company-entry-row-input-phone" }
-        },
-        [_vm._v("Телефон для\n                    связи:")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "company-entry-block-row-input",
-        attrs: {
-          id: "company-entry-row-input-phone",
-          placeholder: "+7 (999) 999-99-99"
-        }
-      })
+      _c("div", { attrs: { id: "company-entry-block-row-services-type" } }, [
+        _vm._v("Шиномонтаж")
+      ])
     ])
   }
 ]
