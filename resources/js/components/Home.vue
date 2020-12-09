@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="content-item-deal-wrapper">
-                        <div class="content-item-deal-price">от 2000 ₽</div>
+<!--                        <div class="content-item-deal-price">от 2000 ₽</div>-->
                         <div class="content-item-deal-button" @click="showService(carserv.id)">Записаться</div>
                     </div>
                 </div>
