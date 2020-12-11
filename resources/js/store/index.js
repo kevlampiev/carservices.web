@@ -1,7 +1,5 @@
 import moment from 'moment'
 import makeOrder from './makeOrder'
-// const moment = require('moment')
-// moment.locale('ru')
 
 export default {
     modules: {

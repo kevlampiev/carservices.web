@@ -1,7 +1,6 @@
 import Hello from './components/Hello'
 import Home from './components/Home'
-import Register from './components/Register'
-import Login from './components/Login'
+// import Register from './components/Register'
 import Carservice from "./components/Carservice";
 
 const appRoutes = [
@@ -20,16 +19,6 @@ const appRoutes = [
         name: 'hello',
         component: Hello,
     },
-    {
-        path: '/register',
-        name: 'register',
-        component: Register,
-    },
-    // {
-    //     path: '/login',
-    //     name: 'login',
-    //     component: Login,
-    // }
 ]
 
 export {appRoutes}

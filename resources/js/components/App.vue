@@ -10,20 +10,19 @@
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
-                <div class="header-page-link">
-                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>
-                </div>
+<!--                <div class="header-page-link">-->
+<!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
+<!--                </div>-->
 
                 <div class="header-acc-wrapper" v-if="!email||email===''">
-                    <div class="header-acc-reg">
-                        <router-link :to="{ name: 'register' }">Регистрация</router-link>
+                    <div class="header-page-link" @click="register">
+                        Зарегистрироваться
                     </div>
-                    <i class="fa fa-user" aria-hidden="true"></i>
-<!--                    <div class="header-acc-login">-->
-<!--                        <router-link :to="{ name: 'login' }">ВойтиKill</router-link>-->
-<!--                    </div>-->
-                    <div class="header-acc-login">
-                        <a href="#" @click="login">Войти</a>
+                    <div class="header-page-link">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="header-page-link" @click="login">
+                        Войти
                     </div>
 
                 </div>
@@ -70,6 +69,13 @@ export default {
             this.$store.state.popUpData = {
                 comp: 'login',
                 header: 'Войти',
+            }
+        },
+
+        register() {
+            this.$store.state.popUpData = {
+                comp: 'register',
+                header: 'Зарегистрироваться',
             }
         },
 

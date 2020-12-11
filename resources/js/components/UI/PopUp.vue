@@ -19,7 +19,8 @@ export default {
     components: {
         'orderDetails': () => import('./OrderDetails'),
         'cityList': () => import('./CityList'),
-        'login': ()=>import('./LoginComp')
+        'login': ()=>import('./LoginComp'),
+        'register': ()=>import('./RegisterComp'),
     },
     methods: {
         closeWindow() {

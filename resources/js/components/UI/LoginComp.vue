@@ -39,6 +39,7 @@
                         'disabled-btn': $v.form.$anyError}"
                 >Ok
                 </button>
+                <a href="#" @click="callRegisterPr" class="company-entry-link"> Зарегистрироваться </a>
             </div>
         </form>
     </div>
@@ -110,7 +111,14 @@ export default {
             if (this.form.password) {
                 this.$v.form.password.$model = this.form.password;
             }
-        }
+        },
+
+        callRegisterPr() {
+            this.$store.state.popUpData = {
+                comp: 'register',
+                header: 'Зарегистрироваться',
+            }
+        },
     }
 };
 </script>
