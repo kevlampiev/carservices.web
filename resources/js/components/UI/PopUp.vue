@@ -19,6 +19,7 @@ export default {
     components: {
         'orderDetails': () => import('./OrderDetails'),
         'cityList': () => import('./CityList'),
+        'login': ()=>import('./LoginComp')
     },
     methods: {
         closeWindow() {

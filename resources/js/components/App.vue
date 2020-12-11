@@ -19,9 +19,13 @@
                         <router-link :to="{ name: 'register' }">Регистрация</router-link>
                     </div>
                     <i class="fa fa-user" aria-hidden="true"></i>
+<!--                    <div class="header-acc-login">-->
+<!--                        <router-link :to="{ name: 'login' }">ВойтиKill</router-link>-->
+<!--                    </div>-->
                     <div class="header-acc-login">
-                        <router-link :to="{ name: 'login' }">Войти</router-link>
+                        <a href="#" @click="login">Войти</a>
                     </div>
+
                 </div>
                 <div class="header-acc-wrapper" v-else>
                     <div class="header-acc-reg">
@@ -59,6 +63,13 @@ export default {
             this.$store.state.popUpData = {
                 comp: 'cityList',
                 header: 'выбрать город',
+            }
+        },
+
+        login() {
+            this.$store.state.popUpData = {
+                comp: 'login',
+                header: 'Войти',
             }
         },
 

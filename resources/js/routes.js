@@ -25,11 +25,11 @@ const appRoutes = [
         name: 'register',
         component: Register,
     },
-    {
-        path: '/login',
-        name: 'login',
-        component: Login,
-    }
+    // {
+    //     path: '/login',
+    //     name: 'login',
+    //     component: Login,
+    // }
 ]
 
 export {appRoutes}
