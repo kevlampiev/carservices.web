@@ -61,30 +61,17 @@ export default {
 
 
         makeOrder(el) {
+            if (!this.$store.state.userData.email || this.$store.state.userData.email==='') {
+                alert('Для записи необходимо авторизоваться')
+                return -1
+            }
             this.$store.state.currentService.selectedSchedule = el
             this.$store.state.popUpData = {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
             }
         },
-        sendOrderToServer(orderDetails) {
-            alert('на месте')
-            if (typeof orderDetails !== 'object') {
-                console.error('Аргумент, возращенный из компонента OrderDetals не является объектом ')
-                alert('Аргумент, возращенный из компонента OrderDetals не является объектом ')
-            } else {
-                orderDetails.schedule_id = this.currentSchedule.id
-                axios.post('/api/makeOrder', orderDetails)
-                    .then(res => {
-                        alert('ЗАказ успешно добавлен')
-                        this.currentSchedule.order_id = res.order_id
-                    })
-                    .catch(err => {
-                        console.error(err.message)
-                        alert('Не прошло')
-                    })
-            }
-        }
+
     },
     mounted() {
         this.$store.dispatch('getServiceInfo', {id: this.$route.params.id})

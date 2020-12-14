@@ -113,7 +113,7 @@ export default {
                             types: res.data.types,
                             startDate: (new Date()).setHours(0, 0, 0, 0),
                             selectedSchedule: null,
-                            currentType: res.data.types[0].name || '*'
+                            currentType: context.state.currentService.curretType||res.data.types[0].name || '*'
                         }
                         newData.schedules.sort((a, b) => {
                             if (a.work_time < b.work_time) return -1;
