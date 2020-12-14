@@ -140,6 +140,7 @@ export default {
     },
     methods: {
         sendOrderToServer() {
+
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return -1
