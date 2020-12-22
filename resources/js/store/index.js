@@ -26,7 +26,7 @@ export default {
             schedules: [],
             types: [],
             startDate: null,
-            currentType: '*',
+            currentType: null,
         },
 
     },
@@ -113,7 +113,7 @@ export default {
                             types: res.data.types,
                             startDate: (new Date()).setHours(0, 0, 0, 0),
                             selectedSchedule: null,
-                            currentType: context.state.currentService.curretType||res.data.types[0].name || '*'
+                            currentType: context.state.currentService.currentType||res.data.types[0].name
                         }
                         newData.schedules.sort((a, b) => {
                             if (a.work_time < b.work_time) return -1;
@@ -122,6 +122,7 @@ export default {
                             }
                         })
                         context.commit('setCurrentService', newData)
+                        context.commit('setCurrentType',{name: newData.currentType})
                     }
                 ).catch(
                 err => {

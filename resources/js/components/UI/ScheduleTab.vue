@@ -25,7 +25,7 @@
                               'company-calendar-time-block-off': el.order_id}"
                      @click="!el.order_id?$parent.makeOrder(el):''"
                 >
-                    {{ Math.trunc(el.work_time) }}:{{ 60 * (el.work_time % 1) }}
+                    {{ formatTime(el.work_time) }}
                 </div>
             </div>
         </div>
@@ -56,6 +56,15 @@ export default {
                 date: moment(this.dateStart).add(-1, 'days')
             })
         },
+
+        formatTime: function(time) {
+            let result=Math.trunc(time).toString()+':'
+            let minutes=(60 * (time % 1)).toFixed(0)
+            if (minutes<10) {
+                result+='0'
+            }
+            return (result+minutes)
+        }
 
     },
 

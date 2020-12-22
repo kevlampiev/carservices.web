@@ -75,6 +75,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getServiceInfo', {id: this.$route.params.id})
+
     }
 }
 
