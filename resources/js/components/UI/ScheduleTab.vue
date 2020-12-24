@@ -57,13 +57,13 @@ export default {
             })
         },
 
-        formatTime: function(time) {
-            let result=Math.trunc(time).toString()+':'
-            let minutes=(60 * (time % 1)).toFixed(0)
-            if (minutes<10) {
-                result+='0'
+        formatTime: function (time) {
+            let result = Math.trunc(time).toString() + ':'
+            let minutes = (60 * (time % 1)).toFixed(0)
+            if (minutes < 10) {
+                result += '0'
             }
-            return (result+minutes)
+            return (result + minutes)
         }
 
     },

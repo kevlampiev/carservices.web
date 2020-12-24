@@ -23,7 +23,8 @@
                 </small>
 
                 <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label" for="company-entry-row-input-password">password:</label>
+                    <label class="company-entry-block-row-label"
+                           for="company-entry-row-input-password">password:</label>
                     <input class="company-entry-block-row-input"
                            type="password"
                            id="company-entry-row-input-password"

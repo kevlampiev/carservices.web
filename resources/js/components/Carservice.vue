@@ -11,10 +11,10 @@
 
                     <div class="company-calendar-subtitle">Виды услуг</div>
 
-<!--                    <div class="menu-wrapper">-->
-                        <SelectTypeBand :types="types" :currentType="currentType"
-                                        @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-<!--                    </div>-->
+                    <!--                    <div class="menu-wrapper">-->
+                    <SelectTypeBand :types="types" :currentType="currentType"
+                                    @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
+                    <!--                    </div>-->
                 </div>
             </div>
 
@@ -61,7 +61,7 @@ export default {
 
 
         makeOrder(el) {
-            if (!this.$store.state.userData.email || this.$store.state.userData.email==='') {
+            if (!this.$store.state.userData.email || this.$store.state.userData.email === '') {
                 alert('Для записи необходимо авторизоваться')
                 return -1
             }

@@ -10,9 +10,9 @@
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
-<!--                <div class="header-page-link">-->
-<!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
-<!--                </div>-->
+                <!--                <div class="header-page-link">-->
+                <!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
+                <!--                </div>-->
 
                 <div class="header-acc-wrapper" v-if="!email||email===''">
                     <div class="header-page-link" @click="register">
