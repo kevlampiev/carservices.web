@@ -73,66 +73,50 @@ export default {
 
 
     actions: {
-        getCities(context) {
-            axios.get('/api/services/cities')
-                .then(res => {
-                    // this.cities=res.data
-                    context.commit("setCities", res.data)
-                    //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-                })
-                .catch(
-                    err => {
-                        console.error(err.message)
-                        //TODO Прорисовать красивый вывод ошибки
-                    }
-                )
+        async getCities({commit}) {
+            try {
+                const {data}= await axios.get('/api/services/cities')
+                commit('setCities', data)
+            } catch({message}) {
+                console.error(message)
+            }
+        },
+        async getTypes({commit}) {
+            try {
+                const {data}=await axios.get('/api/services/types')
+                data.unshift({name: 'Все'})
+                commit('setTypes', data)
+            } catch ({message}) {
+                console.error(message)
+            }
         },
 
-        getTypes(context) {
-            axios.get('/api/services/types')
-                .then(res => {
-                    res.data.unshift({name: '*'})
-                    context.commit('setTypes', res.data)
-                    //TODO Может придти и обюработанная ошибка. Прописать этот вариант
-                })
-                .catch(
-                    err => {
-                        console.error(err.message)
-                        //TODO Прорисовать красивый вывод ошибки
-                    }
-                )
-        },
-
-        getServiceInfo(context, data) {
-            axios.get('/api/services/' + data.id)
-                .then(
-                    res => {
-                        let newData = {
-                            commonInfo: res.data.service,
-                            schedules: res.data.schedules,
-                            types: res.data.types,
-                            startDate: (new Date()).setHours(0, 0, 0, 0),
-                            selectedSchedule: null,
-                            currentType: context.state.currentService.currentType || res.data.types[0].name
-                        }
-                        newData.schedules.sort((a, b) => {
-                            if (a.work_time < b.work_time) return -1;
-                            else {
-                                return (a.work_time > b.work_time) ? 1 : 0
-                            }
-                        })
-                        context.commit('setCurrentService', newData)
-                        context.commit('setCurrentType', {name: newData.currentType})
-                    }
-                ).catch(
-                err => {
-                    console.error(err.message)
+        async getServiceInfo({state, commit}, inpData) {
+            try {
+                const {data} = await axios. get('/api/services/' + inpData.id)
+                let newData = {
+                        commonInfo: data.service,
+                        schedules: data.schedules,
+                        types: data.types,
+                        startDate: (new Date()).setHours(0, 0, 0, 0),
+                        selectedSchedule: null,
+                        currentType: state.currentService.currentType || data.types[0].name
                 }
-            )
+                newData.schedules.sort((a, b) => {
+                    if (a.work_time < b.work_time) return -1;
+                    else {
+                        return (a.work_time > b.work_time) ? 1 : 0
+                    }
+                })
+                commit('setCurrentService', newData)
+                commit('setCurrentType', {name: newData.currentType})
+            } catch({message}) {
+                console.error(message)
+            }
         },
 
-        logout(context) {
-            context.commit('setUserData', {})
+        logout({commit}) {
+            commit('setUserData', {})
         }
 
     },
