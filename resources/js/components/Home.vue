@@ -67,17 +67,19 @@ export default {
                 39.831893822753904,
             ],
             searchStr: '',
-            currentType: '*'
+            currentType: 'Все'
         }
     },
     methods: {
-        getServiceList(aCity) {
+        async getServiceList(aCity) {
             if (!aCity) aCity = this.$store.state.city
-            axios.get('/api/services?city=' + aCity,
-            ).then(res => {
-                this.services = res.data
-            })
-            this.serviceTypes = tmpServiceTypes
+            try {
+                const {data}= await axios.get('/api/services?city=' + aCity)
+                this.services=data
+            } catch({message}) {
+                console.error(message)
+            }
+                        // this.serviceTypes = tmpServiceTypes
         },
         startSelectCity() {
             this.$store.state.popUpData = {
@@ -102,7 +104,7 @@ export default {
                     let nName = element.name.toUpperCase()
                     let nAddress = element.address.toUpperCase()
                     let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
-                    let matchType = (this.currentType === '*') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
+                    let matchType = (this.currentType === 'Все') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
                     return matchSearch && matchType
                 })
         },
