@@ -59,12 +59,12 @@
                     <label class="company-entry-block-row-label"
                            for="company-entry-row-input-password">Повторите пароль:</label>
                     <input type="password"
-                        :class="{'company-entry-block-row-input':true,
+                           :class="{'company-entry-block-row-input':true,
                         'invalid-data':
                                 $v.form.repeatPassword.$dirty && (
                                 !$v.form.repeatPassword.sameAsPassword ||
                                 !$v.form.repeatPassword.required)}"
-                        v-model.trim="form.repeatPassword"
+                           v-model.trim="form.repeatPassword"
                     />
                 </div>
 

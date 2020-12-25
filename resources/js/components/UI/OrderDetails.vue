@@ -4,11 +4,11 @@
             <div class="company-entry-block-wrapper">
                 <div class="company-entry-block-row-no-grow">
                     <div class="company-entry-block-row-title">Дата и время</div>
-                    <div id="company-entry-block-row-date">10–11–2020 17:30</div>
+                    <div id="company-entry-block-row-date">{{ order_date }} {{ order_time }}</div>
                 </div>
                 <div class="company-entry-block-row-no-grow">
                     <div class="company-entry-block-row-title">Вид услуги:</div>
-                    <div id="company-entry-block-row-services-type">Шиномонтаж</div>
+                    <div id="company-entry-block-row-services-type">{{ serviceName }}</div>
                 </div>
                 <label class="company-entry-block-textarea-title" for="company-entry-block-textarea">Дополнительная
                     информация: (описание проблемы)
@@ -120,14 +120,17 @@ export default {
             return this.$store.state.currentService.selectedSchedule.work_day
         },
         order_time: function () {
+            let minutes = 60 * (this.$store.state.currentService.selectedSchedule.work_time % 1)
+            if (minutes < 10) minutes += '0'
             return Math.trunc(this.$store.state.currentService.selectedSchedule.work_time) +
-                ':' + (60 * (this.$store.state.currentService.selectedSchedule.work_time % 1))
+                ':' + minutes
         },
+
         orderId: function () {
             return this.$store.state.currentService.commonInfo.id
         },
         serviceName: function () {
-            return 'Пока не сделано'
+            return this.$store.state.currentService.currentType
         },
 
         userToken: function () {
