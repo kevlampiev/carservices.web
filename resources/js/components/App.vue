@@ -7,6 +7,7 @@
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                     {{ city }}
                 </div>
+
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
@@ -90,6 +91,11 @@ export default {
 
         city: function () {
             return this.$store.state.city
+        },
+
+        registered: function() {
+            return this.$store.state.user.email
+            // return '15'
         }
     },
 

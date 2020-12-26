@@ -1,6 +1,6 @@
 export default {
     state: () => ({
-        email: null,
+        email: 'usermail',
         name: null,
         token: null,
         rememberMe: false,

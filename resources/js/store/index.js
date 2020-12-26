@@ -1,9 +1,11 @@
 import moment from 'moment'
 import makeOrder from './modules/makeOrder'
+import user from './modules/user'
 
 export default {
     modules: {
-        makeOrder
+        makeOrder,
+        user
     },
     state: {
         city: localStorage.city || 'Москва',
