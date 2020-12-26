@@ -1,5 +1,5 @@
 import moment from 'moment'
-import makeOrder from './makeOrder'
+import makeOrder from './modules/makeOrder'
 
 export default {
     modules: {
@@ -75,15 +75,15 @@ export default {
     actions: {
         async getCities({commit}) {
             try {
-                const {data}= await axios.get('/api/services/cities')
+                const {data} = await axios.get('/api/services/cities')
                 commit('setCities', data)
-            } catch({message}) {
+            } catch ({message}) {
                 console.error(message)
             }
         },
         async getTypes({commit}) {
             try {
-                const {data}=await axios.get('/api/services/types')
+                const {data} = await axios.get('/api/services/types')
                 data.unshift({name: 'Все'})
                 commit('setTypes', data)
             } catch ({message}) {
@@ -93,14 +93,14 @@ export default {
 
         async getServiceInfo({state, commit}, inpData) {
             try {
-                const {data} = await axios. get('/api/services/' + inpData.id)
+                const {data} = await axios.get('/api/services/' + inpData.id)
                 let newData = {
-                        commonInfo: data.service,
-                        schedules: data.schedules,
-                        types: data.types,
-                        startDate: (new Date()).setHours(0, 0, 0, 0),
-                        selectedSchedule: null,
-                        currentType: state.currentService.currentType || data.types[0].name
+                    commonInfo: data.service,
+                    schedules: data.schedules,
+                    types: data.types,
+                    startDate: (new Date()).setHours(0, 0, 0, 0),
+                    selectedSchedule: null,
+                    currentType: state.currentService.currentType || data.types[0].name
                 }
                 newData.schedules.sort((a, b) => {
                     if (a.work_time < b.work_time) return -1;
@@ -110,7 +110,7 @@ export default {
                 })
                 commit('setCurrentService', newData)
                 commit('setCurrentType', {name: newData.currentType})
-            } catch({message}) {
+            } catch ({message}) {
                 console.error(message)
             }
         },
@@ -123,7 +123,7 @@ export default {
 
     mutations: {
         categories(state, data) {
-            return state.category = data
+            state.category = data
         },
         setCity(state, city) {
             state.city = city
