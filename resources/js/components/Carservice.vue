@@ -53,6 +53,10 @@ export default {
             return this.$store.state.currentService.schedules
         },
 
+        authorized() {
+            return this.$store.getters['user/authorized']
+        }
+
     },
     methods: {
         setNewCurrentType(newCurrentType) {
@@ -61,7 +65,7 @@ export default {
 
 
         makeOrder(el) {
-            if (!this.$store.state.userData.email || this.$store.state.userData.email === '') {
+            if (!this.authorized === '') {
                 alert('Для записи необходимо авторизоваться')
                 return -1
             }

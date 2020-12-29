@@ -134,7 +134,7 @@ export default {
         },
 
         userToken: function () {
-            return this.$store.state.userData.token
+            return this.$store.state.user.token
         },
 
         gosNumbLngth() {

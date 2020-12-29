@@ -1,6 +1,6 @@
 export default {
     state: () => ({
-        email: 'usermail',
+        email: null,
         name: null,
         token: null,
         rememberMe: false,
@@ -33,34 +33,42 @@ export default {
     },
 
     actions: {
-        async login(context, loginData) {
+        async login({commit, dispatch}, loginData) {
             try {
                 const {data} = await axios.post("/api/login", loginData)
                 if (data.error) {
                     alert(data.error)
                     return
                 }
-                context.commit('setUserData', data)
-                if (data.rememberMe) {
-                    localStorage.token = data.token
-                    //TODO Сохранение email - лишний элемент, потом надо будет удалить, как наведем порядок с ответом сервера по автологину
-                    localStorage.email = data.email
+
+                commit('setUserData', {
+                    token: data.token,
+                    email: loginData.email
+                })
+                if (loginData.rememberMe) {
+                dispatch('storeUserData', {
+                    token: data.token,
+                    email: loginData.email
+                })
                 }
+
             } catch ({message}) {
                 console.error(message)
             }
 
         },
 
-        async register(context, userData) {
+        async register({commit}, userData) {
             try {
                 const {data} = await axios.post('/api/register', userData)
-                if (data.error) {
-                    alert(data.error)
+                if (data.errors) {
+                    alert(data.errors)
                     return
                 }
                 //не делаем тут rememberToken. Отдельно делаем при логине rememberMe
-                context.commit('setUserData', data)
+                commit('setUserData', {
+                    email: userData.email,
+                    token: data.token})
             } catch ({message}) {
                 console.error(message)
             }
@@ -85,6 +93,12 @@ export default {
             })
         },
 
+        storeUserData(context, userData) {
+            localStorage.token=userData.token
+            //TODO Сохранение email - лишний элемент, потом надо будет удалить, как наведем порядок с ответом сервера по автологину
+            localStorage.email=userData.email
+        },
+
         logout(context) {
             context.commit('setUserData', {
                 email: null,
@@ -93,6 +107,10 @@ export default {
                 rememberMe: false,
                 id: null,
             })
+            localStorage.removeItem('token')
+            localStorage.removeItem('name')
+            localStorage.removeItem('email')
+
         },
 
     },

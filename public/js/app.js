@@ -2114,7 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     email: function email() {
-      return this.$store.state.userData.email;
+      return this.$store.state.user.email;
     },
     popUpComponent: function popUpComponent() {
       return this.$store.state.popUpData.comp;
@@ -2122,11 +2122,13 @@ __webpack_require__.r(__webpack_exports__);
     city: function city() {
       return this.$store.state.city;
     },
-    registered: function registered() {
-      return this.$store.state.user.email; // return '15'
+    authorized: function authorized() {
+      return this.$store.getters.authorized; // return '15'
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.$store.dispatch('init', {});
+  },
   components: {
     popUp: _UI_PopUp_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -60792,7 +60794,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          !_vm.email || _vm.email === ""
+          !_vm.authorized
             ? _c("div", { staticClass: "header-acc-wrapper" }, [
                 _c(
                   "div",
@@ -78690,11 +78692,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     city: localStorage.city || 'Москва',
     cities: [],
     types: [],
-    userData: {
-      email: localStorage.email || '',
-      token: localStorage.token || '',
-      rememberMe: localStorage.getItem('token') !== null
-    },
     popUpData: {
       comp: '',
       header: '',
@@ -78743,7 +78740,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   actions: {
-    getCities: function getCities(_ref) {
+    init: function init(_ref) {
+      var dispatch = _ref.dispatch;
+      dispatch('autoLogin');
+    },
+    getCities: function getCities(_ref2) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var commit, _yield$axios$get, data, message;
 
@@ -78751,7 +78752,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit;
+                commit = _ref2.commit;
                 _context.prev = 1;
                 _context.next = 4;
                 return axios.get('/api/services/cities');
@@ -78777,7 +78778,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[1, 9]]);
       }))();
     },
-    getTypes: function getTypes(_ref3) {
+    getTypes: function getTypes(_ref4) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var commit, _yield$axios$get2, data, message;
 
@@ -78785,7 +78786,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref3.commit;
+                commit = _ref4.commit;
                 _context2.prev = 1;
                 _context2.next = 4;
                 return axios.get('/api/services/types');
@@ -78814,7 +78815,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[1, 10]]);
       }))();
     },
-    getServiceInfo: function getServiceInfo(_ref5, inpData) {
+    getServiceInfo: function getServiceInfo(_ref6, inpData) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var state, commit, _yield$axios$get3, data, newData, message;
 
@@ -78822,7 +78823,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                state = _ref5.state, commit = _ref5.commit;
+                state = _ref6.state, commit = _ref6.commit;
                 _context3.prev = 1;
                 _context3.next = 4;
                 return axios.get('/api/services/' + inpData.id);
@@ -78863,11 +78864,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[1, 12]]);
       }))();
-    },
-    logout: function logout(_ref7) {
-      var commit = _ref7.commit;
-      commit('setUserData', {});
-    }
+    } // logout({commit}) {
+    //     commit('setUserData', {})
+    // }
+
   },
   mutations: {
     categories: function categories(state, data) {
@@ -78909,23 +78909,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return el.name === type;
       })) {
         state.currentService.currentType = type;
-      }
-    },
-    setUserData: function setUserData(state, newUserData) {
-      if (newUserData.email && newUserData.token && newUserData.email !== '' && newUserData.token !== '') {
-        // Object.assign(state.userData,newUserData)
-        state.userData.email = newUserData.email;
-        state.userData.token = newUserData.token;
-        state.userData.rememberMe = newUserData.rememberMe; // alert(222)
-
-        if (newUserData.rememberMe) {
-          localStorage.email = newUserData.email;
-          localStorage.token = newUserData.token;
-        }
-      } else {
-        state.userData = {};
-        localStorage.removeItem('email');
-        localStorage.removeItem('token');
       }
     }
   }
@@ -78983,7 +78966,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: function state() {
     return {
-      email: 'usermail',
+      email: null,
       name: null,
       token: null,
       rememberMe: false,
@@ -79016,98 +78999,107 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   actions: {
-    login: function login(context, loginData) {
+    login: function login(_ref, loginData) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$post, data, message;
+        var commit, dispatch, _yield$axios$post, data, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                commit = _ref.commit, dispatch = _ref.dispatch;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.post("/api/login", loginData);
 
-              case 3:
+              case 4:
                 _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data;
 
                 if (!data.error) {
-                  _context.next = 8;
+                  _context.next = 9;
                   break;
                 }
 
                 alert(data.error);
                 return _context.abrupt("return");
 
-              case 8:
-                context.commit('setUserData', data);
+              case 9:
+                commit('setUserData', {
+                  token: data.token,
+                  email: loginData.email
+                });
 
-                if (data.rememberMe) {
-                  localStorage.token = data.token; //TODO Сохранение email - лишний элемент, потом надо будет удалить, как наведем порядок с ответом сервера по автологину
-
-                  localStorage.email = data.email;
+                if (loginData.rememberMe) {
+                  dispatch('storeUserData', {
+                    token: data.token,
+                    email: loginData.email
+                  });
                 }
 
-                _context.next = 16;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](0);
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](1);
                 message = _context.t0.message;
                 console.error(message);
 
-              case 16:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 12]]);
+        }, _callee, null, [[1, 13]]);
       }))();
     },
-    register: function register(context, userData) {
+    register: function register(_ref3, userData) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _yield$axios$post2, data, message;
+        var commit, _yield$axios$post2, data, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                commit = _ref3.commit;
+                _context2.prev = 1;
+                _context2.next = 4;
                 return axios.post('/api/register', userData);
 
-              case 3:
+              case 4:
                 _yield$axios$post2 = _context2.sent;
                 data = _yield$axios$post2.data;
 
-                if (!data.error) {
-                  _context2.next = 8;
+                if (!data.errors) {
+                  _context2.next = 9;
                   break;
                 }
 
-                alert(data.error);
+                alert(data.errors);
                 return _context2.abrupt("return");
 
-              case 8:
+              case 9:
                 //не делаем тут rememberToken. Отдельно делаем при логине rememberMe
-                context.commit('setUserData', data);
-                _context2.next = 15;
+                commit('setUserData', {
+                  email: userData.email,
+                  token: data.token
+                });
+                _context2.next = 16;
                 break;
 
-              case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](0);
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](1);
                 message = _context2.t0.message;
                 console.error(message);
 
-              case 15:
+              case 16:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 11]]);
+        }, _callee2, null, [[1, 12]]);
       }))();
     },
     autoLogin: function autoLogin(context) {
@@ -79129,6 +79121,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: null
       });
     },
+    storeUserData: function storeUserData(context, userData) {
+      localStorage.token = userData.token; //TODO Сохранение email - лишний элемент, потом надо будет удалить, как наведем порядок с ответом сервера по автологину
+
+      localStorage.email = userData.email;
+    },
     logout: function logout(context) {
       context.commit('setUserData', {
         email: null,
@@ -79137,6 +79134,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         rememberMe: false,
         id: null
       });
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
+      localStorage.removeItem('email');
     }
   },
   getters: {

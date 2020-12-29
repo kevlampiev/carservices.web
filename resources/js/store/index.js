@@ -11,11 +11,6 @@ export default {
         city: localStorage.city || 'Москва',
         cities: [],
         types: [],
-        userData: {
-            email: localStorage.email || '',
-            token: localStorage.token || '',
-            rememberMe: localStorage.getItem('token') !== null
-        },
         popUpData: {
             comp: '',
             header: '',
@@ -75,6 +70,9 @@ export default {
 
 
     actions: {
+        init({dispatch}) {
+            dispatch('autoLogin')
+        },
         async getCities({commit}) {
             try {
                 const {data} = await axios.get('/api/services/cities')
@@ -117,9 +115,9 @@ export default {
             }
         },
 
-        logout({commit}) {
-            commit('setUserData', {})
-        }
+        // logout({commit}) {
+        //     commit('setUserData', {})
+        // }
 
     },
 
@@ -164,24 +162,6 @@ export default {
             let types = state.currentService.types
             if (types.find(el => el.name === type)) {
                 state.currentService.currentType = type
-            }
-        },
-
-        setUserData(state, newUserData) {
-            if (newUserData.email && newUserData.token && (newUserData.email !== '') && (newUserData.token !== '')) {
-                // Object.assign(state.userData,newUserData)
-                state.userData.email = newUserData.email
-                state.userData.token = newUserData.token
-                state.userData.rememberMe = newUserData.rememberMe
-                // alert(222)
-                if (newUserData.rememberMe) {
-                    localStorage.email = newUserData.email
-                    localStorage.token = newUserData.token
-                }
-            } else {
-                state.userData = {}
-                localStorage.removeItem('email')
-                localStorage.removeItem('token')
             }
         },
 
