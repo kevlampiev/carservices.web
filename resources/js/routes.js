@@ -1,5 +1,5 @@
 const Hello = () => import('./components/Hello')
-const Home = () =>   import('./components/Home')
+const Home = () => import('./components/Home')
 const Carservice = () => import('./components/Carservice')
 
 const appRoutes = [

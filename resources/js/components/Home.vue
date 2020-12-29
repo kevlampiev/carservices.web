@@ -74,12 +74,12 @@ export default {
         async getServiceList(aCity) {
             if (!aCity) aCity = this.$store.state.city
             try {
-                const {data}= await axios.get('/api/services?city=' + aCity)
-                this.services=data
-            } catch({message}) {
+                const {data} = await axios.get('/api/services?city=' + aCity)
+                this.services = data
+            } catch ({message}) {
                 console.error(message)
             }
-                        // this.serviceTypes = tmpServiceTypes
+            // this.serviceTypes = tmpServiceTypes
         },
         startSelectCity() {
             this.$store.state.popUpData = {

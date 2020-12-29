@@ -7,6 +7,7 @@
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                     {{ city }}
                 </div>
+
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
@@ -14,7 +15,7 @@
                 <!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
                 <!--                </div>-->
 
-                <div class="header-acc-wrapper" v-if="!email||email===''">
+                <div class="header-acc-wrapper" v-if="!authorized">
                     <div class="header-page-link" @click="register">
                         Зарегистрироваться
                     </div>
@@ -82,7 +83,7 @@ export default {
     },
     computed: {
         email: function () {
-            return this.$store.state.userData.email
+            return this.$store.state.user.email
         },
         popUpComponent: function () {
             return this.$store.state.popUpData.comp
@@ -90,11 +91,18 @@ export default {
 
         city: function () {
             return this.$store.state.city
+        },
+
+        authorized: function() {
+            return this.$store.getters.authorized
+            // return '15'
         }
     },
 
     mounted() {
+        this.$store.dispatch('init',{})
     },
+
     components: {
         popUp
     }

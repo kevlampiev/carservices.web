@@ -10,7 +10,7 @@
                            v-model.trim="form.name"
                            :class="{'company-entry-block-row-input': true,
                            'invalid-data':
-                                    !$v.form.name.minLength || !$v.form.name.required
+                                  $v.form.email.dirty&&(!$v.form.name.minLength || !$v.form.name.required)
                            }">
                 </div>
                 <small class="error-notificator"
@@ -118,35 +118,12 @@ export default {
     },
     methods: {
         registerUser() {
-            axios
-                .post("/api/register", {
-                    name: this.form.name,
-                    email: this.form.email,
-                    password: this.form.password
-                })
-                .then(res => {
-                    this.proceedRegistration(res);
-                    this.close()
-                })
-                .catch(err => console.log(err));
+            this.$store.dispatch('register', this.form)
+            this.close()
         },
 
         cancelRegistration() {
             this.$router.back();
-        },
-
-        //Функция обработки клиентского токена
-        proceedRegistration(response) {
-            if (!response.data.token) {
-                alert("Поле с токеном отсутствует");
-            } else {
-                this.$store.commit('setUserData',
-                    {
-                        email: this.form.email,
-                        token: response.data.token,
-                        rememberMe: false
-                    })
-            }
         },
 
         showRegistrationError(error) {

@@ -1,19 +1,16 @@
 import moment from 'moment'
-import makeOrder from './makeOrder'
+import makeOrder from './modules/makeOrder'
+import user from './modules/user'
 
 export default {
     modules: {
-        makeOrder
+        makeOrder,
+        user
     },
     state: {
         city: localStorage.city || 'Москва',
         cities: [],
         types: [],
-        userData: {
-            email: localStorage.email || '',
-            token: localStorage.token || '',
-            rememberMe: localStorage.getItem('token') !== null
-        },
         popUpData: {
             comp: '',
             header: '',
@@ -73,17 +70,20 @@ export default {
 
 
     actions: {
+        init({dispatch}) {
+            dispatch('autoLogin')
+        },
         async getCities({commit}) {
             try {
-                const {data}= await axios.get('/api/services/cities')
+                const {data} = await axios.get('/api/services/cities')
                 commit('setCities', data)
-            } catch({message}) {
+            } catch ({message}) {
                 console.error(message)
             }
         },
         async getTypes({commit}) {
             try {
-                const {data}=await axios.get('/api/services/types')
+                const {data} = await axios.get('/api/services/types')
                 data.unshift({name: 'Все'})
                 commit('setTypes', data)
             } catch ({message}) {
@@ -93,14 +93,14 @@ export default {
 
         async getServiceInfo({state, commit}, inpData) {
             try {
-                const {data} = await axios. get('/api/services/' + inpData.id)
+                const {data} = await axios.get('/api/services/' + inpData.id)
                 let newData = {
-                        commonInfo: data.service,
-                        schedules: data.schedules,
-                        types: data.types,
-                        startDate: (new Date()).setHours(0, 0, 0, 0),
-                        selectedSchedule: null,
-                        currentType: state.currentService.currentType || data.types[0].name
+                    commonInfo: data.service,
+                    schedules: data.schedules,
+                    types: data.types,
+                    startDate: (new Date()).setHours(0, 0, 0, 0),
+                    selectedSchedule: null,
+                    currentType: state.currentService.currentType || data.types[0].name
                 }
                 newData.schedules.sort((a, b) => {
                     if (a.work_time < b.work_time) return -1;
@@ -110,20 +110,20 @@ export default {
                 })
                 commit('setCurrentService', newData)
                 commit('setCurrentType', {name: newData.currentType})
-            } catch({message}) {
+            } catch ({message}) {
                 console.error(message)
             }
         },
 
-        logout({commit}) {
-            commit('setUserData', {})
-        }
+        // logout({commit}) {
+        //     commit('setUserData', {})
+        // }
 
     },
 
     mutations: {
         categories(state, data) {
-            return state.category = data
+            state.category = data
         },
         setCity(state, city) {
             state.city = city
@@ -162,24 +162,6 @@ export default {
             let types = state.currentService.types
             if (types.find(el => el.name === type)) {
                 state.currentService.currentType = type
-            }
-        },
-
-        setUserData(state, newUserData) {
-            if (newUserData.email && newUserData.token && (newUserData.email !== '') && (newUserData.token !== '')) {
-                // Object.assign(state.userData,newUserData)
-                state.userData.email = newUserData.email
-                state.userData.token = newUserData.token
-                state.userData.rememberMe = newUserData.rememberMe
-                // alert(222)
-                if (newUserData.rememberMe) {
-                    localStorage.email = newUserData.email
-                    localStorage.token = newUserData.token
-                }
-            } else {
-                state.userData = {}
-                localStorage.removeItem('email')
-                localStorage.removeItem('token')
             }
         },
 
