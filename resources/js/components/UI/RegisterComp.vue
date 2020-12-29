@@ -10,7 +10,7 @@
                            v-model.trim="form.name"
                            :class="{'company-entry-block-row-input': true,
                            'invalid-data':
-                                    !$v.form.name.minLength || !$v.form.name.required
+                                  $v.form.email.dirty&&(!$v.form.name.minLength || !$v.form.name.required)
                            }">
                 </div>
                 <small class="error-notificator"
