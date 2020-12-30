@@ -28,6 +28,7 @@ export default {
             state.name = userData.name
             state.rememberMe = userData.rememberMe
             state.id = userData.id
+            console.log(state.token)
         },
 
     },
