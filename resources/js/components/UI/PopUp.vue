@@ -24,15 +24,17 @@ export default {
     },
     methods: {
         closeWindow() {
-            this.$store.state.popUpData.comp = ''
+            this.$store.commit('showPopUp',{comp: ''})
         }
     },
     computed: {
         currentComponent: function () {
-            return this.$store.state.popUpData.comp
+            // return this.$store.state.popUpData.comp
+            return this.$store.state.popUp.comp
         },
         header: function () {
-            return this.$store.state.popUpData.header
+            return this.$store.state.popUp.header
+            // return this.$store.state.popUpData.header
         }
     }
 

@@ -1,21 +1,23 @@
 import moment from 'moment'
 import makeOrder from './modules/makeOrder'
 import user from './modules/user'
+import popUp from './modules/popUp'
 
 export default {
     modules: {
         makeOrder,
-        user
+        user,
+        popUp
     },
     state: {
         city: localStorage.city || 'Москва',
         cities: [],
         types: [],
-        popUpData: {
-            comp: '',
-            header: '',
-            data: null
-        },
+        // popUpData: {
+        //     comp: '',
+        //     header: '',
+        //     data: null
+        // },
 
         currentService: {
             commonInfo: {},
@@ -72,6 +74,7 @@ export default {
     actions: {
         init({dispatch}) {
             dispatch('autoLogin')
+
         },
         async getCities({commit}) {
             try {

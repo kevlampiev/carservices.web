@@ -14,7 +14,7 @@
             <div class="content-wrapper">
                 <div class="content-item" v-for="(carserv,index) in filteredServices" :key="carserv.id">
                     <div>
-                        <img class="content-item-company-img" :src="carserv.img_link">
+                        <img class="content-item-company-img" :src="carserv.img_link" alt="Carservice logo">
                         <div class="content-item-company-wrapper">
                             <div class="content-item-company-name">{{ carserv.name }}</div>
                             <div class="content-item-company-address">
@@ -115,7 +115,8 @@ export default {
     mounted() {
         this.showMap = true
         this.getServiceList(this.$store.state.city)
-        this.$store.state.popUpData.comp = ''
+        this.$store.commit('showPopUp',{comp: ''})
+        // this.$store.state.popUpData.comp = ''
     },
     watch: {
         '$store.state.city': 'getServiceList'

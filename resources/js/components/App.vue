@@ -1,5 +1,5 @@
 <template>
-    <div class="main-page" @showSelectCityDlg="showSelectCityDlg">
+    <div class="main-page">
         <header>
             <div class="container">
                 <div class="header-logo">CARSERVICES.WEB</div>
@@ -55,29 +55,26 @@ export default {
         logout() {
             this.$store.dispatch('logout')
         },
-        showSelectCityDlg() {
-            this.currentPopUp = 'cityList'
-            this.popUpHeader = 'выбор города'
-        },
+
         startSelectCity() {
-            this.$store.state.popUpData = {
+                this.$store.commit('showPopUp',{
                 comp: 'cityList',
-                header: 'выбрать город',
-            }
+                header: 'выбрать город'
+            })
         },
 
         login() {
-            this.$store.state.popUpData = {
+                this.$store.commit('showPopUp',{
                 comp: 'login',
-                header: 'Войти',
-            }
+                header: 'Войти'
+            })
         },
 
         register() {
-            this.$store.state.popUpData = {
+            this.$store.commit('showPopUp',{
                 comp: 'register',
-                header: 'Зарегистрироваться',
-            }
+                header: 'зарегистрироваться'
+            })
         },
 
     },
@@ -86,7 +83,7 @@ export default {
             return this.$store.state.user.email
         },
         popUpComponent: function () {
-            return this.$store.state.popUpData.comp
+            return this.$store.state.popUp.comp
         },
 
         city: function () {
@@ -95,7 +92,6 @@ export default {
 
         authorized: function() {
             return this.$store.getters.authorized
-            // return '15'
         }
     },
 
