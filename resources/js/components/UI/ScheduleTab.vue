@@ -35,7 +35,6 @@
 
 
 <script>
-// const moment = require('moment')
 import moment from 'moment'
 
 moment.locale('ru')
@@ -70,16 +69,16 @@ export default {
 
     computed: {
         dates() {
-            return this.$store.getters.scheduleDates
+            return this.$store.getters['currentService/scheduleDates']
         },
         scheduledData() {
-            return this.$store.getters.schedules
+            return this.$store.getters['currentService/schedules']
         },
         dateStart() {
-            return this.$store.getters.startDate
+            return this.$store.getters['currentService/startDate']
         },
         currentMonth() {
-            return moment(this.$store.getters.startDate).format('MMMM')
+            return moment(this.$store.getters['currentService/startDate']).format('MMMM')
         },
 
     },

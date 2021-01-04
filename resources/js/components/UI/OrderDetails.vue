@@ -148,11 +148,10 @@ export default {
                 this.$v.$touch()
                 return -1
             }
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.userToken
             axios.post('/api/order', this.orderDetails)
                 .then(res => {
                     console.log(res)
-                    this.$store.dispatch('getServiceInfo', {
+                    this.$store.dispatch('currentService/getServiceInfo', {
                         id: this.$store.state.currentService.commonInfo.id
                     })
                 })
@@ -166,7 +165,6 @@ export default {
     },
     mounted() {
         this.orderDetails.schedule_id = this.$store.state.currentService.selectedSchedule.id
-        console.log(this.$store.state.makeOrder.count)
     }
 }
 </script>

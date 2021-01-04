@@ -30,10 +30,7 @@ const app = new Vue({
     mounted() {
         this.$store.dispatch('getCities')
         this.$store.dispatch('getTypes')
-
-        this.userMail = localStorage.getItem('userName')
-        let tmpCity = localStorage.getItem('city')
-        this.$store.commit('setCity', tmpCity || 'Москва')
+        this.$store.dispatch('init')
 
     },
 

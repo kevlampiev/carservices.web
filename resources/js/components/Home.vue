@@ -14,7 +14,7 @@
             <div class="content-wrapper">
                 <div class="content-item" v-for="(carserv,index) in filteredServices" :key="carserv.id">
                     <div>
-                        <img class="content-item-company-img" :src="carserv.img_link">
+                        <img class="content-item-company-img" :src="carserv.img_link" alt="Carservice logo">
                         <div class="content-item-company-wrapper">
                             <div class="content-item-company-name">{{ carserv.name }}</div>
                             <div class="content-item-company-address">
@@ -55,17 +55,6 @@ export default {
     data: () => {
         return {
             services: [],
-            showMap: false,
-            mapSettings: {
-                apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
-                lang: 'ru_RU',
-                coordorder: 'latlong',
-                version: '2.1'
-            },
-            coords: [
-                54.82896654088406,
-                39.831893822753904,
-            ],
             searchStr: '',
             currentType: 'Все'
         }
@@ -79,7 +68,6 @@ export default {
             } catch ({message}) {
                 console.error(message)
             }
-            // this.serviceTypes = tmpServiceTypes
         },
         startSelectCity() {
             this.$store.state.popUpData = {
@@ -113,9 +101,7 @@ export default {
         },
     },
     mounted() {
-        this.showMap = true
         this.getServiceList(this.$store.state.city)
-        this.$store.state.popUpData.comp = ''
     },
     watch: {
         '$store.state.city': 'getServiceList'

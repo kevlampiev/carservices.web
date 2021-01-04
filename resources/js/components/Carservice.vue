@@ -60,25 +60,26 @@ export default {
     },
     methods: {
         setNewCurrentType(newCurrentType) {
-            this.$store.commit('setCurrentType', {name: newCurrentType})
+            this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
         },
 
 
         makeOrder(el) {
-            if (!this.authorized === '') {
+            if (!this.authorized) {
                 alert('Для записи необходимо авторизоваться')
                 return -1
             }
             this.$store.state.currentService.selectedSchedule = el
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
-            }
+            })
+
         },
 
     },
     mounted() {
-        this.$store.dispatch('getServiceInfo', {id: this.$route.params.id})
+        this.$store.dispatch('currentService/getServiceInfo', {id: this.$route.params.id})
 
     }
 }

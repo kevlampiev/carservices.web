@@ -1,4 +1,5 @@
 export default {
+    namespaced: true,
     state: () => ({
         email: null,
         name: null,
@@ -47,12 +48,12 @@ export default {
                     email: loginData.email
                 })
                 if (loginData.rememberMe) {
-                dispatch('storeUserData', {
-                    token: data.token,
-                    email: loginData.email
-                })
+                    dispatch('storeUserData', {
+                        token: data.token,
+                        email: loginData.email
+                    })
                 }
-
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
             } catch ({message}) {
                 console.error(message)
             }
@@ -69,7 +70,9 @@ export default {
                 //не делаем тут rememberToken. Отдельно делаем при логине rememberMe
                 commit('setUserData', {
                     email: userData.email,
-                    token: data.token})
+                    token: data.token
+                })
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
             } catch ({message}) {
                 console.error(message)
             }
@@ -92,12 +95,13 @@ export default {
                 rememberMe: true, //ну раз есть что читать, значит true
                 id: null,
             })
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.token
         },
 
         storeUserData(context, userData) {
-            localStorage.token=userData.token
+            localStorage.token = userData.token
             //TODO Сохранение email - лишний элемент, потом надо будет удалить, как наведем порядок с ответом сервера по автологину
-            localStorage.email=userData.email
+            localStorage.email = userData.email
         },
 
         logout(context) {

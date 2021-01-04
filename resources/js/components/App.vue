@@ -1,5 +1,5 @@
 <template>
-    <div class="main-page" @showSelectCityDlg="showSelectCityDlg">
+    <div class="main-page">
         <header>
             <div class="container">
                 <div class="header-logo">CARSERVICES.WEB</div>
@@ -53,31 +53,28 @@ export default {
 
     methods: {
         logout() {
-            this.$store.dispatch('logout')
+            this.$store.dispatch('user/logout')
         },
-        showSelectCityDlg() {
-            this.currentPopUp = 'cityList'
-            this.popUpHeader = 'выбор города'
-        },
+
         startSelectCity() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'cityList',
-                header: 'выбрать город',
-            }
+                header: 'выбрать город'
+            })
         },
 
         login() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'login',
-                header: 'Войти',
-            }
+                header: 'Войти'
+            })
         },
 
         register() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'register',
-                header: 'Зарегистрироваться',
-            }
+                header: 'зарегистрироваться'
+            })
         },
 
     },
@@ -86,21 +83,16 @@ export default {
             return this.$store.state.user.email
         },
         popUpComponent: function () {
-            return this.$store.state.popUpData.comp
+            return this.$store.state.popUp.comp
         },
 
         city: function () {
             return this.$store.state.city
         },
 
-        authorized: function() {
-            return this.$store.getters.authorized
-            // return '15'
+        authorized: function () {
+            return this.$store.getters['user/authorized']
         }
-    },
-
-    mounted() {
-        this.$store.dispatch('init',{})
     },
 
     components: {
