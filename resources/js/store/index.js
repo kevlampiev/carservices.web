@@ -10,7 +10,7 @@ export default {
         currentService,
     },
     state: {
-        city: localStorage.city || 'Москва',
+        city: null,
         cities: [],
         types: [],
     },
@@ -19,8 +19,9 @@ export default {
 
 
     actions: {
-        init({dispatch}) {
+        init({state, dispatch}) {
             dispatch('user/autoLogin')
+            state.city = localStorage.city || 'Москва'
         },
         async getCities({commit}) {
             try {

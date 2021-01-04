@@ -17,21 +17,6 @@
         </label>
     </div>
 
-
-    <!--    <div class="menu-search">-->
-    <!--        <img class="menu-search-img" src="img/search-icon.png">-->
-    <!--&lt;!&ndash;        <i class="fa fa-search" aria-hidden="true"></i>&ndash;&gt;-->
-    <!--        <label class="menu-search-label" for="menu-search-input-name">-->
-    <!--            <input class="menu-search-input"-->
-    <!--                   placeholder="Поиск по названию"-->
-    <!--                   id="menu-search-input-name"-->
-    <!--                   name="menu-search-input-name"-->
-    <!--                   v-model="sString"-->
-    <!--                   @input="$emit('update:searchStr',sString)"-->
-    <!--            >-->
-    <!--        </label>-->
-    <!--    </div>-->
-
 </template>
 
 
