@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         closeWindow() {
-            this.$store.commit('showPopUp',{comp: ''})
+            this.$store.commit('popUp/close')
         }
     },
     computed: {

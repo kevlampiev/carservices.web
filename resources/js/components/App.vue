@@ -53,25 +53,25 @@ export default {
 
     methods: {
         logout() {
-            this.$store.dispatch('logout')
+            this.$store.dispatch('user/logout')
         },
 
         startSelectCity() {
-                this.$store.commit('showPopUp',{
+            this.$store.commit('popUp/show', {
                 comp: 'cityList',
                 header: 'выбрать город'
             })
         },
 
         login() {
-                this.$store.commit('showPopUp',{
+            this.$store.commit('popUp/show', {
                 comp: 'login',
                 header: 'Войти'
             })
         },
 
         register() {
-            this.$store.commit('showPopUp',{
+            this.$store.commit('popUp/show', {
                 comp: 'register',
                 header: 'зарегистрироваться'
             })
@@ -90,13 +90,13 @@ export default {
             return this.$store.state.city
         },
 
-        authorized: function() {
-            return this.$store.getters.authorized
+        authorized: function () {
+            return this.$store.getters['user/authorized']
         }
     },
 
     mounted() {
-        this.$store.dispatch('init',{})
+        this.$store.dispatch('init', {})
     },
 
     components: {

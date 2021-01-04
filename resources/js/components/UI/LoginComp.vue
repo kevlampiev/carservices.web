@@ -85,7 +85,7 @@ export default {
     methods: {
         enterLogin() {
             if (this.$v.form.$anyError) return;
-            this.$store.dispatch('login',this.form)
+            this.$store.dispatch('user/login', this.form)
             this.close()
         },
 
@@ -123,6 +123,7 @@ export default {
     font-size: 14px;
     user-select: none;
 }
+
 .checkbox-ios .checkbox-ios-switch {
     position: relative;
     display: inline-block;
@@ -135,6 +136,7 @@ export default {
     background: #eee;
     transition: .2s;
 }
+
 .checkbox-ios .checkbox-ios-switch:before {
     content: '';
     position: absolute;
@@ -148,6 +150,7 @@ export default {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
     transition: .15s;
 }
+
 .checkbox-ios input[type=checkbox] {
     display: block;
     width: 0;
@@ -156,14 +159,17 @@ export default {
     z-index: -1;
     opacity: 0;
 }
+
 .checkbox-ios input[type=checkbox]:not(:disabled):active + .checkbox-ios-switch:before {
     box-shadow: inset 0 0 2px rgba(0, 0, 0, .3);
 }
+
 .checkbox-ios input[type=checkbox]:checked + .checkbox-ios-switch {
     background: limegreen;
 }
+
 .checkbox-ios input[type=checkbox]:checked + .checkbox-ios-switch:before {
-    transform:translateX(28px);
+    transform: translateX(28px);
 }
 
 /* Hover */
@@ -177,6 +183,7 @@ export default {
     filter: grayscale(70%);
     border-color: rgba(0, 0, 0, .1);
 }
+
 .checkbox-ios input[type=checkbox]:disabled + .checkbox-ios-switch:before {
     background: #eee;
 }

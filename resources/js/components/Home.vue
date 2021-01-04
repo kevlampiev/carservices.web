@@ -115,7 +115,7 @@ export default {
     mounted() {
         this.showMap = true
         this.getServiceList(this.$store.state.city)
-        this.$store.commit('showPopUp',{comp: ''})
+        this.$store.commit('popUp/close')
         // this.$store.state.popUpData.comp = ''
     },
     watch: {
