@@ -29,12 +29,10 @@ export default {
     },
     computed: {
         currentComponent: function () {
-            // return this.$store.state.popUpData.comp
             return this.$store.state.popUp.comp
         },
         header: function () {
             return this.$store.state.popUp.header
-            // return this.$store.state.popUpData.header
         }
     }
 

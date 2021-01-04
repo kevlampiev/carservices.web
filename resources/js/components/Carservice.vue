@@ -74,10 +74,6 @@ export default {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
             })
-            // this.$store.state.popUpData = {
-            //     comp: 'orderDetails',
-            //     header: 'дополнительная информация для заказа',
-            // }
 
         },
 
