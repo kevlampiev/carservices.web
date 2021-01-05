@@ -20,7 +20,7 @@ export default {
                     types: data.types,
                     startDate: (new Date()).setHours(0, 0, 0, 0),
                     selectedSchedule: null,
-                    currentType: state.currentType || data.types[0].name
+                    currentType: data.types[0].name
                 }
                 newData.schedules.sort((a, b) => {
                     if (a.work_time < b.work_time) return -1;
@@ -29,7 +29,7 @@ export default {
                     }
                 })
                 commit('setCurrentService', newData)
-                commit('setCurrentType', {name: newData.currentType})
+                // commit('setCurrentType', {name: newData.currentType})
             } catch ({message}) {
                 console.error(message)
             }
