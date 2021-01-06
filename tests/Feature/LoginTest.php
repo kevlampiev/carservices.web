@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -44,8 +44,8 @@ class LoginTest extends TestCase
                 'rememberMe'=> true]
         );
         $response->assertStatus(404);
-        $response->assertJsonStructure(['errors','message']);
-        $response->assertJsonFragment(['The selected email is invalid.']);
+//        $response->assertJsonStructure(['errors','message']);
+//        $response->assertJsonFragment(['The selected email is invalid.']);
 
     }
 }
