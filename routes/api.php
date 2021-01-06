@@ -28,18 +28,6 @@ Route::group([
     Route::post('/{service}', 'API\ServicesController@setSchedule')->name('storeOrder');
 });
 
-Route::group([
-    'prefix' => 'admin',
-    'namespace' => 'Admin'
-], function () {
-    Route::resource('/orders', 'OrderController');
-    Route::resource('/schedules', 'ScheduleController');
-    Route::resource('/users', 'UserController');
-    Route::resource('/types', 'TypeController');
-
-});
-
-
 Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
 
 

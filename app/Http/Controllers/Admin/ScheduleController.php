@@ -10,106 +10,73 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $schedule = Schedule::query()
+        $schedules = Schedule::query()
             ->join('services', 'schedules.service_id', '=', 'services.id')
-            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
-            ->join('orders', 'schedules.order_id', '=', 'orders.id')
+//            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
+//            ->join('orders', 'schedules.order_id', '=', 'orders.id')
+            ->select('schedules.*', 'services.name')
             ->get();
-        return response()->json($schedule, 200);
+        return view('admin.schedules', ['schedules' => $schedules]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.scheduleCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+//        dd($request);
+        $request->validate([
+            'work_day' => 'required|date',
+//            'work_time' => 'required|numeric'
+        ]);
+        $schedule = new Schedule;
+//        dd($request->work_day);
+//        $schedule -> fill([
+//            'work_day' => $request->work_day,
+//            'work_time' => 7,
+//            'service_id' => 2,
+//            'service_type_id' => 3
+//        ]);
+        $schedule -> fill($request->all());
+//        dd($schedule);
+        if ($schedule->save()) {
+            return redirect()->route('admin.schedules.index');
+        }
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Schedule $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function show(Schedule $schedule)
     {
-//        $type = Type::query()->where('id', $schedule->service_type_id)->select('name')->first();
-        $schedule = Schedule::query()->where('schedules.id', $schedule->id)
-            ->join('services', 'schedules.service_id', '=', 'services.id')
-            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
-            ->join('orders', 'schedules.order_id', '=', 'orders.id')
-            ->get();
-        return response()->json($schedule);
-//        return response()->json([
-//            'schedule' => $schedule,
-//            'type' => $type
-//            ]);
+//
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Schedule $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Schedule $schedule)
     {
-        return response()->json($schedule);
+        return view('admin.scheduleEdit', ['schedule' => $schedule]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Schedule $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Schedule $schedule)
     {
-        $request->validate([
-            'work_date' => 'required|date',
-            'work_time' => 'required|numeric'
-        ]);
-        $schedule = $schedule->fill($request->all());
-        if ($schedule->save()) {
-            return response()->json(200);
-        }
-        return response()->json(400);
+//        $request->validate([
+//            'work_date' => 'required|date',
+////            'work_time' => 'required|numeric'
+//        ]);
+//        $schedule = $schedule->fill($request->all());
+//        if ($schedule->save()) {
+//            return redirect()->route('admin.schedules.index');
+//        }
+//        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Schedule $schedule
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Schedule $schedule)
     {
-        $result = $schedule->delete();
-        if ($result) {
-            return response()->json(200);
-        }
-        return response()->json(400);
+        $schedule->delete();
+        return back();
     }
 }

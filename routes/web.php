@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{param?}', function () {
+Route::get('/', function () {
     return view('index');
 });
-Route::get('/{param?}/{id?}', function () {
-    return view('index');
-});
+//Route::get('/{param?}/{id?}', function () {
+//    return view('index');
+//});
 
 
 Route::group([
@@ -27,5 +27,8 @@ Route::group([
     'as' => 'admin.',
 //    'middleware' => ['auth', 'is_admin']
 ], function () {
-    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
+    Route::get('/', 'AdminController@index');
+    Route::resource('/users', 'UserController');
+    Route::resource('/services', 'ServiceController');
+    Route::resource('/schedules', 'ScheduleController');
 });
