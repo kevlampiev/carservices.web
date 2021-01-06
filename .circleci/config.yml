@@ -17,6 +17,11 @@ jobs:
       # - image: .circleci/mysql:5.7-ram
       #
       # - image: redis:2.8.19
+      - image: circleci/mysql:5.7.31
+        environment:
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: admin
+          MYSQL_DATABASE: carservices
 
     steps:
       - checkout
@@ -49,6 +54,9 @@ jobs:
             - node_modules
 
       # prepare the database
+      - run: cp .env.circleci .env
+      - run: php artisan cache:clear
+      - run: php artisan migrate --seed
       #- run: touch storage/testing.sqlite
       #- run: php artisan migrate --env=testing --database=sqlite_testing --force
 
