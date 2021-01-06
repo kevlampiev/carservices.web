@@ -62,7 +62,7 @@ jobs:
             - node_modules
 
       # prepare the database
-      - run: mysqladmin create carservices --user="root" --password="root" --host="127.0.0.1"
+      #- run: mysqladmin create carservices --user="root" --password="root" --host="127.0.0.1"
       - run: cp .env.circleci .env
       - run: php artisan cache:clear
       - run: php artisan migrate --seed
