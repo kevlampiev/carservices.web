@@ -8,6 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+          rel="stylesheet">
+
     @section('styles')
     @endsection
 
@@ -16,7 +20,7 @@
 
 <body>
 
-<div id="app">
+<div id="app" class="main">
     <App></App>
 </div>
 

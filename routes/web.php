@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{param?}', function () {
     return view('index');
 });
+Route::get('/{param?}/{id?}', function () {
+    return view('index');
+});
+
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+//    'middleware' => ['auth', 'is_admin']
+], function () {
+    Route::resource('/user', 'UserController', ['except' => ['create', 'store']]);
+});

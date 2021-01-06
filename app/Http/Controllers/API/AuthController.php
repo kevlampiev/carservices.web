@@ -4,51 +4,58 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class    AuthController extends Controller
 {
+    protected function generateAccessToken($user)
+    {
+        $token = $user->createToken($user->email . '-' . now());
+        return $token->accessToken;
+    }
+
     public function register(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        $token = $user->createToken($user->email . '-' . now());
 
-
-        $user=new User();
-        $this->validate($request, User::rules());
-
-        try {
-            $user->password = Hash::make($request->post('password'));
-            $user->fill($request->only(['name', 'email']))
-                ->save();
-            return response()->json(['status' => 201]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        return response()->json([
+            'user' => $user,
+            'token' => $token->accessToken
+        ]);
 
     }
 
-
-    public function login()
+    public function login(Request $request)
     {
-        $client = DB::table('oauth_clients')
-            ->where('password_client', true)
-            ->first();
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6'
+        ]);
 
-        $data = [
-            'grant_type' => 'password',
-            'client_id' => $client->id,
-            'client_secret' => $client->secret,
-            'username' => request('username'),
-            'password' => request('password'),
-        ];
-
-        $request = Request::create('/oauth/token', 'POST', $data);
-
-        return app()->handle($request);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            $token = $user->createToken($user->email . '-' . now());
+            return response()->json([
+                'token' => $token->accessToken
+            ]);
+        } else {
+            return response()->json('Fail', 404);
+        }
     }
-
 
     public function logout()
     {
@@ -64,6 +71,4 @@ class AuthController extends Controller
 
         return response()->json(['status' => 200]);
     }
-
-
 }

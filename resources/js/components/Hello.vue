@@ -1,3 +1,4 @@
 <template>
-    <p>Hello World!</p>
+    <p>Тут будут все сервисы, управляемые Вами</p>
+
 </template>

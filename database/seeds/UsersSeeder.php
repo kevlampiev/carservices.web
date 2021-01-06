@@ -18,11 +18,10 @@ class UsersSeeder extends Seeder
             'email' => 'admin@admin.ru',
             'email_verified_at' => now(),
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
-            'created_at' => now(),
-            'role' => 'admin'
+            'created_at' => now()
         ]);
         //все остальные, не админы
-        factory(App\User::class, 10)->create();
+        factory(App\Models\User::class, 10)->create();
     }
 
 }

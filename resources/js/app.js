@@ -1,63 +1,37 @@
-require('./bootstrap');
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
+import Vuex from 'vuex'
+import Vuelidate from "vuelidate"
 
 import App from './components/App'
-import Hello from './components/Hello'
-import Home from './components/Home'
-import Register from './components/Register'
-import Login from './components/Login'
+import storeData from "./store/index"
+import {appRoutes} from './routes.js'
 
+import './bootstrap'
 
+Vue.use(VueRouter)
+Vue.use(Vuex)
+Vue.use(Vuelidate)
+
+const store = new Vuex.Store(
+    storeData
+)
 const router = new VueRouter({
     mode: 'history',
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
-        },
-        {
-            path: '/register',
-            name: 'register',
-            component: Register,
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-
-    ],
+    routes: appRoutes,
 });
-
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-
-// Vue.use(App)
-
 const app = new Vue({
     el: '#app',
-    components: {App},
     router,
+    store,
+
+    components: {App},
+
+    mounted() {
+        this.$store.dispatch('getCities')
+        this.$store.dispatch('getTypes')
+        this.$store.dispatch('init')
+
+    },
+
 });

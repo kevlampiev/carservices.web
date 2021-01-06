@@ -4,9 +4,15 @@
 /storage/*.key
 /vendor
 .idea/
+node_modules/
+/public/css/
+/public/*.js
+/public/js/*.js
+
 .env
 .env.backup
 .phpunit.result.cache
+.vscode
 Homestead.json
 Homestead.yaml
 npm-debug.log
