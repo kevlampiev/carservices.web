@@ -14,20 +14,24 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
-      # - image: .circleci/mysql:5.7-ram
+      - image: circleci/mysql:5.7-ram
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
       #
       # - image: redis:2.8.19
-      - image: circleci/mysql:5.7.31
-        environment:
-          MYSQL_USER: admin
-          MYSQL_PASSWORD: admin
-          MYSQL_DATABASE: carservices
+#      - image: circleci/mysql:5.7-ram
+#        environment:
+#          MYSQL_USER: admin
+#          MYSQL_PASSWORD: admin
+#          MYSQL_DATABASE: carservices
 
     steps:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+      - run: sudo docker-php-ext-install zip bcmath pdo_mysql
+      - run: sudo apt-get install mysql-client
 
       # Download and cache dependencies
       - restore_cache:
@@ -54,6 +58,7 @@ jobs:
             - node_modules
 
       # prepare the database
+      - run: mysqladmin create carservices --user="root" --password="root" --host="127.0.0.1"
       - run: cp .env.circleci .env
       - run: php artisan cache:clear
       - run: php artisan migrate --seed
