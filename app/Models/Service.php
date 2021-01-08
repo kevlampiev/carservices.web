@@ -8,7 +8,7 @@ class Service extends Model
 {
 //    protected $table = 'services';
 
-    protected $fillable = ['name', 'slug', 'city', 'address', 'coordinates', 'description', 'img_link', 'user_id'];
+    protected $fillable = ['name', 'slug', 'city', 'address', 'coordinates', 'description', 'img_link', 'user_id', 'phone', 'email', 'site', 'telegram', 'skype'];
 
     protected $hidden = ['coordinates', 'user_id', 'created_at', 'updated_at', 'pivot'];
 
