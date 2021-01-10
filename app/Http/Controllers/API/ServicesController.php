@@ -18,14 +18,22 @@ class ServicesController extends Controller
     {
         if ($request->has('city')) {
             $city = urldecode(request()->get('city'));
-            return response()->json(Service::query()
-                ->where('city', $city)
-                ->with('types')->get(),
-                200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(
+                Service::query()
+                    ->where('city', $city)
+                    ->with('types')->get(),
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
         }
-        return response()->json(Service::query()
-            ->with('types')->get(),
-            200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(
+            Service::query()
+                ->with('types')->get(),
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
 
@@ -36,7 +44,13 @@ class ServicesController extends Controller
         $schedules = Schedule::query()
             ->where('schedules.service_id', $service->id)
             ->whereBetween('work_day', [$date->today(), $date->addWeek(3)])
-            ->select('schedules.id', 'schedules.work_day', 'schedules.work_time', 'schedules.order_id', 'types.name')
+            ->select(
+                'schedules.id',
+                'schedules.work_day',
+                'schedules.work_time',
+                'schedules.order_id',
+                'types.name'
+            )
             ->join('types', 'schedules.service_type_id', '=', 'types.id')
             ->get();
 
@@ -45,12 +59,14 @@ class ServicesController extends Controller
             ->select('name')
             ->get();
 
-        return response()->json([
+        return response()->json(
+            [
             'service' => $service,
             'schedules' => $schedules,
             'types' => $types
-        ], 200);
-
+            ],
+            200
+        );
     }
 
 
@@ -79,12 +95,27 @@ class ServicesController extends Controller
 
     public function cityList()
     {
-        return response()->json(Service::query()->select('city')->distinct()->orderBy('city')->get(), 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(
+            Service::query()
+                ->select('city')
+                ->distinct()
+                ->orderBy('city')
+                ->get(),
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
     public function typeList()
     {
-        return response()->json(Type::query()->select('name')->get(), 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(
+            Type::query()
+                ->select('name')
+                ->get(),
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
-
 }

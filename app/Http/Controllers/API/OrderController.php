@@ -13,21 +13,23 @@ class OrderController extends Controller
 {
     public function setOrder(Request $request)
     {
-//        $request->validate([
-//            'car_model' => 'required|alpha_dash|min:2|max:30',
-//            'license_plate_number' => 'required|alpha_num|min:3',
-//            'descriptions' => 'required|string'
-//        ]);
-//
+        //        $request->validate([
+        //            'car_model' => 'required|alpha_dash|min:2|max:30',
+        //            'license_plate_number' => 'required|alpha_num|min:3',
+        //            'descriptions' => 'required|string'
+        //        ]);
+        //
 
-//        $id = Auth::user()->id;
-        $order = new Order([
+        //        $id = Auth::user()->id;
+        $order = new Order(
+            [
             'user_id' => Auth::user()->id,
             'car_model' => $request->input('car_model'),
             'license_plate_number' => $request->input('license_plate_number'),
             'description' => $request->input('description'),
             'order_status' => 'in_waiting'
-        ]);
+            ]
+        );
 
         $order->save();
         $id = $request->input('schedule_id');

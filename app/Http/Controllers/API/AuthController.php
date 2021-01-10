@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class    AuthController extends Controller
+class AuthController extends Controller
 {
     protected function generateAccessToken($user)
     {
@@ -20,38 +20,47 @@ class    AuthController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
+        $request->validate(
+            [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6'
-        ]);
-        $user = User::create([
+            ]
+        );
+        $user = User::create(
+            [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
-        ]);
+            ]
+        );
         $token = $user->createToken($user->email . '-' . now());
 
-        return response()->json([
+        return response()->json(
+            [
             'user' => $user,
             'token' => $token->accessToken
-        ]);
-
+            ]
+        );
     }
 
     public function login(Request $request)
     {
-        $request->validate([
+        $request->validate(
+            [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:6'
-        ]);
+            ]
+        );
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken($user->email . '-' . now());
-            return response()->json([
+            return response()->json(
+                [
                 'token' => $token->accessToken
-            ]);
+                ]
+            );
         } else {
             return response()->json('Fail', 404);
         }
@@ -63,9 +72,11 @@ class    AuthController extends Controller
 
         $refreshToken = DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
-            ->update([
+            ->update(
+                [
                 'revoked' => true
-            ]);
+                ]
+            );
 
         $accessToken->revoke();
 
