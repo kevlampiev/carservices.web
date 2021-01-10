@@ -23,11 +23,11 @@ jobs:
           MYSQL_PASSWORD: 'forge'
       #
       # - image: redis:2.8.19
-#      - image: circleci/mysql:5.7-ram
-#        environment:
-#          MYSQL_USER: admin
-#          MYSQL_PASSWORD: admin
-#          MYSQL_DATABASE: carservices
+    #      - image: circleci/mysql:5.7-ram
+    #        environment:
+    #          MYSQL_USER: admin
+    #          MYSQL_PASSWORD: admin
+    #          MYSQL_DATABASE: carservices
 
     steps:
       - checkout
@@ -36,6 +36,19 @@ jobs:
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
       - run: sudo docker-php-ext-install zip bcmath pdo_mysql
       #- run: sudo apt-get install mysql-client
+
+      #Скачивание PHP_CodeSniffer для проверки кода
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - codesniffer
+      - run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+      - save_cache:
+          key: codesniffer
+          paths:
+            - ./phpcs.phar
+            - ./phpcbf.phar
+
 
       # Download and cache dependencies
       - restore_cache:
@@ -70,6 +83,7 @@ jobs:
       #- run: php artisan migrate --env=testing --database=sqlite_testing --force
 
       # run tests with phpunit or codecept
-      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
+      - run: php phpcs.phar --standard=psr2 ./app
+      #- run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
