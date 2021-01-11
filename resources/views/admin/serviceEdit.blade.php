@@ -4,7 +4,6 @@
     <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="{{ route('admin.services.update', $service) }}">
         @method('PUT')
         @csrf
-
         <div class="mb-3">
             <h1 class="h3 mb-3 font-weight-normal">Editing form</h1>
             <label for="Name">Name</label>
@@ -84,6 +83,33 @@
             <button class="btn btn-primary" type="submit">Save</button>
         </div>
 
+
     </form>
+    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="">
+        <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
+        <ul class="list-group">
+            @foreach($types as $type)
+                <li class="list-group-item" style="display: flex; justify-content: space-between">
+                    {{ $type['name'] }}
+                    <form action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" class="btn btn-danger" value="&times;">
+                    </form>
+                </li>
+            @endforeach
+        </ul>
+        <h5 style="margin: 0 auto; display: block; text-align: center;">Добавить тип {{ $type['name'] }}</h5>
+        <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
+            @foreach($allTypes as $item)
+                @if(!array_search($item['name'], $types))
+                    <p>{{ $item['name'] }}</p>
+                @endif
+{{--            <option value="admin">{{ $item['name'] }}</option>--}}
+            @endforeach
+        </select>
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </form>
+
 
 @endsection
