@@ -3,7 +3,7 @@
         <form class="company-entry-form">
             <div class="company-entry-block-wrapper">
                 <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label" for="company-entry-row-input-email">e-mail:</label>
+                    <label class="company-entry-block-row-label" for="company-entry-row-input-email">E-mail:</label>
                     <input id="company-entry-row-input-email"
                            placeholder="email@email.ru"
                            type="email"
@@ -23,7 +23,8 @@
                 </small>
 
                 <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label" for="company-entry-row-input-password">password:</label>
+                    <label class="company-entry-block-row-label"
+                           for="company-entry-row-input-password">Пароль:</label>
                     <input class="company-entry-block-row-input"
                            type="password"
                            id="company-entry-row-input-password"
@@ -32,6 +33,16 @@
                             !$v.form.password.minLength &&
                                 !$v.form.password.required}">
                 </div>
+
+                <div class="company-entry-block-row">
+
+                    <label>
+                        <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe">
+                        <span></span>
+                        Запомнить меня
+                    </label>
+                </div>
+
 
                 <button id="company-entry-form-button" type="button"
                         @click="enterLogin"
@@ -75,30 +86,8 @@ export default {
     methods: {
         enterLogin() {
             if (this.$v.form.$anyError) return;
-            axios
-                .post("/api/login", {
-                    email: this.form.email,
-                    password: this.form.password
-                })
-                .then(response => {
-                    this.proceedLogin(response);
-                    this.close()
-
-                })
-                .catch(error => console.log(error));
-        },
-
-        proceedLogin(response) {
-            if (!response.data.token) {
-                alert("Поле с токеном отсутствует");
-            } else {
-                this.$store.commit('setUserData',
-                    {
-                        email: this.form.email,
-                        token: response.data.token,
-                        rememberMe: this.form.rememberMe
-                    })
-            }
+            this.$store.dispatch('user/login', this.form)
+            this.close()
         },
 
         checkEmail() {
@@ -122,3 +111,27 @@ export default {
     }
 };
 </script>
+
+<style>
+label input[type=checkbox]{
+    display: none;/* <--скрываем дефолтный чекбокс */
+}
+label span {/* <-- стилизируем новый */
+    height: 12px;
+    width: 12px;
+    border: 1px solid gray;
+    display: inline-block;
+    position: relative;
+    background-color:#FFF;
+    border-radius:2px;
+    padding:3px;
+}
+[type=checkbox]:checked + span:before {/* <-- ставим иконку, когда чекбокс включен  */
+    content: '\2714';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    font-size:23px;
+    color:green;
+}
+</style>

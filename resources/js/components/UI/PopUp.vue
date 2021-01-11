@@ -19,20 +19,20 @@ export default {
     components: {
         'orderDetails': () => import('./OrderDetails'),
         'cityList': () => import('./CityList'),
-        'login': ()=>import('./LoginComp'),
-        'register': ()=>import('./RegisterComp'),
+        'login': () => import('./LoginComp'),
+        'register': () => import('./RegisterComp'),
     },
     methods: {
         closeWindow() {
-            this.$store.state.popUpData.comp = ''
+            this.$store.commit('popUp/close')
         }
     },
     computed: {
         currentComponent: function () {
-            return this.$store.state.popUpData.comp
+            return this.$store.state.popUp.comp
         },
         header: function () {
-            return this.$store.state.popUpData.header
+            return this.$store.state.popUp.header
         }
     }
 

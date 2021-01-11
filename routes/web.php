@@ -31,6 +31,7 @@ Route::group([
     Route::resource('/users', 'UserController');
     Route::resource('/services', 'ServiceController');
     Route::resource('/schedules', 'ScheduleController');
+
     Route::resource('/orders', 'OrderController');
     Route::resource('/types', 'TypeController');
 });

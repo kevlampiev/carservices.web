@@ -11,10 +11,10 @@
 
                     <div class="company-calendar-subtitle">Виды услуг</div>
 
-<!--                    <div class="menu-wrapper">-->
-                        <SelectTypeBand :types="types" :currentType="currentType"
-                                        @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
-<!--                    </div>-->
+                    <!--                    <div class="menu-wrapper">-->
+                    <SelectTypeBand :types="types" :currentType="currentType"
+                                    @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
+                    <!--                    </div>-->
                 </div>
             </div>
 
@@ -53,28 +53,34 @@ export default {
             return this.$store.state.currentService.schedules
         },
 
+        authorized() {
+            return this.$store.getters['user/authorized']
+        }
+
     },
     methods: {
         setNewCurrentType(newCurrentType) {
-            this.$store.commit('setCurrentType', {name: newCurrentType})
+            this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
         },
 
 
         makeOrder(el) {
-            if (!this.$store.state.userData.email || this.$store.state.userData.email==='') {
+            if (!this.authorized) {
                 alert('Для записи необходимо авторизоваться')
                 return -1
             }
             this.$store.state.currentService.selectedSchedule = el
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'orderDetails',
                 header: 'дополнительная информация для заказа',
-            }
+            })
+
         },
 
     },
     mounted() {
-        this.$store.dispatch('getServiceInfo', {id: this.$route.params.id})
+        this.$store.dispatch('currentService/getServiceInfo', {id: this.$route.params.id})
+
     }
 }
 

@@ -1,7 +1,6 @@
-import Hello from './components/Hello'
-import Home from './components/Home'
-// import Register from './components/Register'
-import Carservice from "./components/Carservice";
+const Hello = () => import('./components/Hello')
+const Home = () => import('./components/Home')
+const Carservice = () => import('./components/Carservice')
 
 const appRoutes = [
     {

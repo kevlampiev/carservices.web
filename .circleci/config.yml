@@ -1,0 +1,89 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # Specify the version you desire here
+      - image: circleci/php:7.4-node-browsers
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # Using the RAM variation mitigates I/O contention
+      # for database intensive operations.
+      - image: circleci/mysql:5.7-ram
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_USER: forge
+          MYSQL_DATABASE: carservices # forge - это было
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_PASSWORD: 'forge'
+      #
+      # - image: redis:2.8.19
+    #      - image: circleci/mysql:5.7-ram
+    #        environment:
+    #          MYSQL_USER: admin
+    #          MYSQL_PASSWORD: admin
+    #          MYSQL_DATABASE: carservices
+
+    steps:
+      - checkout
+
+      - run: sudo apt update  # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+      - run: sudo docker-php-ext-install zip bcmath pdo_mysql
+      #- run: sudo apt-get install mysql-client
+
+      #Скачивание PHP_CodeSniffer для проверки кода
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - codesniffer
+      - run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+      - save_cache:
+          key: codesniffer
+          paths:
+            - ./phpcs.phar
+            - ./phpcbf.phar
+
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      # prepare the database
+      #- run: mysqladmin create carservices --user="root" --password="root" --host="127.0.0.1"
+      - run: cp .env.circleci .env
+      - run: php artisan cache:clear
+      - run: php artisan migrate --seed
+      #- run: touch storage/testing.sqlite
+      #- run: php artisan migrate --env=testing --database=sqlite_testing --force
+
+      # run tests with phpunit or codecept
+      - run: php phpcs.phar --standard=psr2 ./app
+      #- run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
+      #- run: ./vendor/bin/codecept build
+      #- run: ./vendor/bin/codecept run

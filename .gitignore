@@ -6,7 +6,8 @@
 .idea/
 node_modules/
 /public/css/
-/public/js/
+/public/*.js
+/public/js/*.js
 
 .env
 .env.backup

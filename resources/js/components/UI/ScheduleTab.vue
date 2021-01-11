@@ -25,7 +25,7 @@
                               'company-calendar-time-block-off': el.order_id}"
                      @click="!el.order_id?$parent.makeOrder(el):''"
                 >
-                    {{ Math.trunc(el.work_time) }}:{{ 60 * (el.work_time % 1) }}
+                    {{ formatTime(el.work_time) }}
                 </div>
             </div>
         </div>
@@ -35,7 +35,6 @@
 
 
 <script>
-// const moment = require('moment')
 import moment from 'moment'
 
 moment.locale('ru')
@@ -57,20 +56,29 @@ export default {
             })
         },
 
+        formatTime: function (time) {
+            let result = Math.trunc(time).toString() + ':'
+            let minutes = (60 * (time % 1)).toFixed(0)
+            if (minutes < 10) {
+                result += '0'
+            }
+            return (result + minutes)
+        }
+
     },
 
     computed: {
         dates() {
-            return this.$store.getters.scheduleDates
+            return this.$store.getters['currentService/scheduleDates']
         },
         scheduledData() {
-            return this.$store.getters.schedules
+            return this.$store.getters['currentService/schedules']
         },
         dateStart() {
-            return this.$store.getters.startDate
+            return this.$store.getters['currentService/startDate']
         },
         currentMonth() {
-            return moment(this.$store.getters.startDate).format('MMMM')
+            return moment(this.$store.getters['currentService/startDate']).format('MMMM')
         },
 
     },
