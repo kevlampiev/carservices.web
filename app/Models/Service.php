@@ -23,3 +23,4 @@ class Service extends Model
         return $this->hasMany(Schedule::class, 'service_id');
     }
 }
+

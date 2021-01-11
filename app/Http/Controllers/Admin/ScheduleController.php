@@ -29,21 +29,16 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request);
         $request->validate([
             'work_day' => 'required|date',
-//            'work_time' => 'required|numeric'
+
+            'work_time' => 'required|string',
+            'service_id' => 'required|exists:services,id',
+            'service_type_id' => 'required|exists:types,id'
         ]);
         $schedule = new Schedule;
-//        dd($request->work_day);
-//        $schedule -> fill([
-//            'work_day' => $request->work_day,
-//            'work_time' => 7,
-//            'service_id' => 2,
-//            'service_type_id' => 3
-//        ]);
         $schedule -> fill($request->all());
-//        dd($schedule);
+
         if ($schedule->save()) {
             return redirect()->route('admin.schedules.index');
         }
@@ -62,15 +57,19 @@ class ScheduleController extends Controller
 
     public function update(Request $request, Schedule $schedule)
     {
-//        $request->validate([
-//            'work_date' => 'required|date',
-////            'work_time' => 'required|numeric'
-//        ]);
-//        $schedule = $schedule->fill($request->all());
-//        if ($schedule->save()) {
-//            return redirect()->route('admin.schedules.index');
-//        }
-//        return back();
+
+        $request->validate([
+            'work_day' => 'required|date',
+            'work_time' => 'required|string',
+            'service_id' => 'required|exists:services,id',
+            'service_type_id' => 'required|exists:types,id'
+        ]);
+        $schedule -> fill($request->all());
+        if ($schedule->save()) {
+            return redirect()->route('admin.schedules.index');
+        }
+        return back();
+
     }
 
 
