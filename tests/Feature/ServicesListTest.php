@@ -14,7 +14,7 @@ class ServicesListTest extends TestCase
      */
     public function testMainPage()
     {
-        $response = $this->get('/api/changeLocation?city=Видное');
+        $response = $this->get('/api/services?city=Видное');
         $response->assertStatus(200);
 
     }
