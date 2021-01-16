@@ -19,7 +19,7 @@ class ClientRoot extends Page
     /**
      * Assert that the browser is on the page.
      *
-     * @param  Browser  $browser
+     * @param Browser $browser
      * @return void
      */
     public function assert(Browser $browser)
@@ -35,7 +35,9 @@ class ClientRoot extends Page
     public function elements()
     {
         return [
-            '@selectType' => '.menu-ul',
+            '@selectTypeMenu' => '.menu-ul',
+            '@carserviceLink' => '.content-item-deal-button',
+            '@changelocationLink' => '.header-location'
         ];
     }
 }

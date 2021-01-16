@@ -18,7 +18,7 @@ class AdminRootTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin')
                 ->waitForText('для редактирования')
-                    ->assertSee('Users');
+                ->assertSee('Users');
         });
     }
 }

@@ -14,10 +14,10 @@ class LoginTest extends TestCase
      */
     public function testCorrectLogin()
     {
-        $response = $this->json('POST','/api/login',[
-            'email'=> 'admin@admin.ru',
-                'password'=> '12345678',
-                'rememberMe'=> true]
+        $response = $this->json('POST', '/api/login', [
+                'email' => 'admin@admin.ru',
+                'password' => '12345678',
+                'rememberMe' => true]
         );
         $response->assertStatus(200);
         $response->assertJsonStructure(['token']);
@@ -25,23 +25,23 @@ class LoginTest extends TestCase
 
     public function testIncorrectEmail()
     {
-        $response = $this->json('POST','/api/login',[
-                'email'=> 'admin_1@admin.ru',
-                'password'=> '12345678',
-                'rememberMe'=> true]
+        $response = $this->json('POST', '/api/login', [
+                'email' => 'admin_1@admin.ru',
+                'password' => '12345678',
+                'rememberMe' => true]
         );
         $response->assertStatus(422);
-        $response->assertJsonStructure(['errors','message']);
+        $response->assertJsonStructure(['errors', 'message']);
         $response->assertJsonFragment(['The selected email is invalid.']);
 
     }
 
     public function testIncorrectPassword()
     {
-        $response = $this->json('POST','/api/login',[
-                'email'=> 'admin@admin.ru',
-                'password'=> '1234567',
-                'rememberMe'=> true]
+        $response = $this->json('POST', '/api/login', [
+                'email' => 'admin@admin.ru',
+                'password' => '1234567',
+                'rememberMe' => true]
         );
         $response->assertStatus(404);
 //        $response->assertJsonStructure(['errors','message']);

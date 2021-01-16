@@ -16,18 +16,18 @@ class GetServiceInfoTest extends TestCase
      */
     public function testCorrectService()
     {
-        $service_id=Service::query()->inRandomOrder()->first()->id;
-        $response = $this->get('/api/services/'.$service_id);
+        $service_id = Service::query()->inRandomOrder()->first()->id;
+        $response = $this->get('/api/services/' . $service_id);
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'service'=>[
-                'address','city','description','email','id','img_link','name','phone','site','skype','slug','telegram'
+            'service' => [
+                'address', 'city', 'description', 'email', 'id', 'img_link', 'name', 'phone', 'site', 'skype', 'slug', 'telegram'
             ],
-            'schedules'=>[
-                '*'=>['id','work_day','work_time','order_id','name']
+            'schedules' => [
+                '*' => ['id', 'work_day', 'work_time', 'order_id', 'name']
             ],
-            'types'=>[
-                '*'=>['name']
+            'types' => [
+                '*' => ['name']
             ]
         ]);
     }

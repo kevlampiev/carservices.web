@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,7 +15,8 @@ class ServicesListTest extends TestCase
      */
     public function testMainPage()
     {
-        $response = $this->get('/api/services?city=Видное');
+        $city = Service::query()->select('city')->inRandomOrder()->first()->city;
+        $response = $this->get('/api/services?city=' . $city);
         $response->assertStatus(200);
 
     }

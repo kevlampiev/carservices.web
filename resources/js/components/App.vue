@@ -16,13 +16,13 @@
                 <!--                </div>-->
 
                 <div class="header-acc-wrapper" v-if="!authorized">
-                    <div class="header-page-link" @click="register">
+                    <div class="header-page-link" @click="register" id="register-link">
                         Зарегистрироваться
                     </div>
                     <div class="header-page-link">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </div>
-                    <div class="header-page-link" @click="login">
+                    <div class="header-page-link" @click="login" id="login-link">
                         Войти
                     </div>
 
@@ -32,7 +32,7 @@
                         <router-link :to="{ name: 'register' }">{{ email }}</router-link>
                     </div>
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="header-acc-login" @click="logout">
+                    <div class="header-acc-login" @click="logout" id="logout-link">
                         <router-link :to="{name: 'home'}">Выйти</router-link>
                     </div>
                 </div>

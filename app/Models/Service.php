@@ -8,7 +8,21 @@ class Service extends Model
 {
 //    protected $table = 'services';
 
-    protected $fillable = ['name', 'slug', 'city', 'address', 'coordinates', 'description', 'img_link', 'user_id', 'phone', 'email', 'site', 'telegram', 'skype'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'city',
+        'address',
+        'coordinates',
+        'description',
+        'img_link',
+        'user_id',
+        'phone',
+        'email',
+        'site',
+        'telegram',
+        'skype'
+    ];
 
     protected $hidden = ['coordinates', 'user_id', 'created_at', 'updated_at', 'pivot'];
 
@@ -23,4 +37,3 @@ class Service extends Model
         return $this->hasMany(Schedule::class, 'service_id');
     }
 }
-

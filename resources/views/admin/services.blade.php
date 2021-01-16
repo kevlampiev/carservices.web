@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-    <a href="{{ route('admin.services.create') }}" role="button" class="btn btn-primary" style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Add new service</a>
+    <a href="{{ route('admin.services.create') }}" role="button" class="btn btn-primary"
+       style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Add new service</a>
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
         @foreach($services as $service)
             <div class="card" style="width: 30%; margin: 5px;">

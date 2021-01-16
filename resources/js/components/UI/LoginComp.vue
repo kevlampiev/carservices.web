@@ -113,25 +113,27 @@ export default {
 </script>
 
 <style>
-label input[type=checkbox]{
-    display: none;/* <--скрываем дефолтный чекбокс */
+label input[type=checkbox] {
+    display: none; /* <--скрываем дефолтный чекбокс */
 }
-label span {/* <-- стилизируем новый */
+
+label span { /* <-- стилизируем новый */
     height: 12px;
     width: 12px;
     border: 1px solid gray;
     display: inline-block;
     position: relative;
-    background-color:#FFF;
-    border-radius:2px;
-    padding:3px;
+    background-color: #FFF;
+    border-radius: 2px;
+    padding: 3px;
 }
-[type=checkbox]:checked + span:before {/* <-- ставим иконку, когда чекбокс включен  */
+
+[type=checkbox]:checked + span:before { /* <-- ставим иконку, когда чекбокс включен  */
     content: '\2714';
     position: absolute;
     top: -15px;
     left: 0;
-    font-size:23px;
-    color:green;
+    font-size: 23px;
+    color: green;
 }
 </style>

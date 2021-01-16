@@ -20,7 +20,7 @@ class ClientRootTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new ClientRoot());
             $browser->waitForText('Записаться')
-                    ->assertSee('CARSERVICES.WEB');
+                ->assertSee('CARSERVICES.WEB');
         });
     }
 }

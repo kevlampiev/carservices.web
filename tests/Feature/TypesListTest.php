@@ -16,6 +16,6 @@ class TypesListTest extends TestCase
     {
         $response = $this->get('/api/services/types');
         $response->assertStatus(200);
-        $response->assertJsonStructure(['*'=>['name']]);
+        $response->assertJsonStructure(['*' => ['name']]);
     }
 }

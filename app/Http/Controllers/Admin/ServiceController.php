@@ -14,8 +14,8 @@ class ServiceController extends Controller
     {
 //        $services = Service::query()->where('user_id', '=', Auth::id())->get();
         $services = Service::query()
-        ->with('types')
-        ->get();
+            ->with('types')
+            ->get();
 //        dd($services);
         return view('admin.services', ['services' => $services]);
     }
@@ -62,7 +62,7 @@ class ServiceController extends Controller
             'service' => $service,
             'types' => $types,
             'allTypes' => $allTypes
-            ]);
+        ]);
     }
 
 
