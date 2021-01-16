@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/dusk": "^6.11",
         "laravel/framework": "^7.24",
-        "laravel/passport": "^10.0",
+        "laravel/passport": "^9.3.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
         "paragonie/random_compat": "2.*"

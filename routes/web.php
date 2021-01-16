@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-//Route::get('/{param?}/{id?}', function () {
-//    return view('index');
-//});
-
 
 Route::group([
     'prefix' => 'admin',
@@ -34,4 +30,10 @@ Route::group([
 
     Route::resource('/orders', 'OrderController');
     Route::resource('/types', 'TypeController');
+});
+
+
+//Не трогать!!! Пусть стоит в самом конце. А то vue-router не работает на некоторых страницах
+Route::get('/{param?}/{id?}', function () {
+    return view('index');
 });
