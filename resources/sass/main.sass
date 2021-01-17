@@ -833,3 +833,66 @@ header
     margin: 0 25px
     text-transform: uppercase
     text-transform: uppercase
+
+
+.company-entry-block-row
+    label
+        display: block
+        position: relative
+        margin-top: 20px
+        //padding-left: 30px
+        cursor: pointer
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        white-space: nowrap
+
+        input
+            position: absolute
+            opacity: 0
+            cursor: pointer
+            height: 0
+            width: 0
+
+        span
+            position: absolute
+            top: 0
+            left: 0
+            height: 20px
+            width: 20px
+            background-color: #ffffff
+            border-radius: 4px
+            border: 2px solid #f2f2f2
+
+    label
+        &:hover
+            span
+                border: 2px solid #007236
+
+        input:checked ~ span
+            background-color: #007236
+            border: 2px solid #007236
+
+        span:after
+            content: ""
+            position: absolute
+            display: none
+
+    label
+        input:checked ~ span:after
+            display: block
+
+        span:after
+            left: 4px
+            top: 0
+            width: 5px
+            height: 10px
+            border: solid white
+            border-width: 0 3px 3px 0
+            -webkit-transform: rotate(45deg)
+            -ms-transform: rotate(45deg)
+            transform: rotate(45deg)
+
+.label-check
+    padding-left: 30px
