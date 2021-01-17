@@ -4,6 +4,7 @@
             <div class="company-entry-block-wrapper">
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label" for="company-entry-row-input-email">E-mail:</label>
+
                     <input id="company-entry-row-input-email"
                            placeholder="email@email.ru"
                            type="email"
@@ -34,9 +35,10 @@
                                 !$v.form.password.required}">
                 </div>
 
+
                 <div class="company-entry-block-row">
 
-                    <label>
+                    <label class="label-check">
                         <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe">
                         <span></span>
                         Запомнить меня
@@ -113,27 +115,27 @@ export default {
 </script>
 
 <style>
-label input[type=checkbox] {
-    display: none; /* <--скрываем дефолтный чекбокс */
-}
+/*label input[type=checkbox] {*/
+/*    display: none; !* <--скрываем дефолтный чекбокс *!*/
+/*}*/
 
-label span { /* <-- стилизируем новый */
-    height: 12px;
-    width: 12px;
-    border: 1px solid gray;
-    display: inline-block;
-    position: relative;
-    background-color: #FFF;
-    border-radius: 2px;
-    padding: 3px;
-}
+/*label span { !* <-- стилизируем новый *!*/
+/*    height: 12px;*/
+/*    width: 12px;*/
+/*    border: 1px solid gray;*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    background-color: #FFF;*/
+/*    border-radius: 2px;*/
+/*    padding: 3px;*/
+/*}*/
 
-[type=checkbox]:checked + span:before { /* <-- ставим иконку, когда чекбокс включен  */
-    content: '\2714';
-    position: absolute;
-    top: -15px;
-    left: 0;
-    font-size: 23px;
-    color: green;
-}
+/*[type=checkbox]:checked + span:before { !* <-- ставим иконку, когда чекбокс включен  *!*/
+/*    content: '\2714';*/
+/*    position: absolute;*/
+/*    top: -15px;*/
+/*    left: 0;*/
+/*    font-size: 23px;*/
+/*    color: green;*/
+/*}*/
 </style>
