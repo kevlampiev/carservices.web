@@ -39,14 +39,15 @@
                 <div class="company-entry-block-row">
 
                     <label class="label-check">
-                        <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe">
+                        <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe"
+                               id="rememberMe">
                         <span></span>
                         Запомнить меня
                     </label>
                 </div>
 
 
-                <button id="company-entry-form-button" type="button"
+                <button id="Ok-button" type="button"
                         @click="enterLogin"
                         :class="{'company-entry-block-button':true,
                         'disabled-btn': $v.form.$anyError}"
