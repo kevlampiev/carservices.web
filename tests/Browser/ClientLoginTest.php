@@ -27,6 +27,7 @@ class ClientLoginTest extends DuskTestCase
             ->email;
     }
 
+
     /**
      *Тестирование нажание кнопки "Выход" из приложения
      * @return void
@@ -105,6 +106,27 @@ class ClientLoginTest extends DuskTestCase
                 ->assertSee($email)
                 ->assertDontSee('Раздел администратора');
             //TODO добавить, что он еще ВИДИТ раздел "Мои сервисы"
+        });
+    }
+
+    /**
+     *Тестирование входа с неправильным e-mail
+     * @return void
+     */
+    public function testLoginIncorrectEmail()
+    {
+        $this->browse(function (Browser $browser) {
+            $email = $this->getTestUserEmail('user');
+            $browser->visit(new ClientRoot());
+            Page::logginOut($browser);
+            $browser->click('#login-link')
+                ->waitForText('Ok')
+                ->type('#company-entry-row-input-password', '12345678')
+                ->type('#company-entry-row-input-email', 'incorrect' . $email)
+                ->click('#Ok-button')
+                ->pause(10000)
+                ->assertDialogOpened('Данный e-mail не зарегистрирован в системе')
+                ->assertSee('Зарегистрироваться');
         });
     }
 
