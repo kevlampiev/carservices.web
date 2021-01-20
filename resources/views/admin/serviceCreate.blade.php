@@ -1,7 +1,8 @@
 @extends('admin.main')
 
 @section('content')
-    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="{{ route('admin.services.store') }}">
+    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;"
+          action="{{ route('admin.services.store') }}">
         @csrf
 
         <div class="mb-3">

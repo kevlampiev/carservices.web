@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class    AuthController extends Controller
+class AuthController extends Controller
 {
     protected function generateAccessToken($user)
     {
@@ -36,7 +36,6 @@ class    AuthController extends Controller
             'user' => $user,
             'token' => $token->accessToken
         ]);
-
     }
 
     public function login(Request $request)

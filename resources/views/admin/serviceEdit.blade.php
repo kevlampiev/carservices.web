@@ -1,7 +1,8 @@
 @extends('admin.main')
 
 @section('content')
-    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="{{ route('admin.services.update', $service) }}">
+    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;"
+          action="{{ route('admin.services.update', $service) }}">
         @method('PUT')
         @csrf
         <div class="mb-3">
@@ -14,7 +15,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="name" id="Name" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['name'] }}">
+            <input type="text" name="name" id="Name" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['name'] }}">
             <label for="City">City</label>
             @if ($errors->has('city'))
                 <div class="alert alert-danger" role="alert">
@@ -23,7 +25,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="city" id="City" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['city'] }}">
+            <input type="text" name="city" id="City" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['city'] }}">
             <label for="Address">Address</label>
             @if ($errors->has('address'))
                 <div class="alert alert-danger" role="alert">
@@ -32,9 +35,11 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="address" id="Address" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['address'] }}">
+            <input type="text" name="address" id="Address" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['address'] }}">
             <label for="textarea">Description</label>
-            <textarea class="form-control" name="description" id="textarea" rows="5">{{ $service ['description'] }}</textarea>
+            <textarea class="form-control" name="description" id="textarea"
+                      rows="5">{{ $service ['description'] }}</textarea>
             <label for="Site">Site</label>
             @if ($errors->has('site'))
                 <div class="alert alert-danger" role="alert">
@@ -43,7 +48,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="site" id="Site" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['site'] }}">
+            <input type="text" name="site" id="Site" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['site'] }}">
             <label for="Phone">Phone</label>
             @if ($errors->has('city'))
                 <div class="alert alert-danger" role="alert">
@@ -52,7 +58,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="phone" id="Phone" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['phone'] }}">
+            <input type="text" name="phone" id="Phone" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['phone'] }}">
             <label for="Email">Email address</label>
             @if ($errors->has('email'))
                 <div class="alert alert-danger" role="alert">
@@ -61,7 +68,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="email" name="email" id="Email" class="form-control" style="margin-bottom: 10px;" value="{{ $service['email'] }}">
+            <input type="email" name="email" id="Email" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service['email'] }}">
             <label for="Telegram">Telegram</label>
             @if ($errors->has('telegram'))
                 <div class="alert alert-danger" role="alert">
@@ -70,7 +78,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="telegram" id="Telegram" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['telegram'] }}">
+            <input type="text" name="telegram" id="Telegram" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['telegram'] }}">
             <label for="Skype">Skype</label>
             @if ($errors->has('skype'))
                 <div class="alert alert-danger" role="alert">
@@ -79,12 +88,14 @@
                     @endforeach
                 </div>
             @endif
-            <input type="text" name="skype" id="Skype" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['skype'] }}">
+            <input type="text" name="skype" id="Skype" class="form-control" style="margin-bottom: 10px;"
+                   value="{{ $service ['skype'] }}">
             <button class="btn btn-primary" type="submit">Save</button>
         </div>
 
 
     </form>
+
     <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="">
         <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
         <ul class="list-group">
@@ -105,6 +116,7 @@
                 @if(!array_search($item['name'], $types))
                     <p>{{ $item['name'] }}</p>
                 @endif
+
 {{--            <option value="admin">{{ $item['name'] }}</option>--}}
             @endforeach
         </select>

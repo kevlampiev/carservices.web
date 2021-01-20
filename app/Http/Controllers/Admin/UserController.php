@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
+
         $users = User::query()->paginate(7);
         return view('admin.users', ['users' => $users ]);
     }
@@ -32,14 +33,14 @@ class UserController extends Controller
         ]);
 
         $user = new User;
-        $user -> fill([
+        $user->fill([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role
         ]);
         $result = $user->save();
-        if($result) {
+        if ($result) {
             return redirect()->route('admin.users.index');
         }
         return redirect()->back();
@@ -47,7 +48,6 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-
     }
 
     public function edit(User $user)

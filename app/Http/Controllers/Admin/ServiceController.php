@@ -15,6 +15,7 @@ class ServiceController extends Controller
     {
 //        $services = Service::query()->where('user_id', '=', Auth::id())->get();
         $services = Service::query()
+
         ->with('types')
         ->paginate(3);
         return view('admin.services', ['services' => $services]);
@@ -54,6 +55,7 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
+
         $types = $service->types()
             ->select('types.id', 'name')
             ->get()
@@ -77,6 +79,7 @@ class ServiceController extends Controller
             'service' => $service,
             'types' => $types,
             'allTypes' => $allTypes
+
             ]);
     }
 
@@ -102,7 +105,7 @@ class ServiceController extends Controller
     }
 
     public function destroy(Service $service)
-    {
+
 //        dd($service);
         $service->delete();
     }

@@ -6,6 +6,7 @@ export default {
         token: null,
         rememberMe: false,
         id: null, //id in Database
+        role: '',
     }),
     mutations: {
         setEmail(state, email) {
@@ -35,28 +36,63 @@ export default {
     },
 
     actions: {
+        // async login({commit, dispatch}, loginData) {
         async login({commit, dispatch}, loginData) {
-            try {
-                const {data} = await axios.post("/api/login", loginData)
-                if (data.error) {
-                    alert(data.error)
-                    return
-                }
+            axios.post("/api/login", loginData)
+                .then(response => {
+                        commit('setUserData', {
+                            token: response.data.token,
+                            email: loginData.email
+                        })
+                        if (loginData.rememberMe) {
+                            dispatch('storeUserData', {
+                                token: response.data.token,
+                                email: loginData.email
+                            })
+                        }
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+                        commit('popUp/close', {}, {root: true})
+                    }
+                )
+                .catch(error => {
+                        const errCode = error.response.status
+                        switch (errCode) {
+                            case 422:
+                                alert('Данный e-mail не зарегистрирован в системе')
+                                break;
+                            case 404:
+                                alert('Пароль не верен')
+                                break;
+                            default:
+                                alert('Неизвестная ошибка')
+                        }
+                    }
+                )
 
-                commit('setUserData', {
-                    token: data.token,
-                    email: loginData.email
-                })
-                if (loginData.rememberMe) {
-                    dispatch('storeUserData', {
-                        token: data.token,
-                        email: loginData.email
-                    })
-                }
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
-            } catch ({message}) {
-                console.error(message)
-            }
+
+            // try {
+            //
+            //     const {data} = await axios.post("/api/login", loginData)
+            //
+            //     if (data.errors) {
+            //         alert(data.errors)
+            //         return
+            //     }
+            //
+            //     commit('setUserData', {
+            //         token: data.token,
+            //         email: loginData.email
+            //     })
+            //     if (loginData.rememberMe) {
+            //         dispatch('storeUserData', {
+            //             token: data.token,
+            //             email: loginData.email
+            //         })
+            //     }
+            //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
+            // } catch ({message}) {
+            //     console.error(message)
+            // }
 
         },
 

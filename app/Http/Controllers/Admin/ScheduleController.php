@@ -37,6 +37,7 @@ class ScheduleController extends Controller
             'service_type_id' => 'required|exists:types,id'
         ]);
         $schedule = new Schedule;
+
         $schedule -> fill($request->all());
 
         if ($schedule->save()) {
@@ -69,7 +70,6 @@ class ScheduleController extends Controller
             return redirect()->route('admin.schedules.index');
         }
         return back();
-
     }
 
 
