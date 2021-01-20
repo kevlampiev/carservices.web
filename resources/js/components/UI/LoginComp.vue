@@ -8,20 +8,22 @@
                     <input id="company-entry-row-input-email"
                            placeholder="email@email.ru"
                            type="email"
+                           @blur="$v.form.email.$touch()"
                            v-model.trim="form.email"
-                           :class="{'company-entry-block-row-input': true,
-                           'invalid-data':
-                                    $v.form.email.dirty && !$v.form.email.email && !$v.form.email.required
+                           class="company-entry-block-row-input"
+                           :class="{'invalid-data':
+                                    $v.form.email.$dirty && (!$v.form.email.email || !$v.form.email.required)
                            }">
                 </div>
                 <small class="error-notificator"
-                       v-if="$v.form.email.dirty && !$v.form.email.email ">
-                    Введенное значение не является адресом электронной почты
+                       v-if="!$v.form.email.email && $v.form.email.$dirty">
+                    введенное значение не является адресом электронной почты
                 </small>
                 <small class="error-notificator"
-                       v-if="$v.form.email.dirty && !$v.form.email.required">
+                       v-if="$v.form.email.$dirty && !$v.form.email.required">
                     адрес электронной почты явялется обязательным для регистрации
                 </small>
+
 
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label"
@@ -29,28 +31,39 @@
                     <input class="company-entry-block-row-input"
                            type="password"
                            id="company-entry-row-input-password"
+                           @blur="$v.form.password.$touch()"
                            v-model.trim="form.password"
                            :class="{'invalid-data':
+                            $v.form.password.$dirty &&
                             !$v.form.password.minLength &&
                                 !$v.form.password.required}">
                 </div>
-
+                <small class="error-notificator"
+                       v-if="!$v.form.password.required && $v.form.password.$dirty">
+                    для входа требуется пароль
+                </small>
+                <small class="error-notificator"
+                       v-if="$v.form.password.$dirty && !$v.form.password.minLength">
+                    длина пароля не может быть менее 8 символов
+                </small>
 
                 <div class="company-entry-block-row">
 
                     <label class="label-check">
-                        <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe">
+                        <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe"
+                               id="rememberMe">
                         <span></span>
                         Запомнить меня
                     </label>
                 </div>
 
 
-                <button id="company-entry-form-button" type="button"
+                <button id="Ok-button" type="button" :disabled="$v.form.$anyError"
                         @click="enterLogin"
-                        :class="{'company-entry-block-button':true,
-                        'disabled-btn': $v.form.$anyError}"
-                >Ok
+                        class="company-entry-block-button"
+                        :class="{'disabled-btn': $v.form.$anyError}"
+                >
+                    Ok
                 </button>
                 <a href="#" @click="callRegisterPr" class="company-entry-link"> Зарегистрироваться </a>
             </div>
@@ -89,53 +102,15 @@ export default {
         enterLogin() {
             if (this.$v.form.$anyError) return;
             this.$store.dispatch('user/login', this.form)
-            this.close()
-        },
-
-        checkEmail() {
-            if (this.form.email) {
-                this.$v.form.email.$model = this.form.email;
-            }
-        },
-
-        checkPasswword() {
-            if (this.form.password) {
-                this.$v.form.password.$model = this.form.password;
-            }
+            // this.close()
         },
 
         callRegisterPr() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'register',
                 header: 'Зарегистрироваться',
-            }
+            })
         },
     }
 };
 </script>
-
-<style>
-/*label input[type=checkbox] {*/
-/*    display: none; !* <--скрываем дефолтный чекбокс *!*/
-/*}*/
-
-/*label span { !* <-- стилизируем новый *!*/
-/*    height: 12px;*/
-/*    width: 12px;*/
-/*    border: 1px solid gray;*/
-/*    display: inline-block;*/
-/*    position: relative;*/
-/*    background-color: #FFF;*/
-/*    border-radius: 2px;*/
-/*    padding: 3px;*/
-/*}*/
-
-/*[type=checkbox]:checked + span:before { !* <-- ставим иконку, когда чекбокс включен  *!*/
-/*    content: '\2714';*/
-/*    position: absolute;*/
-/*    top: -15px;*/
-/*    left: 0;*/
-/*    font-size: 23px;*/
-/*    color: green;*/
-/*}*/
-</style>
