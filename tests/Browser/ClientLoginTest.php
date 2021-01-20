@@ -126,6 +126,29 @@ class ClientLoginTest extends DuskTestCase
                 ->click('#Ok-button')
                 ->pause(10000)
                 ->assertDialogOpened('Данный e-mail не зарегистрирован в системе')
+                ->acceptDialog()
+                ->assertSee('Зарегистрироваться');
+        });
+    }
+
+    /**
+     *Тестирование входа с неправильным паролем
+     * @return void
+     */
+    public function testLoginIncorrectPassword()
+    {
+        $this->browse(function (Browser $browser) {
+            $email = $this->getTestUserEmail('user');
+            $browser->visit(new ClientRoot());
+            Page::logginOut($browser);
+            $browser->click('#login-link')
+                ->waitForText('Ok')
+                ->type('#company-entry-row-input-password', '111111111')
+                ->type('#company-entry-row-input-email', $email)
+                ->click('#Ok-button')
+                ->pause(10000)
+                ->assertDialogOpened('Пароль не верен')
+                ->acceptDialog()
                 ->assertSee('Зарегистрироваться');
         });
     }
