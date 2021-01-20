@@ -28,12 +28,18 @@
                     <li class="list-group-item">Телеграмм: {{ $service['telegram'] }}</li>
                     <li class="list-group-item">Скайп: {{ $service['skype'] }}</li>
                 </ul>
-                <div class="card-body">
+                <form class="card-body" action="{{ route('admin.services.destroy', $service) }}" method="POST">
                     <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-success">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
-                </div>
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+{{--                <div class="">--}}
+{{--                    --}}
+{{--                </div>--}}
             </div>
         @endforeach
+        {{ $services->links() }}
     </div>
 
 @endsection

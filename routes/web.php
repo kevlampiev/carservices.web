@@ -29,6 +29,8 @@ Route::group([
 ], function () {
     Route::get('/', 'AdminController@index');
     Route::resource('/users', 'UserController');
+    Route::post('/services/{service}/type/add', 'ServiceController@addType')->name('service.addType');
+    Route::delete('/services/{service}/type/delete', 'ServiceController@deleteType')->name('service.deleteType');
     Route::resource('/services', 'ServiceController');
     Route::resource('/schedules', 'ScheduleController');
     Route::resource('/orders', 'OrderController');

@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -15,8 +16,7 @@ class ServiceController extends Controller
 //        $services = Service::query()->where('user_id', '=', Auth::id())->get();
         $services = Service::query()
         ->with('types')
-        ->get();
-//        dd($services);
+        ->paginate(3);
         return view('admin.services', ['services' => $services]);
     }
 
@@ -54,10 +54,25 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        $types = $service->types()->select('name')->get()->toArray();
-//        dd($types);
-        $allTypes = Type::query()->select('name')->get()->toArray();
-//        dd($allTypes);
+        $types = $service->types()
+            ->select('types.id', 'name')
+            ->get()
+            ->toArray();
+        $allTypes = Type::query()
+            ->select('id', 'name')
+            ->get()
+            ->toArray();
+        $length = count($allTypes);
+        for ($i=0; $i<$length; $i++) {
+            $item = $allTypes[$i];
+            foreach ($types as $type) {
+                if ($type['name'] == $item['name']) {
+                    unset($allTypes[$i]);
+                    break;
+                }
+            }
+        }
+
         return view('admin.serviceEdit', [
             'service' => $service,
             'types' => $types,
@@ -68,7 +83,6 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-//        dd($request);
         $request->validate([
             'name' => 'required|string|min:3',
             'city' => 'required|string|min:3',
@@ -89,6 +103,27 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
+//        dd($service);
         $service->delete();
+    }
+
+    public function addType(Request $request, Service $service)
+    {
+        DB::table('services_types')->insert(
+            [
+                'service_id' => $service->id,
+                'type_id' => $request->role
+            ]);
+        return back();
+    }
+
+    public function deleteType(Request $request, Service $service)
+    {
+        DB::table('services_types')->where(
+            [
+                ['service_id', $service->id],
+                ['type_id', $request->type]
+            ])->delete();
+        return back();
     }
 }

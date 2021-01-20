@@ -18,7 +18,7 @@ class ScheduleController extends Controller
 //            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
 //            ->join('orders', 'schedules.order_id', '=', 'orders.id')
             ->select('schedules.*', 'services.name')
-            ->get();
+            ->paginate(7);
         return view('admin.schedules', ['schedules' => $schedules]);
     }
 

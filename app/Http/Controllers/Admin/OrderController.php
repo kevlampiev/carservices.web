@@ -5,103 +5,96 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $orders = Order::query()
             ->join('users', 'orders.user_id', '=', 'users.id')
-            ->get();
+            ->select('orders.*', 'users.name')
+            ->orderBy('id')
+            ->paginate(7);
+//            ->get();
 //        $orders = Order::all();
-        return response()->json($orders, 200);
+        return view('admin.orders', ['orders' => $orders]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function create()
-//    {
-//        //
-//    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
+    public function create()
     {
-        return response()->json($order, 200);
+        return view('admin.orderCreate');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Order
-     * @return \Illuminate\Http\Response
-     */
+
+    public function store(Request $request)
+    {
+//        dd($request);
+        $request->validate(
+            [
+                'name' => 'required|exists:users,name',
+                'car_model' => 'required|string|min:2',
+                'license_plate_number' => 'required|string|min:6'
+            ]);
+        $user = User::query()->where('name', $request->name)->first();
+//        dd($user);
+        $order = new Order;
+        $order->fill(
+            [
+                'user_id' => $user->id,
+                'car_model' => $request->car_model,
+                'license_plate_number' => $request->license_plate_number,
+                'description' => $request->description
+            ]);
+        if ($order->save()) {
+            return redirect()->route('admin.orders.index');
+        }
+        return back();
+    }
+
+
+    public function show()
+    {
+        //
+    }
+
     public function edit(Order $order)
     {
-        return response()->json($order, 200);
+        return view('admin.orderEdit', ['order' => $order]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Order
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Order $order)
     {
-        $request->validate([
-            'car_model' => 'required|alpha_dash|min:2|max:30',
-            'license_plate_number' => 'required|alpha_num|min:3',
-            'descriptions' => 'required|string'
-        ]);
-        $order = $order->fill($request->all());
+//        dd($request);
+        $request->validate(
+            [
+//                'name' => 'required|exists:users,name',
+                'car_model' => 'required|string|min:2',
+                'license_plate_number' => 'required|string|min:6',
+                'status' => 'required|in:in_waiting,confirmed,deny'
+            ]);
+        $order = $order->fill(
+            [
+//                'user_id' => $user->id,
+                'car_model' => $request->car_model,
+                'license_plate_number' => $request->license_plate_number,
+                'description' => $request->description,
+                'order_status' => $request->status
+            ]);
         if ($order->save()) {
-            return response()->json(200);
+            return redirect()->route('admin.orders.index');
         }
-        return response()->json(400);
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Order
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Order $order)
     {
-        $schedule = Schedule::query()->find($order->id);
-        $schedule->delete();
-        $result = $order->delete();
-        if ($result) {
-            return response()->json(200);
-        }
-        return response()->json(400);
+        $order->delete();
+        return back();
     }
 }

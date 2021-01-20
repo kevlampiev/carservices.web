@@ -41,4 +41,5 @@
 
         </tbody>
     </table>
+    {{ $schedules->links() }}
 @endsection

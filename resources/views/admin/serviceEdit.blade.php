@@ -82,34 +82,36 @@
             <input type="text" name="skype" id="Skype" class="form-control" style="margin-bottom: 10px;" value="{{ $service ['skype'] }}">
             <button class="btn btn-primary" type="submit">Save</button>
         </div>
-
-
     </form>
-    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="">
-        <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
+    <div style="width: 50%; margin: 0 auto;">
+        <h5 class="font-weight-normal">Тип сервиса</h5>
         <ul class="list-group">
             @foreach($types as $type)
-                <li class="list-group-item" style="display: flex; justify-content: space-between">
-                    {{ $type['name'] }}
-                    <form action="" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="&times;">
-                    </form>
-                </li>
+                <form action="{{ route('admin.service.deleteType', $service) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        {{ $type['name'] }}
+                        <input type="hidden" name="type" value="{{ $type['id'] }}">
+                        <input type="submit"  class="btn btn-danger" value="Delete">
+                    </li>
+                </form>
+
             @endforeach
         </ul>
-        <h5 style="margin: 0 auto; display: block; text-align: center;">Добавить тип {{ $type['name'] }}</h5>
-        <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
-            @foreach($allTypes as $item)
-                @if(!array_search($item['name'], $types))
-                    <p>{{ $item['name'] }}</p>
-                @endif
-{{--            <option value="admin">{{ $item['name'] }}</option>--}}
-            @endforeach
-        </select>
-        <button class="btn btn-primary" type="submit">Добавить</button>
-    </form>
+    </div>
+    <div style="width: 50%; margin: 10px auto;">
+        <h5 style="margin: 5px auto; display: block; text-align: center;">Добавить тип </h5>
+        <form action="{{ route('admin.service.addType', $service) }}" method="POST">
+            @csrf
+            <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
+                @foreach($allTypes as $value)
+                    <option value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                @endforeach
 
+            </select>
+            <button class="btn btn-primary" type="submit">Добавить</button>
+        </form>
+    </div>
 
 @endsection
