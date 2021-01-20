@@ -14,7 +14,7 @@
             <div class="content-wrapper">
                 <div class="content-item" v-for="(carserv,index) in filteredServices" :key="carserv.id">
                     <div>
-                        <img class="content-item-company-img" :src="carserv.img_link">
+                        <img class="content-item-company-img" :src="carserv.img_link" alt="Carservice logo">
                         <div class="content-item-company-wrapper">
                             <div class="content-item-company-name">{{ carserv.name }}</div>
                             <div class="content-item-company-address">
@@ -55,29 +55,19 @@ export default {
     data: () => {
         return {
             services: [],
-            showMap: false,
-            mapSettings: {
-                apiKey: '3c2407f4-58d7-4cae-bde0-62264907a452',
-                lang: 'ru_RU',
-                coordorder: 'latlong',
-                version: '2.1'
-            },
-            coords: [
-                54.82896654088406,
-                39.831893822753904,
-            ],
             searchStr: '',
-            currentType: '*'
+            currentType: 'Все'
         }
     },
     methods: {
-        getServiceList(aCity) {
+        async getServiceList(aCity) {
             if (!aCity) aCity = this.$store.state.city
-            axios.get('/api/services?city=' + aCity,
-            ).then(res => {
-                this.services = res.data
-            })
-            this.serviceTypes = tmpServiceTypes
+            try {
+                const {data} = await axios.get('/api/services?city=' + aCity)
+                this.services = data
+            } catch ({message}) {
+                console.error(message)
+            }
         },
         startSelectCity() {
             this.$store.state.popUpData = {
@@ -102,7 +92,7 @@ export default {
                     let nName = element.name.toUpperCase()
                     let nAddress = element.address.toUpperCase()
                     let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
-                    let matchType = (this.currentType === '*') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
+                    let matchType = (this.currentType === 'Все') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
                     return matchSearch && matchType
                 })
         },
@@ -111,9 +101,7 @@ export default {
         },
     },
     mounted() {
-        this.showMap = true
         this.getServiceList(this.$store.state.city)
-        this.$store.state.popUpData.comp = ''
     },
     watch: {
         '$store.state.city': 'getServiceList'

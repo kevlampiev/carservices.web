@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class    AuthController extends Controller
 {
     protected function generateAccessToken($user)
     {
@@ -30,8 +30,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        $token = $user->createToken($user->email . '-' . now());
 
-        return response()->json($user);
+        return response()->json([
+            'user' => $user,
+            'token' => $token->accessToken
+        ]);
 
     }
 

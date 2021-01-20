@@ -33,6 +33,7 @@ Route::group([
     Route::delete('/services/{service}/type/delete', 'ServiceController@deleteType')->name('service.deleteType');
     Route::resource('/services', 'ServiceController');
     Route::resource('/schedules', 'ScheduleController');
+
     Route::resource('/orders', 'OrderController');
     Route::resource('/types', 'TypeController');
 });

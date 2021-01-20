@@ -1,5 +1,5 @@
 <template>
-    <div class="main-page" @showSelectCityDlg="showSelectCityDlg">
+    <div class="main-page">
         <header>
             <div class="container">
                 <div class="header-logo">CARSERVICES.WEB</div>
@@ -7,14 +7,15 @@
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                     {{ city }}
                 </div>
+
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
-<!--                <div class="header-page-link">-->
-<!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
-<!--                </div>-->
+                <!--                <div class="header-page-link">-->
+                <!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
+                <!--                </div>-->
 
-                <div class="header-acc-wrapper" v-if="!email||email===''">
+                <div class="header-acc-wrapper" v-if="!authorized">
                     <div class="header-page-link" @click="register">
                         Зарегистрироваться
                     </div>
@@ -52,49 +53,48 @@ export default {
 
     methods: {
         logout() {
-            this.$store.dispatch('logout')
+            this.$store.dispatch('user/logout')
         },
-        showSelectCityDlg() {
-            this.currentPopUp = 'cityList'
-            this.popUpHeader = 'выбор города'
-        },
+
         startSelectCity() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'cityList',
-                header: 'выбрать город',
-            }
+                header: 'выбрать город'
+            })
         },
 
         login() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'login',
-                header: 'Войти',
-            }
+                header: 'Войти'
+            })
         },
 
         register() {
-            this.$store.state.popUpData = {
+            this.$store.commit('popUp/show', {
                 comp: 'register',
-                header: 'Зарегистрироваться',
-            }
+                header: 'зарегистрироваться'
+            })
         },
 
     },
     computed: {
         email: function () {
-            return this.$store.state.userData.email
+            return this.$store.state.user.email
         },
         popUpComponent: function () {
-            return this.$store.state.popUpData.comp
+            return this.$store.state.popUp.comp
         },
 
         city: function () {
             return this.$store.state.city
+        },
+
+        authorized: function () {
+            return this.$store.getters['user/authorized']
         }
     },
 
-    mounted() {
-    },
     components: {
         popUp
     }
