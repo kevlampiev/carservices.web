@@ -18,7 +18,7 @@ class ScheduleController extends Controller
 //            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
 //            ->join('orders', 'schedules.order_id', '=', 'orders.id')
             ->select('schedules.*', 'services.name')
-            ->get();
+            ->paginate(7);
         return view('admin.schedules', ['schedules' => $schedules]);
     }
 
@@ -37,7 +37,8 @@ class ScheduleController extends Controller
             'service_type_id' => 'required|exists:types,id'
         ]);
         $schedule = new Schedule;
-        $schedule->fill($request->all());
+
+        $schedule -> fill($request->all());
 
         if ($schedule->save()) {
             return redirect()->route('admin.schedules.index');
@@ -64,7 +65,7 @@ class ScheduleController extends Controller
             'service_id' => 'required|exists:services,id',
             'service_type_id' => 'required|exists:types,id'
         ]);
-        $schedule->fill($request->all());
+        $schedule -> fill($request->all());
         if ($schedule->save()) {
             return redirect()->route('admin.schedules.index');
         }

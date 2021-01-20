@@ -7,11 +7,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     public function index()
     {
-        return view('admin.users', ['users' => User::all()]);
+
+        $users = User::query()->paginate(7);
+        return view('admin.users', ['users' => $users ]);
     }
 
     public function create()
@@ -77,7 +80,13 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        try {
+            $user->delete();
+        }
+        catch (\Exception $e) {
+            return back()->with('error', 'Удаление пользвателя невозможно, он связан с записями в других таблицах');
+    }
+
         return back();
     }
 }
