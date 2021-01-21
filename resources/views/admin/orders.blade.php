@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-    <a href="{{ route('admin.orders.create') }}" role="button" class="btn btn-primary" style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Добавить новый заказ</a>
+    <a href="{{ route('admin.orders.create') }}" role="button" class="btn btn-primary"
+       style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Добавить новый заказ</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>

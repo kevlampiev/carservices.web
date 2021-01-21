@@ -14,7 +14,7 @@ class UserController extends Controller
     {
 
         $users = User::query()->paginate(7);
-        return view('admin.users', ['users' => $users ]);
+        return view('admin.users', ['users' => $users]);
     }
 
     public function create()
@@ -82,10 +82,9 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('error', 'Удаление пользвателя невозможно, он связан с записями в других таблицах');
-    }
+        }
 
         return back();
     }

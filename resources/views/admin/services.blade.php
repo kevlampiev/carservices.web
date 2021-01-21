@@ -35,9 +35,9 @@
                     @method('DELETE')
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
-{{--                <div class="">--}}
-{{--                    --}}
-{{--                </div>--}}
+                {{--                <div class="">--}}
+                {{--                    --}}
+                {{--                </div>--}}
             </div>
         @endforeach
         {{ $services->links() }}

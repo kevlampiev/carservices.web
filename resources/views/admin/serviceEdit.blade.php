@@ -96,7 +96,8 @@
 
     </form>
 
-    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;" action="">
+    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;"
+          action="">
         <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
         <ul class="list-group">
             @foreach($types as $type)
@@ -117,7 +118,7 @@
                     <p>{{ $item['name'] }}</p>
                 @endif
 
-{{--            <option value="admin">{{ $item['name'] }}</option>--}}
+                {{--            <option value="admin">{{ $item['name'] }}</option>--}}
             @endforeach
         </select>
         <button class="btn btn-primary" type="submit">Добавить</button>

@@ -39,7 +39,8 @@
                    style="margin-bottom: 10px;">
             <label for="password-confirm" class="sr-only">Confirm</label>
 
-            <input type="password" name="password_confirmation" id="password-confirm" class="form-control" placeholder="Confirm Password" style="margin-bottom: 10px;">
+            <input type="password" name="password_confirmation" id="password-confirm" class="form-control"
+                   placeholder="Confirm Password" style="margin-bottom: 10px;">
             <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
                 <option value="admin">admin</option>
                 <option value="owner">owner</option>
