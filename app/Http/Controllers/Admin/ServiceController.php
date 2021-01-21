@@ -15,9 +15,8 @@ class ServiceController extends Controller
     {
 //        $services = Service::query()->where('user_id', '=', Auth::id())->get();
         $services = Service::query()
-
-        ->with('types')
-        ->paginate(3);
+            ->with('types')
+            ->paginate(3);
         return view('admin.services', ['services' => $services]);
     }
 
@@ -65,7 +64,7 @@ class ServiceController extends Controller
             ->get()
             ->toArray();
         $length = count($allTypes);
-        for ($i=0; $i<$length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $item = $allTypes[$i];
             foreach ($types as $type) {
                 if ($type['name'] == $item['name']) {
@@ -80,7 +79,7 @@ class ServiceController extends Controller
             'types' => $types,
             'allTypes' => $allTypes
 
-            ]);
+        ]);
     }
 
 
@@ -110,23 +109,25 @@ class ServiceController extends Controller
         $service->delete();
     }
 
-    public function addType(Request $request, Service $service)
-    {
-        DB::table('services_types')->insert(
-            [
-                'service_id' => $service->id,
-                'type_id' => $request->role
-            ]);
-        return back();
-    }
+public
+function addType(Request $request, Service $service)
+{
+    DB::table('services_types')->insert(
+        [
+            'service_id' => $service->id,
+            'type_id' => $request->role
+        ]);
+    return back();
+}
 
-    public function deleteType(Request $request, Service $service)
-    {
-        DB::table('services_types')->where(
-            [
-                ['service_id', $service->id],
-                ['type_id', $request->type]
-            ])->delete();
-        return back();
-    }
+public
+function deleteType(Request $request, Service $service)
+{
+    DB::table('services_types')->where(
+        [
+            ['service_id', $service->id],
+            ['type_id', $request->type]
+        ])->delete();
+    return back();
+}
 }

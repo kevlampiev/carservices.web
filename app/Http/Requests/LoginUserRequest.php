@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterUserRequest extends FormRequest
+class LoginUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -25,12 +25,10 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|string|min:8',
         ];
     }
-
 
     /**
      * Get the error messages for the defined validation rules.
@@ -40,13 +38,11 @@ class RegisterUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name required',
-            'name.max' => 'Field Name must be up to 255 characters',
             'email.required' => 'Email required',
             'email.email' => 'Email has a wrong format',
-            'email.unique' => 'User with this e-mail already exists',
+            'email.exists' => 'No such user',
             'password.required' => 'Password required',
-            'password.min' => 'The password is too shot. At least 8 characters required',
+            'password.min' => 'Wrong email/password',
         ];
     }
 }

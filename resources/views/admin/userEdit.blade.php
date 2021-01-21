@@ -37,7 +37,8 @@
                 </div>
             @endif
 
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password" style="margin-bottom: 10px;" value="{{ $user['password'] }}">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                   style="margin-bottom: 10px;" value="{{ $user['password'] }}">
             <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
                 <option @if ($user['role'] == 'admin') selected @endif value="admin">admin</option>
                 <option @if ($user['role'] == 'owner') selected @endif value="owner">owner</option>
