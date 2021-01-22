@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginUserRequest;
+use Illuminate\Http\Request;
 use PHPUnit\Util\Json;
 
 class AuthController extends Controller
@@ -52,6 +53,14 @@ class AuthController extends Controller
         } else {
             return response()->json('Fail', 404);
         }
+    }
+
+    public function autoLogin(Request $request ) {
+        $user = Auth::user();
+        return response()->json([
+            'user' => $user,
+            'token' => $user->createToken($user->email . '-' . now())
+        ]);
     }
 
     public function logout()
