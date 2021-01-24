@@ -38,7 +38,7 @@ abstract class Page extends BasePage
         if ($browser->element('@logout')) {
             try {
                 $browser->click('@logout')
-                    ->waitFor('.content-item');
+                    ->waitForText('Зарегистрироваться');
             } catch (TimeOutException $e) {
                 dump($e);
             }
