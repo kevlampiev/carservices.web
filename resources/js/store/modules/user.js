@@ -25,6 +25,7 @@ export default {
             state.id = id
         },
         setUserData(state, userData) {
+            // state=userData
             state.email = userData.email
             state.token = userData.token
             state.name = userData.name
@@ -114,6 +115,7 @@ export default {
             })
             localStorage.removeItem('token')
             localStorage.removeItem('name')
+            localStorage.removeItem('email')
         },
 
     },
