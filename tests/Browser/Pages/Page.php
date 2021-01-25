@@ -42,6 +42,11 @@ abstract class Page extends BasePage
             } catch (TimeOutException $e) {
                 dump($e);
             }
+        } else {
+
+            $token=$browser->script("return localStorage.getItem('token')")[0];
+            if ($token) {
+            dump('already not in system but token '.$token.' exists ....');}
         }
     }
 

@@ -105,6 +105,10 @@ export default {
         },
 
         logout(context) {
+
+            localStorage.remove('token')
+            localStorage.remove('name')
+            localStorage.remove('email')
             context.commit('setUserData', {
                 email: null,
                 name: null,
@@ -113,9 +117,7 @@ export default {
                 rememberMe: false,
                 id: null,
             })
-            localStorage.removeItem('token')
-            localStorage.removeItem('name')
-            localStorage.removeItem('email')
+
         },
 
     },

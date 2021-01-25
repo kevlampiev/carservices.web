@@ -35,6 +35,7 @@ class ClientLoginTest extends DuskTestCase
     public function testLogout()
     {
         try {
+            dump('testLogout');
             $this->browse(function (Browser $browser) {
                 $browser->visit(new ClientRoot());
                 Page::logginOut($browser);
@@ -57,6 +58,7 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsAdmin()
     {
+        dump('testLoginAsAdmin');
         $this->browse(function (Browser $browser) {
             $browser->visit(new ClientRoot());
             Page::login($browser, 'admin@admin.ru', '12345678', false);
@@ -65,8 +67,8 @@ class ClientLoginTest extends DuskTestCase
                 ->assertDontSee('Войти')
                 ->assertSee('CARSERVICES.WEB')
                 ->assertSee('admin@admin.ru')
-                ->assertDontSee('Мои сервиы');
-            //TODO добавить, что он еще видит "Раздел администратора"
+                ->assertDontSee('Мои сервиы')
+            ->assertSee('Раздел администратора');
         });
     }
 
@@ -76,6 +78,7 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsClient()
     {
+        dump('testLoginAsClient');
         $this->browse(function (Browser $browser) {
             $email = $this->getTestUserEmail('user');
             $browser->visit(new ClientRoot());
@@ -96,16 +99,19 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsIOwner()
     {
+        dump('testLoginAsOwner');
         $this->browse(function (Browser $browser) {
             $email = $this->getTestUserEmail('owner');
             $browser->visit(new ClientRoot());
+            Page::logginOut($browser);
+            $browser->pause(5000);
             Page::login($browser, $email, '12345678', false);
             $browser->assertSee('Выйти')
                 ->assertDontSee('Зарегистрироваться')
                 ->assertDontSee('Войти')
                 ->assertSee($email)
-                ->assertDontSee('Раздел администратора');
-            //TODO добавить, что он еще ВИДИТ раздел "Мои сервисы"
+                ->assertDontSee('Раздел администратора')
+            ->assertSee('Мои сервисы');
         });
     }
 
@@ -119,6 +125,7 @@ class ClientLoginTest extends DuskTestCase
             $email = $this->getTestUserEmail('user');
             $browser->visit(new ClientRoot());
             Page::logginOut($browser);
+            $browser->pause(5000);
             $browser->click('#login-link')
                 ->waitForText('Ok')
                 ->type('#company-entry-row-input-password', '12345678')
