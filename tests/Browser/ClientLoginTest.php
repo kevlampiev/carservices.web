@@ -35,7 +35,6 @@ class ClientLoginTest extends DuskTestCase
     public function testLogout()
     {
         try {
-            dump('testLogout');
             $this->browse(function (Browser $browser) {
                 $browser->visit(new ClientRoot());
                 Page::logginOut($browser);
@@ -58,7 +57,6 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsAdmin()
     {
-        dump('testLoginAsAdmin');
         $this->browse(function (Browser $browser) {
             $browser->visit(new ClientRoot());
             Page::login($browser, 'admin@admin.ru', '12345678', false);
@@ -68,7 +66,7 @@ class ClientLoginTest extends DuskTestCase
                 ->assertSee('CARSERVICES.WEB')
                 ->assertSee('admin@admin.ru')
                 ->assertDontSee('Мои сервиы')
-            ->assertSee('Раздел администратора');
+                ->assertSee('Раздел администратора');
         });
     }
 
@@ -78,7 +76,6 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsClient()
     {
-        dump('testLoginAsClient');
         $this->browse(function (Browser $browser) {
             $email = $this->getTestUserEmail('user');
             $browser->visit(new ClientRoot());
@@ -99,7 +96,6 @@ class ClientLoginTest extends DuskTestCase
      */
     public function testLoginAsIOwner()
     {
-        dump('testLoginAsOwner');
         $this->browse(function (Browser $browser) {
             $email = $this->getTestUserEmail('owner');
             $browser->visit(new ClientRoot());
@@ -111,7 +107,7 @@ class ClientLoginTest extends DuskTestCase
                 ->assertDontSee('Войти')
                 ->assertSee($email)
                 ->assertDontSee('Раздел администратора')
-            ->assertSee('Мои сервисы');
+                ->assertSee('Мои сервисы');
         });
     }
 

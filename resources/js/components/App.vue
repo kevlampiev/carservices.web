@@ -96,7 +96,7 @@ export default {
         authorized: function () {
             return this.$store.getters['user/authorized']
         },
-        role: function() {
+        role: function () {
             return this.$store.state.user.role
         }
 

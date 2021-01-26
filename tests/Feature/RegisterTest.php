@@ -21,7 +21,7 @@ class RegisterTest extends TestCase
                 'rememberMe' => true]
         );
         $response->assertStatus(200)
-            ->assertJsonStructure(['user' => ['email', 'id'], 'token']);
+            ->assertJsonStructure(['user' => ['email', 'id', 'role'], 'token']);
     }
 
     /**

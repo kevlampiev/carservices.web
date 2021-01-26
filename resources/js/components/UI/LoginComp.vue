@@ -49,7 +49,7 @@
 
                 <div class="company-entry-block-row">
 
-                    <label class="label-check">
+                    <label class="label-check" id="rememberMe-label">
                         <input type="checkbox" class="checkbox" v-model.trim="form.rememberMe"
                                id="rememberMe">
                         <span></span>
