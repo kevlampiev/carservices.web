@@ -46,8 +46,10 @@ class AuthController extends Controller
                 'user' => $user,
                 'token' => $token->accessToken
             ]);
+        } elseif (Auth::attempt(['email' => $request->email])) {
+            return response()->json(['message' => 'You have entered wrong password'], 400);
         } else {
-            return response()->json('Fail', 404);
+            return response()->json(['message' => 'You have entered wrong email'], 400);
         }
     }
 
