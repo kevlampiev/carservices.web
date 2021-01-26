@@ -23,15 +23,11 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request): JsonResponse
     {
-//        $request->validate([
-//            'name' => 'required',
-//            'email' => 'required|email',
-//            'password' => 'required|min:6'
-//        ]);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'role' => 'user',
         ]);
         $token = $user->createToken($user->email . '-' . now());
 
@@ -55,7 +51,8 @@ class AuthController extends Controller
         }
     }
 
-    public function autoLogin(Request $request ) {
+    public function autoLogin(Request $request)
+    {
         $user = Auth::user();
         return response()->json([
             'user' => $user,

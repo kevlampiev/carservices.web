@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
-Route::post('/autologin','API\AuthController@autoLogin')
-->middleware('auth:api');
+Route::post('/autologin', 'API\AuthController@autoLogin')
+    ->middleware('auth:api');
 
 Route::group([
     'prefix' => 'services'

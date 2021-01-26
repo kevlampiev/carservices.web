@@ -25,13 +25,8 @@ export default {
             state.id = id
         },
         setUserData(state, userData) {
-            // state=userData
-            state.email = userData.email
-            state.token = userData.token
-            state.name = userData.name
-            state.role=userData.role
-            state.rememberMe = userData.rememberMe
-            state.id = userData.id
+            //Будь осторожен, если поля userData нет в state, вылезет ошибка и ты будешь над ней долго страдать
+            for (let key in userData) state[key] = userData[key];
         },
 
     },
@@ -40,8 +35,8 @@ export default {
         async login({commit, dispatch}, loginData) {
             axios.post("/api/login", loginData)
                 .then(response => {
-                    const user = response.data.user;
-                    user.token = response.data.token
+                        const user = response.data.user;
+                        user.token = response.data.token
                         commit('setUserData', user)
                         dispatch('storeUserData', user)
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
@@ -69,8 +64,8 @@ export default {
                 const {data} = await axios.post('/api/register', userData)
                 const user = data.user
                 user.token = data.token
-                user.role='user'
-                user.rememberMe=false
+                user.role = 'user'
+                user.rememberMe = false
                 //не делаем тут rememberToken. Отдельно делаем при логине rememberMe
                 commit('setUserData', user)
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
@@ -86,9 +81,9 @@ export default {
 
             axios.post('/api/autologin')
                 .then(response => {
-                    const user=response.data.user
-                    user.token=response.data.token
-                    user.rememberMe=true
+                    const user = response.data.user
+                    user.token = response.data.token
+                    user.rememberMe = true
                     context.commit('setUserData', user)
                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
 
@@ -104,7 +99,10 @@ export default {
             localStorage.token = userData.token
         },
 
-        logout(context) {
+
+        async logout(context) {
+            await localStorage.removeItem('token')
+            await localStorage.removeItem('email')
             context.commit('setUserData', {
                 email: null,
                 name: null,
@@ -113,9 +111,7 @@ export default {
                 rememberMe: false,
                 id: null,
             })
-            localStorage.removeItem('token')
-            localStorage.removeItem('name')
-            localStorage.removeItem('email')
+
         },
 
     },

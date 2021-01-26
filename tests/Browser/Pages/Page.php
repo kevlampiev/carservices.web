@@ -18,7 +18,7 @@ abstract class Page extends BasePage
     {
         return [
             '@logout' => '#logout-link',
-//            '@login'=>'#login-link',
+            '@login' => '#login-link',
             '@register' => '#register-link'
         ];
     }
@@ -35,12 +35,19 @@ abstract class Page extends BasePage
 
     public static function logginOut(Browser $browser)
     {
+        $browser->pause(5000);
         if ($browser->element('@logout')) {
             try {
                 $browser->click('@logout')
                     ->waitForText('Зарегистрироваться');
             } catch (TimeOutException $e) {
                 dump($e);
+            }
+        } else {
+
+            $token = $browser->script("return localStorage.getItem('token')")[0];
+            if ($token) {
+                dump('already not in system but token ' . $token . ' exists ....');
             }
         }
     }
@@ -54,12 +61,9 @@ abstract class Page extends BasePage
                 ->waitForText('Ok')
                 ->type('#company-entry-row-input-email', $email)
                 ->type('#company-entry-row-input-password', $password);
-//                    if ($rememberMe) {
-//                        $browser->check('#rememberMe');
-//                    } else {
-//                        $browser->uncheck('#rememberMe');
-//                    }
-
+            if (!$rememberMe) {
+                $browser->click('#rememberMe-label');
+            }
             $browser->click('#Ok-button')
                 ->waitForText('Выйти');
         } catch (TimeOutException $e) {

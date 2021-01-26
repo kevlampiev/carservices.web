@@ -11,9 +11,12 @@
                 <div class="header-page-link">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
-                <!--                <div class="header-page-link">-->
-                <!--                    <router-link :to="{ name: 'hello' }">Раздел хозяина</router-link>-->
-                <!--                </div>-->
+                <div class="header-page-link" v-if="role==='owner'">
+                    <router-link :to="{ name: 'hello' }">Мои сервисы</router-link>
+                </div>
+                <div class="header-page-link" v-if="role==='admin'">
+                    <a href="/admin">Раздел администратора</a>
+                </div>
 
                 <div class="header-acc-wrapper" v-if="!authorized">
                     <div class="header-page-link" @click="register" id="register-link">
@@ -92,7 +95,11 @@ export default {
 
         authorized: function () {
             return this.$store.getters['user/authorized']
+        },
+        role: function () {
+            return this.$store.state.user.role
         }
+
     },
 
     components: {
