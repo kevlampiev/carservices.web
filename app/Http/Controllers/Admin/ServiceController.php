@@ -51,10 +51,8 @@ class ServiceController extends Controller
         //
     }
 
-
     public function edit(Service $service)
     {
-
         $types = $service->types()
             ->select('types.id', 'name')
             ->get()
@@ -73,7 +71,6 @@ class ServiceController extends Controller
                 }
             }
         }
-
         return view('admin.serviceEdit', [
             'service' => $service,
             'types' => $types,
@@ -81,7 +78,6 @@ class ServiceController extends Controller
 
         ]);
     }
-
 
     public function update(Request $request, Service $service)
     {
@@ -104,30 +100,27 @@ class ServiceController extends Controller
     }
 
     public function destroy(Service $service)
-
-//        dd($service);
+    {
         $service->delete();
     }
 
-public
-function addType(Request $request, Service $service)
-{
-    DB::table('services_types')->insert(
-        [
-            'service_id' => $service->id,
-            'type_id' => $request->role
-        ]);
-    return back();
-}
+    public function addType(Request $request, Service $service)
+    {
+        DB::table('services_types')->insert(
+            [
+                'service_id' => $service->id,
+                'type_id' => $request->role
+            ]);
+        return back();
+    }
 
-public
-function deleteType(Request $request, Service $service)
-{
-    DB::table('services_types')->where(
-        [
-            ['service_id', $service->id],
-            ['type_id', $request->type]
-        ])->delete();
-    return back();
-}
+    public function deleteType(Request $request, Service $service)
+    {
+        DB::table('services_types')->where(
+            [
+                ['service_id', $service->id],
+                ['type_id', $request->type]
+            ])->delete();
+        return back();
+    }
 }

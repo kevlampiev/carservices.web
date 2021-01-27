@@ -7,8 +7,8 @@
         @csrf
 
         <div class="mb-3">
-            <h1 class="h3 mb-3 font-weight-normal">Editing form</h1>
-            <label for="Name" class="sr-only">Name</label>
+            <h1 class="h3 mb-3 font-weight-normal">Редактирование данных пользователя</h1>
+            <label for="Name">Имя</label>
             @if ($errors->has('name'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('name') as $error)
@@ -18,7 +18,7 @@
             @endif
             <input type="text" name="name" id="Name" class="form-control" style="margin-bottom: 10px;"
                    value="{{ $user['name'] }}">
-            <label for="Email" class="sr-only">Email address</label>
+            <label for="Email">Эл.почта</label>
             @if ($errors->has('email'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('email') as $error)
@@ -28,23 +28,14 @@
             @endif
             <input type="email" name="email" id="Email" class="form-control" style="margin-bottom: 10px;"
                    value="{{ $user['email'] }}">
-            <label for="password" class="sr-only">Password</label>
-            @if ($errors->has('password'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('password') as $error)
-                        {{ $error }}
-                    @endforeach
-                </div>
-            @endif
-
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password"
-                   style="margin-bottom: 10px;" value="{{ $user['password'] }}">
-            <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
+            <label for="Role">Роль пользователя</label>
+            <select class="form-control" id="Role" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
                 <option @if ($user['role'] == 'admin') selected @endif value="admin">admin</option>
                 <option @if ($user['role'] == 'owner') selected @endif value="owner">owner</option>
                 <option @if ($user['role'] == 'user') selected @endif value="user">user</option>
             </select>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <a href="{{ route('admin.user.changePass', $user) }}" class="btn btn-success">Изменить пароль</a>
         </div>
 
     </form>

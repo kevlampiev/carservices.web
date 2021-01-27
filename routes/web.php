@@ -24,6 +24,8 @@ Route::group([
 //    'middleware' => ['auth', 'is_admin']
 ], function () {
     Route::get('/', 'AdminController@index');
+    Route::get('/users/{user}/changePass', 'UserController@changePass')->name('user.changePass');
+    Route::put('/users/{user}/updatePass', 'UserController@updatePass')->name('user.updatePass');
     Route::resource('/users', 'UserController');
     Route::post('/services/{service}/type/add', 'ServiceController@addType')->name('service.addType');
     Route::delete('/services/{service}/type/delete', 'ServiceController@deleteType')->name('service.deleteType');

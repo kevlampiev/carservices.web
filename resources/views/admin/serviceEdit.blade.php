@@ -92,13 +92,9 @@
                    value="{{ $service ['skype'] }}">
             <button class="btn btn-primary" type="submit">Save</button>
         </div>
-
-
     </form>
 
-    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;"
-          action="">
-        <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
+    <h5 class="h5 mb-3 font-weight-normal">Тип сервиса</h5>
         <ul class="list-group">
             @foreach($types as $type)
                 <li class="list-group-item" style="display: flex; justify-content: space-between">
@@ -111,14 +107,13 @@
                 </li>
             @endforeach
         </ul>
-        <h5 style="margin: 0 auto; display: block; text-align: center;">Добавить тип {{ $type['name'] }}</h5>
+    <h5 style="margin: 0 auto; display: block; text-align: center;">Добавить тип сервиса</h5>
+    <form class="form-signin mb-3" enctype="multipart/form-data" method="POST" style="margin: 0 auto; width: 50%;"
+          action="{{ route('admin.service.addType', $service) }}">
+        @csrf
         <select class="form-control" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
             @foreach($allTypes as $item)
-                @if(!array_search($item['name'], $types))
-                    <p>{{ $item['name'] }}</p>
-                @endif
-
-                {{--            <option value="admin">{{ $item['name'] }}</option>--}}
+                <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
             @endforeach
         </select>
         <button class="btn btn-primary" type="submit">Добавить</button>
