@@ -101,7 +101,12 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
-        $service->delete();
+        try {
+            $service->delete();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Удаление сервиса невозможно, он связан с записями в других таблицах');
+        }
+        return back();
     }
 
     public function addType(Request $request, Service $service)
