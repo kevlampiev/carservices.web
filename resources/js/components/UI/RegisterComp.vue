@@ -71,8 +71,9 @@
 
                 <div class="company-entry-block-row">
                     <label class="company-entry-block-row-label  full-width"
-                           for="company-entry-row-input-password">Повторите пароль:</label>
+                           for="company-entry-row-input-repassword">Повторите пароль:</label>
                     <input type="password"
+                           id="company-entry-row-input-repassword"
                            @blur="$v.form.repeatPassword.$touch()"
                            class="company-entry-block-row-input"
                            :class="{'invalid-data':
@@ -88,7 +89,7 @@
                 <br>
 
 
-                <button id="company-entry-form-button" type="button"
+                <button id="ok-button" type="button" :disabled="$v.form.$anyError"
                         @click="registerUser"
                         :class="{'company-entry-block-button':true,
                         'disabled-btn': $v.form.$anyError}"

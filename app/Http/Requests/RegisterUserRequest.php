@@ -44,7 +44,7 @@ class RegisterUserRequest extends FormRequest
             'name.max' => 'Field Name must be up to 255 characters',
             'email.required' => 'Email required',
             'email.email' => 'Email has a wrong format',
-            'email.unique' => 'User with this e-mail already exists',
+            'email.unique' => 'Пользователь с таким адресом электронной почты уже зарегистрирован в системе',
             'password.required' => 'Password required',
             'password.min' => 'The password is too shot. At least 8 characters required',
         ];

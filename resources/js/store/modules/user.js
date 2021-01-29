@@ -69,8 +69,10 @@ export default {
                 //не делаем тут rememberToken. Отдельно делаем при логине rememberMe
                 commit('setUserData', user)
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
-            } catch ({message}) {
-                console.error(message)
+            } catch (error) {
+                const email=error.response.data.errors.email
+                if (email) alert(email);
+                  else alert('Неизвестная ошибка сервера');
             }
         },
 

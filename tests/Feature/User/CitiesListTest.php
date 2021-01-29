@@ -17,5 +17,6 @@ class CitiesListTest extends TestCase
         $response = $this->get('/api/services/cities');
 //        $response->assertStatus(200);
         $response->assertJsonStructure(['*' => ['city']]);
+        dump('Привет');
     }
 }
