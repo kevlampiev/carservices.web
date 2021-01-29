@@ -111,7 +111,7 @@ class RegisterTest extends TestCase
         );
         $response->assertStatus(422)
             ->assertJsonStructure(['errors', 'message'])
-            ->assertJsonFragment(['User with this e-mail already exists']);
+            ->assertJsonFragment(['Пользователь с таким адресом электронной почты уже зарегистрирован в системе']);
     }
 
     /**
