@@ -46,13 +46,8 @@ class AuthController extends Controller
                 'user' => $user,
                 'token' => $token->accessToken
             ]);
-//        } elseif (Auth::attempt(['email' => $request->email])) {
-//            return response()->json(['message' => 'You have entered wrong password'], 404);
-//        } else {
-//            return response()->json(['message' => 'You have entered wrong email'], 422);
-//        }
         } else {
-            $user=User::query()->whereEmail($request->email)->first();
+            $user = User::query()->whereEmail($request->email)->first();
             if ($user) {
                 return response()->json(['message' => 'You have entered wrong password'], 404);
             } else {

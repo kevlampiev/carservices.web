@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CitiesListTest extends TestCase
+class AdminRootTest extends TestCase
 {
     /**
      * A basic test example.
@@ -14,8 +14,8 @@ class CitiesListTest extends TestCase
      */
     public function testCitiesList()
     {
-        $response = $this->get('/api/services/cities');
-//        $response->assertStatus(200);
-        $response->assertJsonStructure(['*' => ['city']]);
+        $response = $this->get('/admin')
+            ->assertStatus(200)
+            ->assertSee('Выбирите');
     }
 }
