@@ -14,6 +14,9 @@ class AlterTableServicesTypiesDropForeignKey extends Migration
     public function up()
     {
         Schema::table('services_types', function (Blueprint $table) {
+            $table->dropForeign('services_types_service_id_foreign');
+            $table->dropForeign('services_types_type_id_foreign');
+
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
@@ -27,7 +30,11 @@ class AlterTableServicesTypiesDropForeignKey extends Migration
     public function down()
     {
         Schema::table('services_types', function (Blueprint $table) {
-            $table->dropForeign(['service_id', 'type_id']);
+            $table->dropForeign('services_types_service_id_foreign');
+            $table->dropForeign('services_types_type_id_foreign');
+
+            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('type_id')->references('id')->on('types');
         });
     }
 }
