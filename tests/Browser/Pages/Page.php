@@ -35,7 +35,7 @@ abstract class Page extends BasePage
 
     /**
      *Вспомогательная функция для выхода из профиля (logout)
-     *@return void
+     * @return void
      */
     public static function logginOut(Browser $browser)
     {
@@ -58,7 +58,7 @@ abstract class Page extends BasePage
 
     /**
      *Вспомогательная функция для заполнения формы авторизации
-     *@return void
+     * @return void
      */
     public static function login(Browser $browser, string $email, string $password, bool $rememberMe)
     {
@@ -81,23 +81,24 @@ abstract class Page extends BasePage
 
     /**
      *Вспомогательная функция для заполнения формы регистрации
-     *@return void
+     * @return void
      */
     public static function register(Browser $browser,
                                     string $name,
                                     string $email,
                                     string $password,
-                                    string $passwordAgain) {
+                                    string $passwordAgain)
+    {
         static::logginOut($browser);
         try {
             $browser
                 ->waitForText('Зарегистрироваться')
                 ->click('#register-link')
                 ->waitForText('ЗАРЕГИСТРИРОВАТЬСЯ')
-                ->type('#company-entry-row-input-name',$name)
-                ->type('#company-entry-row-input-email',$email)
-                ->type('#company-entry-row-input-password',$password)
-                ->type('#company-entry-row-input-repassword',$passwordAgain)
+                ->type('#company-entry-row-input-name', $name)
+                ->type('#company-entry-row-input-email', $email)
+                ->type('#company-entry-row-input-password', $password)
+                ->type('#company-entry-row-input-repassword', $passwordAgain)
                 ->click('#ok-button');
 
         } catch (TimeOutException $error) {

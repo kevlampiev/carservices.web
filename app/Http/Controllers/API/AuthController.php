@@ -47,7 +47,7 @@ class AuthController extends Controller
                 'token' => $token->accessToken
             ]);
         } else {
-            $user=User::query()->whereEmail($request->email)->first();
+            $user = User::query()->whereEmail($request->email)->first();
             if ($user) {
                 return response()->json(['message' => 'You have entered wrong password'], 404);
             } else {

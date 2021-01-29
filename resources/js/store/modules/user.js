@@ -70,9 +70,9 @@ export default {
                 commit('setUserData', user)
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
             } catch (error) {
-                const email=error.response.data.errors.email
+                const email = error.response.data.errors.email
                 if (email) alert(email);
-                  else alert('Неизвестная ошибка сервера');
+                else alert('Неизвестная ошибка сервера');
             }
         },
 

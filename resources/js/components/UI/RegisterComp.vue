@@ -4,7 +4,8 @@
             <div class="company-entry-block-wrapper">
 
                 <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label  full-width" for="company-entry-row-input-name">Имя:</label>
+                    <label class="company-entry-block-row-label  full-width"
+                           for="company-entry-row-input-name">Имя:</label>
                     <input id="company-entry-row-input-name"
                            type="name"
                            v-model.trim="form.name"
@@ -25,7 +26,8 @@
 
 
                 <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label  full-width" for="company-entry-row-input-email">e-mail:</label>
+                    <label class="company-entry-block-row-label  full-width"
+                           for="company-entry-row-input-email">e-mail:</label>
                     <input id="company-entry-row-input-email"
                            placeholder="email@email.ru"
                            type="email"
@@ -62,11 +64,11 @@
                 </div>
                 <small class="error-notificator"
                        v-if="$v.form.password.$dirty && !$v.form.password.required">
-                    задайте пароль длиной не менее {{8}} символов
+                    задайте пароль длиной не менее {{ 8 }} символов
                 </small>
                 <small class="error-notificator"
                        v-if="$v.form.password.$dirty && !$v.form.password.minLength">
-                    длина пароля должна быть не менее {{8}} символов
+                    длина пароля должна быть не менее {{ 8 }} символов
                 </small>
 
                 <div class="company-entry-block-row">
