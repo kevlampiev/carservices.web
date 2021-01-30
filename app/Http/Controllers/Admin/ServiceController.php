@@ -115,7 +115,8 @@ class ServiceController extends Controller
             [
                 'service_id' => $service->id,
                 'type_id' => $request->role
-            ]);
+            ]
+        );
         return back();
     }
 
@@ -125,7 +126,8 @@ class ServiceController extends Controller
             [
                 ['service_id', $service->id],
                 ['type_id', $request->type]
-            ])->delete();
+            ]
+        )->delete();
         return back();
     }
 }

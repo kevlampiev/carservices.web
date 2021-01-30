@@ -37,7 +37,8 @@ class OrderController extends Controller
                 'name' => 'required|exists:users,name',
                 'car_model' => 'required|string|min:2',
                 'license_plate_number' => 'required|string|min:6'
-            ]);
+            ]
+        );
         $user = User::query()->where('name', $request->name)->first();
 //        dd($user);
         $order = new Order;
@@ -47,7 +48,8 @@ class OrderController extends Controller
                 'car_model' => $request->car_model,
                 'license_plate_number' => $request->license_plate_number,
                 'description' => $request->description
-            ]);
+            ]
+        );
         if ($order->save()) {
             return redirect()->route('admin.orders.index');
         }
@@ -71,19 +73,21 @@ class OrderController extends Controller
 //        dd($request);
         $request->validate(
             [
-//                'name' => 'required|exists:users,name',
+            //                'name' => 'required|exists:users,name',
                 'car_model' => 'required|string|min:2',
                 'license_plate_number' => 'required|string|min:6',
                 'status' => 'required|in:in_waiting,confirmed,deny'
-            ]);
+            ]
+        );
         $order = $order->fill(
             [
-//                'user_id' => $user->id,
+            //                'user_id' => $user->id,
                 'car_model' => $request->car_model,
                 'license_plate_number' => $request->license_plate_number,
                 'description' => $request->description,
                 'order_status' => $request->status
-            ]);
+            ]
+        );
         if ($order->save()) {
             return redirect()->route('admin.orders.index');
         }
