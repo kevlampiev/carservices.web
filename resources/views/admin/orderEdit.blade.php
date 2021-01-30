@@ -7,15 +7,6 @@
         @method('PUT')
         <div class="mb-3">
             <h1 class="h3 mb-3 font-weight-normal">Редактирование заказа</h1>
-            {{--            <label for="Name" class="sr-only">Name</label>--}}
-            {{--            @if ($errors->has('name'))--}}
-            {{--                <div class="alert alert-danger" role="alert">--}}
-            {{--                    @foreach($errors->get('name') as $error)--}}
-            {{--                        {{ $error }}--}}
-            {{--                    @endforeach--}}
-            {{--                </div>--}}
-            {{--            @endif--}}
-            {{--            <input type="text" name="name" id="Name" class="form-control" value="{{ $order['name'] }}" placeholder="Имя пользователя" style="margin-bottom: 10px;">--}}
             <label for="car_model">Модель</label>
             @if ($errors->has('car_model'))
                 <div class="alert alert-danger" role="alert">
@@ -44,7 +35,7 @@
                 <option @if ($order['status'] == 'confirmed') selected @endif value="confirmed">confirmed</option>
                 <option @if ($order['status'] == 'deny') selected @endif value="deny">deny</option>
             </select>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
         </div>
 
     </form>

@@ -22,7 +22,6 @@
         <tbody>
         @foreach($orders as $order)
             <tr>
-
                 <th scope="row">{{ $order['id'] }}</th>
                 <td>{{ $order['name'] }}</td>
                 <td>{{ $order['car_model'] }}</td>

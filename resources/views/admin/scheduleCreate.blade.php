@@ -6,8 +6,8 @@
         @csrf
 
         <div class="mb-3">
-            <h1 class="h3 mb-3 font-weight-normal">Create new schedule</h1>
-            <label for="date">Work day</label>
+            <h1 class="h3 mb-3 font-weight-normal">Создание новой записи расписания</h1>
+            <label for="date">Дата</label>
             @if ($errors->has('work_day'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('work_day') as $error)
@@ -17,7 +17,7 @@
             @endif
             <input type="date" name="work_day" id="Date" min="2021-01-01" max="2021-12-31" class="form-control"
                    style="margin-bottom: 10px;">
-            <label for="time">Work time</label>
+            <label for="time">Время</label>
             @if ($errors->has('work_time'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('work_time') as $error)
@@ -26,7 +26,7 @@
                 </div>
             @endif
             <input type="text" name="work_time" id="time" class="form-control" style="margin-bottom: 10px;">
-            <label for="service">Service ID</label>
+            <label for="service">Сервис ID</label>
             @if ($errors->has('service_id'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('service_id') as $error)
@@ -35,7 +35,7 @@
                 </div>
             @endif
             <input type="text" name="service_id" id="service" class="form-control" style="margin-bottom: 10px;">
-            <label for="type">Service Type ID</label>
+            <label for="type">ID Типа сервиса</label>
             @if ($errors->has('service_type_id'))
                 <div class="alert alert-danger" role="alert">
                     @foreach($errors->get('service_type_id') as $error)
@@ -44,8 +44,7 @@
                 </div>
             @endif
             <input type="text" name="service_type_id" id="type" class="form-control" style="margin-bottom: 10px;">
-
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
         </div>
 
     </form>

@@ -7,7 +7,7 @@
 @section('content')
     {{--    @dd($schedules)--}}
     <a href="{{ route('admin.schedules.create') }}" role="button" class="btn btn-primary"
-       style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Add new schedule</a>
+       style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Добавить новую запись</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>

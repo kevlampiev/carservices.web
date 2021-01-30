@@ -6,7 +6,7 @@
 
 @section('content')
     <a href="{{ route('admin.users.create') }}" role="button" class="btn btn-primary"
-       style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Add new user</a>
+       style="width: 300px; display: block; margin: 5px auto; font-weight: bold;">Добавить нового пользователя</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>

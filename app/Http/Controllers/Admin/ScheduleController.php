@@ -15,9 +15,8 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::query()
             ->join('services', 'schedules.service_id', '=', 'services.id')
-//            ->join('services_types', 'schedules.service_type_id', '=', 'services_types.id')
-//            ->join('orders', 'schedules.order_id', '=', 'orders.id')
             ->select('schedules.*', 'services.name')
+            ->orderBy('work_day')
             ->paginate(7);
         return view('admin.schedules', ['schedules' => $schedules]);
     }
@@ -31,7 +30,6 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'work_day' => 'required|date',
-
             'work_time' => 'required|string',
             'service_id' => 'required|exists:services,id',
             'service_type_id' => 'required|exists:types,id'

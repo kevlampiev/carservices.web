@@ -24,7 +24,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request);
         $request->validate([
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email',
@@ -57,21 +56,17 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-//        dd($request);
         $request->validate([
             'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'password' => 'required|string|min:8',
             'role' => 'required|in:user,owner,admin'
         ]);
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'role' => $request->role
         ]);
         $result = $user->save();
-//        dd($user);
         if ($result) {
             return redirect()->route('admin.users.index');
         }
@@ -85,7 +80,23 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Удаление пользвателя невозможно, он связан с записями в других таблицах');
         }
+        return back();
+    }
 
+    public function changePass(User $user)
+    {
+        return view('admin.userPassEdit', ['user' => $user]);
+    }
+
+    public function updatePass(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+        $user->password = Hash::make($request->password);
+        if ($user->save()) {
+            return redirect()->route('admin.users.index');
+        }
         return back();
     }
 }
