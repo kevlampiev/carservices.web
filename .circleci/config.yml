@@ -84,7 +84,7 @@ jobs:
 
       # run tests with phpunit or codecept
       - run: php phpcs.phar --standard=psr2 ./app
-      #- run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
+      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
       - run:
