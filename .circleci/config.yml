@@ -88,6 +88,13 @@ jobs:
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
       - run:
+          name: "Create Environment file"
+          command: |
+            mv .env.circleci .env
+      - run:
+               name: "Generate App key"
+               command: php artisan key:generate
+      - run:
           name: Start Chrome Driver
           command: ./vendor/laravel/dusk/bin/chromedriver-linux
           background: true

@@ -16,6 +16,6 @@ class AdminRootTest extends TestCase
     {
         $response = $this->get('/admin')
             ->assertStatus(200)
-            ->assertSee('Выбирите');
+            ->assertSee('Выберите таблицу для редактирования');
     }
 }
