@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,10 +16,18 @@ class UsersTest extends TestCase
      */
     public function testGetEditPage()
     {
-        $response = $this->get('/admin/users/{user}/edit');
-
+        $id = User::query()->inRandomOrder()->first()->id;
+        $response = $this->get("/admin/users/$id/edit");
         $response
             ->assertStatus(200)
-            ->assertSee('Редактирование заказа');
+            ->assertSee('Редактирование данных пользователя');
+    }
+
+    public function testGetCreateUserPage()
+    {
+        $response = $this->get("/admin/users/create");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Создание нового пользователя');
     }
 }

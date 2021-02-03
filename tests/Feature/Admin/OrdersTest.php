@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,10 +14,20 @@ class OrdersTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testGetOrderEditPage()
     {
-        $response = $this->get('/');
+        $id = Order::query()->inRandomOrder()->first()->id;
+        $response = $this->get("/admin/orders/$id/edit");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Редактирование заказа');
+    }
 
-        $response->assertStatus(200);
+    public function testGetCreateOrderPage()
+    {
+        $response = $this->get("/admin/orders/create");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Создание нового заказа');
     }
 }

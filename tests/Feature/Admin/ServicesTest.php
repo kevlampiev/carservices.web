@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,10 +14,20 @@ class ServicesTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testGetEditServicePage()
     {
-        $response = $this->get('/');
+        $id = Service::query()->inRandomOrder()->first()->id;
+        $response = $this->get("/admin/services/$id/edit");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Форма редактирования сервиса');
+    }
 
-        $response->assertStatus(200);
+    public function testGetCreateServicePage()
+    {
+        $response = $this->get("/admin/services/create");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Форма создания нового сервиса');
     }
 }

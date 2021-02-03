@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Schedule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,10 +14,20 @@ class SchedulesTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testGetScheduleEditPage()
     {
-        $response = $this->get('/');
+        $id = Schedule::query()->inRandomOrder()->first()->id;
+        $response = $this->get("/admin/schedules/$id/edit");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Форма редактирования расписания');
+    }
 
-        $response->assertStatus(200);
+    public function testGetCreateSchedulePage()
+    {
+        $response = $this->get("/admin/schedules/create");
+        $response
+            ->assertStatus(200)
+            ->assertSee('Создание новой записи расписания');
     }
 }
