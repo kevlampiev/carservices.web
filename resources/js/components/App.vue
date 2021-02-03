@@ -2,6 +2,7 @@
     <div class="main-page">
         <header>
             <div class="container">
+
                 <div class="header-logo">CARSERVICES.WEB</div>
                 <div class="header-location" @click.stop="startSelectCity">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -22,7 +23,7 @@
                     <div class="header-page-link" @click="register" id="register-link">
                         Зарегистрироваться
                     </div>
-                    <div class="header-page-link">
+                    <div class="header-page-link" @click="showAlert">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </div>
                     <div class="header-page-link" @click="login" id="login-link">
@@ -34,7 +35,7 @@
                     <div class="header-acc-reg">
                         <router-link :to="{ name: 'register' }">{{ email }}</router-link>
                     </div>
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fa fa-user" aria-hidden="true" @click="showAlert"></i>
                     <div class="header-acc-login" @click="logout" id="logout-link">
                         <router-link :to="{name: 'home'}">Выйти</router-link>
                     </div>
@@ -45,15 +46,20 @@
 
         <router-view></router-view>
         <popUp v-if="popUpComponent"></popUp>
+        <alert-comp ></alert-comp>
     </div>
 </template>
 
 <script>
 import popUp from './UI/PopUp.vue'
-
+import alertComp from "./UI/alertComp";
 
 export default {
 
+    data() { return {
+        alertMessage: "Привет из главного компонента"
+    }
+    },
     methods: {
         logout() {
             this.$store.dispatch('user/logout')
@@ -80,6 +86,11 @@ export default {
             })
         },
 
+        showAlert() {
+
+            this.$store.dispatch('alertAlert', {alertText: 'Это вылезло из меню'})
+        },
+
     },
     computed: {
         email: function () {
@@ -103,7 +114,8 @@ export default {
     },
 
     components: {
-        popUp
+        popUp,
+        alertComp
     }
 
 }
