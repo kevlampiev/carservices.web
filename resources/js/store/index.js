@@ -13,6 +13,7 @@ export default {
         city: null,
         cities: [],
         types: [],
+        alertText: '',
     },
 
     getters: {},
@@ -40,6 +41,13 @@ export default {
                 console.error(message)
             }
         },
+        alertAlert({commit}, payload) {
+            commit('setAlertText', payload.alertText)
+            setTimeout(()=>{
+                commit('setAlertText', '')
+            },2000)
+
+        }
 
 
     },
@@ -60,6 +68,9 @@ export default {
             state.types = types
         },
 
+        setAlertText(state, text) {
+            state.alertText=text
+        }
 
     }
 }

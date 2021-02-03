@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/php:7.4-node-browsers
+      - image: ericdowell/laravel-circleci:latest
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -24,6 +24,9 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Fix app folder permissions
+          command: sudo chmod -R 0777 storage/ && sudo chmod -R 0775 bootstrap/cache/ && sudo chmod 0775 public/robots.txt
 
       - run: sudo apt update  # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd

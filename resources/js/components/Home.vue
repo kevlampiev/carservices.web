@@ -1,5 +1,5 @@
 <template>
-    <div class="main-page">
+    <div class="main-page" >
 
         <div class="container">
             <div class="menu-wrapper">
@@ -83,7 +83,9 @@ export default {
 
         setNewCurrentType(newType) {
             this.currentType = newType
-        }
+        },
+
+
     },
     computed: {
         filteredServices: function () {
