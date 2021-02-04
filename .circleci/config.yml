@@ -101,7 +101,7 @@ jobs:
                command: php artisan key:generate
       - run:
           name: Install chrome driver into laravel
-          command: php artisan dusk:chrome-driver --latests
+          command: php artisan dusk:chrome-driver --latest
 #      - run:
 #          name: Start Chrome Driver
 #          command: ./vendor/laravel/dusk/bin/chromedriver-linux
