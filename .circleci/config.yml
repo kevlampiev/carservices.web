@@ -8,7 +8,7 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4-node-browsers
-      working_directory: ~/laravel
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -102,10 +102,10 @@ jobs:
       - run:
           name: Install chrome driver into laravel
           command: php artisan dusk:chrome-driver
-#      - run:
-#          name: Start Chrome Driver
-#          command: ./vendor/laravel/dusk/bin/chromedriver-linux
-#          background: true
+      - run:
+          name: Start Chrome Driver
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
       - run:
           name: Run Laravel Server
           command: php artisan serve
