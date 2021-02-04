@@ -27,6 +27,10 @@ class ClientLoginTest extends DuskTestCase
             ->email;
     }
 
+    public static function prepare()
+    {
+         static::startChromeDriver();
+    }
 
     /**
      *Тестирование нажание кнопки "Выход" из приложения
