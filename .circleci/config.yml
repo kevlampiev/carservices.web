@@ -80,7 +80,9 @@ jobs:
 
       # run tests with phpunit or codecept
       - run: php phpcs.phar --standard=psr2 ./app
-      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
+
+
+
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
 #      - run:
@@ -108,6 +110,8 @@ jobs:
           name: Run Laravel Server
           command: php artisan serve
           background: true
+
+      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
       - run:
           name: Run Laravel Dusk Tests
           command: php artisan dusk
