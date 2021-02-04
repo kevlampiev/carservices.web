@@ -112,7 +112,7 @@ jobs:
           background: true
 
 #      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
-      - run:
-          name: Run Laravel Dusk Tests
-          command: php artisan dusk
+#      - run:
+#          name: Run Laravel Dusk Tests
+#          command: php artisan dusk
 
