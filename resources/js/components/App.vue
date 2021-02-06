@@ -12,7 +12,7 @@
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
                 <div class="header-page-link" v-if="role==='owner'">
-                    <router-link :to="{ name: 'hello' }">Мои сервисы</router-link>
+                    <router-link :to="{ name: 'owner' }">Мои сервисы</router-link>
                 </div>
                 <div class="header-page-link" v-if="role==='admin'">
                     <a href="/admin">Раздел администратора</a>

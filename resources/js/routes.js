@@ -1,4 +1,4 @@
-const Hello = () => import('./components/Hello')
+const ownerPage = () => import('./components/OwnerPage')
 const Home = () => import('./components/Home')
 const Carservice = () => import('./components/Carservice')
 
@@ -14,9 +14,9 @@ const appRoutes = [
         component: Carservice,
     },
     {
-        path: '/hello',
-        name: 'hello',
-        component: Hello,
+        path: '/owner',
+        name: 'owner',
+        component: ownerPage,
     },
 ]
 
