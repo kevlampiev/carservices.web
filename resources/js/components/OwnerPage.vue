@@ -18,6 +18,7 @@
                 <div class="thick-frame move-up17">
                     <component :is="currentPage"> </component>
                 </div>
+                <div class="services-info-button-savechanges" id="services-info-button-savechanges">Сохранить изменения</div>
             </div>
         </div>
     </div>

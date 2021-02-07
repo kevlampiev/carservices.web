@@ -18,5 +18,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
- phpcbf.phar
- phpcs.phar
+phpcbf.phar
+phpcs.phar
+
+public/fonts/vendor/font-awesome/fontawesome-webfont.svg

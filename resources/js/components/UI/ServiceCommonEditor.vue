@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="services-info-button-savechanges" id="services-info-button-savechanges">Сохранить изменения</div>
+
     </div>
     </div>
 </template>
