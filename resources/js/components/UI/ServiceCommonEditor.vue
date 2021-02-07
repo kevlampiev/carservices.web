@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="services-info-editor-el">
         <div class="services-info-layout-1">
             <div class="services-info-field">
                 <div class="services-info-field-group">
