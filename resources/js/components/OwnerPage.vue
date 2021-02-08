@@ -4,21 +4,23 @@
             <div class="my-services-menu-wrapper">
                 <h3 class="my-services-menu-title section-title">Список сервисов</h3>
                 <div class="thick-frame">
-                    <SelectTypeBand :types="types" :currentType="currentType"
+                    <SelectTypeBand :types="carservices" :currentType="currentService.name"
                                     @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
                 </div>
                 <div class="my-services-menu-add-new">Добавить сервис</div>
             </div>
             <div class="services-info-wrapper">
-                <h3 class="services-info-title section-title">{{ currentType }}</h3>
+                <h3 class="services-info-title section-title">{{ currentService.name }}</h3>
                 <!-- Переключатель вкладок -->
                 <SelectTypeBand :types="bookmarks" :currentType="currentBookmark"
                                 @setNewCurrentType="setNewBookmark"></SelectTypeBand>
                 <!--Вкладка-->
                 <div class="thick-frame move-up17">
-                    <component :is="currentPage"> </component>
+                    <component :is="currentPage"></component>
                 </div>
-                <div class="services-info-button-savechanges" id="services-info-button-savechanges">Сохранить изменения</div>
+                <div class="services-info-button-savechanges" id="services-info-button-savechanges">Сохранить
+                    изменения
+                </div>
             </div>
         </div>
     </div>
@@ -37,7 +39,6 @@ export default {
                 {name: 'Шиномонтаж №1'},
                 {name: 'Автосервис 3'}
             ],
-            currentType: 'Шигномонтаж #12',
             bookmarks: [
                 {name: 'Общая информация'},
                 {name: 'Расписание'},
@@ -47,22 +48,32 @@ export default {
     },
     methods: {
         setNewCurrentType(newCurrentType) {
-            this.currentType=newCurrentType
+            this.currentType = newCurrentType
         },
         setNewBookmark(newCurrentBM) {
-            this.currentBookmark=newCurrentBM
+            this.currentBookmark = newCurrentBM
         },
     },
     computed: {
         currentPage() {
-            return (this.currentBookmark==='Общая информация')?ServiceCommonEditor:ScheduleTab
+            return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleTab
+        },
+        carservices() {
+          return this.$store.state.owner.carServiceList
+        },
+        currentService() {
+            return this.$store.state.owner.currentService
         },
     },
     components: {
         SelectTypeBand,
         ServiceCommonEditor,
         ScheduleTab,
-    }
+    },
+    mounted() {
+        this.$store.dispatch('owner/getServicesInfo')
+    },
+
 
 }
 

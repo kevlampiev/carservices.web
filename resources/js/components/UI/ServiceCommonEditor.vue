@@ -3,7 +3,8 @@
         <div class="services-info-layout-1">
             <div class="services-info-field">
                 <div class="services-info-field-group">
-                    <label for="services-info-field-input-company-name" class="services-info-field-label">Наименование</label>
+                    <label for="services-info-field-input-company-name"
+                           class="services-info-field-label">Наименование</label>
                     <input type="text" class="services-info-field-input" id="services-info-field-input-company-name">
                 </div>
                 <div class="services-info-field-group">
@@ -11,7 +12,8 @@
                     <input type="text" class="services-info-field-input" id="services-info-field-input-city">
                 </div>
                 <div class="services-info-field-group">
-                    <label for="services-info-field-input-street" class="services-info-field-label">Улица, дом / строение:</label>
+                    <label for="services-info-field-input-street" class="services-info-field-label">Улица, дом /
+                        строение:</label>
                     <input type="text" class="services-info-field-input" id="services-info-field-input-street">
                 </div>
                 <div class="services-info-field-group">
@@ -34,54 +36,59 @@
                     <label for="services-info-field-input-website" class="services-info-field-label">Website:</label>
                     <input type="text" class="services-info-field-input" id="services-info-field-input-website">
                 </div>
-                <label for="services-info-field-textarea" class="services-info-field-textarea-label">Общее описание:</label>
+                <label for="services-info-field-textarea" class="services-info-field-textarea-label">Общее
+                    описание:</label>
                 <textarea class="services-info-field-textarea" id="services-info-field-textarea"></textarea>
             </div>
         </div>
         <div class="services-info-layout-2">
-        <div class="services-info-types-wrapper">
-            <h3 class="services-info-types-title">Оказываемые услуги</h3>
-            <form class="services-info-types-list-form">
-                <div class="services-info-types-list-form-group">
-                    <label for="services-info-types-list-checkbox-carwash">
-                        <input type="checkbox" class="services-info-types-list-checkbox" id="services-info-types-list-checkbox-carwash">
-                        <span></span>
-                        Автомойка
-                    </label>
-                </div>
-                <div class="services-info-types-list-form-group">
-                    <label for="services-info-types-list-checkbox-tirefitting">
-                        <input type="checkbox" class="services-info-types-list-checkbox" id="services-info-types-list-checkbox-tirefitting">
-                        <span></span>
-                        Шиномонтаж
-                    </label>
-                </div>
-                <div class="services-info-types-list-form-group">
-                    <label for="services-info-types-list-checkbox-autoservice">
-                        <input type="checkbox" class="services-info-types-list-checkbox" id="services-info-types-list-checkbox-autoservice">
-                        <span></span>
-                        Автосервис
-                    </label>
-                </div>
-                <div class="services-info-types-list-form-group">
-                    <label for="services-info-types-list-checkbox-tirestorage">
-                        <input type="checkbox" class="services-info-types-list-checkbox" id="services-info-types-list-checkbox-tirestorage">
-                        <span></span>
-                        Хранение шин
-                    </label>
-                </div>
-            </form>
-        </div>
-        <div class="services-info-photo-wrapper">
-            <h3 class="services-info-photo-title">Фотография</h3>
-            <div class="services-info-photo-field">
-                <div class="services-info-photo-field-placeholder">
-                    Щелкните здесь чтобы добавить или изменить фото
+            <div class="services-info-types-wrapper">
+                <h3 class="services-info-types-title">Оказываемые услуги</h3>
+                <form class="services-info-types-list-form">
+                    <div class="services-info-types-list-form-group">
+                        <label for="services-info-types-list-checkbox-carwash">
+                            <input type="checkbox" class="services-info-types-list-checkbox"
+                                   id="services-info-types-list-checkbox-carwash">
+                            <span></span>
+                            Автомойка
+                        </label>
+                    </div>
+                    <div class="services-info-types-list-form-group">
+                        <label for="services-info-types-list-checkbox-tirefitting">
+                            <input type="checkbox" class="services-info-types-list-checkbox"
+                                   id="services-info-types-list-checkbox-tirefitting">
+                            <span></span>
+                            Шиномонтаж
+                        </label>
+                    </div>
+                    <div class="services-info-types-list-form-group">
+                        <label for="services-info-types-list-checkbox-autoservice">
+                            <input type="checkbox" class="services-info-types-list-checkbox"
+                                   id="services-info-types-list-checkbox-autoservice">
+                            <span></span>
+                            Автосервис
+                        </label>
+                    </div>
+                    <div class="services-info-types-list-form-group">
+                        <label for="services-info-types-list-checkbox-tirestorage">
+                            <input type="checkbox" class="services-info-types-list-checkbox"
+                                   id="services-info-types-list-checkbox-tirestorage">
+                            <span></span>
+                            Хранение шин
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="services-info-photo-wrapper">
+                <h3 class="services-info-photo-title">Фотография</h3>
+                <div class="services-info-photo-field">
+                    <div class="services-info-photo-field-placeholder">
+                        Щелкните здесь чтобы добавить или изменить фото
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     </div>
 </template>
 
