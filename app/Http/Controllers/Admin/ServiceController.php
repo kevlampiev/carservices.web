@@ -8,6 +8,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -38,7 +39,14 @@ class ServiceController extends Controller
             'telegram' => 'required|string',
             'skype' => 'required|string'
         ]);
+        $name = null;
         $service = new Service;
+        if ($request->file('image')) {
+            $path = \Storage::putFile('public/images', $request->file('image'));
+            $name = \Storage::url($path);
+
+        }
+        $service->img_link = $name;
         $result = $service->fill($request->all())->save();
         if ($result) {
             return redirect()->route('admin.services.index');
@@ -81,6 +89,8 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
+//        dd($request->file('image'));
+//        dd($service);
         $request->validate([
             'name' => 'required|string|min:3',
             'city' => 'required|string|min:3',
@@ -92,7 +102,19 @@ class ServiceController extends Controller
             'telegram' => 'required|string',
             'skype' => 'required|string'
         ]);
-        $result = $service->fill($request->all())->save();
+        if ($request->file('image')) {
+//            $strArray = explode('/', $service->img_link);
+//            Storage::delete($strArray[3]);
+            $path = $request->file('image')->store('public/images');
+//            dd($path);
+//            $path = Storage::putFile('public/images', $request->file('image'));
+            $name = Storage::url($path);
+            dd($name);
+            $service->img_link = $name;
+        }
+
+        $result = $service->fill($request->all())->update();
+
         if ($result) {
             return redirect()->route('admin.services.index');
         }

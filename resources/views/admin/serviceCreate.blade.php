@@ -35,6 +35,11 @@
             <input type="text" name="address" id="Address" class="form-control" style="margin-bottom: 10px;">
             <label for="textarea">Описание</label>
             <textarea class="form-control" name="description" id="textarea" rows="5"></textarea>
+
+            <div class="input-group mb-3" style="margin-top: 20px;">
+                <input type="file" class="form-control" id="inputGroupFile02" name="image">
+                <label class="input-group-text" for="inputGroupFile02">Добавить фото</label>
+            </div>
             <label for="Site">Сайт</label>
             @if ($errors->has('site'))
                 <div class="alert alert-danger" role="alert">

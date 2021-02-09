@@ -7,6 +7,12 @@
         @csrf
         <div class="mb-3">
             <h1 class="h3 mb-3 font-weight-normal">Форма редактирования сервиса</h1>
+            <h4>Фотография сервиса</h4>
+            <img src="{{ $service['img_link'] }}" alt="photo">
+            <div class="input-group mb-3" style="margin-top: 20px;">
+                <input type="file" class="form-control" id="inputGroupFile02" name="image">
+                <label class="input-group-text" for="inputGroupFile02">Загрузить новое фото</label>
+            </div>
             <label for="Name">Название</label>
             @if ($errors->has('name'))
                 <div class="alert alert-danger" role="alert">
