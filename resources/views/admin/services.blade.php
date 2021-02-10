@@ -37,7 +37,7 @@
                 </form>
             </div>
         @endforeach
-        {{ $services->links() }}
     </div>
+    {{ $services->links() }}
 
 @endsection

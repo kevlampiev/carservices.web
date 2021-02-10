@@ -89,8 +89,6 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-//        dd($request->file('image'));
-//        dd($service);
         $request->validate([
             'name' => 'required|string|min:3',
             'city' => 'required|string|min:3',
@@ -106,10 +104,7 @@ class ServiceController extends Controller
 //            $strArray = explode('/', $service->img_link);
 //            Storage::delete($strArray[3]);
             $path = $request->file('image')->store('public/images');
-//            dd($path);
-//            $path = Storage::putFile('public/images', $request->file('image'));
             $name = Storage::url($path);
-            dd($name);
             $service->img_link = $name;
         }
 
