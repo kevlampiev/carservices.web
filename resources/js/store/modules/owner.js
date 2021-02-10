@@ -2,13 +2,21 @@ export default {
     namespaced: true,
     state: () => ({
         carServiceList: [],
-        currentService: null
+        currentService: {
+            id:null,
+            name: null
+        }
     }),
     mutations: {
         setCarServiceList(state, list) {
             state.carServiceList = list
             state.currentService = list[0]
-        }
+        },
+
+        setCurrentServiceByName(state, serviceName) {
+            state.currentService = state.carServiceList.find(
+                item => item.name === serviceName)
+        },
     },
     actions: {
         getServicesInfo({commit}) {
@@ -20,6 +28,8 @@ export default {
                     alert('/api/owner/services/  error!')
                 })
         },
+
+
 
     },
 

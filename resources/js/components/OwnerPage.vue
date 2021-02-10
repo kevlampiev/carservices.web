@@ -5,7 +5,7 @@
                 <h3 class="my-services-menu-title section-title">Список сервисов</h3>
                 <div class="thick-frame">
                     <SelectTypeBand :types="carservices" :currentType="currentService.name"
-                                    @setNewCurrentType="setNewCurrentType"></SelectTypeBand>
+                                    @setNewCurrentType="setNewCurrentService"></SelectTypeBand>
                 </div>
                 <div class="my-services-menu-add-new">Добавить сервис</div>
             </div>
@@ -28,17 +28,12 @@
 
 <script>
 import SelectTypeBand from './UI/SelectTypeBand'
-import ScheduleTab from "./UI/ScheduleTab"
+import ScheduleOwnerTab from "./UI/ScheduleOwnerTab"
 import ServiceCommonEditor from "./UI/ServiceCommonEditor";
 
 export default {
     data() {
         return {
-            types: [
-                {name: 'Шигномонтаж #12'},
-                {name: 'Шиномонтаж №1'},
-                {name: 'Автосервис 3'}
-            ],
             bookmarks: [
                 {name: 'Общая информация'},
                 {name: 'Расписание'},
@@ -47,16 +42,17 @@ export default {
         }
     },
     methods: {
-        setNewCurrentType(newCurrentType) {
-            this.currentType = newCurrentType
+        setNewCurrentService(newCurrentService) {
+            this.$store.commit('owner/setCurrentServiceByName',newCurrentService)
         },
+
         setNewBookmark(newCurrentBM) {
             this.currentBookmark = newCurrentBM
         },
     },
     computed: {
         currentPage() {
-            return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleTab
+            return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleOwnerTab
         },
         carservices() {
           return this.$store.state.owner.carServiceList
@@ -64,14 +60,17 @@ export default {
         currentService() {
             return this.$store.state.owner.currentService
         },
+        allTypes() {
+            return this.$store.state.types
+        },
     },
     components: {
         SelectTypeBand,
         ServiceCommonEditor,
-        ScheduleTab,
+        ScheduleOwnerTab,
     },
-    mounted() {
-        this.$store.dispatch('owner/getServicesInfo')
+    async mounted() {
+        await this.$store.dispatch('owner/getServicesInfo')
     },
 
 

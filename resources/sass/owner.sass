@@ -124,7 +124,7 @@
     margin-top: 10px
     padding-left: 5px
     width: 100%
-    height: 100px
+    height: 150px
     outline: none
     border: 2px solid $color-main
     font-size: 15px
@@ -221,12 +221,19 @@
         .services-info-photo-field
             position: relative
             margin-top: 20px
-            height: 155px
+            height: 280px
             width: 100%
             background-color: $color-light-grey
             border: 2px solid $color-light-grey
             cursor: pointer
             border-radius: 8px
+            overflow: hidden
+
+            img
+                width: 279px
+                height: 279px
+                object-fit: cover
+                opacity: 0.3
 
             .services-info-photo-field-placeholder
                 position: absolute
