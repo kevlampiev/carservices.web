@@ -30,7 +30,7 @@ class UserController extends Controller
             'role' => 'required|in:user,owner,admin'
         ]);
 
-        $user = new User;
+        $user = new User();
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,

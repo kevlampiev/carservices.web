@@ -41,7 +41,7 @@ class OrderController extends Controller
         );
         $user = User::query()->where('name', $request->name)->first();
 //        dd($user);
-        $order = new Order;
+        $order = new Order();
         $order->fill(
             [
                 'user_id' => $user->id,
