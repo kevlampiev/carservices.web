@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         setNewCurrentService(newCurrentService) {
-            this.$store.commit('owner/setCurrentServiceByName',newCurrentService)
+            this.$store.dispatch('owner/findOwnerServiceByName',newCurrentService)
         },
 
         setNewBookmark(newCurrentBM) {
@@ -58,7 +58,7 @@ export default {
           return this.$store.state.owner.carServiceList
         },
         currentService() {
-            return this.$store.state.owner.currentService
+            return this.$store.state.currentService.commonInfo
         },
         allTypes() {
             return this.$store.state.types

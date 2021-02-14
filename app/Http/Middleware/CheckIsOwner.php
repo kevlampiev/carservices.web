@@ -17,7 +17,7 @@ class CheckIsOwner
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role!=='owner') {
+        if (Auth::user()->role !== 'owner') {
             return response()->json('You must be a services owner to handle it...');
         }
         return $next($request);

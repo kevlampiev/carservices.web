@@ -45,15 +45,17 @@ export default {
     ],
     methods: {
         dayForward: function () {
-            this.$store.commit('setStartDate', {
+            this.$store.commit('currentService/setStartDate', {
                 date: moment(this.dateStart).add(1, 'days')
-            })
+            },{root: true})
         },
 
         dayBack: function () {
-            this.$store.commit('setStartDate', {
+            this.$store.commit('currentService/setStartDate', {
                 date: moment(this.dateStart).add(-1, 'days')
-            })
+            },
+                {root: true}
+                )
         },
 
         formatTime: function (time) {

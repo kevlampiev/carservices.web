@@ -1,6 +1,6 @@
 <template>
     <div class="company-about">
-        <img class="company-about-img" :src="'storage/img/photos/'+description.img_link" alt="">
+        <img class="company-about-img" :src="'/storage/img/photos/'+description.img_link" alt="">
         <div class="company-about-info-wrapper">
             <h2 class="company-about-info-name">{{ description.name }}</h2>
             <div class="company-about-info-line">

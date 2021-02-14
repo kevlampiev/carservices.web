@@ -113,11 +113,12 @@ export default {
     props: ['description'],
     computed: {
         currentService() {
-            return this.$store.state.owner.currentService
+            return this.$store.state.currentService.commonInfo
         },
         types() {
             let result=[]
-            const sTypes=this.$store.state.owner.currentService.types
+            const sTypes=this.$store.state.currentService.types
+            if (!sTypes) return [] //Это если еще ене прогрузился элемент
             this.$store.state.types.forEach(
                 (el,index)=>{
                     if (index>0) {
