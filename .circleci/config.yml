@@ -115,5 +115,9 @@ jobs:
           background: true
       - run:
           name: Run Laravel Dusk Tests
-          command: php artisan dusk
+          command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
+
+      - store_artifacts:
+          path: tests/Browser/screenshots
+          destination: screenshots
 
