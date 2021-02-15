@@ -55,6 +55,7 @@ jobs:
             - v1-dependencies-
 
       - run: composer install -n --prefer-dist
+      - run: ./vendor/laravel/dusk/bin/chromedriver-linux -v
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
