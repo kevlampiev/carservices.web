@@ -84,6 +84,20 @@ export default {
             state.currentType = service.currentType
         },
 
+        /**
+         * Особая функция для случая, когда возвращается набор для владельца сервисов
+         */
+        setOwnerCurrentService(state, service){
+            state.commonInfo=service
+            state.selectedSchedule=null //?????
+            state.schedules=service.schedules
+            state.types=service.types
+
+            state.startDate=(new Date()).setHours(0, 0, 0, 0)
+            state.currentType = service.types[0].name
+
+        },
+
         setStartDate(state, newDate) {
             let days = moment(newDate.date).diff(moment(), 'days')
             if ((days >= 0) && (days < 13)) {

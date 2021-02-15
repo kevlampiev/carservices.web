@@ -2,10 +2,12 @@ import moment from 'moment'
 import currentService from './modules/currentService'
 import user from './modules/user'
 import popUp from './modules/popUp'
+import owner from "./modules/owner";
 
 export default {
     modules: {
         user,
+        owner,
         popUp,
         currentService,
     },

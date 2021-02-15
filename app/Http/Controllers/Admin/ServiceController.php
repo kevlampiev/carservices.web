@@ -38,7 +38,7 @@ class ServiceController extends Controller
             'telegram' => 'required|string',
             'skype' => 'required|string'
         ]);
-        $service = new Service;
+        $service = new Service();
         $result = $service->fill($request->all())->save();
         if ($result) {
             return redirect()->route('admin.services.index');

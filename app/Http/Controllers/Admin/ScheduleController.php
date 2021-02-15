@@ -34,7 +34,7 @@ class ScheduleController extends Controller
             'service_id' => 'required|exists:services,id',
             'service_type_id' => 'required|exists:types,id'
         ]);
-        $schedule = new Schedule;
+        $schedule = new Schedule();
 
         $schedule->fill($request->all());
 

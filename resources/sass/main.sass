@@ -115,7 +115,7 @@ header
             .menu-search
                 @extend %setup-box-round-corners, %setup-box-shadow
                 margin-top: 30px
-                padding: 15px 20px 15px 20px
+                //padding: 15px 20px 15px 20px
                 display: flex
                 align-items: center
                 padding: 5px
@@ -280,197 +280,197 @@ header
                     font-weight: 400
                     font-size: 18px
 
-        .company-calendar
-            @extend %setup-box-round-corners, %setup-box-shadow
-            width: calc(50% - 15px)
-            margin: 30px 0 0 15px
-            padding: 20px
+.company-calendar
+    @extend %setup-box-round-corners, %setup-box-shadow
+    width: calc(50% - 15px)
+    margin: 30px 0 0 15px
+    padding: 20px
 
-            .company-calendar-title
-                width: 100%
-                text-align: center
-                color: $color-black
-                font-size: 22px
-                font-weight: 600
+.company-calendar-title
+    width: 100%
+    text-align: center
+    color: $color-black
+    font-size: 22px
+    font-weight: 600
 
-            .company-calendar-month
-                width: 100%
-                margin: 5px 0 5px 0
-                text-align: center
-                color: $color-black
-                font-weight: 400
-                font-size: 16px
+.company-calendar-month
+    width: 100%
+    margin: 5px 0 5px 0
+    text-align: center
+    color: $color-black
+    font-weight: 400
+    font-size: 16px
 
-            .company-calendar-week-wrapper
-                width: 100%
-                position: relative
-                display: flex
-                justify-content: space-around
-                padding-bottom: 10px
-                border-bottom: 2px solid $color-light-grey
-                font-size: 16px
-                font-weight: 400
-                color: $color-black
+.company-calendar-week-wrapper
+    width: 100%
+    position: relative
+    display: flex
+    justify-content: space-around
+    padding-bottom: 10px
+    border-bottom: 2px solid $color-light-grey
+    font-size: 16px
+    font-weight: 400
+    color: $color-black
 
-                .company-calendar-week-arrow-back
-                    position: absolute
-                    top: 16px
-                    left: -15px
-                    transform: rotate(180deg)
-                    cursor: pointer
-                    height: 25px
-                    width: 10px
+    .company-calendar-week-arrow-back
+        position: absolute
+        top: 16px
+        left: -15px
+        transform: rotate(180deg)
+        cursor: pointer
+        height: 25px
+        width: 10px
 
-                .company-calendar-week-arrow-forward
-                    position: absolute
-                    top: 16px
-                    right: -15px
-                    cursor: pointer
-                    height: 25px
-                    width: 10px
+    .company-calendar-week-arrow-forward
+        position: absolute
+        top: 16px
+        right: -15px
+        cursor: pointer
+        height: 25px
+        width: 10px
 
-                .company-calendar-week-date-wrapper
-                    display: flex
-                    flex-direction: column
-                    align-items: center
-                    min-width: 60px
+    .company-calendar-week-date-wrapper
+        display: flex
+        flex-direction: column
+        align-items: center
+        min-width: 60px
 
-                    .company-calendar-week-date-name
-                        color: $color-black
+        .company-calendar-week-date-name
+            color: $color-black
 
-                    .company-calendar-week-date-number
-                        color: $color-grey
-                        padding-top: 5px
-                        border-radius: 50%
-                        cursor: pointer
-                        width: 32px
-                        height: 32px
-                        text-align: center
-                        font-weight: 600
+        .company-calendar-week-date-number
+            color: $color-grey
+            padding-top: 5px
+            border-radius: 50%
+            cursor: pointer
+            width: 32px
+            height: 32px
+            text-align: center
+            font-weight: 600
 
-                        &:hover
-                            background-color: $color-main
-                            color: $color-white
+            &:hover
+                background-color: $color-main
+                color: $color-white
 
-                        &:active
-                            transform: translateY(1px) translateX(1px)
+            &:active
+                transform: translateY(1px) translateX(1px)
 
-                    .company-calendar-week-date-number-active
-                        color: $color-white
-                        background-color: $color-main
+        .company-calendar-week-date-number-active
+            color: $color-white
+            background-color: $color-main
 
-                    .company-calendar-week-date-number-off
-                        color: $color-red
-                        cursor: default
+        .company-calendar-week-date-number-off
+            color: $color-red
+            cursor: default
 
-                        &:hover
-                            background-color: transparent
-                            color: $color-red
-                            cursor: default
+            &:hover
+                background-color: transparent
+                color: $color-red
+                cursor: default
 
-                        &:active
-                            transform: translateY(0px) translateX(0px)
+            &:active
+                transform: translateY(0px) translateX(0px)
 
-            .company-calendar-time-wrapper
-                width: 100%
-                padding-bottom: 15px
-                border-bottom: 2px solid $color-light-grey
-                font-size: 16px
-                font-weight: 400
-                color: $color-black
-                display: flex
-                justify-content: space-around
+.company-calendar-time-wrapper
+    width: 100%
+    padding-bottom: 15px
+    border-bottom: 2px solid $color-light-grey
+    font-size: 16px
+    font-weight: 400
+    color: $color-black
+    display: flex
+    justify-content: space-around
 
-                .company-calendar-time-column
-                    display: flex
-                    margin-top: 15px
-                    width: 60px
-                    flex-wrap: wrap
+    .company-calendar-time-column
+        display: flex
+        margin-top: 15px
+        width: 60px
+        flex-wrap: wrap
 
-                    .company-calendar-time-block
-                        @extend %setup-box-round-corners
-                        min-width: 60px
-                        padding: 3px
-                        border: 2px solid $color-light-grey
-                        text-align: center
-                        cursor: pointer
-                        height: 35px
+        .company-calendar-time-block
+            @extend %setup-box-round-corners
+            min-width: 60px
+            padding: 3px
+            border: 2px solid $color-light-grey
+            text-align: center
+            cursor: pointer
+            height: 35px
 
-                        &:hover
-                            background-color: $color-main
-                            color: $color-white
-                            border: 2px solid $color-main
+            &:hover
+                background-color: $color-main
+                color: $color-white
+                border: 2px solid $color-main
 
-                        &:active
-                            transform: translateY(1px) translateX(1px)
+            &:active
+                transform: translateY(1px) translateX(1px)
 
-                    .company-calendar-time-block-active
-                        background-color: $color-main
-                        color: $color-white
-                        border: 2px solid $color-main
+        .company-calendar-time-block-active
+            background-color: $color-main
+            color: $color-white
+            border: 2px solid $color-main
 
-                    .company-calendar-time-block-off
-                        background-color: $color-light-grey
-                        color: $color-grey
-                        cursor: default
+        .company-calendar-time-block-off
+            background-color: $color-light-grey
+            color: $color-grey
+            cursor: default
 
-                        &:hover
-                            background-color: $color-light-grey
-                            color: $color-grey
-                            border: 2px solid $color-light-grey
-                            cursor: default
+            &:hover
+                background-color: $color-light-grey
+                color: $color-grey
+                border: 2px solid $color-light-grey
+                cursor: default
 
-                        &:active
-                            transform: translateY(0px) translateX(0px)
+            &:active
+                transform: translateY(0px) translateX(0px)
 
-            .company-calendar-subtitle
-                margin-top: 10px
-                width: 100%
-                text-align: center
-                color: $color-black
-                font-size: 22px
-                font-weight: 600
+.company-calendar-subtitle
+    margin-top: 10px
+    width: 100%
+    text-align: center
+    color: $color-black
+    font-size: 22px
+    font-weight: 600
 
-            .company-calendar-services-wrapper
-                margin-top: 10px
-                display: flex
-                justify-content: space-around
-                font-weight: 600
-                font-size: 15px
+.company-calendar-services-wrapper
+    margin-top: 10px
+    display: flex
+    justify-content: space-around
+    font-weight: 600
+    font-size: 15px
 
-                .company-calendar-services-block
-                    @extend %setup-box-round-corners
-                    min-width: 60px
-                    padding: 10px
-                    border: 2px solid $color-light-grey
-                    cursor: pointer
+    .company-calendar-services-block
+        @extend %setup-box-round-corners
+        min-width: 60px
+        padding: 10px
+        border: 2px solid $color-light-grey
+        cursor: pointer
 
-                    &:hover
-                        background-color: $color-main
-                        border: 2px solid $color-main
-                        color: $color-white
+        &:hover
+            background-color: $color-main
+            border: 2px solid $color-main
+            color: $color-white
 
-                    &:active
-                        transform: translateY(1px) translateX(1px)
+        &:active
+            transform: translateY(1px) translateX(1px)
 
-                .company-calendar-services-block-off
-                    color: $color-grey
-                    background-color: $color-light-grey
-                    cursor: default
+    .company-calendar-services-block-off
+        color: $color-grey
+        background-color: $color-light-grey
+        cursor: default
 
-                    &:hover
-                        color: $color-grey
-                        background-color: $color-light-grey
-                        border: 2px solid $color-light-grey
-                        cursor: default
+        &:hover
+            color: $color-grey
+            background-color: $color-light-grey
+            border: 2px solid $color-light-grey
+            cursor: default
 
-                    &:active
-                        transform: translateY(0px) translateX(0px)
+        &:active
+            transform: translateY(0px) translateX(0px)
 
-                .company-calendar-services-block-active
-                    color: $color-white
-                    background-color: $color-main
-                    border: 2px solid $color-main
+    .company-calendar-services-block-active
+        color: $color-white
+        background-color: $color-main
+        border: 2px solid $color-main
 
 
 .overlay
@@ -846,7 +846,7 @@ header
     background-color: transparent
     margin: 0 25px
     text-transform: uppercase
-    text-transform: uppercase
+//text-transform: uppercase
 
 
 .company-entry-block-row
@@ -921,10 +921,15 @@ header
     .title-block
         margin: 0
         width: 100%
-        padding: 5px 0px 5px 5px
+        padding: 5px 0 5px 5px
 
     .city-list-container
         overflow: hidden
 
 .full-width
     width: 100%
+
+.current-page-link
+    font-weight: 800
+    font-size: larger
+    text-decoration: underline

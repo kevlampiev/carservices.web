@@ -41,7 +41,7 @@ class OrderController extends Controller
         );
         $user = User::query()->where('name', $request->name)->first();
 //        dd($user);
-        $order = new Order;
+        $order = new Order();
         $order->fill(
             [
                 'user_id' => $user->id,
@@ -73,7 +73,7 @@ class OrderController extends Controller
 //        dd($request);
         $request->validate(
             [
-            //                'name' => 'required|exists:users,name',
+                //                'name' => 'required|exists:users,name',
                 'car_model' => 'required|string|min:2',
                 'license_plate_number' => 'required|string|min:6',
                 'status' => 'required|in:in_waiting,confirmed,deny'
@@ -81,7 +81,7 @@ class OrderController extends Controller
         );
         $order = $order->fill(
             [
-            //                'user_id' => $user->id,
+                //                'user_id' => $user->id,
                 'car_model' => $request->car_model,
                 'license_plate_number' => $request->license_plate_number,
                 'description' => $request->description,

@@ -1,0 +1,411 @@
+.admin-page
+    .container
+        display: flex
+
+        .my-services-menu-wrapper
+            margin-top: 30px
+            min-width: 200px
+            max-width: 200px
+
+            .my-services-menu-title
+                font-size: 16px
+                font-weight: 600
+                text-align: center
+
+            .my-services-menu-ul
+                margin-top: 30px
+                box-shadow: 0 1px 32px 0 rgba(0, 0, 0, .1)
+                font-weight: 600
+                border-radius: 8px
+                display: flex
+                flex-wrap: wrap
+
+                .my-services-menu-li
+                    padding: 10px 20px 10px 20px
+                    list-style-type: none
+                    cursor: pointer
+                    flex-grow: 1
+
+                    &:hover
+                        background-color: #007236
+                        color: $color-white
+
+                    &:first-of-type
+                        padding-top: 15px
+                        border-top-left-radius: 8px
+                        border-top-right-radius: 8px
+
+                    &:last-of-type
+                        padding-bottom: 15px
+                        border-bottom-left-radius: 8px
+                        border-bottom-right-radius: 8px
+
+            .my-services-menu-add-new
+                background-color: #007236
+                color: $color-white
+                margin-top: 30px
+                padding: 10px 20px 10px 20px
+                min-width: 200px
+                max-width: 200px
+                box-shadow: 0 1px 32px 0 rgba(0, 0, 0, .1)
+                border-radius: 8px
+                cursor: pointer
+                text-align: center
+
+.services-info-editor-el
+    display: flex
+    flex-wrap: wrap
+
+.services-info-wrapper
+    margin: 30px 0 0 30px
+    width: calc(100% - 30px)
+
+.services-info-title
+    text-align: center
+    width: calc(100% - 30px)
+    font-size: 16px
+    font-weight: 600
+
+.services-info-selector
+    margin-top: 30px
+    display: flex
+    border-radius: 8px
+    border: 2px solid $color-main
+
+.services-info-selector-choice
+    width: 50%
+    padding: 10px
+    text-align: center
+    cursor: pointer
+    font-weight: 600
+
+    &:hover
+        background-color: #007236
+        color: $color-white
+
+.services-info-selector-choice-active
+    background-color: #007236
+    color: $color-white
+
+.services-info-layout
+    display: flex
+    margin-top: 30px
+    padding: 20px
+    @extend %setup-box-round-corners, %setup-box-shadow
+
+.services-info-layout-1
+    width: 60%
+    padding: 0 25px 0 0
+
+.services-info-field
+    display: flex
+    flex-direction: column
+
+.services-info-field-group
+    margin-top: 20px
+    width: 100%
+    display: flex
+    justify-content: space-between
+
+    .services-info-field-label
+        .services-info-field-input
+            width: 250px
+            height: 30px
+            padding-left: 5px
+            outline: none
+            border: 2px solid $color-main
+            font-size: 15px
+            border-radius: 4px
+
+.services-info-field-textarea-label
+    margin-top: 10px
+
+.services-info-field-textarea
+    margin-top: 10px
+    padding-left: 5px
+    width: 100%
+    height: 150px
+    outline: none
+    border: 2px solid $color-main
+    font-size: 15px
+    resize: none
+    border-radius: 4px
+
+.services-info-layout-2
+    width: 35%
+    padding: 0 0 0 25px
+
+    .services-info-types-wrapper
+        margin-top: 20px
+
+        .services-info-types-title
+            width: 100%
+            font-size: 16px
+            font-weight: 600
+            text-align: center
+
+        .services-info-types-list-form
+            margin-top: 20px
+            border: 2px solid $color-main
+            border-radius: 8px
+            padding: 0 25px 25px 25px
+
+            .services-info-types-list-form-group
+                label
+                    display: block
+                    position: relative
+                    margin-top: 20px
+                    padding-left: 30px
+                    cursor: pointer
+                    -webkit-user-select: none
+                    -moz-user-select: none
+                    -ms-user-select: none
+                    user-select: none
+                    white-space: nowrap
+
+                    input
+                        position: absolute
+                        opacity: 0
+                        cursor: pointer
+                        height: 0
+                        width: 0
+
+                    span
+                        position: absolute
+                        top: 0
+                        left: 0
+                        height: 20px
+                        width: 20px
+                        background-color: #ffffff
+                        border-radius: 4px
+                        border: 2px solid #f2f2f2
+
+                label
+                    &:hover
+                        span
+                            border: 2px solid #007236
+
+                    input:checked ~ span
+                        background-color: #007236
+                        border: 2px solid #007236
+
+                    span:after
+                        content: ""
+                        position: absolute
+                        display: none
+
+                label
+                    input:checked ~ span:after
+                        display: block
+
+                    span:after
+                        left: 4px
+                        top: 0
+                        width: 5px
+                        height: 10px
+                        border: solid white
+                        border-width: 0 3px 3px 0
+                        -webkit-transform: rotate(45deg)
+                        -ms-transform: rotate(45deg)
+                        transform: rotate(45deg)
+
+    .services-info-photo-wrapper
+        margin-top: 20px
+
+        .services-info-photo-title
+            width: 100%
+            font-size: 16px
+            font-weight: 600
+            text-align: center
+
+        .services-info-photo-field
+            position: relative
+            margin-top: 20px
+            height: 280px
+            width: 100%
+            background-color: $color-light-grey
+            border: 2px solid $color-light-grey
+            cursor: pointer
+            border-radius: 8px
+            overflow: hidden
+
+            img
+                width: 279px
+                height: 279px
+                object-fit: cover
+                opacity: 0.3
+
+            .services-info-photo-field-placeholder
+                position: absolute
+                width: 170px
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+                text-align: center
+
+.services-info-button-savechanges
+    margin-top: 20px
+    width: 100%
+    border-radius: 8px
+    background-color: $color-main
+    color: $color-white
+    padding: 10px 20px 10px 20px
+    cursor: pointer
+    box-shadow: 0 1px 32px 0 rgba(0, 0, 0, .1)
+    text-align: center
+
+.services-info-layout-3
+    width: 100%
+
+    .company-calendar-title
+        width: 100%
+        text-align: center
+        color: $color-black
+        font-size: 22px
+        font-weight: 600
+
+    .company-calendar-month
+        width: 100%
+        margin: 5px 0 5px 0
+        text-align: center
+        color: $color-black
+        font-weight: 400
+        font-size: 16px
+
+    .company-calendar-week-wrapper
+        width: 100%
+        position: relative
+        display: flex
+        justify-content: space-around
+        padding-bottom: 10px
+        border-bottom: 2px solid $color-light-grey
+        font-size: 16px
+        font-weight: 400
+        color: $color-black
+
+        .company-calendar-week-arrow-back
+            position: absolute
+            top: 16px
+            left: -15px
+            transform: rotate(180deg)
+            cursor: pointer
+
+        .company-calendar-week-arrow-forward
+            position: absolute
+            top: 16px
+            right: -15px
+            cursor: pointer
+
+        .company-calendar-week-date-wrapper
+            display: flex
+            flex-direction: column
+            align-items: center
+            min-width: 60px
+
+            .company-calendar-week-date-name
+                color: $color-black
+
+            .company-calendar-week-date-number
+                color: $color-grey
+                padding-top: 5px
+                border-radius: 50%
+                cursor: pointer
+                width: 32px
+                height: 32px
+                text-align: center
+                font-weight: 600
+
+                &:hover
+                    background-color: $color-main
+                    color: $color-white
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+            .company-calendar-week-date-number-active
+                color: $color-white
+                background-color: $color-main
+
+            .company-calendar-week-date-number-off
+                color: $color-red
+                cursor: default
+
+                &:hover
+                    background-color: transparent
+                    color: $color-red
+                    cursor: default
+
+                &:active
+                    transform: translateY(0px) translateX(0px)
+
+    .company-calendar-time-wrapper
+        width: 100%
+        padding-bottom: 15px
+        border-bottom: 2px solid $color-light-grey
+        font-size: 16px
+        font-weight: 400
+        color: $color-black
+
+        .company-calendar-time-row
+            display: flex
+            justify-content: space-around
+            margin-top: 15px
+
+            .company-calendar-time-block
+                @extend %setup-box-round-corners
+                min-width: 60px
+                padding: 3px
+                border: 2px solid $color-light-grey
+                text-align: center
+                cursor: pointer
+
+                &:hover
+                    background-color: $color-main
+                    color: $color-white
+                    border: 2px solid $color-main
+
+                &:active
+                    transform: translateY(1px) translateX(1px)
+
+            .company-calendar-time-block-active
+                background-color: $color-main
+                color: $color-white
+                border: 2px solid $color-main
+
+            .company-calendar-time-block-off
+                background-color: $color-light-grey
+                color: $color-grey
+                cursor: default
+
+                &:hover
+                    background-color: $color-light-grey
+                    color: $color-grey
+                    border: 2px solid $color-light-grey
+                    cursor: default
+
+                &:active
+                    transform: translateY(0px) translateX(0px)
+
+    .services-info-schedule-button
+        margin-top: 20px
+        width: 100%
+        border-radius: 8px
+        background-color: $color-main
+        color: $color-white
+        padding: 10px 20px 10px 20px
+        cursor: pointer
+        box-shadow: 0 1px 32px 0 rgba(0, 0, 0, .1)
+        text-align: center
+
+
+.thick-frame
+    border: 1px solid $color-main
+    padding: 10px
+
+.move-up17
+    margin-top: -17px
+
+.section-title
+    font-weight: 800
+    color: $color-main
+    font-size: 18px !important
