@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/php:7.4-node-browsers
+      - image: ericdowell/laravel-circleci:latest
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -21,16 +21,12 @@ jobs:
           MYSQL_DATABASE: carservices # forge - это было
           MYSQL_ROOT_PASSWORD: ''
           MYSQL_PASSWORD: 'forge'
-      #
-      # - image: redis:2.8.19
-    #      - image: circleci/mysql:5.7-ram
-    #        environment:
-    #          MYSQL_USER: admin
-    #          MYSQL_PASSWORD: admin
-    #          MYSQL_DATABASE: carservices
 
     steps:
       - checkout
+      - run:
+          name: Fix app folder permissions
+          command: sudo chmod -R 0777 storage/ && sudo chmod -R 0775 bootstrap/cache/ && sudo chmod 0775 public/robots.txt
 
       - run: sudo apt update  # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
@@ -84,6 +80,33 @@ jobs:
 
       # run tests with phpunit or codecept
       - run: php phpcs.phar --standard=psr2 ./app
-      #- run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
+      - run: php vendor/phpunit/phpunit/phpunit --no-configuration tests
       #- run: ./vendor/bin/codecept build
       #- run: ./vendor/bin/codecept run
+      #install Chrome
+      - run:
+          name: Install Chrome
+          command: |
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get install google-chrome-stable
+      - run:
+          name: "Create Environment file"
+          command: |
+            mv .env.circleci .env
+      - run:
+               name: "Generate App key"
+               command: php artisan key:generate
+      - run:
+          name: Start Chrome Driver
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
+      - run:
+          name: Run Laravel Server
+          command: php artisan serve
+          background: true
+      - run:
+          name: Run Laravel Dusk Tests
+          command: php artisan dusk
+
