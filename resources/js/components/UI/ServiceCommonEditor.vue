@@ -74,16 +74,33 @@
                            class="services-info-field-input"
                            id="services-info-field-input-phone"
                            v-model="currentService.phone"
+                           @blur="$v.currentService.phone.$touch()"
+                           :class="{'invalid-data': ($v.currentService.phone.$dirty && !$v.currentService.phone.validPhone)}"
                     >
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.currentService.phone.$dirty && !$v.currentService.phone.validPhone">
+                    Укажите корректный номер телефона
+                </small>
+
+
                 <div class="services-info-field-group">
                     <label for="services-info-field-input-email" class="services-info-field-label">E-mail:</label>
                     <input type="text"
                            class="services-info-field-input"
                            id="services-info-field-input-email"
                            v-model="currentService.email"
+                           @blur="$v.currentService.email.$touch()"
+                           :class="{'invalid-data': ($v.currentService.email.$dirty && !$v.currentService.email.email)}"
                     >
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.currentService.email.$dirty && !$v.currentService.email.email">
+                    Укажите корректный адрес электронной почты
+                </small>
+
+
+
                 <div class="services-info-field-group">
                     <label for="services-info-field-input-telegram" class="services-info-field-label">Telegram:</label>
                     <input type="text"
@@ -92,6 +109,8 @@
                            v-model="currentService.telegram"
                     >
                 </div>
+
+
                 <div class="services-info-field-group">
                     <label for="services-info-field-input-skype" class="services-info-field-label">Skype:</label>
                     <input type="text"
@@ -100,20 +119,36 @@
                            v-model="currentService.skype"
                     >
                 </div>
+
                 <div class="services-info-field-group">
                     <label for="services-info-field-input-website" class="services-info-field-label">Website:</label>
                     <input type="text"
                            class="services-info-field-input"
                            id="services-info-field-input-website"
                            v-model="currentService.site"
+                           @blur="$v.currentService.site.$touch()"
+                           :class="{'invalid-data': ($v.currentService.site.$dirty && !$v.currentService.site.validSite)}"
                     >
                 </div>
+                <small class="error-notificator"
+                       v-if="$v.currentService.site.$dirty && !$v.currentService.site.validSite">
+                    Укажите корректный URL
+                </small>
+
+
                 <label for="services-info-field-textarea" class="services-info-field-textarea-label">Общее
                     описание:</label>
                 <textarea class="services-info-field-textarea"
                           id="services-info-field-textarea"
                           v-model="currentService.description"
+                          @blur="$v.currentService.description.$touch()"
+                          :class="{'invalid-data':
+                          ($v.currentService.description.$dirty && $v.currentService.description.$error)}"
                 ></textarea>
+                <small class="error-notificator"
+                       v-if="$v.currentService.description.$dirty && $v.currentService.description.$error">
+                    Напишите краткое описание Вашего сервиса длиной не менее 50 символов
+                </small>
             </div>
         </div>
         <div class="services-info-layout-2">
