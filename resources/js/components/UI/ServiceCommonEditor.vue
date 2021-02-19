@@ -3,7 +3,7 @@
         <div class="services-info-layout-1">
             <div class="services-info-field">
                 <div class="services-info-field-group">
-                    <label for="services-info-field-input-company-name"
+                    <label :for="'services-info-field-input-company-name'"
                            class="services-info-field-label">Наименование</label>
                     <input type="text"
                            class="services-info-field-input"
@@ -180,14 +180,28 @@
             </div>
 
         </div>
+
+
+        <div class="services-info-button-savechanges"
+            :class="{'disabled-btn': !ableToSave}"
+        >Сохранить
+            изменения
+        </div>
+
+        <div class="services-info-button-cancel"
+             :class="{'disabled-btn': mode==='view'}">
+            Отмена
+        </div>
+
     </div>
 </template>
 
 
 <script>
 import {required, minLength, email, sameAs} from "vuelidate/lib/validators"
+import currentService from "../../store/modules/currentService";
 export default {
-    props: ['description'],
+
     computed: {
         currentService() {
             return this.$store.state.currentService.commonInfo
@@ -206,7 +220,18 @@ export default {
                 }
             )
             return result
+        },
+        mode() { //в каком режиме находится компонент : редактирование, чтение или вставка
+            if (this.currentService.id>-1) {
+                return this.$v.currentService.$anyDirty ? "edit" : "view"
+            } else {
+                return 'insert'
+            }
+        },
 
+        //Если true, то можно отжимать кнопку "Сохранить"
+        ableToSave() {
+            return this.$v.currentService.$anyDirty&&!this.$v.currentService.$anyError
         }
     },
     validations: {
