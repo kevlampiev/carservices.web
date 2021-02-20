@@ -1,16 +1,21 @@
 <template>
     <div class="admin-page">
-        <div class="container">
+        <div class="container" @allowSwitching="setBlocked">
             <div class="my-services-menu-wrapper">
                 <h3 class="my-services-menu-title section-title">Список сервисов</h3>
                 <div class="thick-frame">
                     <SelectTypeBand :types="carservices"
                                     :currentType="currentService.name"
                                     @setNewCurrentType="setNewCurrentService"
-                                    :disabled="editMode"
+                                    :blocked="blocked"
                     ></SelectTypeBand>
                 </div>
-                <div class="my-services-menu-add-new">Добавить сервис</div>
+                <div
+                    class="my-services-menu-add-new"
+                    :class="{
+                    'disabled-btn': blocked,
+                    }"
+                >Добавить сервис</div>
             </div>
             <div class="services-info-wrapper">
                 <h3 class="services-info-title section-title">{{ currentService.name }}</h3>
@@ -18,7 +23,7 @@
                 <SelectTypeBand :types="bookmarks"
                                 :currentType="currentBookmark"
                                 @setNewCurrentType="setNewBookmark"
-                                :disabled="editMode"
+                                :blocked="blocked"
                 ></SelectTypeBand>
                 <!--Вкладка-->
                 <div class="thick-frame move-up17">
@@ -43,17 +48,19 @@ export default {
                 {name: 'Расписание'},
             ],
             currentBookmark: 'Общая информация',
-            //Если информация по сервису в режиме редактирования/вставки, нельзя переключаться на другие сервисы или вкладки
-            editMode: true,
         }
     },
     methods: {
         setNewCurrentService(newCurrentService) {
-            if (!this.editMode) this.$store.dispatch('owner/findOwnerServiceByName',newCurrentService)
+            if (!this.blocked) this.$store.dispatch('owner/findOwnerServiceByName',newCurrentService)
         },
 
         setNewBookmark(newCurrentBM) {
-            if (!this.editMode) this.currentBookmark = newCurrentBM
+            if (!this.blocked) this.currentBookmark = newCurrentBM
+        },
+
+        setBlocked(val) {
+            this.blocked=val
         },
     },
     computed: {
@@ -68,6 +75,10 @@ export default {
         },
         allTypes() {
             return this.$store.state.types
+        },
+        //Если информация по сервису в режиме редактирования/вставки, нельзя переключаться на другие сервисы или вкладки
+        blocked() {
+            return this.$store.state.currentService.mode!=='view'
         },
     },
     components: {

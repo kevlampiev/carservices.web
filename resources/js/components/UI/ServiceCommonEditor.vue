@@ -114,10 +114,13 @@
                         class="services-info-types-list-form-group"
                         v-for="(type,index) in types" :key="index">
                         <label>
-                            <input type="checkbox"
-                                   class="services-info-types-list-checkbox"
-                                   :disabled="type.hasTimeSlots"
-                            :checked="type.inServiceList">
+                            <input
+                                type="checkbox"
+                                class="services-info-types-list-checkbox"
+                                :disabled="type.hasTimeSlots"
+                                :checked="type.inServiceList"
+                                @click="$v.currentService.checky.$touch()"
+                                >
                             <span></span>
                             {{ type.name }}
                         </label>
@@ -200,6 +203,8 @@ export default {
     watch: {
         mode: function(val){
             this.$store.commit('currentService/setMode',val)
+            //Посылем родителю данные можно или нельзя переключаться между панелями и сервисами
+            this.$emit('allowswitching',val==='view')
         }
     },
     validations: {
@@ -237,6 +242,9 @@ export default {
             description: {
                 required,
                 minLength: minLength(50)
+            },
+            checky: {
+
             }
         },
     },
