@@ -2,139 +2,94 @@
     <div class="services-info-editor-el">
         <div class="services-info-layout-1">
             <div class="services-info-field">
-                <div class="services-info-field-group">
-                    <label :for="'services-info-field-input-company-name'"
-                           class="services-info-field-label">Наименование</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-company-name"
-                           v-model="currentService.name"
-                           @blur="$v.currentService.name.$touch()"
-                           :class="{'invalid-data':
-                                    ($v.currentService.name.$dirty &&((!$v.currentService.name.required)|| (!$v.currentService.name.minLength)))
-                           }"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.name.$dirty && !$v.currentService.name.required">
-                    Укажите Название сервиса
-                </small>
-                <small class="error-notificator"
-                       v-if="$v.currentService.name.$dirty && !$v.currentService.name.minLength">
-                    В названии сервиса должно быть хотя бы 10 символов
-                </small>
 
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-city" class="services-info-field-label">Город:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-city"
-                           v-model="currentService.city"
-                           @blur="$v.currentService.city.$touch()"
-                           :class="{'invalid-data':
-                                    ($v.currentService.city.$dirty &&((!$v.currentService.city.required)|| (!$v.currentService.city.minLength)))
-                           }"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.city.$dirty && !$v.currentService.city.required">
-                    Укажите название населенного пункта
-                </small>
-                <small class="error-notificator"
-                       v-if="$v.currentService.city.$dirty && !$v.currentService.city.minLength">
-                    В названии населенного пункта должно быть хотя бы 2 символа
-                </small>
+                <input-group
+                    :modal-value="currentService.name"
+                    @input="value=>{currentService.name=value}"
+                    @blur="$v.currentService.name.$touch()"
+                    :label-text="'Наименование'"
+                    :hasValidationErrors="($v.currentService.name.$dirty &&$v.currentService.name.$anyError)"
+                    :error-messages="[
+                        $v.currentService.name.$dirty && !$v.currentService.name.required ? 'Укажите название сервиса' : '',
+                        $v.currentService.name.$dirty && !$v.currentService.name.minLength ? 'В названии сервиса должно быть хотя бы 10 символов' : ''
+                    ]"
+                />
 
+                <input-group
+                    :modal-value="currentService.city"
+                    @input="value=>{currentService.city=value}"
+                    @blur="$v.currentService.city.$touch()"
+                    :label-text="'Город'"
+                    :hasValidationErrors="($v.currentService.city.$dirty &&$v.currentService.city.$anyError)"
+                    :error-messages="[
+                        $v.currentService.city.$dirty && !$v.currentService.city.required ? 'Укажите название населенного пункта' : '',
+                        $v.currentService.city.$dirty && !$v.currentService.city.minLength ? 'В названии населенного пункта должно быть хотя бы 2 символа' : ''
+                    ]"
+                />
 
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-street" class="services-info-field-label">Улица, дом /
-                        строение:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-street"
-                           v-model="currentService.address"
-                           @blur="$v.currentService.address.$touch()"
-                           :class="{'invalid-data':
-                                    ($v.currentService.address.$dirty &&((!$v.currentService.address.required)|| (!$v.currentService.address.minLength)))
-                           }"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.address.$dirty && !$v.currentService.address.required">
-                    Укажите адрес (улица, дом)
-                </small>
-                <small class="error-notificator"
-                       v-if="$v.currentService.address.$dirty && !$v.currentService.address.minLength">
-                    минимальная длина адреса - 25 символов
-                </small>
+                <input-group
+                    :modal-value="currentService.address"
+                    @input="value=>{currentService.address=value}"
+                    @blur="$v.currentService.address.$touch()"
+                    :label-text="'Город'"
+                    :hasValidationErrors="($v.currentService.address.$dirty &&$v.currentService.address.$anyError)"
+                    :error-messages="[
+                        $v.currentService.address.$dirty && !$v.currentService.address.required ? 'Укажите адрес (улица, дом)' : '',
+                        $v.currentService.address.$dirty && !$v.currentService.address.minLength ? 'минимальная длина адреса - 25 символов' : ''
+                    ]"
+                />
 
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-phone" class="services-info-field-label">Телефон:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-phone"
-                           v-model="currentService.phone"
-                           @blur="$v.currentService.phone.$touch()"
-                           :class="{'invalid-data': ($v.currentService.phone.$dirty && !$v.currentService.phone.validPhone)}"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.phone.$dirty && !$v.currentService.phone.validPhone">
-                    Укажите корректный номер телефона
-                </small>
+                <input-group
+                    :modal-value="currentService.phone"
+                    @input="value=>{currentService.phone=value}"
+                    @blur="$v.currentService.phone.$touch()"
+                    :label-text="'Телефон'"
+                    :hasValidationErrors="($v.currentService.phone.$dirty &&$v.currentService.phone.$anyError)"
+                    :error-messages="[
+                        $v.currentService.phone.$dirty && !$v.currentService.phone.validPhone ? 'Укажите корректный номер телефона' : '',
+                    ]"
+                />
+
+                <input-group
+                    :modal-value="currentService.email"
+                    @input="value=>{currentService.email=value}"
+                    @blur="$v.currentService.email.$touch()"
+                    :label-text="'E-mail'"
+                    :hasValidationErrors="($v.currentService.email.$dirty &&$v.currentService.email.$anyError)"
+                    :error-messages="[
+                        $v.currentService.email.$dirty && !$v.currentService.email.email ? 'Укажите корректный адрес электроной почты' : '',
+                    ]"
+                />
+
+                <input-group
+                    :modal-value="currentService.telegram"
+                    @input="value=>{currentService.telegram=value}"
+                    @blur="$v.currentService.telegram.$touch()"
+                    :label-text="'Телеграм'"
+                    :hasValidationErrors="false"
+                    :error-messages="[]"
+                />
 
 
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-email" class="services-info-field-label">E-mail:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-email"
-                           v-model="currentService.email"
-                           @blur="$v.currentService.email.$touch()"
-                           :class="{'invalid-data': ($v.currentService.email.$dirty && !$v.currentService.email.email)}"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.email.$dirty && !$v.currentService.email.email">
-                    Укажите корректный адрес электронной почты
-                </small>
+                <input-group
+                    :modal-value="currentService.skype"
+                    @input="value=>{currentService.skype=value}"
+                    @blur="$v.currentService.skype.$touch()"
+                    :label-text="'Скайп'"
+                    :hasValidationErrors="false"
+                    :error-messages="[]"
+                />
 
-
-
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-telegram" class="services-info-field-label">Telegram:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-telegram"
-                           v-model="currentService.telegram"
-                    >
-                </div>
-
-
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-skype" class="services-info-field-label">Skype:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-skype"
-                           v-model="currentService.skype"
-                    >
-                </div>
-
-                <div class="services-info-field-group">
-                    <label for="services-info-field-input-website" class="services-info-field-label">Website:</label>
-                    <input type="text"
-                           class="services-info-field-input"
-                           id="services-info-field-input-website"
-                           v-model="currentService.site"
-                           @blur="$v.currentService.site.$touch()"
-                           :class="{'invalid-data': ($v.currentService.site.$dirty && !$v.currentService.site.validSite)}"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="$v.currentService.site.$dirty && !$v.currentService.site.validSite">
-                    Укажите корректный URL
-                </small>
-
+                <input-group
+                    :modal-value="currentService.site"
+                    @input="value=>{currentService.site=value}"
+                    @blur="$v.currentService.site.$touch()"
+                    :label-text="'Web-сайт'"
+                    :hasValidationErrors="($v.currentService.site.$dirty && !$v.currentService.site.$anyError)"
+                    :error-messages="[
+                        $v.currentService.site.$dirty && !$v.currentService.site.validSite ? 'Укажите корректный URL сайта Вашего сервиса' : ''
+                    ]"
+                />
 
                 <label for="services-info-field-textarea" class="services-info-field-textarea-label">Общее
                     описание:</label>
@@ -154,14 +109,15 @@
         <div class="services-info-layout-2">
             <div class="services-info-types-wrapper">
                 <h3 class="services-info-types-title">Оказываемые услуги</h3>
-                <form class="services-info-types-list-form">
+                <form class="services-info-types-list-form" :key="typesListKey">
                     <div
                         class="services-info-types-list-form-group"
-                        v-for="(type,index) in types" :key="type.id">
+                        v-for="(type,index) in types" :key="index">
                         <label>
                             <input type="checkbox"
                                    class="services-info-types-list-checkbox"
-                            v-model="type.inServiceList">
+                                   :disabled="type.hasTimeSlots"
+                            :checked="type.inServiceList">
                             <span></span>
                             {{ type.name }}
                         </label>
@@ -169,27 +125,19 @@
                 </form>
             </div>
 
-            <div class="services-info-photo-wrapper">
-                <h3 class="services-info-photo-title">Фотография</h3>
-                <div class="services-info-photo-field">
-                    <img :src="'storage/img/photos/'+currentService.img_link" alt="">
-                    <div class="services-info-photo-field-placeholder">
-                        Щелкните здесь чтобы добавить или изменить фото
-                    </div>
-                </div>
-            </div>
+            <input-img-viewer :img_link="'storage/img/photos/'+currentService.img_link"/>
 
         </div>
 
 
         <div class="services-info-button-savechanges"
-            :class="{'disabled-btn': !ableToSave}"
-        >Сохранить
-            изменения
+            :class="{'disabled-btn': !ableToSave}">
+            Сохранить изменения
         </div>
 
         <div class="services-info-button-cancel"
-             :class="{'disabled-btn': mode==='view'}">
+             :class="{'disabled-btn': mode==='view'}"
+            @click="cancelEdit">
             Отмена
         </div>
 
@@ -199,9 +147,20 @@
 
 <script>
 import {required, minLength, email, sameAs} from "vuelidate/lib/validators"
-import currentService from "../../store/modules/currentService";
+import inputGroup from "./inputGroup"
+import inputImgViewer from "./inputImgViewer"
+
 export default {
 
+    components: {
+        inputGroup,
+        inputImgViewer
+    },
+    data() {
+        return {
+            typesListKey: 0,
+        }
+    },
     computed: {
         currentService() {
             return this.$store.state.currentService.commonInfo
@@ -209,11 +168,15 @@ export default {
         types() {
             let result=[]
             const sTypes=this.$store.state.currentService.types
-            if (!sTypes) return [] //Это если еще ене прогрузился элемент
+            const schedules=this.$store.state.currentService.schedules
+            if (!sTypes) return [] //Это если еще не прогрузился элемент
+
             this.$store.state.types.forEach(
                 (el,index)=>{
                     if (index>0) {
                         el.inServiceList= (sTypes.findIndex(item => item.name===el.name)>-1)
+                        //есть дочерние элементы, т.е. отключить такой элемент при редактировании просто так нельзя
+                        el.hasTimeSlots=(schedules.findIndex(item=>item.name===el.name)>-1)
                         result.push(el)
 
                     }
@@ -232,6 +195,11 @@ export default {
         //Если true, то можно отжимать кнопку "Сохранить"
         ableToSave() {
             return this.$v.currentService.$anyDirty&&!this.$v.currentService.$anyError
+        }
+    },
+    watch: {
+        mode: function(val){
+            this.$store.commit('currentService/setMode',val)
         }
     },
     validations: {
@@ -270,6 +238,13 @@ export default {
                 required,
                 minLength: minLength(50)
             }
+        },
+    },
+    methods: {
+        cancelEdit() {
+            this.$store.dispatch('currentService/cancelEditMode')
+            this.$v.$reset()
+            this.typesListKey+=1
         },
     },
 }

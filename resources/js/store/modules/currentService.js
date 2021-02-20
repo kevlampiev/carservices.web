@@ -13,6 +13,8 @@ export default {
         types: [],
         startDate: null,
         currentType: null,
+        backupData: {}, //дубль объекта commonInfo специально для случая редактирования этой информации
+        mode: 'view'
     }),
     actions: {
         async getServiceInfo({state, commit}, inpData) {
@@ -33,9 +35,42 @@ export default {
                     }
                 })
                 commit('setCurrentService', newData)
-                // commit('setCurrentType', {name: newData.currentType})
             } catch ({message}) {
                 console.error(message)
+            }
+        },
+
+        /**
+         * Просто переход в режим редактирования, если есть реальный текущий сервис с id!=Undefined или null
+         * @param state
+         * @param commit
+         */
+        enterEditMode({state,commit}) {
+          if (state.mode==='view'&&state.commonInfo.id>=0) {
+              commit('setMode','edit')
+          }
+        },
+
+        /**
+         * Выходит из режима редактирования и восстанавливает значения commonInfo из бэкапа
+         * @param state
+         * @param commit
+         */
+        cancelEditMode({state, commit}) {
+            if (state.mode==='edit') {
+                commit('restoreCommonInfo')
+                commit('setMode','view')
+            }
+        },
+
+        /**
+         * Выходит из режима редактирования и восстанавливает значения commonInfo из бэкапа
+         * @param state
+         * @param commit
+         */
+        leftInsertMode({state, commit}) {
+            if (state.mode==='insert') {
+                //Запросить Owner поставить новый СГККУ
             }
         },
 
@@ -44,7 +79,7 @@ export default {
     getters: {
         startDate: state => state.startDate,
 
-        insertMode: state=>(typeof state.commonInfo.id===integer),
+        insertMode: state=>state.mode,
 
         schedules: state => {
             let tmpArr = [[], [], [], [], [], [], []]
@@ -88,6 +123,7 @@ export default {
             state.types = service.types
             state.startDate = service.startDate
             state.currentType = service.currentType
+            state.backupData = { ...service}
         },
 
         /**
@@ -101,7 +137,22 @@ export default {
 
             state.startDate=(new Date()).setHours(0, 0, 0, 0)
             state.currentType = service.types[0].name
+            state.backupData.commonInfo = { ...service }
+            state.backupData.types =service.types.slice()
 
+        },
+
+        /**
+         * Восстанавливает commonInfo из backup
+         * @param state
+         */
+        restoreCommonInfo(state) {
+            state.commonInfo = { ...state.backupData.commonInfo }
+            console.log('before')
+            console.dir(state.types)
+            state.types = state.backupData.types.slice()
+            console.log('after')
+            console.dir(state.types)
         },
 
         setStartDate(state, newDate) {
@@ -126,6 +177,10 @@ export default {
             if (types.find(el => el.name === type)) {
                 state.currentType = type
             }
+        },
+
+        setMode(state, mode) {
+            state.mode=mode
         },
 
     }
