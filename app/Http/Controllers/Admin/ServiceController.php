@@ -5,19 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Type;
+use App\Repositories\Interfaces\ServiceRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public $serviceRepository;
+
+    public function __construct(ServiceRepositoryInterface $serviceRepository)
     {
-//        $services = Service::query()->where('user_id', '=', Auth::id())->get();
-        $services = Service::query()
-            ->with('types')
-            ->paginate(3);
+        $this->serviceRepository = $serviceRepository;
+    }
+    public function index(Request $request)
+    {
+        $services = $request->has('search') ?
+            $this->serviceRepository->search($request) :
+            $this->serviceRepository->getAll();
         return view('admin.services', ['services' => $services]);
     }
 
@@ -61,29 +66,12 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        $types = $service->types()
-            ->select('types.id', 'name')
-            ->get()
-            ->toArray();
-        $allTypes = Type::query()
-            ->select('id', 'name')
-            ->get()
-            ->toArray();
-        $length = count($allTypes);
-        for ($i = 0; $i < $length; $i++) {
-            $item = $allTypes[$i];
-            foreach ($types as $type) {
-                if ($type['name'] == $item['name']) {
-                    unset($allTypes[$i]);
-                    break;
-                }
-            }
-        }
+        $types = $this->serviceRepository->getTypesOfService($service);
+        $allTypes = $this->serviceRepository->getAllTypes($service);
         return view('admin.serviceEdit', [
             'service' => $service,
             'types' => $types,
             'allTypes' => $allTypes
-
         ]);
     }
 

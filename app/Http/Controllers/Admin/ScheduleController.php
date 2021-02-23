@@ -3,21 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SchedulesRequest;
 use App\Models\Schedule;
-use App\Models\Service;
-use App\Models\Type;
+use App\Repositories\Interfaces\ScheduleRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+    public $scheduleRepository;
 
-    public function index()
+    public function __construct(ScheduleRepositoryInterface $scheduleRepository)
     {
-        $schedules = Schedule::query()
-            ->join('services', 'schedules.service_id', '=', 'services.id')
-            ->select('schedules.*', 'services.name')
-            ->orderBy('work_day')
-            ->paginate(7);
+        $this->scheduleRepository = $scheduleRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $schedules = $request->has('search') ?
+            $this->scheduleRepository->search($request) :
+            $this->scheduleRepository->getAll();
         return view('admin.schedules', ['schedules' => $schedules]);
     }
 
@@ -26,14 +30,8 @@ class ScheduleController extends Controller
         return view('admin.scheduleCreate');
     }
 
-    public function store(Request $request)
+    public function store(SchedulesRequest $request)
     {
-        $request->validate([
-            'work_day' => 'required|date',
-            'work_time' => 'required|string',
-            'service_id' => 'required|exists:services,id',
-            'service_type_id' => 'required|exists:types,id'
-        ]);
         $schedule = new Schedule;
 
         $schedule->fill($request->all());
@@ -54,15 +52,8 @@ class ScheduleController extends Controller
         return view('admin.scheduleEdit', ['schedule' => $schedule]);
     }
 
-    public function update(Request $request, Schedule $schedule)
+    public function update(SchedulesRequest $request, Schedule $schedule)
     {
-
-        $request->validate([
-            'work_day' => 'required|date',
-            'work_time' => 'required|string',
-            'service_id' => 'required|exists:services,id',
-            'service_type_id' => 'required|exists:types,id'
-        ]);
         $schedule->fill($request->all());
         if ($schedule->save()) {
             return redirect()->route('admin.schedules.index');

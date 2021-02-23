@@ -4,15 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
-    {
+    public $userRepository;
 
-        $users = User::query()->paginate(7);
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $users = $request->has('search') ?
+            $this->userRepository->search($request) :
+            $this->userRepository->getAll();
         return view('admin.users', ['users' => $users]);
     }
 
