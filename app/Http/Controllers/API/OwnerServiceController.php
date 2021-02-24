@@ -17,14 +17,8 @@ class OwnerServiceController extends Controller
      */
     public function index()
     {
-
         $user = Auth::user();
         return response()->json(OwnerServicesService::getOwnerServices($user));
-//        if ($user->role == 'owner') {
-//            $services = Service::query()->where('user_id', Auth::id())->get();
-//            return response()->json($services);
-//        }
-//        return response()->json('Empty');
     }
 
     /**
@@ -86,11 +80,12 @@ class OwnerServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $service = $service->fill($request->all());
-        if ($service->save()) {
-            return response()->json(200);
-        }
-        return response()->json(400);
+//        $service = $service->fill($request->all());
+//        if ($service->save()) {
+//            return response()->json(200);
+//        }
+//        return response()->json(400);
+        return response()->json(200);
     }
 
     /**

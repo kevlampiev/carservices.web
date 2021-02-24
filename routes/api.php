@@ -35,6 +35,10 @@ Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middlew
 
 Route::get('/owner/services', 'API\OwnerServiceController@index')
     ->middleware(['auth:api','is.owner']);
+//Route::post('/owner/services/add','API\OwnerServiceController@store')
+//    ->middleware(['auth:api','is.owner']);
+Route::put('/owner/services/{id}/edit','API\OwnerServiceController@update')
+    ->middleware(['auth:api','is.owner']);
 
 
 Route::middleware('auth:api')

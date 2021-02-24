@@ -13,14 +13,6 @@ class OrderController extends Controller
 {
     public function setOrder(Request $request)
     {
-//        $request->validate([
-//            'car_model' => 'required|alpha_dash|min:2|max:30',
-//            'license_plate_number' => 'required|alpha_num|min:3',
-//            'descriptions' => 'required|string'
-//        ]);
-//
-
-//        $id = Auth::user()->id;
         $order = new Order([
             'user_id' => Auth::user()->id,
             'car_model' => $request->input('car_model'),

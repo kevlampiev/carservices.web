@@ -74,6 +74,41 @@ export default {
             }
         },
 
+        async sendServiceChanges({state,commit, rootState}) {
+          const serviceInfo={
+              commonInfo: state.commonInfo,
+              types: state.types
+          }
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
+          if (state.mode==='edit') {
+              await  axios.put('/api/owner/services/'+state.commonInfo.id+'/edit', serviceInfo)
+                    .then(response=>{
+                        alert('all went fine')
+                        commit('setMode','view')
+                    })
+                    .catch(error=>{
+                        alert(error.message)
+                    })
+
+          }
+
+
+        },
+
+        changeTypePosition({state, commit},typeData) {
+            const ind=state.types.findIndex(
+                item=>item.name.trim()===typeData.name.trim()
+            )
+            if (typeData.checked) {
+                if (ind < 0) state.types.push({name: typeData.name})
+            } else {
+                if (ind > 0) state.types.splice(ind, 1)
+            }
+            if (state.mode==='view') commit('setMode','edit')
+
+        },
+
+
     },
 
     getters: {

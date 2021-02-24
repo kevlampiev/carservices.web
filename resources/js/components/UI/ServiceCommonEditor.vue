@@ -118,8 +118,8 @@
                                 type="checkbox"
                                 class="services-info-types-list-checkbox"
                                 :disabled="type.hasTimeSlots"
-                                :checked="type.inServiceList"
-                                @click="$v.currentService.checky.$touch()"
+                                v-model="type.inServiceList"
+                                @click="changeTypePosition"
                                 >
                             <span></span>
                             {{ type.name }}
@@ -134,7 +134,9 @@
 
 
         <div class="services-info-button-savechanges"
-            :class="{'disabled-btn': !ableToSave}">
+            :class="{'disabled-btn': mode==='view'||!ableToSave}"
+             @click="saveChanges"
+        >
             Сохранить изменения
         </div>
 
@@ -152,6 +154,7 @@
 import {required, minLength, email, sameAs} from "vuelidate/lib/validators"
 import inputGroup from "./inputGroup"
 import inputImgViewer from "./inputImgViewer"
+import currentService from "../../store/modules/currentService";
 
 export default {
 
@@ -161,6 +164,8 @@ export default {
     },
     data() {
         return {
+            //Ключ для перерисовки достуных типов услуг сервиса. Не хватает реактивности,
+            // приходится использовать такие вещи
             typesListKey: 0,
         }
     },
@@ -188,11 +193,11 @@ export default {
             return result
         },
         mode() { //в каком режиме находится компонент : редактирование, чтение или вставка
-            if (this.currentService.id>-1) {
-                return this.$v.currentService.$anyDirty ? "edit" : "view"
-            } else {
-                return 'insert'
-            }
+            return this.$store.state.currentService.mode
+        },
+
+        dirty() {
+            return this.$v.currentService.$anyDirty
         },
 
         //Если true, то можно отжимать кнопку "Сохранить"
@@ -201,11 +206,9 @@ export default {
         }
     },
     watch: {
-        mode: function(val){
-            this.$store.commit('currentService/setMode',val)
-            //Посылем родителю данные можно или нельзя переключаться между панелями и сервисами
-            this.$emit('allowswitching',val==='view')
-        }
+        dirty: function(val) {
+            if (val && this.mode==='view') this.$store.dispatch('currentService/enterEditMode')
+        },
     },
     validations: {
         currentService: {
@@ -249,11 +252,34 @@ export default {
         },
     },
     methods: {
-        cancelEdit() {
-            this.$store.dispatch('currentService/cancelEditMode')
-            this.$v.$reset()
-            this.typesListKey+=1
+
+        changeTypePosition(event) {
+            this.$v.currentService.checky.$touch()
+            this.$store.dispatch('currentService/changeTypePosition',{
+                name: event.target.parentElement.outerText,
+                checked: event.target.checked,
+            })
         },
+
+        async saveChanges() {
+            if (this.ableToSave) {
+                await this.$store.dispatch('currentService/sendServiceChanges')
+                    if (this.mode==='view') {
+                        this.$v.$reset()
+                    }
+                        alert(this.ableToSave+' '+this.mode)
+
+            }
+        },
+
+        cancelEdit() {
+            if (this.mode!=='view') {
+                this.$store.dispatch('currentService/cancelEditMode')
+                this.typesListKey+=1
+                this.$v.$reset()
+            }
+        },
+
     },
 }
 </script>
