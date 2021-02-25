@@ -182,7 +182,11 @@ export default {
             this.$store.state.types.forEach(
                 (el,index)=>{
                     if (index>0) {
-                        el.inServiceList= (sTypes.findIndex(item => item.name===el.name)>-1)
+                        if (sTypes.length>0) {
+                                el.inServiceList = (sTypes.findIndex(item => item.name === el.name) > -1)
+                            } else {
+                                el.inServiceList=false
+                            }
                         //есть дочерние элементы, т.е. отключить такой элемент при редактировании просто так нельзя
                         el.hasTimeSlots=(schedules.findIndex(item=>item.name===el.name)>-1)
                         result.push(el)
@@ -279,6 +283,7 @@ export default {
                 this.$v.$reset()
             }
         },
+
 
     },
 }

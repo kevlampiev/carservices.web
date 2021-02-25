@@ -41,5 +41,26 @@ export default {
                     {root:true})
             }
         },
+
+        insertEmptyService({state, commit}) {
+            const currService={
+                name: 'z',
+                city: '',
+                address: '',
+                phone: '',
+                email: '',
+                telegram: '',
+                skype: '',
+                site: '',
+                description: '',
+                types: [],
+                schedules: [],
+            }
+            state.carServiceList.push(currService)
+            console.dir(state.carServiceList)
+            commit('currentService/setOwnerCurrentService',
+                currService,
+                {root:true})
+        },
     },
 }

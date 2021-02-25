@@ -15,6 +15,7 @@
                     :class="{
                     'disabled-btn': blocked,
                     }"
+                    @click="startInsertService"
                 >Добавить сервис</div>
             </div>
             <div class="services-info-wrapper">
@@ -62,6 +63,11 @@ export default {
         setBlocked(val) {
             this.blocked=val
         },
+
+        startInsertService() {
+            this.$store.dispatch('owner/insertEmptyService')
+        },
+
     },
     computed: {
         currentPage() {

@@ -26,7 +26,7 @@ export default {
                     types: data.types,
                     startDate: (new Date()).setHours(0, 0, 0, 0),
                     selectedSchedule: null,
-                    currentType: data.types[0].name
+                    currentType: data.types[0].name??''
                 }
                 newData.schedules.sort((a, b) => {
                     if (a.work_time < b.work_time) return -1;
@@ -63,14 +63,10 @@ export default {
             }
         },
 
-        /**
-         * Выходит из режима редактирования и восстанавливает значения commonInfo из бэкапа
-         * @param state
-         * @param commit
-         */
-        leftInsertMode({state, commit}) {
-            if (state.mode==='insert') {
-                //Запросить Owner поставить новый СГККУ
+        enterInsertMode({state, commit}) {
+            if (state.mode==='view') {
+                commit('owner/insertEmptyService',{},{root: true})
+                commit('setMode','insert')
             }
         },
 
@@ -171,7 +167,7 @@ export default {
             state.types=service.types
 
             state.startDate=(new Date()).setHours(0, 0, 0, 0)
-            state.currentType = service.types[0].name
+            state.currentType = service.types[0]?service.types[0].name:' '
             state.backupData.commonInfo = { ...service }
             state.backupData.types =service.types.slice()
 
@@ -207,10 +203,14 @@ export default {
         },
 
         setCurrentType(state, data) {
-            let type = data.name
-            let types = state.types
-            if (types.find(el => el.name === type)) {
-                state.currentType = type
+            if (data) {
+                let type = data.name
+                let types = state.types
+                if (types.find(el => el.name === type)) {
+                    state.currentType = type
+                }
+            } else {
+                state.currentType = ''
             }
         },
 
