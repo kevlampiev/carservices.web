@@ -5,6 +5,19 @@
 @endsection
 
 @section('content')
+    <form action="{{ route('admin.orders.index') }}">
+        <div class="filters row">
+            <div class="col-sm-6 col-md-3">
+                <label for="search_string">Поиск записи
+                    <input type="text" id="search_string" name="search" value="">
+                </label>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-warning">Сбросить фильтр</a>
+            </div>
+        </div>
+    </form>
     <a href="{{ route('admin.orders.create') }}" role="button" class="btn btn-primary"
        style="width: 250px; display: block; margin: 5px auto; font-weight: bold;">Добавить новый заказ</a>
     <table class="table">

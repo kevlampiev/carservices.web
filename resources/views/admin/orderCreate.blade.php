@@ -40,6 +40,19 @@
             <label for="description">Описание проблемы</label>
             <textarea class="form-control" name="description" placeholder="Описание проблемы" id="description" rows="5"
                       style="margin-bottom: 10px;"></textarea>
+            <label for="order_status">Сатус заказа</label>
+            @if ($errors->has('order_status'))
+                <div class="alert alert-danger" role="alert">
+                    @foreach($errors->get('order_status') as $error)
+                        {{ $error }}
+                    @endforeach
+                </div>
+            @endif
+            <select class="form-control" name="order_status" id="order_status" style="margin-bottom: 10px;">
+                <option value="in_waiting">In waiting</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="deny">Deny</option>
+            </select>
             <button class="btn btn-primary" type="submit">Сохранить</button>
         </div>
 

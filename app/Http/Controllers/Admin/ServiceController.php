@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ServiceRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -31,19 +32,8 @@ class ServiceController extends Controller
         return view('admin.serviceCreate');
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'city' => 'required|string|min:3',
-            'address' => 'required|string|min:3',
-            'description' => 'required|string|min:3|max:100',
-            'site' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'telegram' => 'required|string',
-            'skype' => 'required|string'
-        ]);
         $name = null;
         $service = new Service;
         if ($request->file('image')) {
@@ -75,19 +65,8 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'city' => 'required|string|min:3',
-            'address' => 'required|string|min:3',
-            'description' => 'required|string|min:3|max:100',
-            'site' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'telegram' => 'required|string',
-            'skype' => 'required|string'
-        ]);
         if ($request->file('image')) {
 //            $strArray = explode('/', $service->img_link);
 //            Storage::delete($strArray[3]);

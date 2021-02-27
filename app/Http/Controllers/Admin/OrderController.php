@@ -4,22 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\Schedule;
 use App\Models\User;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
+    public $orderRepository;
 
-    public function index()
+    public function __construct(OrderRepositoryInterface $orderRepository)
     {
-        $orders = Order::query()
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->select('orders.*', 'users.name')
-            ->orderBy('id')
-            ->paginate(7);
-//            ->get();
-//        $orders = Order::all();
+        $this->orderRepository = $orderRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $orders = $request->has('search') ?
+            $this->orderRepository->search($request) :
+            $this->orderRepository->getAll();
         return view('admin.orders', ['orders' => $orders]);
     }
 
@@ -28,19 +31,9 @@ class OrderController extends Controller
         return view('admin.orderCreate');
     }
 
-
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-//        dd($request);
-        $request->validate(
-            [
-                'name' => 'required|exists:users,name',
-                'car_model' => 'required|string|min:2',
-                'license_plate_number' => 'required|string|min:6'
-            ]
-        );
         $user = User::query()->where('name', $request->name)->first();
-//        dd($user);
         $order = new Order;
         $order->fill(
             [
@@ -68,24 +61,14 @@ class OrderController extends Controller
     }
 
 
-    public function update(Request $request, Order $order)
+    public function update(OrderRequest $request, Order $order)
     {
-//        dd($request);
-        $request->validate(
-            [
-            //                'name' => 'required|exists:users,name',
-                'car_model' => 'required|string|min:2',
-                'license_plate_number' => 'required|string|min:6',
-                'status' => 'required|in:in_waiting,confirmed,deny'
-            ]
-        );
         $order = $order->fill(
             [
-            //                'user_id' => $user->id,
                 'car_model' => $request->car_model,
                 'license_plate_number' => $request->license_plate_number,
                 'description' => $request->description,
-                'order_status' => $request->status
+                'order_status' => $request->order_status
             ]
         );
         if ($order->save()) {
@@ -95,7 +78,7 @@ class OrderController extends Controller
     }
 
 
-    public function destroy(Order $order)
+    public function destroy(Order $order): \Illuminate\Http\RedirectResponse
     {
         $order->delete();
         return back();
