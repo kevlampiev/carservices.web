@@ -105,17 +105,20 @@ jobs:
       - run:
                name: "Generate App key"
                command: php artisan key:generate
-#      - run:
-#          name: Start Chrome Driver
-#          command: ./vendor/laravel/dusk/bin/chromedriver-linux
-#          background: true
-#      - run:
-#          name: Run Laravel Server
-#          command: php artisan serve
-#          background: true
-#      - run:
-#          name: Run Laravel Dusk Tests
-#          command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
+      - run:
+          name: Start Chrome Driver
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
+      - run:
+          name: Run Laravel Server
+          command: php artisan serve
+          background: true
+      -run:
+          name: Install driver onto Laravel
+          command: php artisan dusk:install
+      - run:
+          name: Run Laravel Dusk Tests
+          command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
 #
 #      - store_artifacts:
 #          path: tests/Browser/screenshots

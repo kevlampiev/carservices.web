@@ -279,7 +279,6 @@ export default {
                     if (this.mode==='view') {
                         this.$v.$reset()
                     }
-
             }
         },
 
@@ -290,8 +289,6 @@ export default {
                 this.$v.$reset()
             }
         },
-
-
     },
 }
 </script>
