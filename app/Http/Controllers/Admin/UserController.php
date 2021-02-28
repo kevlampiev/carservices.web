@@ -4,15 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
-    public function index()
-    {
+    public $userRepository;
 
-        $users = User::query()->paginate(7);
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $users = $request->has('search') ?
+            $this->userRepository->search($request) :
+            $this->userRepository->getAll();
         return view('admin.users', ['users' => $users]);
     }
 
@@ -21,16 +31,11 @@ class UserController extends Controller
         return view('admin.userCreate');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:user,owner,admin'
-        ]);
 
-        $user = new User();
+        $user = new User;
+
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
@@ -87,11 +92,8 @@ class UserController extends Controller
         return view('admin.userPassEdit', ['user' => $user]);
     }
 
-    public function updatePass(Request $request, User $user)
+    public function updatePass(UserRequest $request, User $user)
     {
-        $request->validate([
-            'password' => 'required|string|min:8|confirmed'
-        ]);
         $user->password = Hash::make($request->password);
         if ($user->save()) {
             return redirect()->route('admin.users.index');

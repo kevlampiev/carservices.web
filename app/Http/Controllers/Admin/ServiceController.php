@@ -5,18 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Type;
+use App\Repositories\Interfaces\ServiceRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public $serviceRepository;
+
+    public function __construct(ServiceRepositoryInterface $serviceRepository)
     {
-//        $services = Service::query()->where('user_id', '=', Auth::id())->get();
-        $services = Service::query()
-            ->with('types')
-            ->paginate(3);
+        $this->serviceRepository = $serviceRepository;
+    }
+    public function index(Request $request)
+    {
+        $services = $request->has('search') ?
+            $this->serviceRepository->search($request) :
+            $this->serviceRepository->getAll();
         return view('admin.services', ['services' => $services]);
     }
 
@@ -25,20 +32,18 @@ class ServiceController extends Controller
         return view('admin.serviceCreate');
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'city' => 'required|string|min:3',
-            'address' => 'required|string|min:3',
-            'description' => 'required|string|min:3|max:100',
-            'site' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'telegram' => 'required|string',
-            'skype' => 'required|string'
-        ]);
-        $service = new Service();
+
+        $name = null;
+        $service = new Service;
+        if ($request->file('image')) {
+            $path = \Storage::putFile('public/images', $request->file('image'));
+            $name = \Storage::url($path);
+
+        }
+        $service->img_link = $name;
+
         $result = $service->fill($request->all())->save();
         if ($result) {
             return redirect()->route('admin.services.index');
@@ -53,46 +58,27 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        $types = $service->types()
-            ->select('types.id', 'name')
-            ->get()
-            ->toArray();
-        $allTypes = Type::query()
-            ->select('id', 'name')
-            ->get()
-            ->toArray();
-        $length = count($allTypes);
-        for ($i = 0; $i < $length; $i++) {
-            $item = $allTypes[$i];
-            foreach ($types as $type) {
-                if ($type['name'] == $item['name']) {
-                    unset($allTypes[$i]);
-                    break;
-                }
-            }
-        }
+        $types = $this->serviceRepository->getTypesOfService($service);
+        $allTypes = $this->serviceRepository->getAllTypes($service);
         return view('admin.serviceEdit', [
             'service' => $service,
             'types' => $types,
             'allTypes' => $allTypes
-
         ]);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'city' => 'required|string|min:3',
-            'address' => 'required|string|min:3',
-            'description' => 'required|string|min:3|max:100',
-            'site' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'telegram' => 'required|string',
-            'skype' => 'required|string'
-        ]);
-        $result = $service->fill($request->all())->save();
+        if ($request->file('image')) {
+//            $strArray = explode('/', $service->img_link);
+//            Storage::delete($strArray[3]);
+            $path = $request->file('image')->store('public/images');
+            $name = Storage::url($path);
+            $service->img_link = $name;
+        }
+
+        $result = $service->fill($request->all())->update();
+
         if ($result) {
             return redirect()->route('admin.services.index');
         }
