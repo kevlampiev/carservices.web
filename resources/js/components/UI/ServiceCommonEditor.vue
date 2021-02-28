@@ -31,7 +31,7 @@
                     :modal-value="currentService.address"
                     @input="value=>{currentService.address=value}"
                     @blur="$v.currentService.address.$touch()"
-                    :label-text="'Город'"
+                    :label-text="'Улица, дом/строение'"
                     :hasValidationErrors="($v.currentService.address.$dirty &&$v.currentService.address.$anyError)"
                     :error-messages="[
                         $v.currentService.address.$dirty && !$v.currentService.address.required ? 'Укажите адрес (улица, дом)' : '',
@@ -85,7 +85,7 @@
                     @input="value=>{currentService.site=value}"
                     @blur="$v.currentService.site.$touch()"
                     :label-text="'Web-сайт'"
-                    :hasValidationErrors="($v.currentService.site.$dirty && !$v.currentService.site.$anyError)"
+                    :hasValidationErrors="($v.currentService.site.$dirty && $v.currentService.site.$anyError)"
                     :error-messages="[
                         $v.currentService.site.$dirty && !$v.currentService.site.validSite ? 'Укажите корректный URL сайта Вашего сервиса' : ''
                     ]"
@@ -206,7 +206,14 @@ export default {
 
         //Если true, то можно отжимать кнопку "Сохранить"
         ableToSave() {
-            return this.$v.currentService.$anyDirty&&!this.$v.currentService.$anyError
+            if (this.mode==='edit') {
+                return this.$v.currentService.$anyDirty&&!this.$v.currentService.$anyError
+            } else if (this.mode==='insert') {
+                return !this.$v.currentService.$anyError
+            } else {
+                return false
+            }
+
         }
     },
     watch: {
@@ -266,6 +273,7 @@ export default {
         },
 
         async saveChanges() {
+            if (this.mode==='insert') this.$v.$touch()
             if (this.ableToSave) {
                 await this.$store.dispatch('currentService/sendServiceChanges')
                     if (this.mode==='view') {
