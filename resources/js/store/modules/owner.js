@@ -44,7 +44,8 @@ export default {
 
         insertEmptyService({state, commit}) {
             const currService={
-                name: 'z',
+                id: -1,
+                name: ' ',
                 city: '',
                 address: '',
                 phone: '',
@@ -61,6 +62,10 @@ export default {
             commit('currentService/setOwnerCurrentService',
                 currService,
                 {root:true})
+        },
+
+        cancelInserting({state, rootState}) {
+
         },
     },
 }

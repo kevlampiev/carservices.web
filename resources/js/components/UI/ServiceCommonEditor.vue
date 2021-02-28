@@ -271,7 +271,6 @@ export default {
                     if (this.mode==='view') {
                         this.$v.$reset()
                     }
-                        alert(this.ableToSave+' '+this.mode)
 
             }
         },

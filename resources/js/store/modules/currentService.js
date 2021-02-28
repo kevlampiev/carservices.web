@@ -56,11 +56,16 @@ export default {
          * @param state
          * @param commit
          */
-        cancelEditMode({state, commit}) {
+        cancelEditMode({state, commit, dispatch}) {
             if (state.mode==='edit') {
                 commit('restoreCommonInfo')
-                commit('setMode','view')
+            } else if (state.mode==='insert') {
+                dispatch('owner/cancelInserting',null,{root: false})
+                commit('cancelInserting')
+            } else {
+                console.error('ERROR: Вызвана команда cancelEditMode из режима '+state.mode)
             }
+            commit('setMode','view')
         },
 
         enterInsertMode({state, commit}) {
@@ -79,7 +84,6 @@ export default {
           if (state.mode==='edit') {
               await  axios.put('/api/owner/services/'+state.commonInfo.id+'/edit', serviceInfo)
                     .then(response=>{
-                        alert('all went fine')
                         commit('setMode','view')
                     })
                     .catch(error=>{
@@ -174,7 +178,7 @@ export default {
         },
 
         /**
-         * Восстанавливает commonInfo из backup
+         * Восстанавливает commonInfo из backup при редектировании существующего сервиса
          * @param state
          */
         restoreCommonInfo(state) {
