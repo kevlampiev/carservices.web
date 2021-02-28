@@ -30,5 +30,4 @@ class SchedulesRequest extends FormRequest
             'service_type_id' => 'required|exists:types,id'
         ];
     }
-
 }

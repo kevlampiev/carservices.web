@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
-
 class UserRepository implements UserRepositoryInterface
 {
     public function getAll()

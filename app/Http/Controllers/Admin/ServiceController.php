@@ -40,7 +40,6 @@ class ServiceController extends Controller
         if ($request->file('image')) {
             $path = \Storage::putFile('public/images', $request->file('image'));
             $name = \Storage::url($path);
-
         }
         $service->img_link = $name;
 

@@ -113,14 +113,14 @@ jobs:
           name: Run Laravel Server
           command: php artisan serve
           background: true
-      -run:
+      - run:
           name: Install driver onto Laravel
           command: php artisan dusk:install
       - run:
           name: Run Laravel Dusk Tests
           command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
-#
-#      - store_artifacts:
-#          path: tests/Browser/screenshots
-#          destination: screenshots
+
+      - store_artifacts:
+          path: tests/Browser/screenshots
+          destination: screenshots
 
