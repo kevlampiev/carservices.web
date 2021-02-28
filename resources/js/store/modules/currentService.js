@@ -1,3 +1,7 @@
+//------------------------------------------------------------------------------
+// Предназначен для просмотра и редактирования информации о конкретном сервисе
+// Используется как для простых пользователей, так и для владельцев сервисов
+//------------------------------------------------------------------------------
 import moment from "moment";
 
 export default {
@@ -9,6 +13,8 @@ export default {
         types: [],
         startDate: null,
         currentType: null,
+        backupData: {}, //дубль объекта commonInfo специально для случая редактирования этой информации
+        mode: 'view'
     }),
     actions: {
         async getServiceInfo({state, commit}, inpData) {
@@ -20,7 +26,7 @@ export default {
                     types: data.types,
                     startDate: (new Date()).setHours(0, 0, 0, 0),
                     selectedSchedule: null,
-                    currentType: data.types[0].name
+                    currentType: data.types[0].name??''
                 }
                 newData.schedules.sort((a, b) => {
                     if (a.work_time < b.work_time) return -1;
@@ -29,16 +35,88 @@ export default {
                     }
                 })
                 commit('setCurrentService', newData)
-                // commit('setCurrentType', {name: newData.currentType})
             } catch ({message}) {
                 console.error(message)
             }
         },
 
+        /**
+         * Просто переход в режим редактирования, если есть реальный текущий сервис с id!=Undefined или null
+         * @param state
+         * @param commit
+         */
+        enterEditMode({state,commit}) {
+          if (state.mode==='view'&&state.commonInfo.id>=0) {
+              commit('setMode','edit')
+          }
+        },
+
+        /**
+         * Выходит из режима редактирования и восстанавливает значения commonInfo из бэкапа
+         * @param state
+         * @param commit
+         */
+        cancelEditMode({state, commit, dispatch}) {
+            if (state.mode==='edit') {
+                commit('restoreCommonInfo')
+            } else if (state.mode==='insert') {
+                dispatch('owner/cancelInserting',null,{root: true})
+
+            } else {
+                console.error('ERROR: Вызвана команда cancelEditMode из режима '+state.mode)
+            }
+            commit('setMode','view')
+        },
+
+        enterInsertMode({state, commit}) {
+            if (state.mode==='view') {
+                commit('owner/insertEmptyService',{},{root: true})
+                commit('setMode','insert')
+            }
+        },
+
+        async sendServiceChanges({state,commit, rootState}) {
+          const serviceInfo={
+              commonInfo: state.commonInfo,
+              types: state.types
+          }
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
+            try {
+              let result;
+                if (state.mode==='edit') {
+                    await  axios.put('/api/owner/services/'+state.commonInfo.id+'/edit', serviceInfo)
+                } else if (state.mode==='insert') {
+                    //TODO заменить на правильный роут
+                    await  axios.put('/api/owner/services/1/edit', serviceInfo)
+                } else {
+                    throw 'Попытка сохранить данные на сервер из режима '+state.mode
+                }
+                commit('setMode','view')
+            } catch (error) {
+              alert(error.message)
+            }
+        },
+
+        changeTypePosition({state, commit},typeData) {
+            const ind=state.types.findIndex(
+                item=>item.name.trim()===typeData.name.trim()
+            )
+            if (typeData.checked) {
+                if (ind < 0) state.types.push({name: typeData.name})
+            } else {
+                if (ind > 0) state.types.splice(ind, 1)
+            }
+            if (state.mode==='view') commit('setMode','edit')
+
+        },
+
+
     },
 
     getters: {
         startDate: state => state.startDate,
+
+        insertMode: state=>state.mode,
 
         schedules: state => {
             let tmpArr = [[], [], [], [], [], [], []]
@@ -82,6 +160,33 @@ export default {
             state.types = service.types
             state.startDate = service.startDate
             state.currentType = service.currentType
+            state.backupData = { ...service}
+        },
+
+        /**
+         * Особая функция для случая, когда возвращается набор для владельца сервисов
+         */
+        setOwnerCurrentService(state, service){
+            state.commonInfo=service
+            state.selectedSchedule=null //?????
+            state.schedules=service.schedules
+            state.types=service.types
+
+            state.startDate=(new Date()).setHours(0, 0, 0, 0)
+            state.currentType = service.types[0]?service.types[0].name:' '
+            state.backupData.commonInfo = { ...service }
+            state.backupData.types =service.types.slice()
+            if (!service.id) state.mode='insert' //Если id == null или undefined это точно про вставку
+
+        },
+
+        /**
+         * Восстанавливает commonInfo из backup при редектировании существующего сервиса
+         * @param state
+         */
+        restoreCommonInfo(state) {
+            state.commonInfo = { ...state.backupData.commonInfo }
+            state.types = state.backupData.types.slice()
         },
 
         setStartDate(state, newDate) {
@@ -101,11 +206,19 @@ export default {
         },
 
         setCurrentType(state, data) {
-            let type = data.name
-            let types = state.types
-            if (types.find(el => el.name === type)) {
-                state.currentType = type
+            if (data) {
+                let type = data.name
+                let types = state.types
+                if (types.find(el => el.name === type)) {
+                    state.currentType = type
+                }
+            } else {
+                state.currentType = ''
             }
+        },
+
+        setMode(state, mode) {
+            state.mode=mode
         },
 
     }

@@ -32,6 +32,7 @@ class ScheduleController extends Controller
 
     public function store(SchedulesRequest $request)
     {
+
         $schedule = new Schedule;
 
         $schedule->fill($request->all());

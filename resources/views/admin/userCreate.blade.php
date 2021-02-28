@@ -42,7 +42,8 @@
             <input type="password" name="password_confirmation" id="password-confirm" class="form-control"
                    placeholder="Confirm Password" style="margin-bottom: 10px;">
             <label for="role">Выберите роль пользователя</label>
-            <select class="form-control" id="role" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
+            <select class="form-control" id="role" name="role" style="margin-bottom: 10px;"
+                    aria-label="Default select example">
                 <option value="admin">admin</option>
                 <option value="owner">owner</option>
                 <option value="user">user</option>

@@ -34,7 +34,9 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $user = User::query()->where('name', $request->name)->first();
+
         $order = new Order;
+
         $order->fill(
             [
                 'user_id' => $user->id,
@@ -63,8 +65,10 @@ class OrderController extends Controller
 
     public function update(OrderRequest $request, Order $order)
     {
+
         $order = $order->fill(
             [
+
                 'car_model' => $request->car_model,
                 'license_plate_number' => $request->license_plate_number,
                 'description' => $request->description,

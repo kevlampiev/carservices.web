@@ -33,12 +33,13 @@ Route::group([
 Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
 
 
-Route::group([
-    'prefix' => 'owner',
-    'namespace' => 'API'
-], function () {
-    Route::resource('/services', 'OwnerServiceController');
-});
+Route::get('/owner/services', 'API\OwnerServiceController@index')
+    ->middleware(['auth:api','is.owner']);
+//Route::post('/owner/services/add','API\OwnerServiceController@store')
+//    ->middleware(['auth:api','is.owner']);
+Route::put('/owner/services/{id}/edit','API\OwnerServiceController@update')
+    ->middleware(['auth:api','is.owner']);
+
 
 Route::middleware('auth:api')
     ->group(function () {

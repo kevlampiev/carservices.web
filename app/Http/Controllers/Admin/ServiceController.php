@@ -34,6 +34,7 @@ class ServiceController extends Controller
 
     public function store(ServiceRequest $request)
     {
+
         $name = null;
         $service = new Service;
         if ($request->file('image')) {
@@ -42,6 +43,7 @@ class ServiceController extends Controller
 
         }
         $service->img_link = $name;
+
         $result = $service->fill($request->all())->save();
         if ($result) {
             return redirect()->route('admin.services.index');

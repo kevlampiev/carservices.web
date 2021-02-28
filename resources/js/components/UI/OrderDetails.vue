@@ -107,7 +107,7 @@ export default {
             description: {},
             telephone: {
                 validPhone: val => {
-                    let phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
+                    const phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
                     return phoneTmpl.test(val)
                 }
             },

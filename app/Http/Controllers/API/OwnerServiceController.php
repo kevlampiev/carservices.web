@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\OwnerServicesService;
 
 class OwnerServiceController extends Controller
 {
@@ -17,11 +18,7 @@ class OwnerServiceController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->role = 'owner') {
-            $services = Service::query()->where('user_id', Auth::id())->get();
-            return response()->json($services);
-        }
-        return response()->json('Empty');
+        return response()->json(OwnerServicesService::getOwnerServices($user));
     }
 
     /**
@@ -83,11 +80,12 @@ class OwnerServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $service = $service->fill($request->all());
-        if ($service->save()) {
-            return response()->json(200);
-        }
-        return response()->json(400);
+//        $service = $service->fill($request->all());
+//        if ($service->save()) {
+//            return response()->json(200);
+//        }
+//        return response()->json(400);
+        return response()->json(200);
     }
 
     /**

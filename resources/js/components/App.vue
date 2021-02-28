@@ -9,11 +9,19 @@
                     {{ city }}
                 </div>
 
-                <div class="header-page-link">
+                <div class="header-page-link"
+                     :class="{
+                         'current-page-link': $route.name==='home'
+                     }">
                     <router-link :to="{ name: 'home' }">Главная</router-link>
                 </div>
-                <div class="header-page-link" v-if="role==='owner'">
-                    <router-link :to="{ name: 'hello' }">Мои сервисы</router-link>
+                <div class="header-page-link"
+                     v-if="role==='owner'"
+                     :class="{
+                         'current-page-link': $route.name==='owner'
+                     }"
+                >
+                    <router-link :to="{ name: 'owner' }">Мои сервисы</router-link>
                 </div>
                 <div class="header-page-link" v-if="role==='admin'">
                     <a href="/admin">Раздел администратора</a>

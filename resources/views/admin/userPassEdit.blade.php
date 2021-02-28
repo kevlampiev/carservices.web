@@ -16,7 +16,8 @@
                     @endforeach
                 </div>
             @endif
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password" style="margin-bottom: 10px;">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                   style="margin-bottom: 10px;">
             <label for="password-confirm">Подтвердите пароль</label>
             <input type="password" name="password_confirmation" id="password-confirm" class="form-control"
                    placeholder="Confirm Password" style="margin-bottom: 10px;">

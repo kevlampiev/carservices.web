@@ -29,7 +29,8 @@
             <input type="email" name="email" id="Email" class="form-control" style="margin-bottom: 10px;"
                    value="{{ $user['email'] }}">
             <label for="Role">Роль пользователя</label>
-            <select class="form-control" id="Role" name="role" style="margin-bottom: 10px;" aria-label="Default select example">
+            <select class="form-control" id="Role" name="role" style="margin-bottom: 10px;"
+                    aria-label="Default select example">
                 <option @if ($user['role'] == 'admin') selected @endif value="admin">admin</option>
                 <option @if ($user['role'] == 'owner') selected @endif value="owner">owner</option>
                 <option @if ($user['role'] == 'user') selected @endif value="user">user</option>
