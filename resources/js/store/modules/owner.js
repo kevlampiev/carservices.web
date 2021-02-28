@@ -44,7 +44,7 @@ export default {
 
         insertEmptyService({state, commit}) {
             const currService={
-                id: -1,
+                id: null,
                 name: ' ',
                 city: '',
                 address: '',
@@ -58,14 +58,20 @@ export default {
                 schedules: [],
             }
             state.carServiceList.push(currService)
-            console.dir(state.carServiceList)
             commit('currentService/setOwnerCurrentService',
                 currService,
                 {root:true})
         },
 
-        cancelInserting({state, rootState}) {
-
+        cancelInserting({state, commit}) {
+            const indOfNew=state.carServiceList.findIndex(el=>!el.id)
+            if (indOfNew>=0) state.carServiceList.splice(indOfNew,1)
+            if (state.carServiceList.length>0) {
+                commit('currentService/setOwnerCurrentService',
+                    state.carServiceList[0],
+                    {root: true}
+                )
+            }
         },
     },
 }

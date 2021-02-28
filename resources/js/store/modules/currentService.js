@@ -60,8 +60,8 @@ export default {
             if (state.mode==='edit') {
                 commit('restoreCommonInfo')
             } else if (state.mode==='insert') {
-                dispatch('owner/cancelInserting',null,{root: false})
-                commit('cancelInserting')
+                dispatch('owner/cancelInserting',null,{root: true})
+
             } else {
                 console.error('ERROR: Вызвана команда cancelEditMode из режима '+state.mode)
             }
@@ -81,18 +81,20 @@ export default {
               types: state.types
           }
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
-          if (state.mode==='edit') {
-              await  axios.put('/api/owner/services/'+state.commonInfo.id+'/edit', serviceInfo)
-                    .then(response=>{
-                        commit('setMode','view')
-                    })
-                    .catch(error=>{
-                        alert(error.message)
-                    })
-
-          }
-
-
+            try {
+              let result;
+                if (state.mode==='edit') {
+                    await  axios.put('/api/owner/services/'+state.commonInfo.id+'/edit', serviceInfo)
+                } else if (state.mode==='insert') {
+                    //TODO заменить на правильный роут
+                    await  axios.put('/api/owner/services/1/edit', serviceInfo)
+                } else {
+                    throw 'Попытка сохранить данные на сервер из режима '+state.mode
+                }
+                commit('setMode','view')
+            } catch (error) {
+              alert(error.message)
+            }
         },
 
         changeTypePosition({state, commit},typeData) {
@@ -174,6 +176,7 @@ export default {
             state.currentType = service.types[0]?service.types[0].name:' '
             state.backupData.commonInfo = { ...service }
             state.backupData.types =service.types.slice()
+            if (!service.id) state.mode='insert' //Если id == null или undefined это точно про вставку
 
         },
 
@@ -183,11 +186,7 @@ export default {
          */
         restoreCommonInfo(state) {
             state.commonInfo = { ...state.backupData.commonInfo }
-            console.log('before')
-            console.dir(state.types)
             state.types = state.backupData.types.slice()
-            console.log('after')
-            console.dir(state.types)
         },
 
         setStartDate(state, newDate) {
