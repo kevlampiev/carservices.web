@@ -113,7 +113,7 @@ jobs:
           name: Run Laravel Server
           command: php artisan serve
           background: true
-      -run:
+      - run:
           name: Install driver onto Laravel
           command: php artisan dusk:install
       - run:
