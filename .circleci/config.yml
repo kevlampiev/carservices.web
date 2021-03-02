@@ -8,6 +8,18 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4-node-browsers
+          # Specify service dependencies here if necessary
+          # CircleCI maintains a library of pre-built images
+          # documented at https://circleci.com/docs/2.0/circleci-images/
+          # Using the RAM variation mitigates I/O contention
+          # for database intensive operations.
+      - image: circleci/mysql:5.7-ram
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_USER: forge
+          MYSQL_DATABASE: carservices # forge - это было
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_PASSWORD: 'forge'
 
     steps:
       - checkout
@@ -49,11 +61,14 @@ jobs:
           name: "Run Unit Tests"
           command: ./vendor/bin/phpunit tests/Unit
 
-      - run:
-          name: "Create database and run migration"
-          command: |
-            touch database/database.sqlite
-            php artisan migrate --env=testing
+#      - run:
+#          name: "Create database and run migration"
+      - run: cp .env.circleci .env
+       - run: php artisan cache:clear
+       - run: php artisan migrate --seed
+#          command: |
+#            touch database/database.sqlite
+#            php artisan migrate --env=testing
 
       - run:
           name: "Run Http Tests"
