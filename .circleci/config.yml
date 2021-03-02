@@ -64,8 +64,8 @@ jobs:
 #      - run:
 #          name: "Create database and run migration"
       - run: cp .env.circleci .env
-       - run: php artisan cache:clear
-       - run: php artisan migrate --seed
+      - run: php artisan cache:clear
+      - run: php artisan migrate --seed
 #          command: |
 #            touch database/database.sqlite
 #            php artisan migrate --env=testing
