@@ -19,6 +19,7 @@ class ServiceController extends Controller
     {
         $this->serviceRepository = $serviceRepository;
     }
+
     public function index(Request $request)
     {
         $services = $request->has('search') ?

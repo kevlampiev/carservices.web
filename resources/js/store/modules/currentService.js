@@ -75,11 +75,15 @@ export default {
             }
         },
 
+
         async sendServiceChanges({state,commit, rootState}) {
           const serviceInfo={
-              commonInfo: state.commonInfo,
+              commonInfo: Object.assign({},state.commonInfo),
               types: state.types
           }
+            delete serviceInfo.commonInfo.types
+            delete serviceInfo.commonInfo.schedules
+
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
             try {
               let result;

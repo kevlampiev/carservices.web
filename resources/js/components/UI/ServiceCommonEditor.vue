@@ -11,7 +11,8 @@
                     :hasValidationErrors="($v.currentService.name.$dirty &&$v.currentService.name.$anyError)"
                     :error-messages="[
                         $v.currentService.name.$dirty && !$v.currentService.name.required ? 'Укажите название сервиса' : '',
-                        $v.currentService.name.$dirty && !$v.currentService.name.minLength ? 'В названии сервиса должно быть хотя бы 10 символов' : ''
+                        $v.currentService.name.$dirty && !$v.currentService.name.minLength ?
+                            'В названии сервиса должно быть хотя бы '+$v.currentService.name.$params.minLength.min+' символов':''
                     ]"
                 />
 
@@ -23,7 +24,8 @@
                     :hasValidationErrors="($v.currentService.city.$dirty &&$v.currentService.city.$anyError)"
                     :error-messages="[
                         $v.currentService.city.$dirty && !$v.currentService.city.required ? 'Укажите название населенного пункта' : '',
-                        $v.currentService.city.$dirty && !$v.currentService.city.minLength ? 'В названии населенного пункта должно быть хотя бы 2 символа' : ''
+                        $v.currentService.city.$dirty && !$v.currentService.city.minLength ?
+                            'В названии населенного пункта должно быть хотя бы '+$v.currentService.city.$params.minLength.min+' символа' : ''
                     ]"
                 />
 
@@ -35,7 +37,8 @@
                     :hasValidationErrors="($v.currentService.address.$dirty &&$v.currentService.address.$anyError)"
                     :error-messages="[
                         $v.currentService.address.$dirty && !$v.currentService.address.required ? 'Укажите адрес (улица, дом)' : '',
-                        $v.currentService.address.$dirty && !$v.currentService.address.minLength ? 'минимальная длина адреса - 25 символов' : ''
+                        $v.currentService.address.$dirty && !$v.currentService.address.minLength ?
+                        'минимальная длина адреса - '+$v.currentService.address.$params.minLength.min+' символов' : ''
                     ]"
                 />
 
@@ -102,7 +105,7 @@
                 ></textarea>
                 <small class="error-notificator"
                        v-if="$v.currentService.description.$dirty && $v.currentService.description.$error">
-                    Напишите краткое описание Вашего сервиса длиной не менее 50 символов
+                    Напишите краткое описание Вашего сервиса длиной не менее {{$v.currentService.description.$params.minLength.min}} символов
                 </small>
             </div>
         </div>
@@ -113,7 +116,7 @@
                     <div
                         class="services-info-types-list-form-group"
                         v-for="(type,index) in types" :key="index">
-                        <label>
+                        <label :class="{'unchangable': type.hasTimeSlots}">
                             <input
                                 type="checkbox"
                                 class="services-info-types-list-checkbox"

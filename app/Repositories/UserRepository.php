@@ -21,6 +21,6 @@ class UserRepository implements UserRepositoryInterface
             ->orWhere('email', 'like', "%$request->search%")
             ->orWhere('email', 'like', "%$request->search%")
             ->paginate(7)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
 }

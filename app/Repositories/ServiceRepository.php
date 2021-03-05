@@ -24,7 +24,7 @@ class ServiceRepository implements ServiceRepositoryInterface
             ->orWhere('city', 'like', "%$request->search%")
 //            ->orWhere('types.name', 'like', $request->search)
             ->paginate(3)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
 
     public function getTypesOfService(Service $service)

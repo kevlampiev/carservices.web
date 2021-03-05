@@ -29,6 +29,6 @@ class OrderRepository implements OrderRepositoryInterface
             ->select('orders.*', 'users.name')
             ->orderBy('id')
             ->paginate(7)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
 }

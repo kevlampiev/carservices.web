@@ -28,6 +28,6 @@ class ScheduleRepository implements ScheduleRepositoryInterface
             ->select('schedules.*', 'services.name')
             ->orderBy('work_day')
             ->paginate(7)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
 }
