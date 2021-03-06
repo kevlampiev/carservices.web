@@ -32,14 +32,15 @@ Route::group([
 
 Route::post('/order', 'API\OrderController@setOrder')->name('setOrder')->middleware('auth:api');
 
-
-Route::get('/owner/services', 'API\OwnerServiceController@index')
-    ->middleware(['auth:api','is.owner']);
-//Route::post('/owner/services/add','API\OwnerServiceController@store')
-//    ->middleware(['auth:api','is.owner']);
-Route::put('/owner/services/{id}/edit','API\OwnerServiceController@update')
-    ->middleware(['auth:api','is.owner']);
-
+Route::group([
+    'prefix' => 'owner',
+    'namespace' => 'API',
+    'middleware' => ['auth:api','is.owner']
+], function() {
+    Route::get('/services', 'OwnerServiceController@index');
+//    Route::post('/owner/services/add','API\OwnerServiceController@store')->middleware(['auth:api','is.owner']);
+    Route::put('/services/{id}/edit','OwnerServiceController@update');
+});
 
 Route::middleware('auth:api')
     ->group(function () {
