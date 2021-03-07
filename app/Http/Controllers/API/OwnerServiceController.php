@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OwnerServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,14 +79,37 @@ class OwnerServiceController extends Controller
      * @param Service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request)
     {
-//        $service = $service->fill($request->all());
-//        if ($service->save()) {
-//            return response()->json(200);
+//        dd($request->types);
+        $service = Service::query()->find($request->commonInfo['id']);
+        $types = $service
+            ->find($request->commonInfo['id'])
+            ->types()
+            ->get()
+            ->toArray();
+//        dd($types);
+//        foreach ($request->types as $item) {
+//            $list = [];
+//            $id = array_search($item['name'], $types);
+//            $list[] = $id;
 //        }
-//        return response()->json(400);
-        return response()->json(200);
+//        dd($list);
+        $service->fill([
+            $service->name = $request->commonInfo['name'],
+            $service->city = $request->commonInfo['city'],
+            $service->address = $request->commonInfo['address'],
+            $service->description = $request->commonInfo['description'],
+            $service->phone = $request->commonInfo['phone'],
+            $service->email = $request->commonInfo['email'],
+            $service->site = $request->commonInfo['site'],
+            $service->telegram = $request->commonInfo['telegram'],
+            $service->site = $request->commonInfo['site'],
+        ]);
+        if ($service->save()) {
+            return response()->json(['message' => 'Service info has been updated'],200);
+        }
+        return response()->json(400);
     }
 
     /**
