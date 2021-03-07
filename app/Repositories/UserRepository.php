@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
-
 class UserRepository implements UserRepositoryInterface
 {
     public function getAll()
@@ -22,6 +21,6 @@ class UserRepository implements UserRepositoryInterface
             ->orWhere('email', 'like', "%$request->search%")
             ->orWhere('email', 'like', "%$request->search%")
             ->paginate(7)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
 }

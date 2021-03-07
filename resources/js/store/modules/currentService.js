@@ -75,11 +75,15 @@ export default {
             }
         },
 
+
         async sendServiceChanges({state,commit, rootState}) {
           const serviceInfo={
-              commonInfo: state.commonInfo,
+              commonInfo: Object.assign({},state.commonInfo),
               types: state.types
           }
+            delete serviceInfo.commonInfo.types
+            delete serviceInfo.commonInfo.schedules
+
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
             try {
               let result;
@@ -97,12 +101,15 @@ export default {
             }
         },
 
-        changeTypePosition({state, commit},typeData) {
+        changeTypePosition({state, commit, rootState},typeData) {
             const ind=state.types.findIndex(
                 item=>item.name.trim()===typeData.name.trim()
-            )
+            ) //ищем элемент в уже сформированном массиве
+            const typeEl=rootState.types.find(
+                item=>item.name===typeData.name.trim()
+            ) //ищем элемент в массиве, гле есть вся информация
             if (typeData.checked) {
-                if (ind < 0) state.types.push({name: typeData.name})
+                if (ind < 0) state.types.push({id: typeEl.id, name: typeEl.name})
             } else {
                 if (ind > 0) state.types.splice(ind, 1)
             }

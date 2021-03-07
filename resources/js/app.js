@@ -31,7 +31,5 @@ const app = new Vue({
         this.$store.dispatch('getCities')
         this.$store.dispatch('getTypes')
         this.$store.dispatch('init')
-
     },
-
 });

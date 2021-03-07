@@ -96,6 +96,6 @@ class ServicesController extends Controller
 
     public function typeList()
     {
-        return response()->json(Type::query()->select('name')->get(), 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(Type::query()->select('id', 'name')->get(), 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

@@ -19,6 +19,7 @@ class ServiceController extends Controller
     {
         $this->serviceRepository = $serviceRepository;
     }
+
     public function index(Request $request)
     {
         $services = $request->has('search') ?
@@ -40,7 +41,6 @@ class ServiceController extends Controller
         if ($request->file('image')) {
             $path = \Storage::putFile('public/images', $request->file('image'));
             $name = \Storage::url($path);
-
         }
         $service->img_link = $name;
 

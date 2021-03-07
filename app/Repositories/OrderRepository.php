@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Order;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use Illuminate\Http\Request;
@@ -30,7 +29,6 @@ class OrderRepository implements OrderRepositoryInterface
             ->select('orders.*', 'users.name')
             ->orderBy('id')
             ->paginate(7)
-            ->withPath("?".$request->getQueryString());
+            ->withPath("?" . $request->getQueryString());
     }
-
 }
