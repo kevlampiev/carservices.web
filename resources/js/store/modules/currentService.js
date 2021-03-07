@@ -101,12 +101,15 @@ export default {
             }
         },
 
-        changeTypePosition({state, commit},typeData) {
+        changeTypePosition({state, commit, rootState},typeData) {
             const ind=state.types.findIndex(
                 item=>item.name.trim()===typeData.name.trim()
-            )
+            ) //ищем элемент в уже сформированном массиве
+            const typeEl=rootState.types.find(
+                item=>item.name===typeData.name.trim()
+            ) //ищем элемент в массиве, гле есть вся информация
             if (typeData.checked) {
-                if (ind < 0) state.types.push({name: typeData.name})
+                if (ind < 0) state.types.push({id: typeEl.id, name: typeEl.name})
             } else {
                 if (ind > 0) state.types.splice(ind, 1)
             }
