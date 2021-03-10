@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OwnerServiceRequest;
 use App\Models\Service;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\OwnerServicesService;
+use Illuminate\Support\Facades\DB;
 
 class OwnerServiceController extends Controller
 {
@@ -81,20 +83,14 @@ class OwnerServiceController extends Controller
      */
     public function update(Request $request)
     {
-//        dd($request->types);
         $service = Service::query()->find($request->commonInfo['id']);
         $types = $service
             ->find($request->commonInfo['id'])
             ->types()
             ->get()
             ->toArray();
-//        dd($types);
-//        foreach ($request->types as $item) {
-//            $list = [];
-//            $id = array_search($item['name'], $types);
-//            $list[] = $id;
-//        }
-//        dd($list);
+        $typeNames = array_column($types, 'name');
+        $requestTypeName = array_column($request->types, 'name');
         $service->fill([
             $service->name = $request->commonInfo['name'],
             $service->city = $request->commonInfo['city'],
@@ -106,6 +102,16 @@ class OwnerServiceController extends Controller
             $service->telegram = $request->commonInfo['telegram'],
             $service->site = $request->commonInfo['site'],
         ]);
+        $newTypeNames = array_diff($requestTypeName, $typeNames);
+        if (!empty($newTypeNames)) {
+            foreach ($newTypeNames as $name) {
+                $newType = Type::query()->where('name', $name)->first();
+                DB::table('services_types')->insert([
+                    'service_id' => $request->commonInfo['id'],
+                    'type_id' => $newType->id
+                ]);
+            }
+        }
         if ($service->save()) {
             return response()->json(['message' => 'Service info has been updated'],200);
         }
