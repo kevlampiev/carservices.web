@@ -1,6 +1,10 @@
 <template>
     <div>
         <h2 class="company-calendar-title">Дата и время</h2>
+        <SelectTypeBand :types="types"
+                        :currentType="currentType"
+                        @setNewCurrentType="setNewCurrentType"
+        ></SelectTypeBand>
         <div class="company-calendar-month">{{ currentMonth }}</div>
         <div class="company-calendar-week-wrapper">
             <img class="company-calendar-week-arrow-back" src="/img/arrow-icon.png" @click="dayBack">
@@ -36,13 +40,12 @@
 
 <script>
 import moment from 'moment'
+import SelectTypeBand from "./SelectTypeBand";
 
 moment.locale('ru')
 
 export default {
-    props: [
-        'currentType',
-    ],
+    components: { SelectTypeBand },
     methods: {
         dayForward: function () {
             this.$store.commit('currentService/setStartDate', {
@@ -65,13 +68,20 @@ export default {
                 result += '0'
             }
             return (result + minutes)
-        }
+        },
+
+        setNewCurrentType(newCurrentType) {
+            this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
+        },
 
     },
 
     computed: {
         dates() {
             return this.$store.getters['currentService/scheduleDates']
+        },
+        types() {
+            return this.$store.state.currentService.types
         },
         scheduledData() {
             return this.$store.getters['currentService/schedules']
@@ -81,6 +91,9 @@ export default {
         },
         currentMonth() {
             return moment(this.$store.getters['currentService/startDate']).format('MMMM')
+        },
+        currentType() {
+            return this.$store.state.currentService.currentType
         },
 
     },

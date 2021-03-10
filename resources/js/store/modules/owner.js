@@ -16,7 +16,8 @@ export default {
          * @param {Object} commit
          * @return void
          */
-        getServicesInfo({commit}) {
+        getServicesInfo({commit, rootState}) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token.accessToken
             axios.get('/api/owner/services')
                 .then(response => {
                     //TODO проверить, а вдруг в data не массив
