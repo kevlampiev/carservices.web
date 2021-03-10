@@ -2,8 +2,8 @@
     <div>
         <h2 class="company-calendar-title">Дата и время</h2>
         <SelectTypeBand :types="types"
-                        :currentType="types[0].name"
-                        @setNewCurrentType=""
+                        :currentType="currentType"
+                        @setNewCurrentType="setNewCurrentType"
         ></SelectTypeBand>
         <div class="company-calendar-month">{{ currentMonth }}</div>
         <div class="company-calendar-week-wrapper">
@@ -45,9 +45,6 @@ import SelectTypeBand from "./SelectTypeBand";
 moment.locale('ru')
 
 export default {
-    props: [
-        'currentType',
-    ],
     components: { SelectTypeBand },
     methods: {
         dayForward: function () {
@@ -71,7 +68,11 @@ export default {
                 result += '0'
             }
             return (result + minutes)
-        }
+        },
+
+        setNewCurrentType(newCurrentType) {
+            this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
+        },
 
     },
 
@@ -90,6 +91,9 @@ export default {
         },
         currentMonth() {
             return moment(this.$store.getters['currentService/startDate']).format('MMMM')
+        },
+        currentType() {
+            return this.$store.state.currentService.currentType
         },
 
     },
