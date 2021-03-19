@@ -84,7 +84,7 @@ export default {
             delete serviceInfo.commonInfo.types
             delete serviceInfo.commonInfo.schedules
 
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token
+          // axios.defaults.headers.common['Authorization'] = 'Bearer ' + rootState.user.token
             try {
               let result;
                 if (state.mode==='edit') {
