@@ -84,11 +84,10 @@ export default {
             axios.post('/api/autologin')
                 .then(response => {
                     const user = response.data.user
-                    user.token = response.data.token
+                    user.token = response.data.token.accessToken
                     user.rememberMe = true
                     context.commit('setUserData', user)
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
-
+                    console.dir(user)
                 })
                 .catch(error => {
                     alert('Все плохо')

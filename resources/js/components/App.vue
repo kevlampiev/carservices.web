@@ -40,9 +40,9 @@
 
                 </div>
                 <div class="header-acc-wrapper" v-else>
-                    <div class="header-acc-reg">
-                        <router-link :to="{ name: 'register' }">{{ email }}</router-link>
-                    </div>
+<!--                    <div class="header-acc-reg">-->
+<!--                        <router-link :to="{ name: 'register' }">{{ email }}</router-link>-->
+<!--                    </div>-->
                     <i class="fa fa-user" aria-hidden="true" @click="showAlert"></i>
                     <div class="header-acc-login" @click="logout" id="logout-link">
                         <router-link :to="{name: 'home'}">Выйти</router-link>
