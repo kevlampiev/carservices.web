@@ -95,7 +95,7 @@ export default {
                     );
                 } else if (state.mode === "insert") {
                     //TODO заменить на правильный роут
-                    await axios.put("/api/owner/services/add", serviceInfo);
+                    await axios.post("/api/owner/services/add", serviceInfo);
                 } else {
                     throw "Попытка сохранить данные на сервер из режима " +
                         state.mode;

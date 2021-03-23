@@ -55,7 +55,7 @@ class OwnerServiceController extends Controller
             $service->telegram = $request->commonInfo['telegram'],
             $service->skype = $request->commonInfo['skype'],
         ]);
-        dd($service);
+//        dd($service);
         if ($service->save()) {
             return response()->json(['message' => 'New service has been added'], 200);
         }
