@@ -43,11 +43,27 @@ class OwnerServiceController extends Controller
     public function store(Request $request)
     {
         $service = new Service();
-        $service->user_id = Auth::id();
-        $service = $service->fill($request->all());
+        $service->fill([
+            $service->name = $request->commonInfo['name'],
+            $service->city = $request->commonInfo['city'],
+            $service->address = $request->commonInfo['address'],
+            $service->description = $request->commonInfo['description'],
+            $service->user_id = Auth::id(),
+            $service->phone = $request->commonInfo['phone'],
+            $service->email = $request->commonInfo['email'],
+            $service->site = $request->commonInfo['site'],
+            $service->telegram = $request->commonInfo['telegram'],
+            $service->skype = $request->commonInfo['skype'],
+        ]);
         $result = $service->save();
+        foreach ($request->types as $type) {
+            DB::table('services_types')->insert([
+                'service_id' => $service->id,
+                'type_id' => $type['id']
+            ]);
+        };
         if ($result) {
-            return response()->json(200);
+            return response()->json(['message' => 'New service has been added'], 200);
         }
         return response()->json(400);
     }

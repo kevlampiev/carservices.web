@@ -37,8 +37,9 @@ Route::group([
     'namespace' => 'API',
     'middleware' => ['auth:api','is.owner']
 ], function() {
+
     Route::get('/services', 'OwnerServiceController@index');
-//    Route::post('/owner/services/add','API\OwnerServiceController@store')->middleware(['auth:api','is.owner']);
+    Route::post('/services/add','OwnerServiceController@store');
     Route::put('/services/{id}/edit','OwnerServiceController@update');
 });
 
