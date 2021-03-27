@@ -33,13 +33,15 @@
 
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
 import SelectTypeBand from './UI/SelectTypeBand'
 import ScheduleOwnerTab from "./UI/ScheduleOwnerTab"
-import ServiceCommonEditor from "./UI/ServiceCommonEditor";
+import ServiceCommonEditor from "./UI/ServiceCommonEditor"
+
 
 export default {
     data() {

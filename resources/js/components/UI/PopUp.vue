@@ -21,6 +21,7 @@ export default {
         'cityList': () => import('./CityList'),
         'login': () => import('./LoginComp'),
         'register': () => import('./RegisterComp'),
+        'timeslotEditor': ()=>import('./TimeslotEditor'),
     },
     methods: {
         closeWindow() {

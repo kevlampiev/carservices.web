@@ -27,7 +27,7 @@
                 <div v-for="(el,index) in scheduledData[n-1]" :index="el.id"
                      :class="{'company-calendar-time-block':true,
                               'company-calendar-time-block-off': el.order_id}"
-                     @click="!el.order_id?$parent.makeOrder(el):''"
+                     @click="editOrder(el)"
                 >
                     {{ formatTime(el.work_time) }}
                 </div>
@@ -72,6 +72,13 @@ export default {
 
         setNewCurrentType(newCurrentType) {
             this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
+        },
+
+        editOrder(el) {
+            this.$store.commit('popUp/show', {
+                comp: 'timeslotEditor',
+                header: 'Редактирование информации о времени'
+            })
         },
 
     },
