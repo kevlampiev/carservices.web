@@ -7,9 +7,10 @@
                     <label class="company-entry-block-row-label  full-width"
                            for="service-type">Тип услуг:</label>
                     <select id="service-type"
-                            class="services-info-field-input wide">
-                        <option>Пункт 1</option>
-                        <option>Пункт 2</option>
+                            class="services-info-field-input wide"
+                            v-model="timeSlot.name"
+                    >
+                        <option v-for="type in possibleTypes" >{{type.name}}</option>
                     </select>
                 </div>
                 <small class="error-notificator"
@@ -30,6 +31,7 @@
                     <input id="datetime"
                            type="datetime-local"
                            class="services-info-field-input wide"
+                           v-model="timeSlot.slotDateTime"
                     >
                 </div>
                 <small class="error-notificator"
@@ -42,25 +44,16 @@
                 </small>
             </div>
 
-            <div class="company-entry-block-wrapper">
 
-                <div class="company-entry-block-row">
-                    <label class="company-entry-block-row-label  full-width"
-                           for="order">Заказ на это время:</label>
-                    <input id="order"
-                           type="datetime-local"
-                           class="services-info-field-input wide"
-                    >
-                </div>
-                <small class="error-notificator"
-                       v-if="false">
-                    Минимальное количество символов в имени должно быть {{ 2 }}
-                </small>
-                <small class="error-notificator"
-                       v-if="true ">
-                    Для регистрации необходимо имя
-                </small>
-            </div>
+            <button id="ok-button" type="button"
+                    class="services-info-button-savechanges"
+                    :disabled="false"
+                    @click.stop="saveChanges"
+                    :class="{'disabled-btn': false}"
+            >Ok
+            </button>
+            <button class="services-info-button-cancel">Отмена</button>
+
 
         </form>
     </div>
@@ -70,6 +63,22 @@
 
 export default {
 
+    computed: {
+      timeSlot() {
+          console.dir(this.$store.state.timeslots.currentSlot)
+        return this.$store.state.timeslots.currentSlot
+      },
+
+      possibleTypes() {
+          return this.$store.state.currentService.types
+      },
+    },
+
+    methods: {
+        saveChanges() {
+            this.$store.dispatch('timeslots/saveChanges')
+        }
+    },
 }
 
 </script>
@@ -77,7 +86,7 @@ export default {
 <style>
 .time-slot-inner {
     padding: 10px;
-    width: 500px;
+    width: 424px;
 }
 
 .wide {

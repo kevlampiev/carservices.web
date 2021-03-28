@@ -2,7 +2,8 @@ import moment from 'moment'
 import currentService from './modules/currentService'
 import user from './modules/user'
 import popUp from './modules/popUp'
-import owner from "./modules/owner";
+import owner from "./modules/owner"
+import timeslots from "./modules/timeslots";
 
 export default {
     modules: {
@@ -10,6 +11,7 @@ export default {
         owner,
         popUp,
         currentService,
+        timeslots,
     },
     state: {
         city: null,

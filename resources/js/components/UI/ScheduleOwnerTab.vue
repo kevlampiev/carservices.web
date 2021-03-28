@@ -19,18 +19,20 @@
                                 'company-calendar-week-date-number-off': (el.day()==6)||(el.day()==0)}">
                     {{ el.format('DD') }}
                 </div>
+
             </div>
         </div>
 
         <div class="company-calendar-time-wrapper">
-            <div class="company-calendar-time-column" v-for="n in 7">
+            <div class="company-calendar-time-column extended-slot" v-for="n in 7">
                 <div v-for="(el,index) in scheduledData[n-1]" :index="el.id"
                      :class="{'company-calendar-time-block':true,
                               'company-calendar-time-block-off': el.order_id}"
                      @click="editOrder(el)"
-                >
-                    {{ formatTime(el.work_time) }}
+                >{{ formatTime(el.work_time) }}
+                    <span><i class="far fa-minus-circle"></i></span>
                 </div>
+
             </div>
         </div>
 
@@ -77,8 +79,9 @@ export default {
         editOrder(el) {
             this.$store.commit('popUp/show', {
                 comp: 'timeslotEditor',
-                header: 'Редактирование информации о времени'
+                header: 'Изменить время расписания'
             })
+            this.$store.commit('timeslots/setWryCurrentSlot',el)
         },
 
     },
@@ -108,5 +111,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+ .extended-slot {
+     width: 80px;
+ }
+
 </style>
