@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-{{--    @dump($services)--}}
+    {{--    @dump($services)--}}
     <form action="{{ route('admin.services.index') }}">
         <div class="filters row">
             <div class="col-sm-6 col-md-3">

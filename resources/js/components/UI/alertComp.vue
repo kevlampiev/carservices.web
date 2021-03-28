@@ -1,14 +1,14 @@
 <template>
-<div class="notificator-box"
-v-if="alertText!==''" @click="close">
-    <div class="centered-window shadowed-box notificator-div">
-        <div class="notificator-frame">
-            <p> {{alertText}}</p>
+    <div class="notificator-box"
+         v-if="alertText!==''" @click="close">
+        <div class="centered-window shadowed-box notificator-div">
+            <div class="notificator-frame">
+                <p> {{ alertText }}</p>
+            </div>
+
         </div>
 
     </div>
-
-</div>
 </template>
 
 <script>
@@ -21,11 +21,11 @@ export default {
         }
     },
 
-   computed: {
+    computed: {
         alertText() {
             return this.$store.state.alertText
         }
-   },
+    },
 
     // mounted() {
     //     setTimeout(()=>{this.$store.state.alertText=''},5000)
@@ -38,8 +38,8 @@ export default {
 <style>
 .notificator-box {
     background-color: #000;
-    position:absolute;
-    top:0;
+    position: absolute;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;

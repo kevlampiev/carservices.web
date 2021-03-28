@@ -10,7 +10,7 @@
                             class="services-info-field-input wide"
                             v-model="timeSlot.name"
                     >
-                        <option v-for="type in possibleTypes" >{{type.name}}</option>
+                        <option v-for="type in possibleTypes">{{ type.name }}</option>
                     </select>
                 </div>
                 <small class="error-notificator"
@@ -64,14 +64,14 @@
 export default {
 
     computed: {
-      timeSlot() {
-          console.dir(this.$store.state.timeslots.currentSlot)
-        return this.$store.state.timeslots.currentSlot
-      },
+        timeSlot() {
+            console.dir(this.$store.state.timeslots.currentSlot)
+            return this.$store.state.timeslots.currentSlot
+        },
 
-      possibleTypes() {
-          return this.$store.state.currentService.types
-      },
+        possibleTypes() {
+            return this.$store.state.currentService.types
+        },
     },
 
     methods: {

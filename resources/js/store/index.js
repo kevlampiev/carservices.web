@@ -47,9 +47,9 @@ export default {
         },
         alertAlert({commit}, payload) {
             commit('setAlertText', payload.alertText)
-            setTimeout(()=>{
+            setTimeout(() => {
                 commit('setAlertText', '')
-            },2000)
+            }, 2000)
 
         }
 
@@ -73,7 +73,7 @@ export default {
         },
 
         setAlertText(state, text) {
-            state.alertText=text
+            state.alertText = text
         }
 
     }

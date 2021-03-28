@@ -21,8 +21,8 @@ export default {
             axios.get('/api/owner/services')
                 .then(response => {
                     //TODO проверить, а вдруг в data не массив
-                    commit('setCarServiceList',response.data)
-                    commit('currentService/setOwnerCurrentService',response.data[0],{root: true})
+                    commit('setCarServiceList', response.data)
+                    commit('currentService/setOwnerCurrentService', response.data[0], {root: true})
                 })
                 .catch(error => {
                     alert('/api/owner/services/  error!')
@@ -39,12 +39,12 @@ export default {
             if (currService) {
                 context.commit('currentService/setOwnerCurrentService',
                     currService,
-                    {root:true})
+                    {root: true})
             }
         },
 
         insertEmptyService({state, commit}) {
-            const currService={
+            const currService = {
                 id: null,
                 name: ' ',
                 city: '',
@@ -61,13 +61,13 @@ export default {
             state.carServiceList.push(currService)
             commit('currentService/setOwnerCurrentService',
                 currService,
-                {root:true})
+                {root: true})
         },
 
         cancelInserting({state, commit}) {
-            const indOfNew=state.carServiceList.findIndex(el=>!el.id)
-            if (indOfNew>=0) state.carServiceList.splice(indOfNew,1)
-            if (state.carServiceList.length>0) {
+            const indOfNew = state.carServiceList.findIndex(el => !el.id)
+            if (indOfNew >= 0) state.carServiceList.splice(indOfNew, 1)
+            if (state.carServiceList.length > 0) {
                 commit('currentService/setOwnerCurrentService',
                     state.carServiceList[0],
                     {root: true}

@@ -17,9 +17,9 @@ export default {
         mode: "view"
     }),
     actions: {
-        async getServiceInfo({ state, commit }, inpData) {
+        async getServiceInfo({state, commit}, inpData) {
             try {
-                const { data } = await axios.get("/api/services/" + inpData.id);
+                const {data} = await axios.get("/api/services/" + inpData.id);
                 let newData = {
                     commonInfo: data.service,
                     schedules: data.schedules,
@@ -35,7 +35,7 @@ export default {
                     }
                 });
                 commit("setCurrentService", newData);
-            } catch ({ message }) {
+            } catch ({message}) {
                 console.error(message);
             }
         },
@@ -45,7 +45,7 @@ export default {
          * @param state
          * @param commit
          */
-        enterEditMode({ state, commit }) {
+        enterEditMode({state, commit}) {
             if (state.mode === "view" && state.commonInfo.id >= 0) {
                 commit("setMode", "edit");
             }
@@ -56,28 +56,28 @@ export default {
          * @param state
          * @param commit
          */
-        cancelEditMode({ state, commit, dispatch }) {
+        cancelEditMode({state, commit, dispatch}) {
             if (state.mode === "edit") {
                 commit("restoreCommonInfo");
             } else if (state.mode === "insert") {
-                dispatch("owner/cancelInserting", null, { root: true });
+                dispatch("owner/cancelInserting", null, {root: true});
             } else {
                 console.error(
                     "ERROR: Вызвана команда cancelEditMode из режима " +
-                        state.mode
+                    state.mode
                 );
             }
             commit("setMode", "view");
         },
 
-        enterInsertMode({ state, commit }) {
+        enterInsertMode({state, commit}) {
             if (state.mode === "view") {
-                commit("owner/insertEmptyService", {}, { root: true });
+                commit("owner/insertEmptyService", {}, {root: true});
                 commit("setMode", "insert");
             }
         },
 
-        async sendServiceChanges({ state, commit, rootState }) {
+        async sendServiceChanges({state, commit, rootState}) {
             const serviceInfo = {
                 commonInfo: Object.assign({}, state.commonInfo),
                 types: state.types
@@ -98,7 +98,7 @@ export default {
                     await axios.post("/api/owner/services/add", serviceInfo);
                 } else {
                     throw "Попытка сохранить данные на сервер из режима " +
-                        state.mode;
+                    state.mode;
                 }
                 commit("setMode", "view");
             } catch (error) {
@@ -106,7 +106,7 @@ export default {
             }
         },
 
-        changeTypePosition({ state, commit, rootState }, typeData) {
+        changeTypePosition({state, commit, rootState}, typeData) {
             const ind = state.types.findIndex(
                 item => item.name.trim() === typeData.name.trim()
             ); //ищем элемент в уже сформированном массиве
@@ -115,7 +115,7 @@ export default {
             ); //ищем элемент в массиве, гле есть вся информация
             if (typeData.checked) {
                 if (ind < 0)
-                    state.types.push({ id: typeEl.id, name: typeEl.name });
+                    state.types.push({id: typeEl.id, name: typeEl.name});
             } else {
                 if (ind > 0) state.types.splice(ind, 1);
             }
@@ -167,7 +167,7 @@ export default {
             state.types = service.types;
             state.startDate = service.startDate;
             state.currentType = service.currentType;
-            state.backupData = { ...service };
+            state.backupData = {...service};
         },
 
         /**
@@ -181,7 +181,7 @@ export default {
 
             state.startDate = new Date().setHours(0, 0, 0, 0);
             state.currentType = service.types[0] ? service.types[0].name : " ";
-            state.backupData.commonInfo = { ...service };
+            state.backupData.commonInfo = {...service};
             state.backupData.types = service.types.slice();
             if (!service.id) state.mode = "insert"; //Если id == null или undefined это точно про вставку
         },
@@ -191,7 +191,7 @@ export default {
          * @param state
          */
         restoreCommonInfo(state) {
-            state.commonInfo = { ...state.backupData.commonInfo };
+            state.commonInfo = {...state.backupData.commonInfo};
             state.types = state.backupData.types.slice();
         },
 

@@ -47,20 +47,20 @@ import SelectTypeBand from "./SelectTypeBand";
 moment.locale('ru')
 
 export default {
-    components: { SelectTypeBand },
+    components: {SelectTypeBand},
     methods: {
         dayForward: function () {
             this.$store.commit('currentService/setStartDate', {
                 date: moment(this.dateStart).add(1, 'days')
-            },{root: true})
+            }, {root: true})
         },
 
         dayBack: function () {
             this.$store.commit('currentService/setStartDate', {
-                date: moment(this.dateStart).add(-1, 'days')
-            },
+                    date: moment(this.dateStart).add(-1, 'days')
+                },
                 {root: true}
-                )
+            )
         },
 
         formatTime: function (time) {
@@ -81,7 +81,7 @@ export default {
                 comp: 'timeslotEditor',
                 header: 'Изменить время расписания'
             })
-            this.$store.commit('timeslots/setWryCurrentSlot',el)
+            this.$store.commit('timeslots/setWryCurrentSlot', el)
         },
 
     },
@@ -112,8 +112,8 @@ export default {
 </script>
 
 <style scoped>
- .extended-slot {
-     width: 80px;
- }
+.extended-slot {
+    width: 80px;
+}
 
 </style>

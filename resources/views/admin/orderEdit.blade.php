@@ -30,7 +30,8 @@
             <label for="description">Описание проблемы</label>
             <textarea class="form-control" name="description" id="description" rows="5"
                       style="margin-bottom: 10px;">{{ $order['description'] }}</textarea>
-            <select class="form-control" name="order_status" style="margin-bottom: 10px;" aria-label="Default select example">
+            <select class="form-control" name="order_status" style="margin-bottom: 10px;"
+                    aria-label="Default select example">
                 <option @if ($order['status'] == 'in_waiting') selected @endif value="in_waiting">in_waiting</option>
                 <option @if ($order['status'] == 'confirmed') selected @endif value="confirmed">confirmed</option>
                 <option @if ($order['status'] == 'deny') selected @endif value="deny">deny</option>
