@@ -41,9 +41,9 @@ export default {
     },
 
     getters: {
-        wryCurrentSlot: (state, rootState) => {
+        wryCurrentSlot: (state, getters, rootState) => {
             const cdate = new Date(state.currentSlot.slotDateTime)
-            const typeObj = rootState.types.find(el => el.name === state.currentSlot.name)
+            const typeObj = rootState.currentService.types.find(el => el.name === state.currentSlot.name)
             let result = Object.assign({}, state.currentSlot)
                 result.work_day = cdate.toDateString()
                 result.work_time = cdate.getHours() + cdate.getMinutes() / 60

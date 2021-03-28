@@ -65,7 +65,6 @@ export default {
 
     computed: {
         timeSlot() {
-            console.dir(this.$store.state.timeslots.currentSlot)
             return this.$store.state.timeslots.currentSlot
         },
 

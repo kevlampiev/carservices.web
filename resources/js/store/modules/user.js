@@ -87,7 +87,6 @@ export default {
                     user.token = response.data.token.accessToken
                     user.rememberMe = true
                     context.commit('setUserData', user)
-                    console.dir(user)
                 })
                 .catch(error => {
                     alert('Все плохо')
