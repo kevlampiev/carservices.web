@@ -14,7 +14,8 @@
             <div class="content-wrapper">
                 <div class="content-item" v-for="(carserv,index) in filteredServices" :key="carserv.id">
                     <div>
-                        <img class="content-item-company-img" :src="'/storage/img/photos/'+carserv.img_link" alt="Carservice logo">
+                        <img class="content-item-company-img" :src="'/storage/img/photos/'+carserv.img_link"
+                             alt="Carservice logo">
                         <!--                        <img class="content-item-company-img" src="/public/img/time-icon.png" alt="Carservice logo">-->
                         <div class="content-item-company-wrapper">
                             <div class="content-item-company-name">{{ carserv.name }}</div>

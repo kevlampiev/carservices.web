@@ -19,18 +19,20 @@
                                 'company-calendar-week-date-number-off': (el.day()==6)||(el.day()==0)}">
                     {{ el.format('DD') }}
                 </div>
+
             </div>
         </div>
 
         <div class="company-calendar-time-wrapper">
-            <div class="company-calendar-time-column" v-for="n in 7">
+            <div class="company-calendar-time-column extended-slot" v-for="n in 7">
                 <div v-for="(el,index) in scheduledData[n-1]" :index="el.id"
                      :class="{'company-calendar-time-block':true,
                               'company-calendar-time-block-off': el.order_id}"
-                     @click="!el.order_id?$parent.makeOrder(el):''"
-                >
-                    {{ formatTime(el.work_time) }}
+                     @click="editOrder(el)"
+                >{{ formatTime(el.work_time) }}
+                    <span><i class="far fa-minus-circle"></i></span>
                 </div>
+
             </div>
         </div>
 
@@ -45,20 +47,20 @@ import SelectTypeBand from "./SelectTypeBand";
 moment.locale('ru')
 
 export default {
-    components: { SelectTypeBand },
+    components: {SelectTypeBand},
     methods: {
         dayForward: function () {
             this.$store.commit('currentService/setStartDate', {
                 date: moment(this.dateStart).add(1, 'days')
-            },{root: true})
+            }, {root: true})
         },
 
         dayBack: function () {
             this.$store.commit('currentService/setStartDate', {
-                date: moment(this.dateStart).add(-1, 'days')
-            },
+                    date: moment(this.dateStart).add(-1, 'days')
+                },
                 {root: true}
-                )
+            )
         },
 
         formatTime: function (time) {
@@ -72,6 +74,14 @@ export default {
 
         setNewCurrentType(newCurrentType) {
             this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
+        },
+
+        editOrder(el) {
+            this.$store.commit('popUp/show', {
+                comp: 'timeslotEditor',
+                header: 'Изменить время расписания'
+            })
+            this.$store.commit('timeslots/setWryCurrentSlot', el)
         },
 
     },
@@ -101,5 +111,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.extended-slot {
+    width: 80px;
+}
+
 </style>

@@ -11,10 +11,10 @@
 </template>
 
 <script>
-    export default {
-        name: "inputImgViewer",
-        props: ['img_link']
-    }
+export default {
+    name: "inputImgViewer",
+    props: ['img_link']
+}
 </script>
 
 <style scoped>

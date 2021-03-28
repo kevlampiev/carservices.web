@@ -16,7 +16,8 @@
                     'disabled-btn': blocked,
                     }"
                     @click="startInsertService"
-                >Добавить сервис</div>
+                >Добавить сервис
+                </div>
             </div>
             <div class="services-info-wrapper">
                 <h3 class="services-info-title section-title">{{ currentService.name }}</h3>
@@ -33,13 +34,15 @@
 
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
 import SelectTypeBand from './UI/SelectTypeBand'
 import ScheduleOwnerTab from "./UI/ScheduleOwnerTab"
-import ServiceCommonEditor from "./UI/ServiceCommonEditor";
+import ServiceCommonEditor from "./UI/ServiceCommonEditor"
+
 
 export default {
     data() {
@@ -53,7 +56,7 @@ export default {
     },
     methods: {
         setNewCurrentService(newCurrentService) {
-            if (!this.blocked) this.$store.dispatch('owner/findOwnerServiceByName',newCurrentService)
+            if (!this.blocked) this.$store.dispatch('owner/findOwnerServiceByName', newCurrentService)
         },
 
         setNewBookmark(newCurrentBM) {
@@ -61,7 +64,7 @@ export default {
         },
 
         setBlocked(val) {
-            this.blocked=val
+            this.blocked = val
         },
 
         startInsertService() {
@@ -74,7 +77,7 @@ export default {
             return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleOwnerTab
         },
         carservices() {
-          return this.$store.state.owner.carServiceList
+            return this.$store.state.owner.carServiceList
         },
         currentService() {
             return this.$store.state.currentService.commonInfo
@@ -84,7 +87,7 @@ export default {
         },
         //Если информация по сервису в режиме редактирования/вставки, нельзя переключаться на другие сервисы или вкладки
         blocked() {
-            return this.$store.state.currentService.mode!=='view'
+            return this.$store.state.currentService.mode !== 'view'
         },
     },
     components: {

@@ -3,7 +3,7 @@
         <div class="shield" v-if="blocked">
 
         </div>
-        <ul class="menu-ul" >
+        <ul class="menu-ul">
             <li class="menu-li" v-for="(el,index) in types"
                 @click="changeCurrentType(el.name)"
                 v-bind:class="{'menu-li-active': (el.name===currentType&&!blocked)}"

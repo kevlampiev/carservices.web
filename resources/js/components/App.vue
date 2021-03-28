@@ -40,8 +40,8 @@
 
                 </div>
                 <div class="header-acc-wrapper" v-else>
-                    <div class="header-page-link" >
-                        {{email}}
+                    <div class="header-page-link">
+                        {{ email }}
                     </div>
                     <i class="fa fa-user" aria-hidden="true" @click="showAlert"></i>
                     <div class="header-acc-login" @click="logout" id="logout-link">
@@ -54,7 +54,7 @@
 
         <router-view></router-view>
         <popUp v-if="popUpComponent"></popUp>
-        <alert-comp ></alert-comp>
+        <alert-comp></alert-comp>
     </div>
 </template>
 
@@ -64,9 +64,10 @@ import alertComp from "./UI/alertComp";
 
 export default {
 
-    data() { return {
-        alertMessage: "Привет из главного компонента"
-    }
+    data() {
+        return {
+            alertMessage: "Привет из главного компонента"
+        }
     },
     methods: {
         logout() {

@@ -2,7 +2,8 @@ import moment from 'moment'
 import currentService from './modules/currentService'
 import user from './modules/user'
 import popUp from './modules/popUp'
-import owner from "./modules/owner";
+import owner from "./modules/owner"
+import timeslots from "./modules/timeslots";
 
 export default {
     modules: {
@@ -10,6 +11,7 @@ export default {
         owner,
         popUp,
         currentService,
+        timeslots,
     },
     state: {
         city: null,
@@ -45,9 +47,9 @@ export default {
         },
         alertAlert({commit}, payload) {
             commit('setAlertText', payload.alertText)
-            setTimeout(()=>{
+            setTimeout(() => {
                 commit('setAlertText', '')
-            },2000)
+            }, 2000)
 
         }
 
@@ -71,7 +73,7 @@ export default {
         },
 
         setAlertText(state, text) {
-            state.alertText=text
+            state.alertText = text
         }
 
     }

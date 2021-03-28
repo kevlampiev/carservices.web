@@ -105,7 +105,8 @@
                 ></textarea>
                 <small class="error-notificator"
                        v-if="$v.currentService.description.$dirty && $v.currentService.description.$error">
-                    Напишите краткое описание Вашего сервиса длиной не менее {{$v.currentService.description.$params.minLength.min}} символов
+                    Напишите краткое описание Вашего сервиса длиной не менее
+                    {{ $v.currentService.description.$params.minLength.min }} символов
                 </small>
             </div>
         </div>
@@ -123,7 +124,7 @@
                                 :disabled="type.hasTimeSlots"
                                 v-model="type.inServiceList"
                                 @click="changeTypePosition"
-                                >
+                            >
                             <span></span>
                             {{ type.name }}
                         </label>
@@ -137,7 +138,7 @@
 
 
         <div class="services-info-button-savechanges"
-            :class="{'disabled-btn': mode==='view'||!ableToSave}"
+             :class="{'disabled-btn': mode==='view'||!ableToSave}"
              @click="saveChanges"
         >
             Сохранить изменения
@@ -145,7 +146,7 @@
 
         <div class="services-info-button-cancel"
              :class="{'disabled-btn': mode==='view'}"
-            @click="cancelEdit">
+             @click="cancelEdit">
             Отмена
         </div>
 
@@ -177,21 +178,21 @@ export default {
             return this.$store.state.currentService.commonInfo
         },
         types() {
-            let result=[]
-            const sTypes=this.$store.state.currentService.types
-            const schedules=this.$store.state.currentService.schedules
+            let result = []
+            const sTypes = this.$store.state.currentService.types
+            const schedules = this.$store.state.currentService.schedules
             if (!sTypes) return [] //Это если еще не прогрузился элемент
 
             this.$store.state.types.forEach(
-                (el,index)=>{
-                    if (index>0) {
-                        if (sTypes.length>0) {
-                                el.inServiceList = (sTypes.findIndex(item => item.name === el.name) > -1)
-                            } else {
-                                el.inServiceList=false
-                            }
+                (el, index) => {
+                    if (index > 0) {
+                        if (sTypes.length > 0) {
+                            el.inServiceList = (sTypes.findIndex(item => item.name === el.name) > -1)
+                        } else {
+                            el.inServiceList = false
+                        }
                         //есть дочерние элементы, т.е. отключить такой элемент при редактировании просто так нельзя
-                        el.hasTimeSlots=(schedules.findIndex(item=>item.name===el.name)>-1)
+                        el.hasTimeSlots = (schedules.findIndex(item => item.name === el.name) > -1)
                         result.push(el)
 
                     }
@@ -209,9 +210,9 @@ export default {
 
         //Если true, то можно отжимать кнопку "Сохранить"
         ableToSave() {
-            if (this.mode==='edit') {
-                return this.$v.currentService.$anyDirty&&!this.$v.currentService.$anyError
-            } else if (this.mode==='insert') {
+            if (this.mode === 'edit') {
+                return this.$v.currentService.$anyDirty && !this.$v.currentService.$anyError
+            } else if (this.mode === 'insert') {
                 return !this.$v.currentService.$anyError
             } else {
                 return false
@@ -220,8 +221,8 @@ export default {
         }
     },
     watch: {
-        dirty: function(val) {
-            if (val && this.mode==='view') this.$store.dispatch('currentService/enterEditMode')
+        dirty: function (val) {
+            if (val && this.mode === 'view') this.$store.dispatch('currentService/enterEditMode')
         },
     },
     validations: {
@@ -249,46 +250,43 @@ export default {
                 required,
                 email
             },
-            telegram: {
-            },
+            telegram: {},
             site: {
                 validSite:
-                    val=>/^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)
+                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)
             },
             skype: {},
             description: {
                 required,
                 minLength: minLength(50)
             },
-            checky: {
-
-            }
+            checky: {}
         },
     },
     methods: {
 
         changeTypePosition(event) {
             this.$v.currentService.checky.$touch()
-            this.$store.dispatch('currentService/changeTypePosition',{
+            this.$store.dispatch('currentService/changeTypePosition', {
                 name: event.target.parentElement.outerText,
                 checked: event.target.checked,
             })
         },
 
         async saveChanges() {
-            if (this.mode==='insert') this.$v.$touch()
+            if (this.mode === 'insert') this.$v.$touch()
             if (this.ableToSave) {
                 await this.$store.dispatch('currentService/sendServiceChanges')
-                    if (this.mode==='view') {
-                        this.$v.$reset()
-                    }
+                if (this.mode === 'view') {
+                    this.$v.$reset()
+                }
             }
         },
 
         cancelEdit() {
-            if (this.mode!=='view') {
+            if (this.mode !== 'view') {
                 this.$store.dispatch('currentService/cancelEditMode')
-                this.typesListKey+=1
+                this.typesListKey += 1
                 this.$v.$reset()
             }
         },
