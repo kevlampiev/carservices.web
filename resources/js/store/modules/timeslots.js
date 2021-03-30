@@ -68,7 +68,10 @@ export default {
             const current = getters.wryCurrentSlot
             const ind = rootState.currentService.schedules.findIndex(
                 elem => {
-                    return (elem.name === current.name)&&(elem.work_day === current.work_day)&&(elem.work_time === current.work_time)
+                    return (elem.name === current.name)&&
+                        (elem.work_day === current.work_day)&&
+                        (elem.work_time === current.work_time)&&
+                        (elem.id !== current.id)
                 }
             )
 

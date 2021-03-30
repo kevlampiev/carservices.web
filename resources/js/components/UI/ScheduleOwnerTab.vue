@@ -102,7 +102,12 @@ export default {
         },
 
         editOrder(el) {
-            if (this.$store.state.mode!=='view') return
+
+            if (this.$store.state.currentService.mode!=='view') return
+            if (el.order_id) {
+                alert('Нельзя изменить позицию на которую уже есть запись')
+                return
+            }
             this.$store.commit('popUp/show', {
                 comp: 'timeslotEditor',
                 header: 'Изменить время расписания'
