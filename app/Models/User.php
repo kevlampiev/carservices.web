@@ -52,6 +52,10 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 
     public static function rules()
     {
