@@ -41,7 +41,7 @@ export default {
 
         //делает новый currentTimeSlot
         newCurrentSlot(state, typeName) {
-            state.currentSlot={
+            state.currentSlot = {
                 id: null,
                 name: typeName, //наименование типа сервиса
                 slotDateTime: null,
@@ -57,10 +57,10 @@ export default {
             const cdate = new Date(state.currentSlot.slotDateTime)
             const typeObj = rootState.currentService.types.find(el => el.name === state.currentSlot.name)
             let result = Object.assign({}, state.currentSlot)
-                result.work_day = moment(cdate).format('YYYY-MM-DD')
-                result.work_time = cdate.getHours() + cdate.getMinutes() / 60
-                result.service_type_id = typeObj.id
-                delete result.slotDateTime
+            result.work_day = moment(cdate).format('YYYY-MM-DD')
+            result.work_time = cdate.getHours() + cdate.getMinutes() / 60
+            result.service_type_id = typeObj.id
+            delete result.slotDateTime
             return result
         },
 
@@ -68,14 +68,13 @@ export default {
             const current = getters.wryCurrentSlot
             const ind = rootState.currentService.schedules.findIndex(
                 elem => {
-                    return (elem.name === current.name)&&
-                        (elem.work_day === current.work_day)&&
-                        (elem.work_time === current.work_time)&&
+                    return (elem.name === current.name) &&
+                        (elem.work_day === current.work_day) &&
+                        (elem.work_time === current.work_time) &&
                         (elem.id !== current.id)
                 }
             )
-
-          return (ind === -1)
+            return (ind === -1)
         },
     },
 

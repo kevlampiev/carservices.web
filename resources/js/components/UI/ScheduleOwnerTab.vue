@@ -39,7 +39,8 @@
         <button
             class="services-info-button-cancel"
             @click.prevent="insertOrder"
-        >Новое время в расписании</button>
+        >Новое время в расписании
+        </button>
     </div>
 </template>
 
@@ -81,19 +82,19 @@ export default {
         },
 
         insertOrder() {
-            if (this.$store.state.currentService.mode!=='view') {
+            if (this.$store.state.currentService.mode !== 'view') {
                 alert(this.$store.state.currentService.mode)
                 return
             }
 
-            this.$store.commit('popUp/show',{
+            this.$store.commit('popUp/show', {
                 comp: 'timeslotEditor',
                 header: 'Доавить время в расписание'
             })
             this.$store.commit('timeslots/setCurrentSlot',
                 {
                     id: null,
-                    name: this.$store.state.currentService.currentType   , //наименование типа сервиса
+                    name: this.$store.state.currentService.currentType, //наименование типа сервиса
                     slotDateTime: moment(new Date()).format('YYYY-MM-DDTHH:mm'),
                     service_id: this.$store.state.currentService.commonInfo.id, //к чему относится сервис
                     seivice_type_id: null, //дубль, конечно, но что делать
@@ -103,7 +104,7 @@ export default {
 
         editOrder(el) {
 
-            if (this.$store.state.currentService.mode!=='view') return
+            if (this.$store.state.currentService.mode !== 'view') return
             if (el.order_id) {
                 alert('Нельзя изменить позицию на которую уже есть запись')
                 return
