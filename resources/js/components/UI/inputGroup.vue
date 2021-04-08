@@ -1,8 +1,12 @@
 <template>
     <div>
         <div class="services-info-field-group">
-            <label class="services-info-field-label">{{ labelText }}</label>
+            <label
+                class="services-info-field-label"
+                :for="inputName"
+            >{{ labelText }}</label>
             <input type="text"
+                   :id="inputName"
                    class="services-info-field-input"
                    :class="{
                         'invalid-data': hasValidationErrors
@@ -19,14 +23,31 @@
 </template>
 
 <script>
+
 export default {
     name: "serviceInput.vue",
-    props: [
-        'modalValue',
-        'errorMessages',
-        'labelText',
-        'hasValidationErrors'
-    ]
+    props: {
+        modalValue: {
+            required: true
+        },
+        errorMessages: {
+            type: Array,
+            required: false
+        },
+        labelText: {
+            type: String,
+            default: 'Не задано'
+        },
+        hasValidationErrors: {
+            type: Boolean,
+            default: false
+        },
+        inputName: {
+            type: String,
+            default: 'none' + (new Date()).getMilliseconds().toString(4)
+        }
+
+    }
 }
 </script>
 

@@ -6,6 +6,7 @@ use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page as BasePage;
 use phpDocumentor\Reflection\Types\Boolean;
+use App\Models\User;
 
 abstract class Page extends BasePage
 {
@@ -77,6 +78,22 @@ abstract class Page extends BasePage
         } catch (TimeOutException $e) {
             dump($e);
         }
+    }
+
+    /**
+     *Функция входа под случайным владельцем сервиса
+     */
+    public static function loginOwner(Browser $browser)
+    {
+        $email = User::query()
+            ->select('email')
+            ->where('role','owner')
+            ->where('email','like','test%')
+            ->inRandomOrder()
+            ->first()
+            ->email;
+
+        self::login($browser, $email,'12345678', false);
     }
 
     /**

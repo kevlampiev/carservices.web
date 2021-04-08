@@ -129,7 +129,7 @@ class OwnerServiceController extends Controller
             }
         }
         if ($service->save()) {
-            return response()->json(['message' => 'Service info has been updated'],200);
+            return response()->json(['message' => 'Service info has been updated'], 200);
         }
         return response()->json(400);
     }
