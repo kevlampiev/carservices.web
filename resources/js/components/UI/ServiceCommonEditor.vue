@@ -66,6 +66,7 @@
                     :hasValidationErrors="($v.currentService.email.$dirty &&$v.currentService.email.$anyError)"
                     :error-messages="[
                         $v.currentService.email.$dirty && !$v.currentService.email.email ? 'Укажите корректный адрес электроной почты' : '',
+                        $v.currentService.email.$dirty && !$v.currentService.email.required ? 'Укажите корректный адрес электроной почты' : '',
                     ]"
                 />
 
@@ -261,7 +262,7 @@ export default {
             telegram: {},
             site: {
                 validSite:
-                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)
+                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)||(val==='')
             },
             skype: {},
             description: {
