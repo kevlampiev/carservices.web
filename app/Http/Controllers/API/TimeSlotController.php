@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Schedule;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Schedule;
 use App\Http\Requests\TimeSlotEditRequest;
 use DateTime;
+use App\Repositories\Interfaces\TimeSlotRepositoryInterface;
 
 class TimeSlotController extends Controller
 {
+    private $timeSlotRepository;
+
+    public function __construct(TimeSlotRepositoryInterface $timeSlotRepository)
+    {
+        $this->timeSlotRepository = $timeSlotRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,9 +45,15 @@ class TimeSlotController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TimeSlotEditRequest $request)
     {
-        //
+        $schedule = new Schedule;
+        $schedule->fill($request->all());
+
+        if ($schedule->save()) {
+            return response()->json(['message' => 'Запись добавлена']);
+        }
+        return response()->json(['error' => 'Error']);
     }
 
     /**
@@ -75,10 +88,10 @@ class TimeSlotController extends Controller
     public function update(TimeSlotEditRequest $request, $id)
     {
         $date = new DateTime($request->work_day);
-        $service = Service::where('id', $request->service_id)
-        ->where('user_id', Auth::user()->id)
-        ->first();
-        if ($service) {
+        if ($this->timeSlotRepository->checkService($request)) {
+            if ($this->timeSlotRepository->checkSchedule($request)) {
+                return response()->json(['message' => 'Запись в такими параметрами уже есть в БД']);
+            }
             $schedule = Schedule::find($id);
             $result = $schedule->update([
                 'work_day' => $date,
