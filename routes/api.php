@@ -49,4 +49,9 @@ Route::middleware('auth:api')
     }
     );
 
-
+Route::group([
+    'namespace' => 'API',
+    'middleware' => ['auth:api','is.owner']
+], function () {
+    Route::resource('/timeslots', 'TimeSlotController');
+});

@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\ScheduleRepositoryInterface;
 use App\Repositories\Interfaces\ServiceRepositoryInterface;
+use App\Repositories\Interfaces\TimeSlotRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\OrderRepository;
 use App\Repositories\ScheduleRepository;
 use App\Repositories\ServiceRepository;
+use App\Repositories\TimeSlotRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +38,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             OrderRepositoryInterface::class,
             OrderRepository::class
+        );
+        $this->app->bind(
+            TimeSlotRepositoryInterface::class,
+            TimeSlotRepository::class
         );
     }
 

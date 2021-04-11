@@ -10,7 +10,7 @@ export default {
     state: () => ({
         currentSlot: {
             id: null,
-            name: '', //наименование типа сервиса
+            name: "", //наименование типа сервиса
             slotDateTime: null,
             service_id: null, //к чему относится сервис
             seivice_type_id: null, //дубль, конечно, но что делать
@@ -19,19 +19,20 @@ export default {
     }),
     mutations: {
         setCurrentSlot(state, slot) {
-            state.currentSlot = slot
+            state.currentSlot = slot;
         },
 
         //Для реботы с currentSlot где используется неправильный формат времени: часы целые, а минуты в долях единицы
         setWryCurrentSlot(state, slot) {
-            const cdate = new Date(slot.work_day)
+            const cdate = new Date(slot.work_day);
             const fullDT = new Date(
                 cdate.getFullYear(),
                 cdate.getMonth(),
                 cdate.getDate(),
                 Math.floor(slot.work_time),
                 Math.floor(60 * (slot.work_time % 1)),
-                0)
+                0
+            );
 
             state.currentSlot = Object.assign({}, slot)
             state.currentSlot.slotDateTime = moment(fullDT).format('YYYY-MM-DDTHH:mm')
@@ -84,17 +85,21 @@ export default {
                 alert('Такая позитция в расписании уже пристутвует')
                 return
             }
+
             if (!state.currentSlot.id) {
-                dispatch('saveInsert')
+                dispatch("saveInsert");
             } else {
-                dispatch('saveEdit')
+                dispatch("saveEdit");
             }
-            commit('popUp/close', null, {root: true})
+            commit("popUp/close", null, { root: true });
         },
 
-        saveEdit({state, rootState, getters}) {
-            axios.put('api/timeslots/' + state.currentSlot.id + '/edit',
-                getters.wryCurrentSlot)
+        saveEdit({ state, rootState, getters }) {
+            axios
+                .put(
+                    "api/timeslots/" + state.currentSlot.id,
+                    getters.wryCurrentSlot
+                )
                 .then(res => {
                     let arrSlot =
                         rootState.currentService.schedules.find(
@@ -103,8 +108,8 @@ export default {
                     console.log(res)
                 })
                 .catch(err => {
-                    console.error(err.message)
-                })
+                    console.error(err.message);
+                });
         },
 
         saveInsert({state, rootState, getters}) {
@@ -114,10 +119,8 @@ export default {
                     rootState.currentService.schedules.push(res.data)
                 })
                 .catch(err => {
-                    console.error(err.message)
-                })
+                    console.error(err.message);
+                });
         }
-
-    },
-
-}
+    }
+};
