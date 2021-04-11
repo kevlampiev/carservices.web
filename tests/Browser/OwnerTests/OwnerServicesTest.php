@@ -8,153 +8,276 @@ use Tests\Browser\Pages\ClientRoot;
 use Tests\Browser\Pages\Page;
 use Tests\DuskTestCase;
 use App\Models\User;
+use Tests\Browser\Pages\OwnerPage;
 
 class OwnerServicesTest extends DuskTestCase
 {
-    /**
-     *
-     *Возвращет случайный тестовый e-mail из базы для роли
-     * @return string
-     */
-    private function getTestUserEmail(string $role): string
-    {
-        return User::query()
-            ->select('email')
-            ->where('role', $role)
-            ->where('email', 'like', 'test%')
-            ->inRandomOrder()
-            ->first()
-            ->email;
-    }
 
+    public $newServiceData;
+    public $copyNewServiceData;
 
-    /**
-     *Тестирование нажание кнопки "Выход" из приложения
-     * @return void
-     */
-    public function testLogout()
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        try {
-            $this->browse(function (Browser $browser) {
-                $browser->visit(new ClientRoot());
-                Page::logginOut($browser);
-                $browser->assertPathIs('/')
-                    ->assertSee('Войти')
-                    ->assertSee('Зарегистрироваться')
-                    ->assertSee('CARSERVICES.WEB')
-                    ->assertDontSee('Выйти')
-                    ->assertDontSee('Мои сервисы')
-                    ->assertDontSee('Раздел администратора');
-            });
-        } catch (\Throwable $e) {
-            dump($e);
-        }
+        parent::__construct($name, $data, $dataName);
+
+        $time=date('U');
+        $this->newServiceData = [
+            'name'=>'test-name-'.$time,
+            'city'=>'test-city-'.$time,
+            'address'=>'street '.$time.' house '.$time.' office '.$time,
+            'phone'=>'+7 (999) 000-0000',
+            'email'=> 'email'.$time.'@test.ru',
+            'telegram'=>'@'.$time,
+            'skype' => $time,
+            'site' => 'https://site'.$time.'.com',
+            'description' => 'DUSK так здорово сочетает в себе всё лучшее,
+                                что могли предложить шутеры 90-х, что возвращаться к ним ради ностальгии уже как-то
+                                бессмысленно. Если вы когда-то играли в ту же Quake, обменивались дистрибутивом с
+                                друзьями или ходили ради неё в гости к одноклассникам, вы наверняка помните её
+                                совсем другой, чем она есть на самом деле.',
+        ];
+        $this->copyNewServiceData = $this->newServiceData;
     }
 
     /**
-     *Тестирование входа в качестве Администратора
-     * @return void
+     *Попытка залогиниться под владельцем сервиса и перейти на страницу сервиса
      */
-    public function testLoginAsAdmin()
+    public function testVisitOwnerServicesPage()
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse( function(Browser $browser) {
             $browser->visit(new ClientRoot());
-            Page::login($browser, 'admin@admin.ru', '12345678', false);
-            $browser->assertSee('Выйти')
-                ->assertDontSee('Зарегистрироваться')
-                ->assertDontSee('Войти')
-                ->assertSee('CARSERVICES.WEB')
-                ->assertSee('admin@admin.ru')
-                ->assertDontSee('Мои сервиы')
-                ->assertSee('Раздел администратора');
+            Page::loginOwner($browser);
+            $browser->assertPathIs('/')
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->assertSee('Общая информация')
+                ->assertSee('Расписание');
         });
     }
 
-    /**
-     *Тестирование входа в качестве простого юзера
-     * @return void
-     */
-    public function testLoginAsClient()
+    public function testAddCorrectNewService()
     {
-        $this->browse(function (Browser $browser) {
-            $email = $this->getTestUserEmail('user');
+        $this->browse( function(Browser $browser) {
             $browser->visit(new ClientRoot());
-            Page::login($browser, $email, '12345678', false);
-            $browser->assertSee('Выйти')
-                ->assertDontSee('Зарегистрироваться')
-                ->assertDontSee('Войти')
-                ->assertSee('CARSERVICES.WEB')
-                ->assertSee($email)
-                ->assertDontSee('Раздел администратора')
-                ->assertDontSee('Мои сервисы');
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->click('.services-info-button-savechanges');
         });
     }
 
-    /**
-     *Тестирование входа в качестве Владельца сервиса
-     * @return void
-     */
-    public function testLoginAsIOwner()
+    public function testAddEmptyName()
     {
-        $this->browse(function (Browser $browser) {
-            $email = $this->getTestUserEmail('owner');
+       $this->newServiceData = $this->copyNewServiceData;
+       $this->newServiceData['name']='';
+        $this->browse( function(Browser $browser)  {
             $browser->visit(new ClientRoot());
-            Page::logginOut($browser);
-            $browser->pause(5000);
-            Page::login($browser, $email, '12345678', false);
-            $browser->assertSee('Выйти')
-                ->assertDontSee('Зарегистрироваться')
-                ->assertDontSee('Войти')
-                ->assertSee($email)
-                ->assertDontSee('Раздел администратора')
-                ->assertSee('Мои сервисы');
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите название сервиса');
         });
     }
 
-    /**
-     *Тестирование входа с неправильным e-mail
-     * @return void
-     */
-    public function testLoginIncorrectEmail()
+    public function testAddTooShortName()
     {
-        $this->browse(function (Browser $browser) {
-            $email = $this->getTestUserEmail('user');
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['name']='N';
+        $this->browse( function(Browser $browser)  {
             $browser->visit(new ClientRoot());
-            Page::logginOut($browser);
-            $browser->pause(5000);
-            $browser->click('#login-link')
-                ->waitForText('Ok')
-                ->type('#company-entry-row-input-password', '12345678')
-                ->type('#company-entry-row-input-email', 'incorrect' . $email)
-                ->click('#Ok-button')
-                ->pause(10000)
-                ->assertDialogOpened('Данный e-mail не зарегистрирован в системе')
-                ->acceptDialog()
-                ->assertSee('Зарегистрироваться');
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('В названии сервиса должно быть хотя бы 10 символов');
         });
     }
 
-    /**
-     *Тестирование входа с неправильным паролем
-     * @return void
-     */
-    public function testLoginIncorrectPassword()
+    public function testAddTooEmptyCity()
     {
-        $this->browse(function (Browser $browser) {
-            $email = $this->getTestUserEmail('user');
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['city']='';
+        $this->browse( function(Browser $browser)  {
             $browser->visit(new ClientRoot());
-            Page::logginOut($browser);
-            $browser->click('#login-link')
-                ->waitForText('Ok')
-                ->type('#company-entry-row-input-password', '111111111')
-                ->type('#company-entry-row-input-email', $email)
-                ->click('#Ok-button')
-                ->pause(10000)
-                ->assertDialogOpened('Пароль не верен')
-                ->acceptDialog()
-                ->assertSee('Зарегистрироваться');
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите название населенного пункта');
+        });
+    }
+
+    public function testAddTooShortCity()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['city']='A';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('В названии населенного пункта должно быть хотя бы 2 символа');
+        });
+    }
+
+    public function testAddEmptyAddress()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['address']='';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите адрес (улица, дом)');
+        });
+    }
+
+    public function testTooShortAddress()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['address']='AAA BBB CCC';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('минимальная длина адреса - 25 символов');
+        });
+    }
+
+    public function testEmptyPhone()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['phone']='';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите корректный номер телефона');
+        });
+    }
+
+    public function testIncorrectPhone()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['phone']='799979';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите корректный номер телефона');
         });
     }
 
 
+    public function testEmptyEmail()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['email']='';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите корректный адрес электроной почты');
+        });
+    }
+
+    public function testIncorrectEmail()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['email']='incorrect@email';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите корректный адрес электроной почты');
+        });
+    }
+
+    public function testIncorrectSite()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['site']='incorrect-site';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->assertSee('Укажите корректный URL сайта Вашего сервиса');
+        });
+    }
+
+    public function testEmptyDescription()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['description']='';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->click('@name')
+                ->assertSee('Напишите краткое описание Вашего сервиса длиной не менее 50 символов');
+        });
+    }
+
+
+    public function testTooShortDescription()
+    {
+        $this->newServiceData = $this->copyNewServiceData;
+        $this->newServiceData['description']='Too short description';
+        $this->browse( function(Browser $browser)  {
+            $browser->visit(new ClientRoot());
+            Page::loginOwner($browser);
+            $browser->visit(new OwnerPage())
+                ->clickLink('Мои сервисы')
+                ->waitForText('Список сервисов')
+                ->click('.my-services-menu-add-new')
+                ->fillInputs($this->newServiceData)
+                ->click('@name')
+                ->assertSee('Напишите краткое описание Вашего сервиса длиной не менее 50 символов');
+        });
+    }
 }

@@ -68,6 +68,7 @@ export default {
         },
 
         startInsertService() {
+            this.setNewBookmark('Общая информация')
             this.$store.dispatch('owner/insertEmptyService')
         },
 

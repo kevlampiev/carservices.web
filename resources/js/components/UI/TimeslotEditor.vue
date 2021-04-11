@@ -13,14 +13,14 @@
                         <option v-for="type in possibleTypes">{{ type.name }}</option>
                     </select>
                 </div>
-                <small class="error-notificator"
-                       v-if="false">
-                    Минимальное количество символов в имени должно быть {{ 2 }}
-                </small>
-                <small class="error-notificator"
-                       v-if="true ">
-                    Для регистрации необходимо имя
-                </small>
+                <!--                <small class="error-notificator"-->
+                <!--                       v-if="false">-->
+                <!--                    Минимальное количество символов в имени должно быть {{ 2 }}-->
+                <!--                </small>-->
+                <!--                <small class="error-notificator"-->
+                <!--                       v-if="true ">-->
+                <!--                    Для регистрации необходимо имя-->
+                <!--                </small>-->
             </div>
 
             <div class="company-entry-block-wrapper">
@@ -34,14 +34,14 @@
                            v-model="timeSlot.slotDateTime"
                     >
                 </div>
-                <small class="error-notificator"
-                       v-if="false">
-                    Минимальное количество символов в имени должно быть {{ 2 }}
-                </small>
-                <small class="error-notificator"
-                       v-if="true ">
-                    Для регистрации необходимо имя
-                </small>
+                <!--                <small class="error-notificator"-->
+                <!--                       v-if="false">-->
+                <!--                    Минимальное количество символов в имени должно быть {{ 2 }}-->
+                <!--                </small>-->
+                <!--                <small class="error-notificator"-->
+                <!--                       v-if="true ">-->
+                <!--                    Для регистрации необходимо имя-->
+                <!--                </small>-->
             </div>
 
 
@@ -52,7 +52,7 @@
                     :class="{'disabled-btn': false}"
             >Ok
             </button>
-            <button class="services-info-button-cancel">Отмена</button>
+            <button class="services-info-button-cancel" @click.prevent="cancelChanges">Отмена</button>
 
 
         </form>
@@ -76,7 +76,11 @@ export default {
     methods: {
         saveChanges() {
             this.$store.dispatch('timeslots/saveChanges')
-        }
+        },
+
+        cancelChanges() {
+            this.$store.commit('popUp/close')
+        },
     },
 }
 

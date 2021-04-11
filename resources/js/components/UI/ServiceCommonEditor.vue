@@ -4,6 +4,7 @@
             <div class="services-info-field">
 
                 <input-group
+                    :input-name="'service-name'"
                     :modal-value="currentService.name"
                     @input="value=>{currentService.name=value}"
                     @blur="$v.currentService.name.$touch()"
@@ -17,6 +18,7 @@
                 />
 
                 <input-group
+                    :input-name="'service-city'"
                     :modal-value="currentService.city"
                     @input="value=>{currentService.city=value}"
                     @blur="$v.currentService.city.$touch()"
@@ -30,6 +32,7 @@
                 />
 
                 <input-group
+                    :input-name="'service-address'"
                     :modal-value="currentService.address"
                     @input="value=>{currentService.address=value}"
                     @blur="$v.currentService.address.$touch()"
@@ -43,6 +46,7 @@
                 />
 
                 <input-group
+                    :input-name="'service-phone'"
                     :modal-value="currentService.phone"
                     @input="value=>{currentService.phone=value}"
                     @blur="$v.currentService.phone.$touch()"
@@ -54,6 +58,7 @@
                 />
 
                 <input-group
+                    :input-name="'service-email'"
                     :modal-value="currentService.email"
                     @input="value=>{currentService.email=value}"
                     @blur="$v.currentService.email.$touch()"
@@ -61,10 +66,12 @@
                     :hasValidationErrors="($v.currentService.email.$dirty &&$v.currentService.email.$anyError)"
                     :error-messages="[
                         $v.currentService.email.$dirty && !$v.currentService.email.email ? 'Укажите корректный адрес электроной почты' : '',
+                        $v.currentService.email.$dirty && !$v.currentService.email.required ? 'Укажите корректный адрес электроной почты' : '',
                     ]"
                 />
 
                 <input-group
+                    :input-name="'service-telegram'"
                     :modal-value="currentService.telegram"
                     @input="value=>{currentService.telegram=value}"
                     @blur="$v.currentService.telegram.$touch()"
@@ -75,6 +82,7 @@
 
 
                 <input-group
+                    :input-name="'service-skype'"
                     :modal-value="currentService.skype"
                     @input="value=>{currentService.skype=value}"
                     @blur="$v.currentService.skype.$touch()"
@@ -84,6 +92,7 @@
                 />
 
                 <input-group
+                    :input-name="'service-site'"
                     :modal-value="currentService.site"
                     @input="value=>{currentService.site=value}"
                     @blur="$v.currentService.site.$touch()"
@@ -253,7 +262,7 @@ export default {
             telegram: {},
             site: {
                 validSite:
-                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)
+                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)||(val==='')
             },
             skype: {},
             description: {
