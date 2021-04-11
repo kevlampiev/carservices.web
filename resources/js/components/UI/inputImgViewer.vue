@@ -2,8 +2,9 @@
     <div class="services-info-photo-wrapper">
         <h3 class="services-info-photo-title">Фотография</h3>
         <div class="services-info-photo-field" :style="{backgroundImage:'url('+img_link+')'}">
-            <img :src="img_link" alt="">
+
 <!--            <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" ></vue-dropzone>-->
+            <img :src="img_link" alt="">
             <div class="services-info-photo-field-placeholder"
                 @click="loadImage">
                 Щелкните здесь чтобы добавить или изменить фото

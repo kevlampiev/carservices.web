@@ -1,8 +1,14 @@
 <template>
     <div>
-        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+        <vue-dropzone
+            ref="vueDropzone"
+            id="dropzone"
+            :options="dropzoneOptions"
+            v-on:vdropzone-success="okClose"
+            v-on:vdropzone-error="cancelClose"
+        ></vue-dropzone>
         <hr>
-        <button>
+        <button @click="sendToServer">
             Ok
         </button>
     </div>
@@ -22,10 +28,28 @@ export default {
                 url: '/loadfile',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
-                headers: { "My-Awesome-Header": "header value" }
+                headers: { "My-Awesome-Header": "header value" },
+                autoProcessQueue: false
+
             }
         }
-    }
+    },
+
+    methods: {
+        sendToServer() {
+            this.$refs.vueDropzone.processQueue()
+        },
+
+        okClose()  {
+            alert('Ok')
+            this.$store.commit('popUp/close')
+        },
+
+        cancelClose() {
+            alert('Error')
+            this.$store.commit('popUp/close')
+        }
+    },
 
 }
 
