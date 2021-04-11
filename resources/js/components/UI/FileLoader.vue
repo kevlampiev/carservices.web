@@ -30,7 +30,6 @@ export default {
                 maxFilesize: 1.0,
                 headers: { "My-Awesome-Header": "header value" },
                 autoProcessQueue: false
-
             }
         }
     },
@@ -40,7 +39,7 @@ export default {
             this.$refs.vueDropzone.processQueue()
         },
 
-        okClose()  {
+        okClose(file, resonse)  {
             alert('Ok')
             this.$store.commit('popUp/close')
         },
