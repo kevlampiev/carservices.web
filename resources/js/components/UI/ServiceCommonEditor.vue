@@ -1,5 +1,6 @@
 <template>
-    <div class="services-info-editor-el">
+    <div class="services-info-editor-el"
+         @imageChanged="alert('touch')">
         <div class="services-info-layout-1">
             <div class="services-info-field">
 
@@ -149,6 +150,7 @@
         <div class="services-info-button-savechanges"
              :class="{'disabled-btn': mode==='view'||!ableToSave}"
              @click="saveChanges"
+             :key="btnOkKey"
         >
             Сохранить изменения
         </div>
@@ -180,6 +182,7 @@ export default {
             //Ключ для перерисовки достуных типов услуг сервиса. Не хватает реактивности,
             // приходится использовать такие вещи
             typesListKey: 0,
+            btnOkKey: 300,
         }
     },
     computed: {
@@ -213,8 +216,13 @@ export default {
             return this.$store.state.currentService.mode
         },
 
+        imgChanged() {
+            return (this.$store.state.currentService.mode === 'edit') &&
+                (this.$store.state.currentService)
+        },
+
         dirty() {
-            return this.$v.currentService.$anyDirty
+            return this.$v.currentService.$anyDirty || this.$store.getters.currentService.imgChanged
         },
 
         //Если true, то можно отжимать кнопку "Сохранить"
@@ -268,6 +276,9 @@ export default {
             description: {
                 required,
                 minLength: minLength(50)
+            },
+            img_link: {
+
             },
             checky: {}
         },

@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             dropzoneOptions: {
-                url: '/loadfile',
+                url: 'api/services/img_store',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
                 headers: { "My-Awesome-Header": "header value" }

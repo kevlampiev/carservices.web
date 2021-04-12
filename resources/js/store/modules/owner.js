@@ -55,6 +55,7 @@ export default {
                 skype: '',
                 site: '',
                 description: '',
+                img_link: '',
                 types: [],
                 schedules: [],
             }

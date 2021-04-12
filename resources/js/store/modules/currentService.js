@@ -156,7 +156,14 @@ export default {
                 tmp.push(moment(startD).add(i, "days"));
             }
             return tmp;
-        }
+        },
+
+        imgChanged: state  => {
+            let editCase = (state.mode === 'edit') &&
+                (state.currentService.commonInfo.img_link !== state.currentService.backupData.img_link)
+            let insertCase = (state.mode === 'insert') && (state.currentService.img_link !== '')
+            return editCase || insertCase
+        },
     },
 
     mutations: {
@@ -184,6 +191,15 @@ export default {
             state.backupData.commonInfo = {...service};
             state.backupData.types = service.types.slice();
             if (!service.id) state.mode = "insert"; //Если id == null или undefined это точно про вставку
+        },
+
+        /**
+         * Устанавливает у ComonInfo новое имя файла
+         * @param state
+         * @param fname Новое имя файлы
+         */
+        setFileName(state, fname) {
+            state.commonInfo.img_link = fname
         },
 
         /**

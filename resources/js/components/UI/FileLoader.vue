@@ -25,7 +25,7 @@ export default {
     data: function () {
         return {
             dropzoneOptions: {
-                url: '/loadfile',
+                url: 'api/owner/img_store',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
                 headers: { "Authorization": "Bearer " + this.$store.state.user.token},
@@ -41,7 +41,11 @@ export default {
         },
 
         okClose(file, resonse)  {
-            alert('Ok')
+            console.dir(resonse)
+            if (this.$store.state.currentService.mode === 'view') {
+                this.$store.dispatch('currentService/enterEditMode')
+            }
+            this.$store.commit('currentService/setFileName', resonse.filename)
             this.$store.commit('popUp/close')
         },
 
