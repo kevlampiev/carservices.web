@@ -28,14 +28,15 @@ export default {
                 url: '/loadfile',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
-                headers: { "My-Awesome-Header": "header value" },
-                autoProcessQueue: false
+                headers: { "Authorization": "Bearer " + this.$store.state.user.token},
+                autoProcessQueue: false,
             }
         }
     },
 
     methods: {
         sendToServer() {
+            this.dropzoneOptions.headers = { "Authorization": "Bearer " + this.$store.state.user.token}
             this.$refs.vueDropzone.processQueue()
         },
 

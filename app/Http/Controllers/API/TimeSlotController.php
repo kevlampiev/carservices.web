@@ -99,7 +99,7 @@ class TimeSlotController extends Controller
                 'service_type_id' => $request->service_type_id
             ]);
             if ($result) {
-                return response()->json(['message' => 'Запись обновлена'],200);
+                return response()->json(['message' => 'Запись обновлена'], 200);
             }
             return response()->json(['error' => 'Error']);
         }
