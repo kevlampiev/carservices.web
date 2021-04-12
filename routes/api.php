@@ -37,10 +37,10 @@ Route::group([
     'namespace' => 'API',
     'middleware' => ['auth:api','is.owner']
 ], function() {
-
     Route::get('/services', 'OwnerServiceController@index');
     Route::post('/services/add','OwnerServiceController@store');
     Route::put('/services/{id}/edit','OwnerServiceController@update');
+    Route::post('/img_store','ImageLoadController@storeFile');
 });
 
 Route::middleware('auth:api')

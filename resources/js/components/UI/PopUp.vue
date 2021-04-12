@@ -22,6 +22,7 @@ export default {
         'login': () => import('./LoginComp'),
         'register': () => import('./RegisterComp'),
         'timeslotEditor': () => import('./TimeslotEditor'),
+        'FileLoader': () => import('./FileLoader'),
     },
     methods: {
         closeWindow() {
