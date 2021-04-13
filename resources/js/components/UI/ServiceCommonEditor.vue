@@ -216,10 +216,6 @@ export default {
             return this.$store.state.currentService.mode
         },
 
-        imgChanged() {
-            return this.$store.getters['currentService/imgChanged']
-        },
-
         dirty() {
             return this.$v.currentService.$anyDirty || this.$store.getters['currentService/imgChanged']
         },

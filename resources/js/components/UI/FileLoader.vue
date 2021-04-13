@@ -6,12 +6,30 @@
             :options="dropzoneOptions"
             v-on:vdropzone-success="okClose"
             v-on:vdropzone-error="cancelClose"
-        ></vue-dropzone>
+            :useCustomSlot=true
+        >
+            <div class="dropzone-custom-content">
+                <h3 class="dropzone-custom-title">Поместите сюда файл для загрузки</h3>
+                <div class="subtitle">...или кликните мышью </div>
+            </div>
+        </vue-dropzone>
         <hr>
-        <button @click="sendToServer">
+        <button
+            @click="sendToServer"
+            class="services-info-button-savechanges"
+        >
             Ok
         </button>
+        <button
+            @click="cancelClose"
+            class="services-info-button-cancel"
+        >
+            Отмена
+        </button>
+
+
     </div>
+
 </template>
 
 <script>
@@ -41,7 +59,6 @@ export default {
         },
 
         okClose(file, resonse)  {
-            console.dir(resonse)
             if (this.$store.state.currentService.mode === 'view') {
                 this.$store.dispatch('currentService/enterEditMode')
             }
@@ -50,7 +67,6 @@ export default {
         },
 
         cancelClose() {
-            alert('Error')
             this.$store.commit('popUp/close')
         }
     },
@@ -59,5 +75,22 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
+.dropzone-custom-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.dropzone-custom-title {
+    margin-top: 0;
+    color: green;
+}
+
+.subtitle {
+    color: #314b5f;
+}
 </style>
