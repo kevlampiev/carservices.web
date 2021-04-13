@@ -217,8 +217,7 @@ export default {
         },
 
         imgChanged() {
-            return (this.$store.state.currentService.mode === 'edit') &&
-                (this.$store.state.currentService)
+            return this.$store.getters['currentService/imgChanged']
         },
 
         dirty() {
@@ -228,7 +227,7 @@ export default {
         //Если true, то можно отжимать кнопку "Сохранить"
         ableToSave() {
             if (this.mode === 'edit') {
-                return this.$v.currentService.$anyDirty && !this.$v.currentService.$anyError
+                return this.dirty && !this.$v.currentService.$anyError
             } else if (this.mode === 'insert') {
                 return !this.$v.currentService.$anyError
             } else {
