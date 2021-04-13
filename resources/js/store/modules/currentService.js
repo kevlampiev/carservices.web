@@ -160,8 +160,8 @@ export default {
 
         imgChanged: state  => {
             let editCase = (state.mode === 'edit') &&
-                (state.currentService.commonInfo.img_link !== state.currentService.backupData.img_link)
-            let insertCase = (state.mode === 'insert') && (state.currentService.img_link !== '')
+                (state.commonInfo.img_link !== state.backupData.img_link)
+            let insertCase = (state.mode === 'insert') && (state.img_link !== '')
             return editCase || insertCase
         },
     },
@@ -199,7 +199,11 @@ export default {
          * @param fname Новое имя файлы
          */
         setFileName(state, fname) {
-            state.commonInfo.img_link = fname
+            try {
+                state.commonInfo.img_link = fname
+            } catch(e) {
+                console.error(e)
+            }
         },
 
         /**

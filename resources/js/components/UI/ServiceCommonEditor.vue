@@ -222,7 +222,7 @@ export default {
         },
 
         dirty() {
-            return this.$v.currentService.$anyDirty || this.$store.getters.currentService.imgChanged
+            return this.$v.currentService.$anyDirty || this.$store.getters['currentService/imgChanged']
         },
 
         //Если true, то можно отжимать кнопку "Сохранить"
