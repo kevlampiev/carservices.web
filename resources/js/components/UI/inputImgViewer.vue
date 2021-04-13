@@ -3,10 +3,10 @@
         <h3 class="services-info-photo-title">Фотография</h3>
         <div class="services-info-photo-field">
 
-<!--            <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" ></vue-dropzone>-->
+            <!--            <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" ></vue-dropzone>-->
             <img :src="img_link" alt="">
             <div class="services-info-photo-field-placeholder"
-                @click="loadImage">
+                 @click="loadImage">
                 Щелкните здесь чтобы добавить или изменить фото
 
             </div>
@@ -27,7 +27,7 @@ export default {
                 url: 'api/services/img_store',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
-                headers: { "My-Awesome-Header": "header value" }
+                headers: {"My-Awesome-Header": "header value"}
             }
         }
     },

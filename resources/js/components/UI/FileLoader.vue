@@ -10,7 +10,7 @@
         >
             <div class="dropzone-custom-content">
                 <h3 class="dropzone-custom-title">Поместите сюда файл для загрузки</h3>
-                <div class="subtitle">...или кликните мышью </div>
+                <div class="subtitle">...или кликните мышью</div>
             </div>
         </vue-dropzone>
         <hr>
@@ -36,6 +36,7 @@
 
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 export default {
     components: {
         vueDropzone: vue2Dropzone
@@ -46,7 +47,7 @@ export default {
                 url: 'api/owner/img_store',
                 thumbnailWidth: 150,
                 maxFilesize: 1.0,
-                headers: { "Authorization": "Bearer " + this.$store.state.user.token},
+                headers: {"Authorization": "Bearer " + this.$store.state.user.token},
                 autoProcessQueue: false,
             }
         }
@@ -54,11 +55,11 @@ export default {
 
     methods: {
         sendToServer() {
-            this.dropzoneOptions.headers = { "Authorization": "Bearer " + this.$store.state.user.token}
+            this.dropzoneOptions.headers = {"Authorization": "Bearer " + this.$store.state.user.token}
             this.$refs.vueDropzone.processQueue()
         },
 
-        okClose(file, resonse)  {
+        okClose(file, resonse) {
             if (this.$store.state.currentService.mode === 'view') {
                 this.$store.dispatch('currentService/enterEditMode')
             }

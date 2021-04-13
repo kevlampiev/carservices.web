@@ -54,6 +54,7 @@ class OwnerServiceController extends Controller
             $service->site = $request->commonInfo['site'],
             $service->telegram = $request->commonInfo['telegram'],
             $service->skype = $request->commonInfo['skype'],
+            $service->img_link = $request->commonInfo['img_link'],
         ]);
         $result = $service->save();
         foreach ($request->types as $type) {
@@ -117,6 +118,7 @@ class OwnerServiceController extends Controller
             $service->site = $request->commonInfo['site'],
             $service->telegram = $request->commonInfo['telegram'],
             $service->site = $request->commonInfo['site'],
+            $service->img_link = $request->commonInfo['img_link'],
         ]);
         $newTypeNames = array_diff($requestTypeName, $typeNames);
         if (!empty($newTypeNames)) {

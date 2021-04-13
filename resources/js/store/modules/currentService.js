@@ -158,7 +158,7 @@ export default {
             return tmp;
         },
 
-        imgChanged: state  => {
+        imgChanged: state => {
             let editCase = (state.mode === 'edit') &&
                 (state.commonInfo.img_link !== state.backupData.img_link)
             let insertCase = (state.mode === 'insert') && (state.img_link !== '')
@@ -201,7 +201,7 @@ export default {
         setFileName(state, fname) {
             try {
                 state.commonInfo.img_link = fname
-            } catch(e) {
+            } catch (e) {
                 console.error(e)
             }
         },

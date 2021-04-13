@@ -12,7 +12,6 @@ class ImageLoadController extends Controller
     public function storeFile(Request $request):JsonResponse
     {
         $path = Storage::putFile('public/img/photos', $request->file('file'));
-        return response()->json(['filename'=>basename($path)],200);
+        return response()->json(['filename'=>basename($path)], 200);
     }
-
 }

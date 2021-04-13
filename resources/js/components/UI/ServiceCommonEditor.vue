@@ -265,16 +265,14 @@ export default {
             telegram: {},
             site: {
                 validSite:
-                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)||(val==='')
+                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val) || (val === '')
             },
             skype: {},
             description: {
                 required,
                 minLength: minLength(50)
             },
-            img_link: {
-
-            },
+            img_link: {},
             checky: {}
         },
     },
