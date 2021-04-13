@@ -216,19 +216,14 @@ export default {
             return this.$store.state.currentService.mode
         },
 
-        imgChanged() {
-            return (this.$store.state.currentService.mode === 'edit') &&
-                (this.$store.state.currentService)
-        },
-
         dirty() {
-            return this.$v.currentService.$anyDirty || this.$store.getters.currentService.imgChanged
+            return this.$v.currentService.$anyDirty || this.$store.getters['currentService/imgChanged']
         },
 
         //Если true, то можно отжимать кнопку "Сохранить"
         ableToSave() {
             if (this.mode === 'edit') {
-                return this.$v.currentService.$anyDirty && !this.$v.currentService.$anyError
+                return this.dirty && !this.$v.currentService.$anyError
             } else if (this.mode === 'insert') {
                 return !this.$v.currentService.$anyError
             } else {
@@ -270,16 +265,14 @@ export default {
             telegram: {},
             site: {
                 validSite:
-                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val)||(val==='')
+                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val) || (val === '')
             },
             skype: {},
             description: {
                 required,
                 minLength: minLength(50)
             },
-            img_link: {
-
-            },
+            img_link: {},
             checky: {}
         },
     },

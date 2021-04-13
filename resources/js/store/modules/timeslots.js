@@ -91,10 +91,10 @@ export default {
             } else {
                 dispatch("saveEdit");
             }
-            commit("popUp/close", null, { root: true });
+            commit("popUp/close", null, {root: true});
         },
 
-        saveEdit({ state, rootState, getters }) {
+        saveEdit({state, rootState, getters}) {
             axios
                 .put(
                     "api/timeslots/" + state.currentSlot.id,
