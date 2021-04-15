@@ -123,7 +123,11 @@ jobs:
           command: php artisan dusk:chrome-driver
       - run:
           name: Запустить сервер
-          command: php artisan serve &
+          command: |
+            nohup php artisan serve &
+            sleep 5
+            curl http://localhost:8000
+
       - run:
           name: Run Laravel Dusk Tests
           command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
