@@ -2,8 +2,9 @@
 // Предназначен для просмотра и редактирования информации о конкретном сервисе
 // Используется как для простых пользователей, так и для владельцев сервисов
 //------------------------------------------------------------------------------
-import moment from "moment";
-import currentService from "./currentService";
+import moment from "moment"
+import currentService from "./currentService"
+import * as slotsFunc from '../../functions'
 
 export default {
     namespaced: true,
@@ -55,14 +56,7 @@ export default {
 
     getters: {
         wryCurrentSlot: (state, getters, rootState) => {
-            const cdate = new Date(state.currentSlot.slotDateTime)
-            const typeObj = rootState.currentService.types.find(el => el.name === state.currentSlot.name)
-            let result = Object.assign({}, state.currentSlot)
-            result.work_day = moment(cdate).format('YYYY-MM-DD')
-            result.work_time = cdate.getHours() + cdate.getMinutes() / 60
-            result.service_type_id = typeObj.id
-            delete result.slotDateTime
-            return result
+            return slotsFunc.slot2WrySlot(state.currentSlot, rootState.currentService.types)
         },
 
         uniqueSlot: (state, getters, rootState) => {
@@ -80,7 +74,7 @@ export default {
     },
 
     actions: {
-        saveChanges({state, dispatch, commit, getters}, id) {
+        saveChanges({state, dispatch, commit, getters}) {
             if (!getters.uniqueSlot) {
                 alert('Такая позитция в расписании уже пристутвует')
                 return
@@ -95,28 +89,42 @@ export default {
         },
 
         saveEdit({state, rootState, getters}) {
-            axios
-                .put(
-                    "api/timeslots/" + state.currentSlot.id,
-                    getters.wryCurrentSlot
-                )
+            let slot = slotsFunc.slot2WrySlot(state.currentSlot, rootState.currentService.types)
+            axios.put('api/timeslots/' + state.currentSlot.id, slot)
                 .then(res => {
-                    let arrSlot =
-                        rootState.currentService.schedules.find(
+                    let elIndex =
+                        rootState.currentService.schedules.findIndex(
                             item => item.id === getters.wryCurrentSlot.id)
-                    arrSlot = getters.wryCurrentSlot
-                    console.log(res)
+                    res.data.schedule.name = state.currentSlot.name
+                    res.data.schedule.work_day = res.data.schedule.work_day.date
+                    console.dir(res.data.schedule)
+                    rootState.currentService.schedules.splice(elIndex, 1)
+                    rootState.currentService.schedules.push(res.data.schedule)
                 })
                 .catch(err => {
                     console.error(err.message);
                 });
         },
 
-        saveInsert({state, rootState, getters}) {
-            axios.post('api/timeslots/add',
+        saveInsert({state, rootState, commit, getters}) {
+            axios.post('api/timeslots',
                 getters.wryCurrentSlot)
                 .then(res => {
-                    rootState.currentService.schedules.push(res.data)
+                    res.data.schedule.name = state.currentSlot.name
+                    rootState.currentService.schedules.push(res.data.schedule)
+                })
+                .catch(err => {
+                    console.error(err.message);
+                });
+        },
+
+        delete({state, rootState}, el) {
+            axios.delete('api/timeslots/' + el.id)
+                .then(res => {
+                    let elIndex =
+                        rootState.currentService.schedules.findIndex(
+                            item => item.id === el.id)
+                    rootState.currentService.schedules.splice(elIndex, 1)
                 })
                 .catch(err => {
                     console.error(err.message);

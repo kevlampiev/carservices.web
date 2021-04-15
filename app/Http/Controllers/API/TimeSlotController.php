@@ -43,7 +43,7 @@ class TimeSlotController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(TimeSlotEditRequest $request)
     {
@@ -51,6 +51,7 @@ class TimeSlotController extends Controller
         $schedule->fill($request->all());
 
         if ($schedule->save()) {
+
             return response()->json([
                 'message' => 'Запись добавлена',
                 'schedule' => $schedule
@@ -86,12 +87,12 @@ class TimeSlotController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(TimeSlotEditRequest $request, $id)
     {
         $date = new DateTime($request->work_day);
-        if ($this->timeSlotRepository->checkService($request)) {
+        if ($this->timeSlotRepository->checkService($id)) {
             if ($this->timeSlotRepository->checkSchedule($request)) {
                 return response()->json(['message' => 'Запись в такими параметрами уже есть в БД']);
             }
@@ -102,7 +103,7 @@ class TimeSlotController extends Controller
                 'service_type_id' => $request->service_type_id
             ]);
             if ($result) {
-                return response()->json(['message' => 'Запись обновлена'], 200);
+                return response()->json(['message' => 'Запись обновлена', 'schedule'=>$schedule], 200);
             }
             return response()->json(['error' => 'Error']);
         }
@@ -113,12 +114,13 @@ class TimeSlotController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
-        if ($this->timeSlotRepository->checkService($request)) {
-            $schedule = Schedule::first($id);
+        if ($this->timeSlotRepository->checkService($id)) {
+            $schedule = Schedule::find($id);
+
             if ($schedule->delete()) {
                 return response()->json(['message' => 'Запись удалена']);
             }

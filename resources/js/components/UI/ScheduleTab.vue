@@ -35,55 +35,55 @@
 
 
 <script>
-import moment from 'moment'
+    import moment from 'moment'
 
-moment.locale('ru')
+    moment.locale('ru')
 
-export default {
-    props: [
-        'currentType',
-    ],
-    methods: {
-        dayForward: function () {
-            this.$store.commit('setStartDate', {
-                date: moment(this.dateStart).add(1, 'days')
-            })
-        },
+    export default {
+        props: [
+            'currentType',
+        ],
+        methods: {
+            dayForward: function () {
+                this.$store.commit('setStartDate', {
+                    date: moment(this.dateStart).add(1, 'days')
+                })
+            },
 
-        dayBack: function () {
-            this.$store.commit('setStartDate', {
-                date: moment(this.dateStart).add(-1, 'days')
-            })
-        },
+            dayBack: function () {
+                this.$store.commit('setStartDate', {
+                    date: moment(this.dateStart).add(-1, 'days')
+                })
+            },
 
-        formatTime: function (time) {
-            let result = Math.trunc(time).toString() + ':'
-            let minutes = (60 * (time % 1)).toFixed(0)
-            if (minutes < 10) {
-                result += '0'
+            formatTime: function (time) {
+                let result = Math.trunc(time).toString() + ':'
+                let minutes = (60 * (time % 1)).toFixed(0)
+                if (minutes < 10) {
+                    result += '0'
+                }
+                return (result + minutes)
             }
-            return (result + minutes)
-        }
 
-    },
-
-    computed: {
-        dates() {
-            return this.$store.getters['currentService/scheduleDates']
-        },
-        scheduledData() {
-            return this.$store.getters['currentService/schedules']
-        },
-        dateStart() {
-            return this.$store.getters['currentService/startDate']
-        },
-        currentMonth() {
-            return moment(this.$store.getters['currentService/startDate']).format('MMMM')
         },
 
-    },
+        computed: {
+            dates() {
+                return this.$store.getters['currentService/scheduleDates']
+            },
+            scheduledData() {
+                return this.$store.getters['currentService/schedules']
+            },
+            dateStart() {
+                return this.$store.getters['currentService/startDate']
+            },
+            currentMonth() {
+                return moment(this.$store.getters['currentService/startDate']).format('MMMM')
+            },
 
-}
+        },
+
+    }
 </script>
 
 <style>

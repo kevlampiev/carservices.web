@@ -166,143 +166,143 @@
 
 
 <script>
-import {required, minLength, email, sameAs} from "vuelidate/lib/validators"
-import inputGroup from "./inputGroup"
-import inputImgViewer from "./inputImgViewer"
-import currentService from "../../store/modules/currentService";
+    import {required, minLength, email, sameAs} from "vuelidate/lib/validators"
+    import inputGroup from "./inputGroup"
+    import inputImgViewer from "./inputImgViewer"
+    import currentService from "../../store/modules/currentService";
 
-export default {
+    export default {
 
-    components: {
-        inputGroup,
-        inputImgViewer
-    },
-    data() {
-        return {
-            //Ключ для перерисовки достуных типов услуг сервиса. Не хватает реактивности,
-            // приходится использовать такие вещи
-            typesListKey: 0,
-            btnOkKey: 300,
-        }
-    },
-    computed: {
-        currentService() {
-            return this.$store.state.currentService.commonInfo
+        components: {
+            inputGroup,
+            inputImgViewer
         },
-        types() {
-            let result = []
-            const sTypes = this.$store.state.currentService.types
-            const schedules = this.$store.state.currentService.schedules
-            if (!sTypes) return [] //Это если еще не прогрузился элемент
+        data() {
+            return {
+                //Ключ для перерисовки достуных типов услуг сервиса. Не хватает реактивности,
+                // приходится использовать такие вещи
+                typesListKey: 0,
+                btnOkKey: 300,
+            }
+        },
+        computed: {
+            currentService() {
+                return this.$store.state.currentService.commonInfo
+            },
+            types() {
+                let result = []
+                const sTypes = this.$store.state.currentService.types
+                const schedules = this.$store.state.currentService.schedules
+                if (!sTypes) return [] //Это если еще не прогрузился элемент
 
-            this.$store.state.types.forEach(
-                (el, index) => {
-                    if (index > 0) {
-                        if (sTypes.length > 0) {
-                            el.inServiceList = (sTypes.findIndex(item => item.name === el.name) > -1)
-                        } else {
-                            el.inServiceList = false
+                this.$store.state.types.forEach(
+                    (el, index) => {
+                        if (index > 0) {
+                            if (sTypes.length > 0) {
+                                el.inServiceList = (sTypes.findIndex(item => item.name === el.name) > -1)
+                            } else {
+                                el.inServiceList = false
+                            }
+                            //есть дочерние элементы, т.е. отключить такой элемент при редактировании просто так нельзя
+                            el.hasTimeSlots = (schedules.findIndex(item => item.name === el.name) > -1)
+                            result.push(el)
+
                         }
-                        //есть дочерние элементы, т.е. отключить такой элемент при редактировании просто так нельзя
-                        el.hasTimeSlots = (schedules.findIndex(item => item.name === el.name) > -1)
-                        result.push(el)
+                    }
+                )
+                return result
+            },
+            mode() { //в каком режиме находится компонент : редактирование, чтение или вставка
+                return this.$store.state.currentService.mode
+            },
 
+            dirty() {
+                return this.$v.currentService.$anyDirty || this.$store.getters['currentService/imgChanged']
+            },
+
+            //Если true, то можно отжимать кнопку "Сохранить"
+            ableToSave() {
+                if (this.mode === 'edit') {
+                    return this.dirty && !this.$v.currentService.$anyError
+                } else if (this.mode === 'insert') {
+                    return !this.$v.currentService.$anyError
+                } else {
+                    return false
+                }
+
+            }
+        },
+        watch: {
+            dirty: function (val) {
+                if (val && this.mode === 'view') this.$store.dispatch('currentService/enterEditMode')
+            },
+        },
+        validations: {
+            currentService: {
+                name: {
+                    required,
+                    minLength: minLength(10)
+                },
+                city: {
+                    required,
+                    minLength: minLength(2)
+                },
+                address: {
+                    required,
+                    minLength: minLength(25)
+                },
+                phone: {
+                    required,
+                    validPhone: val => {
+                        let phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
+                        return phoneTmpl.test(val)
+                    }
+                },
+                email: {
+                    required,
+                    email
+                },
+                telegram: {},
+                site: {
+                    validSite:
+                        val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val) || (val === '')
+                },
+                skype: {},
+                description: {
+                    required,
+                    minLength: minLength(50)
+                },
+                img_link: {},
+                checky: {}
+            },
+        },
+        methods: {
+
+            changeTypePosition(event) {
+                this.$v.currentService.checky.$touch()
+                this.$store.dispatch('currentService/changeTypePosition', {
+                    name: event.target.parentElement.outerText,
+                    checked: event.target.checked,
+                })
+            },
+
+            async saveChanges() {
+                if (this.mode === 'insert') this.$v.$touch()
+                if (this.ableToSave) {
+                    await this.$store.dispatch('currentService/sendServiceChanges')
+                    if (this.mode === 'view') {
+                        this.$v.$reset()
                     }
                 }
-            )
-            return result
-        },
-        mode() { //в каком режиме находится компонент : редактирование, чтение или вставка
-            return this.$store.state.currentService.mode
-        },
+            },
 
-        dirty() {
-            return this.$v.currentService.$anyDirty || this.$store.getters['currentService/imgChanged']
-        },
-
-        //Если true, то можно отжимать кнопку "Сохранить"
-        ableToSave() {
-            if (this.mode === 'edit') {
-                return this.dirty && !this.$v.currentService.$anyError
-            } else if (this.mode === 'insert') {
-                return !this.$v.currentService.$anyError
-            } else {
-                return false
-            }
-
-        }
-    },
-    watch: {
-        dirty: function (val) {
-            if (val && this.mode === 'view') this.$store.dispatch('currentService/enterEditMode')
-        },
-    },
-    validations: {
-        currentService: {
-            name: {
-                required,
-                minLength: minLength(10)
-            },
-            city: {
-                required,
-                minLength: minLength(2)
-            },
-            address: {
-                required,
-                minLength: minLength(25)
-            },
-            phone: {
-                required,
-                validPhone: val => {
-                    let phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
-                    return phoneTmpl.test(val)
-                }
-            },
-            email: {
-                required,
-                email
-            },
-            telegram: {},
-            site: {
-                validSite:
-                    val => /^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$/.test(val) || (val === '')
-            },
-            skype: {},
-            description: {
-                required,
-                minLength: minLength(50)
-            },
-            img_link: {},
-            checky: {}
-        },
-    },
-    methods: {
-
-        changeTypePosition(event) {
-            this.$v.currentService.checky.$touch()
-            this.$store.dispatch('currentService/changeTypePosition', {
-                name: event.target.parentElement.outerText,
-                checked: event.target.checked,
-            })
-        },
-
-        async saveChanges() {
-            if (this.mode === 'insert') this.$v.$touch()
-            if (this.ableToSave) {
-                await this.$store.dispatch('currentService/sendServiceChanges')
-                if (this.mode === 'view') {
+            cancelEdit() {
+                if (this.mode !== 'view') {
+                    this.$store.dispatch('currentService/cancelEditMode')
+                    this.typesListKey += 1
                     this.$v.$reset()
                 }
-            }
+            },
         },
-
-        cancelEdit() {
-            if (this.mode !== 'view') {
-                this.$store.dispatch('currentService/cancelEditMode')
-                this.typesListKey += 1
-                this.$v.$reset()
-            }
-        },
-    },
-}
+    }
 </script>

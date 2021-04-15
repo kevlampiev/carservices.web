@@ -24,31 +24,31 @@
 
 <script>
 
-export default {
-    name: "serviceInput.vue",
-    props: {
-        modalValue: {
-            required: true
-        },
-        errorMessages: {
-            type: Array,
-            required: false
-        },
-        labelText: {
-            type: String,
-            default: 'Не задано'
-        },
-        hasValidationErrors: {
-            type: Boolean,
-            default: false
-        },
-        inputName: {
-            type: String,
-            default: 'none' + (new Date()).getMilliseconds().toString(4)
-        }
+    export default {
+        name: "serviceInput.vue",
+        props: {
+            modalValue: {
+                required: true
+            },
+            errorMessages: {
+                type: Array,
+                required: false
+            },
+            labelText: {
+                type: String,
+                default: 'Не задано'
+            },
+            hasValidationErrors: {
+                type: Boolean,
+                default: false
+            },
+            inputName: {
+                type: String,
+                default: 'none' + (new Date()).getMilliseconds().toString(4)
+            }
 
+        }
     }
-}
 </script>
 
 <style scoped>

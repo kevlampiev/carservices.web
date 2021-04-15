@@ -13,14 +13,6 @@
                         <option v-for="type in possibleTypes">{{ type.name }}</option>
                     </select>
                 </div>
-                <!--                <small class="error-notificator"-->
-                <!--                       v-if="false">-->
-                <!--                    Минимальное количество символов в имени должно быть {{ 2 }}-->
-                <!--                </small>-->
-                <!--                <small class="error-notificator"-->
-                <!--                       v-if="true ">-->
-                <!--                    Для регистрации необходимо имя-->
-                <!--                </small>-->
             </div>
 
             <div class="company-entry-block-wrapper">
@@ -34,14 +26,6 @@
                            v-model="timeSlot.slotDateTime"
                     >
                 </div>
-                <!--                <small class="error-notificator"-->
-                <!--                       v-if="false">-->
-                <!--                    Минимальное количество символов в имени должно быть {{ 2 }}-->
-                <!--                </small>-->
-                <!--                <small class="error-notificator"-->
-                <!--                       v-if="true ">-->
-                <!--                    Для регистрации необходимо имя-->
-                <!--                </small>-->
             </div>
 
 
@@ -49,10 +33,13 @@
                     class="services-info-button-savechanges"
                     :disabled="false"
                     @click.stop="saveChanges"
-                    :class="{'disabled-btn': false}"
-            >Ok
+                    :class="{'disabled-btn': false}">
+                Ok
             </button>
-            <button class="services-info-button-cancel" @click.prevent="cancelChanges">Отмена</button>
+
+            <button class="services-info-button-cancel" @click.prevent="cancelChanges">
+                Отмена
+            </button>
 
 
         </form>
@@ -61,38 +48,39 @@
 
 <script>
 
-export default {
+    export default {
 
-    computed: {
-        timeSlot() {
-            return this.$store.state.timeslots.currentSlot
+        computed: {
+            timeSlot() {
+                return this.$store.state.timeslots.currentSlot
+            },
+
+            possibleTypes() {
+                return this.$store.state.currentService.types
+            },
         },
 
-        possibleTypes() {
-            return this.$store.state.currentService.types
-        },
-    },
+        methods: {
+            saveChanges() {
+                let slot = this.$store.getters['timeslots/wryCurrentSlot']
+                this.$store.dispatch('timeslots/saveChanges', slot)
+            },
 
-    methods: {
-        saveChanges() {
-            this.$store.dispatch('timeslots/saveChanges')
+            cancelChanges() {
+                this.$store.commit('popUp/close')
+            },
         },
-
-        cancelChanges() {
-            this.$store.commit('popUp/close')
-        },
-    },
-}
+    }
 
 </script>
 
 <style>
-.time-slot-inner {
-    padding: 10px;
-    width: 424px;
-}
+    .time-slot-inner {
+        padding: 10px;
+        width: 424px;
+    }
 
-.wide {
-    width: 100%;
-}
+    .wide {
+        width: 100%;
+    }
 </style>

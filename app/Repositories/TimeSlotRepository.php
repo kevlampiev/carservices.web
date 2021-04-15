@@ -12,9 +12,10 @@ use DateTime;
 
 class TimeSlotRepository implements TimeSlotRepositoryInterface
 {
-    public function checkService(Request $request)
+    public function checkService($id)
     {
-        $service = Service::where('id', $request->service_id)
+        $schedule = Schedule::find($id);
+        $service = Service::where('id', $schedule->service_id)
         ->where('user_id', Auth::user()->id)
         ->first();
 
@@ -26,16 +27,20 @@ class TimeSlotRepository implements TimeSlotRepositoryInterface
 
     public function checkSchedule(Request $request)
     {
-        $date = new DateTime($request->work_day);
-        $schedule = Schedule::where('work_day', $date)
-        ->where('work_time', $request->work_time)
-        ->where('service_id', $request->service_id)
-        ->where('service_type_id', $request->service_type_id)
-        ->first();
+        try {
+            $date = new DateTime($request->work_day);
+            $schedule = Schedule::where('work_day', $date)
+                ->where('work_time', $request->work_time)
+                ->where('service_id', $request->service_id)
+                ->where('service_type_id', $request->service_type_id)
+                ->first();
 
-        if ($schedule) {
-            return true;
+            if ($schedule) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            return false;
         }
-        return false;
     }
 }
