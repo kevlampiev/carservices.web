@@ -122,6 +122,9 @@ jobs:
           name: Install driver onto Laravel
           command: php artisan dusk:chrome-driver
       - run:
+          name: Запустить сервер
+          command: php artisan serve &
+      - run:
           name: Run Laravel Dusk Tests
           command: php artisan dusk tests/Browser/ClientTests/ClientLoginTest.php
 
