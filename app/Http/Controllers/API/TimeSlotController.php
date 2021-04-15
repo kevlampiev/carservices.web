@@ -88,7 +88,7 @@ class TimeSlotController extends Controller
     public function update(TimeSlotEditRequest $request, $id)
     {
         $date = new DateTime($request->work_day);
-        if ($this->timeSlotRepository->checkService($request)) {
+        if ($this->timeSlotRepository->checkService($id)) {
             if ($this->timeSlotRepository->checkSchedule($request)) {
                 return response()->json(['message' => 'Запись в такими параметрами уже есть в БД']);
             }

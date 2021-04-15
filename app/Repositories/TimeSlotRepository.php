@@ -24,6 +24,7 @@ class TimeSlotRepository implements TimeSlotRepositoryInterface
             return true;
         }
         return false;
+        return true;
     }
 
     public function checkSchedule(Request $request)
