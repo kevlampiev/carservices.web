@@ -48,72 +48,72 @@
 
 <script>
 
-    import {yandexMap, ymapMarker} from 'vue-yandex-maps'
-    import {tmpServiceTypes} from "../tmpData.js";
-    import SearchLine from "./UI/SearchLine";
-    import SelectTypeBand from "./UI/SelectTypeBand";
+import {yandexMap, ymapMarker} from 'vue-yandex-maps'
+import {tmpServiceTypes} from "../tmpData.js";
+import SearchLine from "./UI/SearchLine";
+import SelectTypeBand from "./UI/SelectTypeBand";
 
-    export default {
-        data: () => {
-            return {
-                services: [],
-                searchStr: '',
-                currentType: 'Все'
-            }
-        },
-        methods: {
-            async getServiceList(aCity) {
-                if (!aCity) aCity = this.$store.state.city
-                try {
-                    const {data} = await axios.get('/api/services?city=' + aCity)
-                    this.services = data
-                } catch ({message}) {
-                    console.error(message)
-                }
-            },
-            startSelectCity() {
-                this.$store.state.popUpData = {
-                    comp: 'cityList',
-                    header: 'выбрать город',
-                }
-            },
-
-            showService(id) {
-                this.$router.push('/service/' + id)
-            },
-
-            setNewCurrentType(newType) {
-                this.currentType = newType
-            }
-        },
-        computed: {
-            filteredServices: function () {
-                let nSearch = this.searchStr.toUpperCase()
-                return this.services.filter(
-                    (element) => {
-                        let nName = element.name.toUpperCase()
-                        let nAddress = element.address.toUpperCase()
-                        let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
-                        let matchType = (this.currentType === 'Все') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
-                        return matchSearch && matchType
-                    })
-            },
-            types() {
-                return this.$store.state.types
-            },
-        },
-        mounted() {
-            this.getServiceList(this.$store.state.city)
-        },
-        watch: {
-            '$store.state.city': 'getServiceList'
-        },
-        components: {
-            SelectTypeBand,
-            SearchLine,
-            yandexMap,
-            ymapMarker,
+export default {
+    data: () => {
+        return {
+            services: [],
+            searchStr: '',
+            currentType: 'Все'
         }
+    },
+    methods: {
+        async getServiceList(aCity) {
+            if (!aCity) aCity = this.$store.state.city
+            try {
+                const {data} = await axios.get('/api/services?city=' + aCity)
+                this.services = data
+            } catch ({message}) {
+                console.error(message)
+            }
+        },
+        startSelectCity() {
+            this.$store.state.popUpData = {
+                comp: 'cityList',
+                header: 'выбрать город',
+            }
+        },
 
+        showService(id) {
+            this.$router.push('/service/' + id)
+        },
+
+        setNewCurrentType(newType) {
+            this.currentType = newType
+        }
+    },
+    computed: {
+        filteredServices: function () {
+            let nSearch = this.searchStr.toUpperCase()
+            return this.services.filter(
+                (element) => {
+                    let nName = element.name.toUpperCase()
+                    let nAddress = element.address.toUpperCase()
+                    let matchSearch = (nSearch === '') ? true : (nName.indexOf(nSearch) > -1) || (nAddress.indexOf(nSearch) > -1)
+                    let matchType = (this.currentType === 'Все') ? true : (element.types.findIndex(el => el.name === this.currentType) > -1)
+                    return matchSearch && matchType
+                })
+        },
+        types() {
+            return this.$store.state.types
+        },
+    },
+    mounted() {
+        this.getServiceList(this.$store.state.city)
+    },
+    watch: {
+        '$store.state.city': 'getServiceList'
+    },
+    components: {
+        SelectTypeBand,
+        SearchLine,
+        yandexMap,
+        ymapMarker,
     }
+
+}
 </script>

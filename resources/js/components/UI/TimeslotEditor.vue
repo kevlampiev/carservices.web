@@ -48,39 +48,39 @@
 
 <script>
 
-    export default {
+export default {
 
-        computed: {
-            timeSlot() {
-                return this.$store.state.timeslots.currentSlot
-            },
-
-            possibleTypes() {
-                return this.$store.state.currentService.types
-            },
+    computed: {
+        timeSlot() {
+            return this.$store.state.timeslots.currentSlot
         },
 
-        methods: {
-            saveChanges() {
-                let slot = this.$store.getters['timeslots/wryCurrentSlot']
-                this.$store.dispatch('timeslots/saveChanges', slot)
-            },
-
-            cancelChanges() {
-                this.$store.commit('popUp/close')
-            },
+        possibleTypes() {
+            return this.$store.state.currentService.types
         },
-    }
+    },
+
+    methods: {
+        saveChanges() {
+            let slot = this.$store.getters['timeslots/wryCurrentSlot']
+            this.$store.dispatch('timeslots/saveChanges', slot)
+        },
+
+        cancelChanges() {
+            this.$store.commit('popUp/close')
+        },
+    },
+}
 
 </script>
 
 <style>
-    .time-slot-inner {
-        padding: 10px;
-        width: 424px;
-    }
+.time-slot-inner {
+    padding: 10px;
+    width: 424px;
+}
 
-    .wide {
-        width: 100%;
-    }
+.wide {
+    width: 100%;
+}
 </style>

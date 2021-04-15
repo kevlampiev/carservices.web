@@ -78,93 +78,93 @@
 
 <script>
 
-    import {required, minLength} from "vuelidate/lib/validators";
+import {required, minLength} from "vuelidate/lib/validators";
 
-    export default {
-        data: () => {
-            return {
-                orderDetails: {
-                    user_id: '',
-                    schedule_id: 1,
-                    car_model: '',
-                    license_plate_number: '',
-                    description: '',
-                    telephone: '',
-                    order_status: '',
-                }
-            }
-        },
-        validations: {
+export default {
+    data: () => {
+        return {
             orderDetails: {
-                car_model: {
-                    required,
-                    minLength: minLength(3)
-                },
-                license_plate_number: {
-                    required,
-                    minLength: minLength(8)
-                },
-                description: {},
-                telephone: {
-                    validPhone: val => {
-                        const phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
-                        return phoneTmpl.test(val)
-                    }
-                },
-
+                user_id: '',
+                schedule_id: 1,
+                car_model: '',
+                license_plate_number: '',
+                description: '',
+                telephone: '',
+                order_status: '',
             }
-        },
-        props: ['close'],
-        computed: {
-            order_date: function () {
-                return this.$store.state.currentService.selectedSchedule.work_day
-            },
-            order_time: function () {
-                let minutes = 60 * (this.$store.state.currentService.selectedSchedule.work_time % 1)
-                if (minutes < 10) minutes += '0'
-                return Math.trunc(this.$store.state.currentService.selectedSchedule.work_time) +
-                    ':' + minutes
-            },
-
-            orderId: function () {
-                return this.$store.state.currentService.commonInfo.id
-            },
-            serviceName: function () {
-                return this.$store.state.currentService.currentType
-            },
-
-            userToken: function () {
-                return this.$store.state.user.token
-            },
-
-            gosNumbLngth() {
-                return this.$v.orderDetails.license_plate_number.$params.minLength.min
-            },
-        },
-        methods: {
-            sendOrderToServer() {
-
-                if (this.$v.$invalid) {
-                    this.$v.$touch()
-                    return -1
-                }
-                axios.post('/api/order', this.orderDetails)
-                    .then(res => {
-                        console.log(res)
-                        this.$store.dispatch('currentService/getServiceInfo', {
-                            id: this.$store.state.currentService.commonInfo.id
-                        })
-                    })
-                    .catch(err => {
-                        console.error(err.message)
-                    })
-
-
-                this.close()
-            }
-        },
-        mounted() {
-            this.orderDetails.schedule_id = this.$store.state.currentService.selectedSchedule.id
         }
+    },
+    validations: {
+        orderDetails: {
+            car_model: {
+                required,
+                minLength: minLength(3)
+            },
+            license_plate_number: {
+                required,
+                minLength: minLength(8)
+            },
+            description: {},
+            telephone: {
+                validPhone: val => {
+                    const phoneTmpl = new RegExp('^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$')
+                    return phoneTmpl.test(val)
+                }
+            },
+
+        }
+    },
+    props: ['close'],
+    computed: {
+        order_date: function () {
+            return this.$store.state.currentService.selectedSchedule.work_day
+        },
+        order_time: function () {
+            let minutes = 60 * (this.$store.state.currentService.selectedSchedule.work_time % 1)
+            if (minutes < 10) minutes += '0'
+            return Math.trunc(this.$store.state.currentService.selectedSchedule.work_time) +
+                ':' + minutes
+        },
+
+        orderId: function () {
+            return this.$store.state.currentService.commonInfo.id
+        },
+        serviceName: function () {
+            return this.$store.state.currentService.currentType
+        },
+
+        userToken: function () {
+            return this.$store.state.user.token
+        },
+
+        gosNumbLngth() {
+            return this.$v.orderDetails.license_plate_number.$params.minLength.min
+        },
+    },
+    methods: {
+        sendOrderToServer() {
+
+            if (this.$v.$invalid) {
+                this.$v.$touch()
+                return -1
+            }
+            axios.post('/api/order', this.orderDetails)
+                .then(res => {
+                    console.log(res)
+                    this.$store.dispatch('currentService/getServiceInfo', {
+                        id: this.$store.state.currentService.commonInfo.id
+                    })
+                })
+                .catch(err => {
+                    console.error(err.message)
+                })
+
+
+            this.close()
+        }
+    },
+    mounted() {
+        this.orderDetails.schedule_id = this.$store.state.currentService.selectedSchedule.id
     }
+}
 </script>

@@ -39,69 +39,69 @@
 </template>
 
 <script>
-    import SelectTypeBand from './UI/SelectTypeBand'
-    import ScheduleOwnerTab from "./UI/ScheduleOwnerTab"
-    import ServiceCommonEditor from "./UI/ServiceCommonEditor"
+import SelectTypeBand from './UI/SelectTypeBand'
+import ScheduleOwnerTab from "./UI/ScheduleOwnerTab"
+import ServiceCommonEditor from "./UI/ServiceCommonEditor"
 
 
-    export default {
-        data() {
-            return {
-                bookmarks: [
-                    {name: 'Общая информация'},
-                    {name: 'Расписание'},
-                ],
-                currentBookmark: 'Общая информация',
-            }
-        },
-        methods: {
-            setNewCurrentService(newCurrentService) {
-                if (!this.blocked) this.$store.dispatch('owner/findOwnerServiceByName', newCurrentService)
-            },
-
-            setNewBookmark(newCurrentBM) {
-                if (!this.blocked) this.currentBookmark = newCurrentBM
-            },
-
-            setBlocked(val) {
-                this.blocked = val
-            },
-
-            startInsertService() {
-                this.setNewBookmark('Общая информация')
-                this.$store.dispatch('owner/insertEmptyService')
-            },
-
-        },
-        computed: {
-            currentPage() {
-                return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleOwnerTab
-            },
-            carservices() {
-                return this.$store.state.owner.carServiceList
-            },
-            currentService() {
-                return this.$store.state.currentService.commonInfo
-            },
-            allTypes() {
-                return this.$store.state.types
-            },
-            //Если информация по сервису в режиме редактирования/вставки, нельзя переключаться на другие сервисы или вкладки
-            blocked() {
-                return this.$store.state.currentService.mode !== 'view'
-            },
-        },
-        components: {
-            SelectTypeBand,
-            ServiceCommonEditor,
-            ScheduleOwnerTab,
-        },
-        async mounted() {
-            await this.$store.dispatch('owner/getServicesInfo')
+export default {
+    data() {
+        return {
+            bookmarks: [
+                {name: 'Общая информация'},
+                {name: 'Расписание'},
+            ],
+            currentBookmark: 'Общая информация',
+        }
+    },
+    methods: {
+        setNewCurrentService(newCurrentService) {
+            if (!this.blocked) this.$store.dispatch('owner/findOwnerServiceByName', newCurrentService)
         },
 
+        setNewBookmark(newCurrentBM) {
+            if (!this.blocked) this.currentBookmark = newCurrentBM
+        },
 
-    }
+        setBlocked(val) {
+            this.blocked = val
+        },
+
+        startInsertService() {
+            this.setNewBookmark('Общая информация')
+            this.$store.dispatch('owner/insertEmptyService')
+        },
+
+    },
+    computed: {
+        currentPage() {
+            return (this.currentBookmark === 'Общая информация') ? ServiceCommonEditor : ScheduleOwnerTab
+        },
+        carservices() {
+            return this.$store.state.owner.carServiceList
+        },
+        currentService() {
+            return this.$store.state.currentService.commonInfo
+        },
+        allTypes() {
+            return this.$store.state.types
+        },
+        //Если информация по сервису в режиме редактирования/вставки, нельзя переключаться на другие сервисы или вкладки
+        blocked() {
+            return this.$store.state.currentService.mode !== 'view'
+        },
+    },
+    components: {
+        SelectTypeBand,
+        ServiceCommonEditor,
+        ScheduleOwnerTab,
+    },
+    async mounted() {
+        await this.$store.dispatch('owner/getServicesInfo')
+    },
+
+
+}
 
 </script>
 

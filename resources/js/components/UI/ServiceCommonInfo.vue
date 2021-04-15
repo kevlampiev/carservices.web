@@ -54,7 +54,7 @@
 
 
 <script>
-    export default {
-        props: ['description'],
-    }
+export default {
+    props: ['description'],
+}
 </script>

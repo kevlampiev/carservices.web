@@ -16,41 +16,41 @@
 
 <script>
 
-    import vue2Dropzone from 'vue2-dropzone'
-    import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
-    export default {
-        name: "inputImgViewer",
-        data() {
-            return {
-                dropzoneOptions: {
-                    url: 'api/services/img_store',
-                    thumbnailWidth: 150,
-                    maxFilesize: 1.0,
-                    headers: {"My-Awesome-Header": "header value"}
-                }
+export default {
+    name: "inputImgViewer",
+    data() {
+        return {
+            dropzoneOptions: {
+                url: 'api/services/img_store',
+                thumbnailWidth: 150,
+                maxFilesize: 1.0,
+                headers: {"My-Awesome-Header": "header value"}
             }
-        },
-        props: ['img_link'],
-        components: {
-            vueDropzone: vue2Dropzone
-        },
-        methods: {
-            loadImage() {
-                this.$store.commit('popUp/show',
-                    {
-                        comp: 'FileLoader',
-                        header: 'загрузить фото'
-                    })
-            },
         }
+    },
+    props: ['img_link'],
+    components: {
+        vueDropzone: vue2Dropzone
+    },
+    methods: {
+        loadImage() {
+            this.$store.commit('popUp/show',
+                {
+                    comp: 'FileLoader',
+                    header: 'загрузить фото'
+                })
+        },
     }
+}
 </script>
 
 <style scoped>
 
-    .op30 {
-        opacity: 30%;
-    }
+.op30 {
+    opacity: 30%;
+}
 
 </style>

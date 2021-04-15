@@ -104,81 +104,81 @@
 
 
 <script>
-    import {required, minLength, email, sameAs} from "vuelidate/lib/validators";
+import {required, minLength, email, sameAs} from "vuelidate/lib/validators";
 
-    export default {
-        data: () => {
-            return {
-                form: {
-                    name: "",
-                    email: "",
-                    password: "",
-                    repeatPassword: ""
-                }
-            };
-        },
-        props: ['close'],
-        validations: {
+export default {
+    data: () => {
+        return {
             form: {
-                name: {
-                    required,
-                    minLength: minLength(2)
-                },
-                email: {
-                    required,
-                    email
-                },
-                password: {
-                    required,
-                    minLength: minLength(8)
-                },
-                repeatPassword: {
-                    required,
-                    sameAsPassword: sameAs("password")
-                }
+                name: "",
+                email: "",
+                password: "",
+                repeatPassword: ""
             }
-        },
-        methods: {
-            registerUser() {
-                if (this.$v.form.$anyError || !this.$v.form.repeatPassword.sameAsPassword) return;
-                this.$store.dispatch('user/register', this.form)
-                this.close()
+        };
+    },
+    props: ['close'],
+    validations: {
+        form: {
+            name: {
+                required,
+                minLength: minLength(2)
             },
-
-            cancelRegistration() {
-                this.$router.back();
+            email: {
+                required,
+                email
             },
-
-            showRegistrationError(error) {
-                alert("Какая-то хрень " + error.toString());
+            password: {
+                required,
+                minLength: minLength(8)
             },
-
-            // Функция для проверки поля Name после :blur
-            checkName() {
-                if (this.form.name) {
-                    this.$v.form.name.$model = this.form.name;
-                }
-            },
-
-            // Функция для проверки поля Email после :blur
-            checkEmail() {
-                if (this.form.email) {
-                    this.$v.form.email.$model = this.form.email;
-                }
-            },
-
-            // Функция для проверки поля Password после :blur
-            checkPassword() {
-                if (this.form.password) {
-                    this.$v.form.password.$model = this.form.password;
-                }
-            },
-            // Функция для проверки поля RepeatPasswword после :blur
-            checkRepeatPassword() {
-                if (this.form.repeatPasword) {
-                    this.$v.form.repeatPasword.$model = this.form.repeatPasword;
-                }
+            repeatPassword: {
+                required,
+                sameAsPassword: sameAs("password")
             }
         }
-    };
+    },
+    methods: {
+        registerUser() {
+            if (this.$v.form.$anyError || !this.$v.form.repeatPassword.sameAsPassword) return;
+            this.$store.dispatch('user/register', this.form)
+            this.close()
+        },
+
+        cancelRegistration() {
+            this.$router.back();
+        },
+
+        showRegistrationError(error) {
+            alert("Какая-то хрень " + error.toString());
+        },
+
+        // Функция для проверки поля Name после :blur
+        checkName() {
+            if (this.form.name) {
+                this.$v.form.name.$model = this.form.name;
+            }
+        },
+
+        // Функция для проверки поля Email после :blur
+        checkEmail() {
+            if (this.form.email) {
+                this.$v.form.email.$model = this.form.email;
+            }
+        },
+
+        // Функция для проверки поля Password после :blur
+        checkPassword() {
+            if (this.form.password) {
+                this.$v.form.password.$model = this.form.password;
+            }
+        },
+        // Функция для проверки поля RepeatPasswword после :blur
+        checkRepeatPassword() {
+            if (this.form.repeatPasword) {
+                this.$v.form.repeatPasword.$model = this.form.repeatPasword;
+            }
+        }
+    }
+};
 </script>

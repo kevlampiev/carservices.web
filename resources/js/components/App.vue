@@ -59,73 +59,73 @@
 </template>
 
 <script>
-    import popUp from './UI/PopUp.vue'
-    import alertComp from "./UI/alertComp";
+import popUp from './UI/PopUp.vue'
+import alertComp from "./UI/alertComp";
 
-    export default {
+export default {
 
-        data() {
-            return {
-                alertMessage: "Привет из главного компонента"
-            }
-        },
-        methods: {
-            logout() {
-                this.$store.dispatch('user/logout')
-            },
-
-            startSelectCity() {
-                this.$store.commit('popUp/show', {
-                    comp: 'cityList',
-                    header: 'выбрать город'
-                })
-            },
-
-            login() {
-                this.$store.commit('popUp/show', {
-                    comp: 'login',
-                    header: 'Войти'
-                })
-            },
-
-            register() {
-                this.$store.commit('popUp/show', {
-                    comp: 'register',
-                    header: 'зарегистрироваться'
-                })
-            },
-
-            showAlert() {
-
-                this.$store.dispatch('alertAlert', {alertText: 'Это вылезло из меню'})
-            },
-
-        },
-        computed: {
-            email: function () {
-                return this.$store.state.user.email
-            },
-            popUpComponent: function () {
-                return this.$store.state.popUp.comp
-            },
-
-            city: function () {
-                return this.$store.state.city
-            },
-
-            authorized: function () {
-                return this.$store.getters['user/authorized']
-            },
-            role: function () {
-                return this.$store.state.user.role
-            }
-
+    data() {
+        return {
+            alertMessage: "Привет из главного компонента"
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('user/logout')
         },
 
-        components: {
-            popUp,
-            alertComp
+        startSelectCity() {
+            this.$store.commit('popUp/show', {
+                comp: 'cityList',
+                header: 'выбрать город'
+            })
+        },
+
+        login() {
+            this.$store.commit('popUp/show', {
+                comp: 'login',
+                header: 'Войти'
+            })
+        },
+
+        register() {
+            this.$store.commit('popUp/show', {
+                comp: 'register',
+                header: 'зарегистрироваться'
+            })
+        },
+
+        showAlert() {
+
+            this.$store.dispatch('alertAlert', {alertText: 'Это вылезло из меню'})
+        },
+
+    },
+    computed: {
+        email: function () {
+            return this.$store.state.user.email
+        },
+        popUpComponent: function () {
+            return this.$store.state.popUp.comp
+        },
+
+        city: function () {
+            return this.$store.state.city
+        },
+
+        authorized: function () {
+            return this.$store.getters['user/authorized']
+        },
+        role: function () {
+            return this.$store.state.user.role
         }
 
+    },
+
+    components: {
+        popUp,
+        alertComp
     }
+
+}
 </script>

@@ -48,112 +48,112 @@
 
 
 <script>
-    import moment from 'moment'
-    import SelectTypeBand from "./SelectTypeBand";
+import moment from 'moment'
+import SelectTypeBand from "./SelectTypeBand";
 
-    moment.locale('ru')
+moment.locale('ru')
 
-    export default {
-        components: {SelectTypeBand},
-        methods: {
-            dayForward: function () {
-                this.$store.commit('currentService/setStartDate', {
-                    date: moment(this.dateStart).add(1, 'days')
-                }, {root: true})
-            },
-
-            dayBack: function () {
-                this.$store.commit('currentService/setStartDate', {
-                        date: moment(this.dateStart).add(-1, 'days')
-                    },
-                    {root: true}
-                )
-            },
-
-            formatTime: function (time) {
-                let result = Math.trunc(time).toString() + ':'
-                let minutes = (60 * (time % 1)).toFixed(0)
-                if (minutes < 10) {
-                    result += '0'
-                }
-                return (result + minutes)
-            },
-
-            setNewCurrentType(newCurrentType) {
-                this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
-            },
-
-            insertOrder() {
-                if (this.$store.state.currentService.mode !== 'view') {
-                    alert(this.$store.state.currentService.mode)
-                    return
-                }
-
-                this.$store.commit('popUp/show', {
-                    comp: 'timeslotEditor',
-                    header: 'Доавить время в расписание'
-                })
-                this.$store.commit('timeslots/setCurrentSlot',
-                    {
-                        id: null,
-                        name: this.$store.state.currentService.currentType, //наименование типа сервиса
-                        slotDateTime: moment(new Date()).format('YYYY-MM-DDTHH:mm'),
-                        service_id: this.$store.state.currentService.commonInfo.id, //к чему относится сервис
-                        seivice_type_id: null, //дубль, конечно, но что делать
-                        order_id: null
-                    })
-            },
-
-            editOrder(el) {
-
-                if (this.$store.state.currentService.mode !== 'view') return
-                if (el.order_id) {
-                    alert('Нельзя изменить позицию на которую уже есть запись')
-                    return
-                }
-                this.$store.commit('popUp/show', {
-                    comp: 'timeslotEditor',
-                    header: 'Изменить время расписания'
-                })
-                this.$store.commit('timeslots/setWryCurrentSlot', el)
-            },
-
-            deleteOrder(el) {
-                if (el.order_id) return
-                if (!confirm('Действительно удалить эту запись?')) return
-                this.$store.dispatch('timeslots/delete', el)
-            },
-
+export default {
+    components: {SelectTypeBand},
+    methods: {
+        dayForward: function () {
+            this.$store.commit('currentService/setStartDate', {
+                date: moment(this.dateStart).add(1, 'days')
+            }, {root: true})
         },
 
-        computed: {
-            dates() {
-                return this.$store.getters['currentService/scheduleDates']
-            },
-            types() {
-                return this.$store.state.currentService.types
-            },
-            scheduledData() {
-                return this.$store.getters['currentService/schedules']
-            },
-            dateStart() {
-                return this.$store.getters['currentService/startDate']
-            },
-            currentMonth() {
-                return moment(this.$store.getters['currentService/startDate']).format('MMMM')
-            },
-            currentType() {
-                return this.$store.state.currentService.currentType
-            },
-
+        dayBack: function () {
+            this.$store.commit('currentService/setStartDate', {
+                    date: moment(this.dateStart).add(-1, 'days')
+                },
+                {root: true}
+            )
         },
 
-    }
+        formatTime: function (time) {
+            let result = Math.trunc(time).toString() + ':'
+            let minutes = (60 * (time % 1)).toFixed(0)
+            if (minutes < 10) {
+                result += '0'
+            }
+            return (result + minutes)
+        },
+
+        setNewCurrentType(newCurrentType) {
+            this.$store.commit('currentService/setCurrentType', {name: newCurrentType})
+        },
+
+        insertOrder() {
+            if (this.$store.state.currentService.mode !== 'view') {
+                alert(this.$store.state.currentService.mode)
+                return
+            }
+
+            this.$store.commit('popUp/show', {
+                comp: 'timeslotEditor',
+                header: 'Доавить время в расписание'
+            })
+            this.$store.commit('timeslots/setCurrentSlot',
+                {
+                    id: null,
+                    name: this.$store.state.currentService.currentType, //наименование типа сервиса
+                    slotDateTime: moment(new Date()).format('YYYY-MM-DDTHH:mm'),
+                    service_id: this.$store.state.currentService.commonInfo.id, //к чему относится сервис
+                    seivice_type_id: null, //дубль, конечно, но что делать
+                    order_id: null
+                })
+        },
+
+        editOrder(el) {
+
+            if (this.$store.state.currentService.mode !== 'view') return
+            if (el.order_id) {
+                alert('Нельзя изменить позицию на которую уже есть запись')
+                return
+            }
+            this.$store.commit('popUp/show', {
+                comp: 'timeslotEditor',
+                header: 'Изменить время расписания'
+            })
+            this.$store.commit('timeslots/setWryCurrentSlot', el)
+        },
+
+        deleteOrder(el) {
+            if (el.order_id) return
+            if (!confirm('Действительно удалить эту запись?')) return
+            this.$store.dispatch('timeslots/delete', el)
+        },
+
+    },
+
+    computed: {
+        dates() {
+            return this.$store.getters['currentService/scheduleDates']
+        },
+        types() {
+            return this.$store.state.currentService.types
+        },
+        scheduledData() {
+            return this.$store.getters['currentService/schedules']
+        },
+        dateStart() {
+            return this.$store.getters['currentService/startDate']
+        },
+        currentMonth() {
+            return moment(this.$store.getters['currentService/startDate']).format('MMMM')
+        },
+        currentType() {
+            return this.$store.state.currentService.currentType
+        },
+
+    },
+
+}
 </script>
 
 <style scoped>
-    .extended-slot {
-        width: 80px;
-    }
+.extended-slot {
+    width: 80px;
+}
 
 </style>
