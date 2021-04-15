@@ -51,7 +51,6 @@ class TimeSlotController extends Controller
         $schedule->fill($request->all());
 
         if ($schedule->save()) {
-
             return response()->json([
                 'message' => 'Запись добавлена',
                 'schedule' => $schedule
