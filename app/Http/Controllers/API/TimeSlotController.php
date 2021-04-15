@@ -51,7 +51,11 @@ class TimeSlotController extends Controller
         $schedule->fill($request->all());
 
         if ($schedule->save()) {
-            return response()->json(['message' => 'Запись добавлена', 'schedule'=>$schedule]);
+
+            return response()->json([
+                'message' => 'Запись добавлена',
+                'schedule' => $schedule
+            ]);
         }
         return response()->json(['error' => 'Error']);
     }
@@ -112,10 +116,11 @@ class TimeSlotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         if ($this->timeSlotRepository->checkService($id)) {
             $schedule = Schedule::find($id);
+
             if ($schedule->delete()) {
                 return response()->json(['message' => 'Запись удалена']);
             }
