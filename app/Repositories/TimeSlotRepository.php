@@ -9,7 +9,6 @@ use App\Repositories\Interfaces\TimeSlotRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DateTime;
-use Illuminate\Support\Facades\DB;
 
 class TimeSlotRepository implements TimeSlotRepositoryInterface
 {
@@ -24,21 +23,24 @@ class TimeSlotRepository implements TimeSlotRepositoryInterface
             return true;
         }
         return false;
-        return true;
     }
 
     public function checkSchedule(Request $request)
     {
-        $date = new DateTime($request->work_day);
-        $schedule = Schedule::where('work_day', $date)
-        ->where('work_time', $request->work_time)
-        ->where('service_id', $request->service_id)
-        ->where('service_type_id', $request->service_type_id)
-        ->first();
+        try {
+            $date = new DateTime($request->work_day);
+            $schedule = Schedule::where('work_day', $date)
+                ->where('work_time', $request->work_time)
+                ->where('service_id', $request->service_id)
+                ->where('service_type_id', $request->service_type_id)
+                ->first();
 
-        if ($schedule) {
-            return true;
+            if ($schedule) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            return false;
         }
-        return false;
     }
 }
