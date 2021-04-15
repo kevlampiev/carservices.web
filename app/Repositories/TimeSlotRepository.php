@@ -9,12 +9,14 @@ use App\Repositories\Interfaces\TimeSlotRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class TimeSlotRepository implements TimeSlotRepositoryInterface
 {
-    public function checkService(Request $request)
+    public function checkService($id)
     {
-        $service = Service::where('id', $request->service_id)
+        $schedule = Schedule::find($id);
+        $service = Service::where('id', $schedule->service_id)
         ->where('user_id', Auth::user()->id)
         ->first();
 

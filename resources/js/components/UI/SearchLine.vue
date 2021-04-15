@@ -22,48 +22,48 @@
 
 <script>
 
-export default {
-    props: ['searchStr'],
-    data: () => {
-        return {
-            sString: '',
+    export default {
+        props: ['searchStr'],
+        data: () => {
+            return {
+                sString: '',
+            }
         }
     }
-}
 </script>
 
 <style>
 
-/*.green-colored {*/
-/*    color: green;*/
-/*}*/
+    /*.green-colored {*/
+    /*    color: green;*/
+    /*}*/
 
-.search-line-wrapper {
-    /*height: 160px;*/
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 10px 15px 5px 15px;
-    display: flex;
-    flex-wrap: nowrap;
-}
+    .search-line-wrapper {
+        /*height: 160px;*/
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 10px 15px 5px 15px;
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
-.search-icon {
-    padding: 0 5px 0 0;
-}
+    .search-icon {
+        padding: 0 5px 0 0;
+    }
 
-.search-labels {
-    width: calc(100% - 13px)
-}
+    .search-labels {
+        width: calc(100% - 13px)
+    }
 
-.search-input {
-    background-color: transparent;
-    border: none;
-    width: calc(100% - 1px)
-}
+    .search-input {
+        background-color: transparent;
+        border: none;
+        width: calc(100% - 1px)
+    }
 
-.search-input:focus {
-    border: 0;
-    outline: 0;
-}
+    .search-input:focus {
+        border: 0;
+        outline: 0;
+    }
 
 </style>

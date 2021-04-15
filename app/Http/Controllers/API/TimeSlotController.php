@@ -43,7 +43,7 @@ class TimeSlotController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(TimeSlotEditRequest $request)
     {
@@ -51,7 +51,7 @@ class TimeSlotController extends Controller
         $schedule->fill($request->all());
 
         if ($schedule->save()) {
-            return response()->json(['message' => 'Запись добавлена']);
+            return response()->json(['message' => 'Запись добавлена', 'schedule'=>$schedule]);
         }
         return response()->json(['error' => 'Error']);
     }
@@ -83,7 +83,7 @@ class TimeSlotController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(TimeSlotEditRequest $request, $id)
     {
@@ -99,7 +99,7 @@ class TimeSlotController extends Controller
                 'service_type_id' => $request->service_type_id
             ]);
             if ($result) {
-                return response()->json(['message' => 'Запись обновлена'], 200);
+                return response()->json(['message' => 'Запись обновлена', 'schedule'=>$schedule], 200);
             }
             return response()->json(['error' => 'Error']);
         }
@@ -110,10 +110,17 @@ class TimeSlotController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        if ($this->timeSlotRepository->checkService($id)) {
+            $schedule = Schedule::find($id);
+            if ($schedule->delete()) {
+                return response()->json(['message' => 'Запись удалена']);
+            }
+            return response()->json(['error' => 'Error']);
+        }
+        return response()->json(['message' => 'Вы не можете удалить данную запись']);
     }
 }

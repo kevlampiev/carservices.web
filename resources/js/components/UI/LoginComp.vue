@@ -73,44 +73,44 @@
 
 
 <script>
-import {required, minLength, email} from "vuelidate/lib/validators";
+    import {required, minLength, email} from "vuelidate/lib/validators";
 
-export default {
-    data: () => {
-        return {
+    export default {
+        data: () => {
+            return {
+                form: {
+                    email: "",
+                    password: "",
+                    rememberMe: true
+                }
+            };
+        },
+        props: ['close'],
+        validations: {
             form: {
-                email: "",
-                password: "",
-                rememberMe: true
+                email: {
+                    required,
+                    email
+                },
+                password: {
+                    required,
+                    minLength: minLength(8)
+                }
             }
-        };
-    },
-    props: ['close'],
-    validations: {
-        form: {
-            email: {
-                required,
-                email
+        },
+        methods: {
+            enterLogin() {
+                if (this.$v.form.$anyError) return;
+                this.$store.dispatch('user/login', this.form)
+                // this.close()
             },
-            password: {
-                required,
-                minLength: minLength(8)
-            }
-        }
-    },
-    methods: {
-        enterLogin() {
-            if (this.$v.form.$anyError) return;
-            this.$store.dispatch('user/login', this.form)
-            // this.close()
-        },
 
-        callRegisterPr() {
-            this.$store.commit('popUp/show', {
-                comp: 'register',
-                header: 'Зарегистрироваться',
-            })
-        },
-    }
-};
+            callRegisterPr() {
+                this.$store.commit('popUp/show', {
+                    comp: 'register',
+                    header: 'Зарегистрироваться',
+                })
+            },
+        }
+    };
 </script>

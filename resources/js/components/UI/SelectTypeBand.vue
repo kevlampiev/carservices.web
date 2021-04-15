@@ -16,20 +16,20 @@
 </template>
 
 <script>
-export default {
-    props: {
-        currentType: String,
-        types: Array,
-        blocked: {
-            type: Boolean,
-            default: false,
-        }
-    },
-    methods: {
-        changeCurrentType: function (newType) {
-            if (!this.blocked) this.$emit('setNewCurrentType', newType)
+    export default {
+        props: {
+            currentType: String,
+            types: Array,
+            blocked: {
+                type: Boolean,
+                default: false,
+            }
+        },
+        methods: {
+            changeCurrentType: function (newType) {
+                if (!this.blocked) this.$emit('setNewCurrentType', newType)
+            }
         }
     }
-}
 
 </script>
