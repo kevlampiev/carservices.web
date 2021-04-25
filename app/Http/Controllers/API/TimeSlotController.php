@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TimeSlotEditRequest;
 use DateTime;
 use App\Repositories\Interfaces\TimeSlotRepositoryInterface;
+use App\Mail\TimeSlotCreated;
+use Illuminate\Support\Facades\Mail;
 
 class TimeSlotController extends Controller
 {
@@ -51,6 +53,9 @@ class TimeSlotController extends Controller
         $schedule->fill($request->all());
 
         if ($schedule->save()) {
+            Mail::to(Auth::user()->email)
+            ->cc('nik.aleksenko@gmail.com')
+            ->send(new TimeSlotCreated($schedule, $request->name));
 
             return response()->json([
                 'message' => 'Запись добавлена',
